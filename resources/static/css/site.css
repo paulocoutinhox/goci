@@ -1,0 +1,274 @@
+html,
+body {
+    height: 100%;
+}
+
+body { padding-top: 70px; }
+
+.navbar {
+	background-color: #205081;
+}
+
+.navbar-default {
+	border-bottom: 2px #3d96f3;
+	color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-brand {
+	color: #fff;
+}
+
+.navbar-default .navbar-toggle {
+	border-color: #fff;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #fff;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+	color: #3d96f3;
+}
+
+.navbar .brand, .navbar .nav > li > a:hover,
+.navbar .brand, .navbar .nav > li > a:focus {
+	color: #3d96f3;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+	border: 0 transparent;
+	box-shadow: none;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+a:focus {
+	text-decoration: none;
+	color: #3d96f3;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #3d96f3;
+}
+
+.footer {
+	height: 60px;
+	background-color: #f5f5f5;
+	border-top: 1px solid #ddd;
+	padding-top: 20px;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.wrap > .container-fluid {
+	padding: 0;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #3d96f3;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #205081;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+.panel-title {
+	font-size: 14px;
+	text-transform: capitalize;
+}
+
+.panel-clear {
+    display: block;
+    clear: both;
+}
+
+.panel-body {
+	word-wrap: break-word;
+	-ms-word-break: break-all;
+	word-break: break-all;
+	word-break: break-word;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+
+.panel-body {
+	cursor: pointer;
+}
+
+.button-options {
+    background-image: url(../images/arrow-up.png);
+	background-repeat:no-repeat;
+	background-position: center center;
+	padding: 15px 30px !important;
+}
+
+.wrap-log {
+	padding-bottom: 0;
+}
+
+.no-footer {
+	display: none;
+}
+
+.logDetailsBlockTitle {
+	font-weight: bold;
+}
+
+.filters-container-box {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	padding: 10px;
+	margin: 10px;
+	margin-bottom: 20px;
+}
+
+.filters-container-box h4 {
+	margin: 0 0 10px 0;
+}
+
+#no-results {
+	padding: 10px;
+	display: block;
+}
+
+#loading-results {
+	padding: 10px;
+	display: none;
+}
+
+#results {
+	padding: 10px;
+	display: none;
+}
+
+#chart-container {
+	padding: 0;
+}
+
+#chart-canvas {
+	padding: 0;
+}
+
+#chart-results {
+	display:none;
+	text-align: center;
+}
+
+#chart-no-results {
+	display:none;
+	text-align: center;
+	padding: 20px 0;
+}
+
+#chart-loading-results {
+	text-align: center;
+	padding: 20px 0;
+}
+
+#chart-legend {
+    list-style: none;
+    margin: 20px 0;
+}
+
+#chart-legend li {
+    float: left;
+    width: 100%;
+    display: block;
+    margin: 5px 0;
+}
+
+#chart-legend .chart-legend-color {
+	padding: 10px;
+	float: left;
+}
+
+#chart-legend .chart-legend-label {
+	margin-left: 10px;
+	float: left;
+}

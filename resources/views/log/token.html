@@ -1,0 +1,22 @@
+{{define "content"}}
+<div class="log-token">
+
+    <div class="jumbotron">
+        <h1>LogStack</h1>
+
+		<p class="lead">Hi, please enter a unique key to e your session token. You can choose anything like <strong>my-session-token-123</strong></p>
+
+		<form action="/log/index" method="get">
+			<div class="form-group">
+				<label for="token">Token:</label>
+				<input type="text" class="form-control input-lg" id="token" name="token" placeholder="Please enter your session token" value="" style="text-align: center;">
+			</div>
+
+			<p>
+				<button class="btn btn-lg btn-success" type="submit">Continue</button>
+			</p>
+		</form>
+    </div>
+
+</div>
+{{end}}

@@ -1,0 +1,83 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <title>GoCI</title>
+
+    <!--[if IE]>
+    <link rel="shortcut icon" href="/static/favicon/favicon.ico">
+    <![endif]-->
+
+    <link rel="icon" href="/static/favicon/favicon.png">
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/site.css">
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/Util.js"></script>
+    <script src="/static/js/Log.js"></script>
+    <script src="/static/js/Chart.js"></script>
+
+    <script>
+		var WEB_BASE_URL = '/';
+
+    </script>
+</head>
+<body>
+
+<div class="wrap {{if .WrapClass}} {{.WrapClass}} {{end}}">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#nav-collapse" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    GoCI
+                </a>
+            </div>
+            <div id="nav-collapse" class="collapse navbar-collapse">
+                {{if .ShowLogMenu}}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#optionsModal">Options</a>
+                        </li>
+                    </ul>
+                {{else}}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    </ul>
+                {{end}}
+            </div>
+        </div>
+    </nav>
+
+    <div class="{{if .ContainerClass}} {{.ContainerClass}} {{else}} container {{end}}">
+        {{template "content" .Content}}
+    </div>
+</div>
+
+<footer class="footer {{if .FooterClass}} {{.FooterClass}} {{end}}">
+    <div class="container">
+        <p class="pull-left">&copy; GoCI</p>
+
+        <p class="pull-right">Created By: <a href="http://www.pcoutinho.com" title="Paulo Coutinho" target="_blank">Paulo
+            Coutinho</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
+{{end}}
