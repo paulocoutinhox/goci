@@ -8,10 +8,21 @@ import (
 func main() {
 	app.Server = app.NewWebServer()
 	app.Server.LoadConfiguration()
+	app.Server.CreateStructure()
 	app.Server.CreateBasicRoutes()
 
 	{
 		controller := controllers.HomeController{}
+		controller.Register()
+	}
+
+	{
+		controller := controllers.ProjectController{}
+		controller.Register()
+	}
+
+	{
+		controller := controllers.APIController{}
 		controller.Register()
 	}
 

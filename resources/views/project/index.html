@@ -1,0 +1,54 @@
+{{define "content"}}
+<div class="project-index">
+
+	<!-- OPTIONS -->
+	<div id="optionsContainer" class="options-container-box">
+
+		<h4>Projects Options</h4>
+
+		<button type="button" class="btn btn-success" onclick="Project.list()">Refresh</button>
+
+	</div>
+
+	<!-- RESULTS DATA -->
+	<div id="results">
+		<div class="list-group">
+			<a href="#" class="list-group-item active">
+				<h4 class="list-group-item-heading">List group item heading</h4>
+				<p class="list-group-item-text">...</p>
+			</a>
+		</div>
+	</div>
+
+	<div id="no-results">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Message</h3>
+			</div>
+			<div class="panel-body">
+				No project was created :(
+			</div>
+		</div>
+	</div>
+
+	<div id="loading-results">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Loading...</h3>
+			</div>
+			<div class="panel-body">
+				Please wait, we are loading results...
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- STARTUP -->
+<script>
+	$(document).ready(function() {
+		Log.initialize();
+	});
+</script>
+
+{{end}}

@@ -1,0 +1,16 @@
+{
+    "name": "Nome do projeto",
+    "description": "Descrição do projeto!",
+    "tasks": [
+        {
+            "name": "Nome da task",
+            "description": "Descrição da task",
+            "steps": [
+                {
+                    "description": "Building...",
+                    "command": "ls -lah"
+                }
+            ]
+        }
+    ]
+}

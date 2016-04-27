@@ -5,12 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"github.com/go-ini/ini"
+	"os"
 )
 
 type WebServer struct {
-	Router *gin.Engine
-	Config *ini.File
-	Host   string
+	Router    *gin.Engine
+	Config    *ini.File
+	Host      string
+	Workspace string
 }
 
 var (
@@ -46,20 +48,57 @@ func (This *WebServer) LoadConfiguration() {
 
 		if err != nil {
 			This.Host = ":8080"
+			This.Workspace = "./"
+		} else {
+			{
+				// host
+				host := serverSection.Key("host").Value()
+
+				if host == "" {
+					host = ":8080"
+				}
+
+				This.Host = host
+			}
+
+			{
+				// workspace
+				workspace := serverSection.Key("workspace").Value()
+
+				if workspace == "" {
+					workspace = "./"
+				}
+
+				This.Workspace = workspace
+			}
 		}
-
-		host := serverSection.Key("host").Value()
-
-		if host == "" {
-			host = ":8080"
-		}
-
-		This.Host = host
 
 		log.Println("Configuration file load : OK")
 	} else {
 		log.Fatalf("Configuration file load error : %s", err.Error())
 	}
+}
+
+func (This *WebServer) CreateStructure() {
+	{
+		dir := This.Workspace + "/projects"
+		err := os.MkdirAll(dir, 0777)
+
+		if err != nil {
+			log.Fatalf("Failed to create directory: %v", err)
+		}
+	}
+
+	{
+		dir := This.Workspace + "/temp"
+		err := os.MkdirAll(dir, 0777)
+
+		if err != nil {
+			log.Fatalf("Failed to create directory: %v", err)
+		}
+	}
+
+	log.Printf("Structure created on %v : OK", This.Workspace)
 }
 
 func (This *WebServer) Start() {

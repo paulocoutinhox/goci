@@ -179,13 +179,6 @@ a.desc:after {
 	cursor: pointer;
 }
 
-.button-options {
-    background-image: url(../images/arrow-up.png);
-	background-repeat:no-repeat;
-	background-position: center center;
-	padding: 15px 30px !important;
-}
-
 .wrap-log {
 	padding-bottom: 0;
 }
@@ -194,11 +187,7 @@ a.desc:after {
 	display: none;
 }
 
-.logDetailsBlockTitle {
-	font-weight: bold;
-}
-
-.filters-container-box {
+.options-container-box {
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	-webkit-box-shadow: none;
@@ -208,7 +197,7 @@ a.desc:after {
 	margin-bottom: 20px;
 }
 
-.filters-container-box h4 {
+.options-container-box h4 {
 	margin: 0 0 10px 0;
 }
 
@@ -225,50 +214,4 @@ a.desc:after {
 #results {
 	padding: 10px;
 	display: none;
-}
-
-#chart-container {
-	padding: 0;
-}
-
-#chart-canvas {
-	padding: 0;
-}
-
-#chart-results {
-	display:none;
-	text-align: center;
-}
-
-#chart-no-results {
-	display:none;
-	text-align: center;
-	padding: 20px 0;
-}
-
-#chart-loading-results {
-	text-align: center;
-	padding: 20px 0;
-}
-
-#chart-legend {
-    list-style: none;
-    margin: 20px 0;
-}
-
-#chart-legend li {
-    float: left;
-    width: 100%;
-    display: block;
-    margin: 5px 0;
-}
-
-#chart-legend .chart-legend-color {
-	padding: 10px;
-	float: left;
-}
-
-#chart-legend .chart-legend-label {
-	margin-left: 10px;
-	float: left;
 }
