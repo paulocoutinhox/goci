@@ -1,31 +1,44 @@
-var Project = new function() {
+var Project = new function()
+{
 
-    this.list = function() {
+    this.add = function(project)
+    {
+        var html = '' +
+        '<a href="#" id="project-row-' + project.id + '" class="project-row list-group-item">' +
+        '    <h4 class="list-group-item-heading">' + project.name + '</h4>' +
+        '    <p class="list-group-item-text">' + project.description + '</p>' +
+        '</a>';
+
+        $('#results').append(html);
+    }
+
+    this.list = function()
+    {
+        this.showLoadingResults();
+
         this.request = $.ajax({
-            url: '/api/project/list",
+            url: '/api/project/list',
             type: 'GET',
             dataType: 'json',
-            success: function(response) {
-                if (!Util.isUndefined(response)) {
-                    if (response != "" && response != null) {
-                        if (response.success) {
+            success: function(response)
+            {
+                if (!Util.isUndefined(response))
+                {
+                    if (response != "" && response != null)
+                    {
+                        if (response.success)
+                        {
                             var list = response.data.list
 
-                            if (!Util.isUndefined(list) && !Util.isNull(list)) {
-                                for (var x = 0; x < list.length; x++) {
-                                    if (Util.isUndefined(Log.request) || Log.request == null) {
-                                        return;
-                                    }
+                            if (!Util.isUndefined(list) && !Util.isNull(list))
+                            {
+                                Project.clear();
 
-                                    if (!$("#log-row-" + list[x].id).length > 0) {
-                                        Log.lastDateTime = Util.dateToMongoDateString(new Date(list[x].created_at));
-                                        Log.addLog(list[x].id, list[x].type, list[x].message, list[x].created_at);
-
-                                        if ($('#chkAutoScrollBottom').is(':checked')) {
-                                            if (Log.isOnBottomOfDocument) {
-                                                Util.scrollToBottom();
-                                            }
-                                        }
+                                for (var x = 0; x < list.length; x++)
+                                {
+                                    if (!$("#project-row-" + list[x].id).length > 0)
+                                    {
+                                        Project.add(list[x]);
                                     }
                                 }
                             }
@@ -36,28 +49,36 @@ var Project = new function() {
 
                 Project.showResultsOrNoResultsByLogsQuantity();
             },
-            error: function() {
+            error: function()
+            {
                 isGettingNewest = false;
                 Project.showResultsOrNoResultsByLogsQuantity();
             }
         });
     }
 
-    this.clear = function() {
-        $('.log-row').remove();
+    this.clear = function()
+    {
+        $('.project-row').remove();
         this.showNoResults();
     }
 
-    this.showResults = function(prefix) {
-        if (Util.isUndefined(prefix)) {
+    this.showResults = function(prefix)
+    {
+        if (Util.isUndefined(prefix))
+        {
             prefix = "";
-        } else {
-            if (prefix != "") {
+        }
+        else
+        {
+            if (prefix != "")
+            {
                 prefix += "-";
             }
         }
 
-        if ($('#' + prefix + 'results').is(':hidden')) {
+        if ($('#' + prefix + 'results').is(':hidden'))
+        {
             $('#' + prefix + 'results').show();
         }
 
@@ -65,16 +86,22 @@ var Project = new function() {
         $('#' + prefix + 'loading-results').hide();
     }
 
-    this.showNoResults = function(prefix) {
-        if (Util.isUndefined(prefix)) {
+    this.showNoResults = function(prefix)
+    {
+        if (Util.isUndefined(prefix))
+        {
             prefix = "";
-        } else {
-            if (prefix != "") {
+        }
+        else
+        {
+            if (prefix != "")
+            {
                 prefix += "-";
             }
         }
 
-        if ($('#' + prefix + 'no-results').is(':hidden')) {
+        if ($('#' + prefix + 'no-results').is(':hidden'))
+        {
             $('#' + prefix + 'no-results').show();
         }
 
@@ -82,16 +109,22 @@ var Project = new function() {
         $('#' + prefix + 'loading-results').hide();
     }
 
-    this.showLoadingResults = function(prefix) {
-        if (Util.isUndefined(prefix)) {
+    this.showLoadingResults = function(prefix)
+    {
+        if (Util.isUndefined(prefix))
+        {
             prefix = "";
-        } else {
-            if (prefix != "") {
+        }
+        else
+        {
+            if (prefix != "")
+            {
                 prefix += "-";
             }
         }
 
-        if ($('#' + prefix + 'loading-results').is(':hidden')) {
+        if ($('#' + prefix + 'loading-results').is(':hidden'))
+        {
             $('#' + prefix + 'loading-results').show();
         }
 
@@ -99,18 +132,26 @@ var Project = new function() {
         $('#' + prefix + 'no-results').hide();
     }
 
-    this.showResultsOrNoResultsByLogsQuantity = function(prefix) {
-        if (Util.isUndefined(prefix)) {
+    this.showResultsOrNoResultsByLogsQuantity = function(prefix)
+    {
+        if (Util.isUndefined(prefix))
+        {
             prefix = "";
-        } else {
-            if (prefix != "") {
+        }
+        else
+        {
+            if (prefix != "")
+            {
                 prefix += "-";
             }
         }
 
-        if ($('.log-row').length > 0) {
+        if ($('.project-row').length > 0)
+        {
             this.showResults(prefix);
-        } else {
+        }
+        else
+        {
             this.showNoResults(prefix);
         }
     }

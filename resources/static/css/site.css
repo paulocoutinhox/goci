@@ -5,6 +5,10 @@ body {
 
 body { padding-top: 70px; }
 
+*:focus {
+    outline:none !important;
+}
+
 .navbar {
 	background-color: #205081;
 }
@@ -72,7 +76,7 @@ a:hover {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 15px 20px;
 }
 
 .wrap > .container-fluid {
@@ -197,7 +201,7 @@ a.desc:after {
 	margin-bottom: 20px;
 }
 
-.options-container-box h4 {
+.options-container-title {
 	margin: 0 0 10px 0;
 }
 
