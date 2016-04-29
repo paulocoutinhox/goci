@@ -9,7 +9,28 @@ var Project = new function()
         '    <p class="list-group-item-text">' + project.description + '</p>' +
         '</a>';
 
-        $('#data').append(html);
+        $('#project-list').append(html);
+    }
+
+    this.addProjectTaskToHTML = function(projectId, task)
+    {
+        var html = '' +
+        '<div id="project-task-row-' + task.id + '" class="project-task-row list-group-item">' +
+        '    <h4 class="list-group-item-heading">' + task.name + '</h4>' +
+        '    <div class="list-group-item-text">' +
+        '        <p>' +
+        '            <strong>Description:</strong> ' + task.description +
+        '            <br />' +
+        '            <strong>Steps:</strong> ' + task.steps.length +
+        '        </p>' +
+        '        <div>' +
+        '            <button type="button" class="btn btn-success ph-project-task-run-button-' + task.id + '" onclick="projectTaskRun(\'' + projectId + '\', \'' + task.id + '\')">Run</button>' +
+        '            <button type="button" class="btn btn-default" onclick="projectTaskView(\'' + projectId + '\', \'' + task.id + '\')">View</button>' +
+        '        </div>' +
+        '    </div>' +
+        '</div>';
+
+        $('#project-task-list').append(html);
     }
 
     this.list = function(success, error)
@@ -34,7 +55,7 @@ var Project = new function()
 
                             if (!Util.isUndefined(list) && !Util.isNull(list))
                             {
-                                Project.clear();
+                                Project.clearProjectList();
 
                                 if (list.length > 0)
                                 {
@@ -94,14 +115,14 @@ var Project = new function()
         });
     }
 
-    this.view = function(project, success, error)
+    this.view = function(projectId, success, error)
     {
         Util.showLoadingData();
 
         $.ajax({
             url: '/api/project/view',
             type: 'GET',
-            data: { project: project },
+            data: { project: projectId },
             dataType: 'json',
             success: function(response)
             {
@@ -113,9 +134,21 @@ var Project = new function()
                     {
                         if (response.success)
                         {
+                            Project.clearProjectTaskList();
+
                             $('.ph-project-name').html(response.data.project.name);
                             $('.ph-project-description').html(response.data.project.description);
                             $('.ph-project-tasks-num').html(response.data.project.tasks.length);
+
+                            var tasks = response.data.project.tasks;
+
+                            for (var x = 0; x < tasks.length; x++)
+                            {
+                                if (!$("#project-task-row-" + tasks[x].id).length > 0)
+                                {
+                                    Project.addProjectTaskToHTML(projectId, tasks[x]);
+                                }
+                            }
 
                             Util.showData();
 
@@ -152,12 +185,14 @@ var Project = new function()
         });
     }
 
-    this.clear = function()
+    this.clearProjectList = function()
     {
         $('.project-row').remove();
-        Util.showNoData();
     }
 
-
+    this.clearProjectTaskList = function()
+    {
+        $('.project-task-row').remove();
+    }
 
 };

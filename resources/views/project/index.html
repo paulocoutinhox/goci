@@ -6,11 +6,14 @@
 		<div class="panel-body">
 			<h3 class="options-container-title">Project List</h3>
 			<button type="button" class="btn btn-success" onclick="load()">Refresh</button>
+			<button type="button" class="btn btn-default" onclick="back()">Back</button>
 		</div>
 	</div>
 
 	<!-- DATA -->
-	<div id="data" class="list-group"></div>
+	<div id="data">
+		<div id="project-list" class="list-group"></div>
+	</div>
 
 	<div id="no-data">
 		<div class="panel panel-default">
@@ -45,6 +48,11 @@
         Project.list(function() {
 			Util.showOptionsContainer();
 		});
+    }
+
+    function back()
+    {
+        Util.redirect('/');
     }
 
 	$(document).ready(function() {

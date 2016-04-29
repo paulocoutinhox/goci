@@ -22,6 +22,11 @@ func main() {
 	}
 
 	{
+		controller := controllers.TaskController{}
+		controller.Register()
+	}
+
+	{
 		controller := controllers.APIController{}
 		controller.Register()
 	}

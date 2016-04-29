@@ -15,18 +15,10 @@ type Project struct {
 	ID          string `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Tasks       []struct {
-		Name        string `json:"name"`
-		Description string `json:"description"`
-		Steps       []struct {
-			Description string `json:"description"`
-			Plugin      string `json:"plugin"`
-			Params      []string `json:"params"`
-		} `json:"steps"`
-	} `json:"tasks"`
+	Tasks       []*Task `json:"tasks"`
 }
 
-func (This *Project)GetAll() ([]*Project, error) {
+func ProjectGetAll() ([]*Project, error) {
 	path := app.Server.Workspace + "/projects/*.json"
 	fileList, err := filepath.Glob(path)
 
@@ -61,14 +53,14 @@ func (This *Project)GetAll() ([]*Project, error) {
 	return projectList, nil
 }
 
-func (This *Project)GetById(projectID string) (*Project, error) {
+func ProjectGetById(projectID string) (*Project, error) {
 	projectID = strings.Trim(projectID, " ")
 
 	if projectID == "" {
 		return nil, errors.New("Project ID is invalid")
 	}
 
-	projects, err := This.GetAll()
+	projects, err := ProjectGetAll()
 
 	if (err != nil) {
 		return nil, err

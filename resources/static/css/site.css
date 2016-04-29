@@ -208,3 +208,26 @@ a.desc:after {
 .modalErrorWindowMessageList {
     text-align: left;
 }
+
+.action-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.project-task-row .list-group-item-heading {
+    margin-right: 70px;
+}
+
+.project-task-row .list-group-item-text {
+    margin-right: 70px;
+}
+
+.home-index .logo {
+    width: 200px;
+}
+
+.navbar-brand .logo {
+    width: 28px;
+    margin-top: -5px;
+    margin-right: 10px;
+}

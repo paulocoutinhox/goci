@@ -37,32 +37,12 @@ var Util = new function()
 		$('#modalProgressWindow').modal('hide');
 	}
 
-	this.showErrorWindow = function(errors, onlyFirst)
+        this.showErrorWindow = function(message)
 	{
-		var message = '';
-
-		if (Util.isUndefined(errors))
-		{
-			message = 'Error when process your request. Please, try again!';
-		}
-		else if (onlyFirst == true)
-		{
-		    if (errors.length > 0)
-		    {
-		        message = '<h4>' + errors[0][1] + '</h4>';
-		    }
-		}
-		else if (errors instanceof Array && errors.length > 0)
-		{
-			var messageList = '';
-
-            for (x = 0; x < errors.length; x++)
-			{
-				messageList += '<li><p>' + errors[x][1] + '</p></li>';
-			}
-
-			message = '<ul class="modalErrorWindowMessageList">' + messageList + '</ul>';
-		}
+	    if (Util.isUndefined(message))
+        {
+            message = 'Error when process your request. Please, try again!';
+        }
 
 		$('#modalErrorWindowMessage').html(message);
 		$('#modalErrorWindow').modal();
