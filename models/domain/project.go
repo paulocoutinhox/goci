@@ -1,20 +1,20 @@
 package domain
 
 import (
-	"path/filepath"
-	"io/ioutil"
 	"encoding/json"
-	"github.com/prsolucoes/goci/models/util"
-	"fmt"
 	"errors"
+	"fmt"
 	"github.com/prsolucoes/goci/app"
+	"github.com/prsolucoes/goci/models/util"
+	"io/ioutil"
+	"path/filepath"
 	"strings"
 )
 
 type Project struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
 	Tasks       []*Task `json:"tasks"`
 }
 
@@ -22,7 +22,7 @@ func ProjectGetAll() ([]*Project, error) {
 	path := app.Server.Workspace + "/projects/*.json"
 	fileList, err := filepath.Glob(path)
 
-	if (err != nil) {
+	if err != nil {
 		return nil, errors.New(fmt.Sprintf("Failed to project files: %v", err))
 	}
 
@@ -34,14 +34,14 @@ func ProjectGetAll() ([]*Project, error) {
 		util.Debugf("Loading project: %s", projectFile)
 		file, err := ioutil.ReadFile(projectFile)
 
-		if (err != nil) {
+		if err != nil {
 			return nil, errors.New(fmt.Sprintf("Failed to load project file: %v", err))
 		}
 
 		project := &Project{}
 		err = json.Unmarshal(file, &project)
 
-		if (err != nil) {
+		if err != nil {
 			return nil, errors.New(fmt.Sprintf("Failed to read project file: %v", err))
 		}
 
@@ -62,7 +62,7 @@ func ProjectGetById(projectID string) (*Project, error) {
 
 	projects, err := ProjectGetAll()
 
-	if (err != nil) {
+	if err != nil {
 		return nil, err
 	}
 

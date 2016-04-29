@@ -1,15 +1,15 @@
 package domain
 
 import (
-	"github.com/prsolucoes/goci/models/util"
 	"errors"
+	"github.com/prsolucoes/goci/models/util"
 	"strings"
 )
 
 type Task struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
 	Steps       []*Step `json:"steps"`
 }
 
@@ -26,7 +26,7 @@ func TaskGetById(project *Project, taskID string) (*Task, error) {
 
 	tasks := project.Tasks
 
-	if (tasks == nil) {
+	if tasks == nil {
 		tasks = []*Task{}
 	}
 

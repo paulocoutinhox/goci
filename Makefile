@@ -15,7 +15,17 @@ install:
 format:
 	${GOFMT} main.go
 	${GOFMT} app/server.go
+	${GOFMT} controllers/api.go
 	${GOFMT} controllers/home.go
+	${GOFMT} controllers/project.go
+	${GOFMT} controllers/task.go
+	${GOFMT} jobs/jobs.go
+	${GOFMT} models/domain/job.go
+	${GOFMT} models/domain/project.go
+	${GOFMT} models/domain/result.go
+	${GOFMT} models/domain/result_output_group.go
+	${GOFMT} models/domain/step.go
+	${GOFMT} models/domain/task.go
 	${GOFMT} models/util/util.go
 
 test:

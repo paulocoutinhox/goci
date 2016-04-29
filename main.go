@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/prsolucoes/goci/app"
 	"github.com/prsolucoes/goci/controllers"
+	"github.com/prsolucoes/goci/jobs"
 )
 
 func main() {
@@ -30,6 +31,9 @@ func main() {
 		controller := controllers.APIController{}
 		controller.Register()
 	}
+
+	jobs.CanRunJobs = true
+	jobs.StartJobProcessor()
 
 	app.Server.Start()
 }

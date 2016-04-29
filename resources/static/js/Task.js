@@ -62,7 +62,6 @@ var Task = new function()
     this.run = function(projectId, taskId, success, error)
     {
         Task.disableRunButton(taskId);
-        return;
         Util.showProgressWindow();
 
         $.ajax({
@@ -73,6 +72,7 @@ var Task = new function()
             success: function(response)
             {
                 Util.hideProgressWindow();
+                Task.enableRunButton(taskId);
 
                 var errorMessage = "";
 
@@ -82,8 +82,6 @@ var Task = new function()
                     {
                         if (response.success)
                         {
-                            setTimeout(function() { Task.enableRunButton(taskId); }, 5000);
-
                             if (!Util.isUndefined(success))
                             {
                                 success();
@@ -121,7 +119,6 @@ var Task = new function()
     this.disableRunButton = function(taskId)
     {
         $('.ph-project-task-run-button').addClass('disabled');
-        console.log('.ph-project-task-run-button-' + taskId);
         $('.ph-project-task-run-button-' + taskId).addClass('disabled');
     }
 

@@ -3,8 +3,8 @@ package app
 import (
 	"flag"
 	"github.com/gin-gonic/gin"
-	"log"
 	"github.com/go-ini/ini"
+	"log"
 	"os"
 )
 
@@ -90,7 +90,7 @@ func (This *WebServer) CreateStructure() {
 	}
 
 	{
-		dir := This.Workspace + "/temp"
+		dir := This.Workspace + "/logs"
 		err := os.MkdirAll(dir, 0777)
 
 		if err != nil {
