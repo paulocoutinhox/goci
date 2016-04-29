@@ -113,6 +113,10 @@ var Project = new function()
                     {
                         if (response.success)
                         {
+                            $('.ph-project-name').html(response.data.project.name);
+                            $('.ph-project-description').html(response.data.project.description);
+                            $('.ph-project-tasks-num').html(response.data.project.tasks.length);
+
                             Util.showData();
 
                             if (!Util.isUndefined(success))
