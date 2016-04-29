@@ -11,9 +11,14 @@ type ProjectController struct{}
 
 func (This *ProjectController) Register() {
 	app.Server.Router.GET("/project/index", This.ProjectIndex)
+	app.Server.Router.GET("/project/view", This.ProjectView)
 	log.Println("ProjectController register : OK")
 }
 
 func (This *ProjectController) ProjectIndex(c *gin.Context) {
 	util.RenderTemplate(c.Writer, "project/index", nil)
+}
+
+func (This *ProjectController) ProjectView(c *gin.Context) {
+	util.RenderTemplate(c.Writer, "project/view", nil)
 }

@@ -1,27 +1,29 @@
 var Project = new function()
 {
 
-    this.add = function(project)
+    this.addProjectToHTML = function(project)
     {
         var html = '' +
-        '<a href="#" id="project-row-' + project.id + '" class="project-row list-group-item">' +
+        '<a href="/project/view?project=' + project.id + '" id="project-row-' + project.id + '" class="project-row list-group-item">' +
         '    <h4 class="list-group-item-heading">' + project.name + '</h4>' +
         '    <p class="list-group-item-text">' + project.description + '</p>' +
         '</a>';
 
-        $('#results').append(html);
+        $('#data').append(html);
     }
 
-    this.list = function()
+    this.list = function(success, error)
     {
-        this.showLoadingResults();
+        Util.showLoadingData();
 
-        this.request = $.ajax({
+        $.ajax({
             url: '/api/project/list',
             type: 'GET',
             dataType: 'json',
             success: function(response)
             {
+                var errorMessage = "";
+
                 if (!Util.isUndefined(response))
                 {
                     if (response != "" && response != null)
@@ -34,25 +36,114 @@ var Project = new function()
                             {
                                 Project.clear();
 
-                                for (var x = 0; x < list.length; x++)
+                                if (list.length > 0)
                                 {
-                                    if (!$("#project-row-" + list[x].id).length > 0)
+                                    for (var x = 0; x < list.length; x++)
                                     {
-                                        Project.add(list[x]);
+                                        if (!$("#project-row-" + list[x].id).length > 0)
+                                        {
+                                            Project.addProjectToHTML(list[x]);
+                                        }
                                     }
+
+                                    Util.showData();
+
+                                    if (!Util.isUndefined(success))
+                                    {
+                                        success();
+                                    }
+
+                                    return;
+                                }
+                                else
+                                {
+                                    Util.showNoData();
+
+                                    if (!Util.isUndefined(success))
+                                    {
+                                        success();
+                                    }
+
+                                    return;
                                 }
                             }
                         }
-
+                        else
+                        {
+                            errorMessage = Util.getFirstErrorMessage(response.data.errors);
+                        }
                     }
                 }
 
-                Project.showResultsOrNoResultsByLogsQuantity();
+                Util.showErrorData(errorMessage);
+
+                if (!Util.isUndefined(error))
+                {
+                    error();
+                }
             },
             error: function()
             {
-                isGettingNewest = false;
-                Project.showResultsOrNoResultsByLogsQuantity();
+                Util.showErrorData();
+
+                if (!Util.isUndefined(error))
+                {
+                    error();
+                }
+            }
+        });
+    }
+
+    this.view = function(project, success, error)
+    {
+        Util.showLoadingData();
+
+        $.ajax({
+            url: '/api/project/view',
+            type: 'GET',
+            data: { project: project },
+            dataType: 'json',
+            success: function(response)
+            {
+                var errorMessage = "";
+
+                if (!Util.isUndefined(response))
+                {
+                    if (response != "" && response != null)
+                    {
+                        if (response.success)
+                        {
+                            Util.showData();
+
+                            if (!Util.isUndefined(success))
+                            {
+                                success();
+                            }
+
+                            return;
+                        }
+                        else
+                        {
+                            errorMessage = Util.getFirstErrorMessage(response.data.errors);
+                        }
+                    }
+                }
+
+                Util.showErrorData(errorMessage);
+
+                if (!Util.isUndefined(error))
+                {
+                    error();
+                }
+            },
+            error: function()
+            {
+                Util.showErrorData();
+
+                if (!Util.isUndefined(error))
+                {
+                    error();
+                }
             }
         });
     }
@@ -60,100 +151,9 @@ var Project = new function()
     this.clear = function()
     {
         $('.project-row').remove();
-        this.showNoResults();
+        Util.showNoData();
     }
 
-    this.showResults = function(prefix)
-    {
-        if (Util.isUndefined(prefix))
-        {
-            prefix = "";
-        }
-        else
-        {
-            if (prefix != "")
-            {
-                prefix += "-";
-            }
-        }
 
-        if ($('#' + prefix + 'results').is(':hidden'))
-        {
-            $('#' + prefix + 'results').show();
-        }
-
-        $('#' + prefix + 'no-results').hide();
-        $('#' + prefix + 'loading-results').hide();
-    }
-
-    this.showNoResults = function(prefix)
-    {
-        if (Util.isUndefined(prefix))
-        {
-            prefix = "";
-        }
-        else
-        {
-            if (prefix != "")
-            {
-                prefix += "-";
-            }
-        }
-
-        if ($('#' + prefix + 'no-results').is(':hidden'))
-        {
-            $('#' + prefix + 'no-results').show();
-        }
-
-        $('#' + prefix + 'results').hide();
-        $('#' + prefix + 'loading-results').hide();
-    }
-
-    this.showLoadingResults = function(prefix)
-    {
-        if (Util.isUndefined(prefix))
-        {
-            prefix = "";
-        }
-        else
-        {
-            if (prefix != "")
-            {
-                prefix += "-";
-            }
-        }
-
-        if ($('#' + prefix + 'loading-results').is(':hidden'))
-        {
-            $('#' + prefix + 'loading-results').show();
-        }
-
-        $('#' + prefix + 'results').hide();
-        $('#' + prefix + 'no-results').hide();
-    }
-
-    this.showResultsOrNoResultsByLogsQuantity = function(prefix)
-    {
-        if (Util.isUndefined(prefix))
-        {
-            prefix = "";
-        }
-        else
-        {
-            if (prefix != "")
-            {
-                prefix += "-";
-            }
-        }
-
-        if ($('.project-row').length > 0)
-        {
-            this.showResults(prefix);
-        }
-        else
-        {
-            this.showNoResults(prefix);
-        }
-    }
 
 };

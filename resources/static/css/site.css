@@ -159,30 +159,6 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
-.panel-title {
-	font-size: 14px;
-	text-transform: capitalize;
-}
-
-.panel-clear {
-    display: block;
-    clear: both;
-}
-
-.panel-body {
-	word-wrap: break-word;
-	-ms-word-break: break-all;
-	word-break: break-all;
-	word-break: break-word;
-	-webkit-hyphens: auto;
-	-moz-hyphens: auto;
-	hyphens: auto;
-}
-
-.panel-body {
-	cursor: pointer;
-}
-
 .wrap-log {
 	padding-bottom: 0;
 }
@@ -205,17 +181,30 @@ a.desc:after {
 	margin: 0 0 10px 0;
 }
 
-#no-results {
-	padding: 10px;
-	display: block;
-}
-
-#loading-results {
-	padding: 10px;
+#no-data {
 	display: none;
 }
 
-#results {
-	padding: 10px;
+#error-data {
 	display: none;
+}
+
+#loading-data {
+	display: none;
+}
+
+#error-data h3 {
+    margin-top: 0;
+}
+
+#data {
+	display: none;
+}
+
+.hiddenContent {
+    display: none;
+}
+
+.modalErrorWindowMessageList {
+    text-align: left;
 }

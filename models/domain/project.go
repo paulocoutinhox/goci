@@ -8,18 +8,20 @@ import (
 	"fmt"
 	"errors"
 	"github.com/prsolucoes/goci/app"
+	"strings"
 )
 
-type Project  struct {
-	Id          string `json:"id"`
-	Description string `json:"description"`
+type Project struct {
+	ID          string `json:"id"`
 	Name        string `json:"name"`
+	Description string `json:"description"`
 	Tasks       []struct {
-		Description string `json:"description"`
 		Name        string `json:"name"`
+		Description string `json:"description"`
 		Steps       []struct {
-			Command     string `json:"command"`
 			Description string `json:"description"`
+			Plugin      string `json:"plugin"`
+			Params      []string `json:"params"`
 		} `json:"steps"`
 	} `json:"tasks"`
 }
@@ -57,4 +59,27 @@ func (This *Project)GetAll() ([]*Project, error) {
 	}
 
 	return projectList, nil
+}
+
+func (This *Project)GetById(projectID string) (*Project, error) {
+	projectID = strings.Trim(projectID, " ")
+
+	if projectID == "" {
+		return nil, errors.New("Project ID is invalid")
+	}
+
+	projects, err := This.GetAll()
+
+	if (err != nil) {
+		return nil, err
+	}
+
+	for _, project := range projects {
+		if project.ID == projectID {
+			util.Debugf("Project found: %v", projectID)
+			return project, nil
+		}
+	}
+
+	return nil, errors.New("Project not found")
 }

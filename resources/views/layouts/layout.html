@@ -29,6 +29,7 @@
 </head>
 <body>
 
+<!-- MAIN CONTENT -->
 <div class="wrap {{if .WrapClass}} {{.WrapClass}} {{end}}">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -67,6 +68,59 @@
     </div>
 </div>
 
+<!-- MODAL - PROGRESS -->
+<div class="modal" id="modalProgressWindow" tabindex="-1" role="dialog" aria-labelledby="modalProgressWindowLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div style="text-align: center; width: 100%;">
+                    <p>
+                        <img src="/static/images/ajax-loader.gif" alt="Processing..." style="width: 32px; height: 32px;" />
+                    </p>
+                    <div id="modalProgressWindowMessage">
+                        <p>We are processing your request, please wait ...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL - ERROR -->
+<div class="modal" id="modalErrorWindow" tabindex="-1" role="dialog" aria-labelledby="modalErrorWindowLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p style="width: 100%; text-align: center;"><img src="/static/images/icon-error-window.png" alt="Erro" style="width: 32px; height: 32px;" /></p>
+                <p id="modalErrorWindowMessage" style="width: 100%; text-align: center;">An error occurred while processing your request, try again!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL - SUCCESS -->
+<div class="modal" id="modalSuccessWindow" tabindex="-1" role="dialog" aria-labelledby="modalSuccessWindowLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalSuccessWindowLabel">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p style="width: 100%; text-align: center;"><img src="/static/images/icon-success-window.png" alt="Sucesso" style="width: 32px; height: 32px;" /></p>
+                <p id="modalSuccessWindowMessage" style="width: 100%; text-align: center;">Your request has been processed successfully!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
 <footer class="footer {{if .FooterClass}} {{.FooterClass}} {{end}}">
     <div class="container">
         <p class="pull-left">&copy; GoCI</p>

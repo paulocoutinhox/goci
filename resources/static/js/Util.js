@@ -1,73 +1,10 @@
 var Util = new function()
 {
-	
-    this.dateToISODateString = function(date)
-    {
-        return date.getUTCFullYear()+'-'
-            + Util.padNumber(date.getUTCMonth()+1)+'-'
-            + Util.padNumber(date.getUTCDate())+'T'
-            + Util.padNumber(date.getUTCHours())+':'
-            + Util.padNumber(date.getUTCMinutes())+':'
-            + Util.padNumber(date.getUTCSeconds())+'Z';
-    }
 
-    this.dateToMongoDateString = function(date)
-    {
-        return date.getUTCFullYear()+'-'
-            + Util.padNumber(date.getUTCMonth()+1)+'-'
-            + Util.padNumber(date.getUTCDate())+'T'
-            + Util.padNumber(date.getUTCHours())+':'
-            + Util.padNumber(date.getUTCMinutes())+':'
-            + Util.padNumber(date.getUTCSeconds())+'.'
-            + Util.padNumber(date.getUTCMilliseconds());
-    }
-
-    this.dateToUserString = function(date)
-    {
-        return date.getUTCFullYear()+'-'
-            + Util.padNumber(date.getUTCMonth()+1)+'-'
-            + Util.padNumber(date.getUTCDate())+' - '
-            + Util.padNumber(date.getUTCHours())+':'
-            + Util.padNumber(date.getUTCMinutes())+':'
-            + Util.padNumber(date.getUTCSeconds());
-    }
-
-    this.dateToUnixDateString = function(date)
-    {
-        return date.getUTCFullYear()+'-'
-            + Util.padNumber(date.getUTCMonth()+1)+'-'
-            + Util.padNumber(date.getUTCDate())+' '
-            + Util.padNumber(date.getUTCHours())+':'
-            + Util.padNumber(date.getUTCMinutes())+':'
-            + Util.padNumber(date.getUTCSeconds());
-    }
-
-    this.dateToUserStringUsingHTML = function(date)
-    {
-        return date.getUTCFullYear()+'-'
-            + Util.padNumber(date.getUTCMonth()+1)+'-'
-            + Util.padNumber(date.getUTCDate())+' - '
-            + Util.padNumber(date.getUTCHours())+':'
-            + Util.padNumber(date.getUTCMinutes())+':'
-            + Util.padNumber(date.getUTCSeconds());
-    }
-    
-    this.convertUTCDateToLocalDate = function(date) 
-    {
-	    var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
-	
-	    var offset = date.getTimezoneOffset() / 60;
-	    var hours = date.getHours();
-	
-	    newDate.setHours(hours - offset);
-	
-	    return newDate;   
+	this.padNumber = function(number)
+	{
+		return (number < 10 ? '0' + number : number);
 	}
-
-    this.padNumber = function(number)
-    {
-        return (number < 10 ? '0' + number : number);
-    }
 
 	this.isUndefined = function(data)
 	{
@@ -88,9 +25,10 @@ var Util = new function()
 
 		$('#modalProgressWindowMessage').html(message);
 
-		$('#modalProgressWindow').modal({
-			keyboard:false,
-			backdrop:'static'
+		$('#modalProgressWindow').modal(
+		{
+			keyboard: false,
+			backdrop: 'static'
 		});
 	}
 
@@ -99,7 +37,7 @@ var Util = new function()
 		$('#modalProgressWindow').modal('hide');
 	}
 
-	this.showErrorWindow = function(errors)
+	this.showErrorWindow = function(errors, onlyFirst)
 	{
 		var message = '';
 
@@ -107,13 +45,20 @@ var Util = new function()
 		{
 			message = 'Error when process your request. Please, try again!';
 		}
+		else if (onlyFirst == true)
+		{
+		    if (errors.length > 0)
+		    {
+		        message = '<h4>' + errors[0][1] + '</h4>';
+		    }
+		}
 		else if (errors instanceof Array && errors.length > 0)
 		{
 			var messageList = '';
 
-			for(x = 0; x < errors.length; x++)
+            for (x = 0; x < errors.length; x++)
 			{
-				messageList += '<li>' + errors[x][1] + '</li>';
+				messageList += '<li><p>' + errors[x][1] + '</p></li>';
 			}
 
 			message = '<ul class="modalErrorWindowMessageList">' + messageList + '</ul>';
@@ -133,53 +78,189 @@ var Util = new function()
 		$('#modalSuccessWindowMessage').html(message);
 		$('#modalSuccessWindow').modal();
 	}
-	
-	this.convertDBDateTimetoDate = function(dbDateTime)
-	{
-		var t = dbDateTime.split(/[- :]/);
-		var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
-		return d;
-	}
+
+    this.getFirstErrorMessage = function(errors)
+    {
+        if (this.isUndefined(errors) || !(errors instanceof Array) || errors.length == 0)
+        {
+            return "";
+        }
+
+        return errors[0][1];
+    }
 
 	this.redirect = function(url)
 	{
 		window.location.href = url;
 	}
-	
-	this.getQueryParam = function(name) 
+
+	this.getQueryParam = function(name)
 	{
-	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
-	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+			results = regex.exec(location.search);
+		return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 	}
-	
-	this.scrollToTop = function() 
+
+	this.scrollToTop = function()
 	{
 		verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
 		element = $('body');
 		offset = element.offset();
 		offsetTop = offset.top;
-		$('html, body').animate({scrollTop: offsetTop}, 0, 'linear');
+		$('html, body').animate(
+		{
+			scrollTop: offsetTop
+		}, 0, 'linear');
 	}
 
-	this.scrollToBottom = function() 
+	this.scrollToBottom = function()
 	{
-		$('html, body').animate({scrollTop: $(document).height()-$(window).height()}, 0, 'linear');
+		$('html, body').animate(
+		{
+			scrollTop: $(document).height() - $(window).height()
+		}, 0, 'linear');
 	}
-	
-	this.isOnBottomOfDocument = function() 
+
+	this.isOnBottomOfDocument = function()
 	{
-		if($(window).scrollTop() + $(window).height() == $(document).height()) 
+		if ($(window).scrollTop() + $(window).height() == $(document).height())
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
 
 	this.getRandomColor = function()
 	{
-	    return '#' + (function co(lor){   return (lor += [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)]) && (lor.length == 6) ?  lor : co(lor); })('');
+		return '#' + (function co(lor)
+		{
+			return (lor += [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'][Math.floor(Math.random() * 16)]) && (lor.length == 6) ? lor : co(lor);
+		})('');
+	}
+
+	this.showData = function(prefix)
+	{
+		if (Util.isUndefined(prefix))
+		{
+			prefix = "";
+		}
+		else
+		{
+			if (prefix != "")
+			{
+				prefix += "-";
+			}
+		}
+
+		if ($('#' + prefix + 'data').is(':hidden'))
+		{
+			$('#' + prefix + 'data').show();
+		}
+
+		$('#' + prefix + 'no-data').hide();
+		$('#' + prefix + 'loading-data').hide();
+		$('#' + prefix + 'error-data').hide();
+	}
+
+	this.showNoData = function(prefix)
+	{
+		if (Util.isUndefined(prefix))
+		{
+			prefix = "";
+		}
+		else
+		{
+			if (prefix != "")
+			{
+				prefix += "-";
+			}
+		}
+
+		if ($('#' + prefix + 'no-data').is(':hidden'))
+		{
+			$('#' + prefix + 'no-data').show();
+		}
+
+		$('#' + prefix + 'data').hide();
+		$('#' + prefix + 'loading-data').hide();
+		$('#' + prefix + 'error-data').hide();
+	}
+
+	this.showErrorData = function(message, prefix)
+	{
+		if (Util.isUndefined(prefix))
+		{
+			prefix = "";
+		}
+		else
+		{
+			if (prefix != "")
+			{
+				prefix += "-";
+			}
+		}
+
+		if ($('#' + prefix + 'error-data').is(':hidden'))
+		{
+			$('#' + prefix + 'error-data').show();
+		}
+
+		if (Util.isUndefined(message))
+		{
+		    message = "";
+		}
+
+        $('#' + prefix + 'error-data-message').html(message);
+
+		$('#' + prefix + 'data').hide();
+		$('#' + prefix + 'loading-data').hide();
+		$('#' + prefix + 'no-data').hide();
+	}
+
+	this.showLoadingData = function(prefix)
+	{
+		if (Util.isUndefined(prefix))
+		{
+			prefix = "";
+		}
+		else
+		{
+			if (prefix != "")
+			{
+				prefix += "-";
+			}
+		}
+
+		if ($('#' + prefix + 'loading-data').is(':hidden'))
+		{
+			$('#' + prefix + 'loading-data').show();
+		}
+
+		$('#' + prefix + 'data').hide();
+		$('#' + prefix + 'no-data').hide();
+		$('#' + prefix + 'error-data').hide();
+	}
+
+	this.showOptionsContainer = function(prefix)
+	{
+		if (Util.isUndefined(prefix))
+		{
+			prefix = "";
+		}
+		else
+		{
+			if (prefix != "")
+			{
+				prefix += "-";
+			}
+		}
+
+        if ($('#' + prefix + 'options-container').is(':hidden'))
+		{
+			$('#' + prefix + 'options-container').show();
+		}
 	}
 
 };
