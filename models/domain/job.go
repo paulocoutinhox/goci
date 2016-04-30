@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"time"
+	"strings"
 )
 
 const (
@@ -78,7 +79,11 @@ func (This *Job) Run() {
 				jobError = true
 				break
 			} else {
-				This.Output += string(out)
+				outList := strings.Split(string(out), "\n")
+
+				for _, outListItem := range outList {
+					This.Output += fmt.Sprintf("<p>%s</p>", outListItem)
+				}
 			}
 
 			util.Debug("Step finished")
