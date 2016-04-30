@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"strings"
+	"sort"
 )
 
 type JobResult struct {
@@ -23,7 +24,7 @@ type JobResult struct {
 	OutputGroup []*JobResultOutputGroup `json:"outputGroup"`
 }
 
-func JobResultGetAllByProjectIdAndTaskId(projectId string, taskId string) ([]*JobResult, error) {
+func JobResultGetAllByProjectIdAndTaskId(projectId string, taskId string) (JobResults, error) {
 	if projectId == "" {
 		return nil, errors.New("Project ID is invalid")
 	}
@@ -79,13 +80,14 @@ func JobResultGetLastByProjectIdAndTaskId(projectId string, taskId string) (*Job
 	}
 
 	results, err := JobResultGetAllByProjectIdAndTaskId(projectId, taskId)
+	sort.Sort(results)
 
 	if err != nil {
 		return nil, err
 	}
 
-	for _, result := range results {
-		return result, nil
+	if len(results) > 0 {
+		return results[len(results)-1], nil
 	}
 
 	return nil, errors.New("Job result not found")

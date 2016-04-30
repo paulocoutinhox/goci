@@ -25,9 +25,13 @@
             </div>
         </div>
 
-        <h5>Last run</h5>
+        <h5>Last job results</h5>
 
-        <div class="ph-project-task-job-last-result"></div>
+        <div class="ph-project-task-job-last-result">
+            <ul class="ph-project-task-job-last-result-tabs nav nav-tabs" role="tablist"></ul>
+            <br />
+            <div class="tab-content ph-project-task-job-last-result-tab-contents"></div>
+        </div>
     </div>
 
     <div id="no-data">
@@ -84,6 +88,5 @@
 	$(document).ready(function() {
 		load();
 	});
-
 </script>
 {{end}}

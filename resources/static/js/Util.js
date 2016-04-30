@@ -37,7 +37,7 @@ var Util = new function()
 		$('#modalProgressWindow').modal('hide');
 	}
 
-        this.showErrorWindow = function(message)
+    this.showErrorWindow = function(message)
 	{
 	    if (Util.isUndefined(message))
         {
@@ -242,5 +242,15 @@ var Util = new function()
 			$('#' + prefix + 'options-container').show();
 		}
 	}
+
+	this.slugify = function(text)
+    {
+        return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
+    }
 
 };
