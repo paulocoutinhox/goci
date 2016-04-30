@@ -6,14 +6,14 @@ import (
 	"strings"
 )
 
-type Task struct {
-	ID          string  `json:"id"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Steps       []*Step `json:"steps"`
+type ProjectTask struct {
+	ID          string             `json:"id"`
+	Name        string             `json:"name"`
+	Description string             `json:"description"`
+	Steps       []*ProjectTaskStep `json:"steps"`
 }
 
-func TaskGetById(project *Project, taskID string) (*Task, error) {
+func TaskGetById(project *Project, taskID string) (*ProjectTask, error) {
 	taskID = strings.Trim(taskID, " ")
 
 	if project == nil {
@@ -27,7 +27,7 @@ func TaskGetById(project *Project, taskID string) (*Task, error) {
 	tasks := project.Tasks
 
 	if tasks == nil {
-		tasks = []*Task{}
+		tasks = []*ProjectTask{}
 	}
 
 	for _, task := range tasks {

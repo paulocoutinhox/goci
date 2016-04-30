@@ -16,6 +16,7 @@ func (This *APIController) Register() {
 	app.Server.Router.GET("/api/project/view", This.APIProjectView)
 	app.Server.Router.GET("/api/task/view", This.APIProjectTaskView)
 	app.Server.Router.GET("/api/task/run", This.APIProjectTaskRun)
+	app.Server.Router.GET("/api/job/lastResult", This.APIProjectTaskJobGetLastResult)
 	log.Println("APIController register : OK")
 }
 
@@ -104,6 +105,42 @@ func (This *APIController) APIProjectTaskRun(c *gin.Context) {
 			response.Success = true
 			response.Message = ""
 			response.AddData("job", job)
+		} else {
+			response.Success = false
+			response.Message = "error"
+			response.AddDataError("error", err.Error())
+		}
+	} else {
+		response.Success = false
+		response.Message = "error"
+		response.AddDataError("error", err.Error())
+	}
+
+	c.JSON(200, response)
+}
+
+func (This *APIController) APIProjectTaskJobGetLastResult(c *gin.Context) {
+	projectId := c.Request.URL.Query().Get("project")
+	project, err := domain.ProjectGetById(projectId)
+
+	response := new(gowebresponse.WebResponse)
+
+	if err == nil {
+		taskId := c.Request.URL.Query().Get("task")
+		_, err := domain.TaskGetById(project, taskId)
+
+		if err == nil {
+			result, err := domain.JobResultGetLastByProjectIdAndTaskId(projectId, taskId)
+
+			if err == nil {
+				response.Success = true
+				response.Message = ""
+				response.AddData("result", result)
+			} else {
+				response.Success = false
+				response.Message = "error"
+				response.AddDataError("error", err.Error())
+			}
 		} else {
 			response.Success = false
 			response.Message = "error"

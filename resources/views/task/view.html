@@ -5,7 +5,9 @@
     <div id="options-container" class="panel panel-default hiddenContent">
         <div class="panel-body">
             <h3 class="options-container-title">Task <span class="ph-project-task-name"></span></h3>
-            <button type="button" class="btn btn-primary ph-project-task-run-button" onclick="projectTaskRun(Util.getQueryParam('task'))">Run</button>
+            <button type="button" class="btn btn-primary ph-project-task-run-button"
+                    onclick="projectTaskRun(Util.getQueryParam('task'))">Run
+            </button>
             <button type="button" class="btn btn-success" onclick="load()">Refresh</button>
             <button type="button" class="btn btn-default" onclick="back()">Back</button>
         </div>
@@ -22,6 +24,10 @@
                 <div><strong>Steps:</strong> <span class="ph-project-task-steps-num"></span></div>
             </div>
         </div>
+
+        <h5>Last run</h5>
+
+        <div class="ph-project-task-job-last-result"></div>
     </div>
 
     <div id="no-data">
@@ -56,12 +62,18 @@
     {
         Task.view(Util.getQueryParam('project'), Util.getQueryParam('task'), function() {
 			Util.showOptionsContainer();
+			projectTaskJobLastResult(Util.getQueryParam('project'), Util.getQueryParam('task'));
 		});
     }
 
 	function projectTaskRun(taskId)
     {
         Task.run(Util.getQueryParam('project'), taskId);
+    }
+
+	function projectTaskJobLastResult(projectId, taskId)
+    {
+        Job.lastResult(Util.getQueryParam('project'), taskId);
     }
 
 	function back()
@@ -72,5 +84,6 @@
 	$(document).ready(function() {
 		load();
 	});
+
 </script>
 {{end}}

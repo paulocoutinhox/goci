@@ -21,11 +21,12 @@ format:
 	${GOFMT} controllers/task.go
 	${GOFMT} jobs/jobs.go
 	${GOFMT} models/domain/job.go
+	${GOFMT} models/domain/job_result.go
+	${GOFMT} models/domain/job_result_output_group.go
 	${GOFMT} models/domain/project.go
-	${GOFMT} models/domain/result.go
-	${GOFMT} models/domain/result_output_group.go
-	${GOFMT} models/domain/step.go
-	${GOFMT} models/domain/task.go
+	${GOFMT} models/domain/project_task.go
+	${GOFMT} models/domain/project_task_step.go
+	${GOFMT} models/domain/project_task_step_option.go
 	${GOFMT} models/util/util.go
 
 test:

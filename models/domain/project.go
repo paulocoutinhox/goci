@@ -12,10 +12,10 @@ import (
 )
 
 type Project struct {
-	ID          string  `json:"id"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Tasks       []*Task `json:"tasks"`
+	ID          string         `json:"id"`
+	Name        string         `json:"name"`
+	Description string         `json:"description"`
+	Tasks       []*ProjectTask `json:"tasks"`
 }
 
 func ProjectGetAll() ([]*Project, error) {
@@ -23,7 +23,7 @@ func ProjectGetAll() ([]*Project, error) {
 	fileList, err := filepath.Glob(path)
 
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("Failed to project files: %v", err))
+		return nil, errors.New(fmt.Sprintf("Failed to get all project files: %v", err))
 	}
 
 	util.Debugf("Projects files found: %v", len(fileList))
@@ -53,10 +53,10 @@ func ProjectGetAll() ([]*Project, error) {
 	return projectList, nil
 }
 
-func ProjectGetById(projectID string) (*Project, error) {
-	projectID = strings.Trim(projectID, " ")
+func ProjectGetById(projectId string) (*Project, error) {
+	projectId = strings.Trim(projectId, " ")
 
-	if projectID == "" {
+	if projectId == "" {
 		return nil, errors.New("Project ID is invalid")
 	}
 
@@ -67,8 +67,8 @@ func ProjectGetById(projectID string) (*Project, error) {
 	}
 
 	for _, project := range projects {
-		if project.ID == projectID {
-			util.Debugf("Project found: %v", projectID)
+		if project.ID == projectId {
+			util.Debugf("Project found: %v", projectId)
 			return project, nil
 		}
 	}

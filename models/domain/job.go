@@ -28,7 +28,7 @@ type Job struct {
 	CreatedAt  int64  `json:"createdAt"`
 	StartedAt  int64  `json:"startedAt"`
 	FinishedAt int64  `json:"finishedAt"`
-	Task       *Task
+	Task       *ProjectTask
 }
 
 func NewJob() *Job {
@@ -46,30 +46,50 @@ func (This *Job) Run() {
 	This.StartedAt = time.Now().UTC().Unix()
 	This.Status = JOB_STATUS_RUNNING
 
-	error := false
+	jobError := false
 
 	for _, step := range This.Task.Steps {
+		util.Debug("Step started")
+
 		This.Output += fmt.Sprintf("<p>%s</p>", step.Description)
 
-		if len(step.Params) > 0 {
-			command := step.Params[0]
+		if len(step.Options) > 0 {
+			command := ""
+			params := []string{}
+			workingDir := ""
 
-			if err := exec.Command(command, step.Params...).Run(); err != nil {
-				error = true
-				break
-				//fmt.Fprintln(os.Stderr, err)
+			for _, option := range step.Options {
+				if option.ID == "working-dir" {
+					workingDir = option.Value
+				} else if option.ID == "command" {
+					command = option.Value
+				} else if option.ID == "param" {
+					params = append(params, option.Value)
+				}
 			}
+
+			cmd := exec.Command(command, params...)
+			cmd.Dir = workingDir
+			out, err := cmd.Output()
+
+			if err != nil {
+				util.Debugf("Step executed with error: %v", err)
+				This.Output += fmt.Sprintf("<p>%s</p>", err.Error())
+				jobError = true
+				break
+			} else {
+				This.Output += string(out)
+			}
+
+			util.Debug("Step finished")
 		}
 	}
 
-	if error {
+	if jobError {
 		This.Status = JOB_STATUS_ERROR
 	} else {
 		This.Status = JOB_STATUS_SUCCESS
 	}
-
-	This.Output = "<p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p> <p>sdasdsadadasdsd</p> <p>246324364876387463284683</p>"
-	time.Sleep(10 * time.Second)
 
 	This.FinishedAt = time.Now().UTC().Unix()
 	This.Duration = This.FinishedAt - This.StartedAt
@@ -78,15 +98,15 @@ func (This *Job) Run() {
 }
 
 func (This *Job) Save() {
-	outputGroup := &ResultOutputGroup{
+	outputGroup := &JobResultOutputGroup{
 		Name:   "Console",
 		Output: This.Output,
 	}
 
-	outputGroupList := make([]*ResultOutputGroup, 0)
+	outputGroupList := make([]*JobResultOutputGroup, 0)
 	outputGroupList = append(outputGroupList, outputGroup)
 
-	result := &Result{
+	result := &JobResult{
 		JobID:       This.ID,
 		ProjectId:   This.ProjectID,
 		TaskId:      This.TaskID,
@@ -95,6 +115,7 @@ func (This *Job) Save() {
 		FinishedAt:  This.FinishedAt,
 		Duration:    This.Duration,
 		OutputGroup: outputGroupList,
+		Status:      This.Status,
 	}
 
 	// create file content
@@ -106,8 +127,8 @@ func (This *Job) Save() {
 	}
 
 	// create log structure for this project
-	filename := fmt.Sprintf("%d.json", time.Now().UTC().UnixNano())
-	dir := app.Server.Workspace + "/logs/" + This.ProjectID + "/"
+	filename := fmt.Sprintf("%s.json", This.ID)
+	dir := app.Server.Workspace + "/logs/" + This.ProjectID + "/" + This.TaskID + "/"
 
 	err = os.MkdirAll(dir, 0777)
 
