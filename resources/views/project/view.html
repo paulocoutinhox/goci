@@ -57,24 +57,74 @@
 <script>
     function load()
     {
-        Project.view(Util.getQueryParam('project'), function() {
-			Util.showOptionsContainer();
+        var projectId = Util.getQueryParam('project');
+
+        Project.view(projectId, function() {
+            Util.showLoadingData();
+        }, function(wr) {
+        	var errorMessage = null;
+
+        	if (wr.success)
+			{
+			    Project.clearProjectTaskList();
+
+                var project = wr.getDataItem("project");
+
+                if (Util.isNullOrUndefined(project))
+                {
+                    errorMessage = "Project data is invalid";
+                }
+                else
+                {
+                    $(".ph-project-name").html(project.name);
+                    $(".ph-project-description").html(project.description);
+                    $(".ph-project-tasks-num").html(project.tasks.length);
+
+                    var tasks = project.tasks;
+
+                    for (var x = 0; x < tasks.length; x++)
+                    {
+                        if (!$("#project-task-row-" + tasks[x].id).length > 0)
+                        {
+                            Project.addProjectTaskToHTML(projectId, tasks[x]);
+                        }
+                    }
+
+                    Util.showData();
+                    Util.showOptionsContainer();
+                }
+			}
+			else
+			{
+				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+			}
+
+			if (errorMessage)
+			{
+				Util.showErrorData(errorMessage);
+			}
+		}, function() {
+			Util.showErrorData("An error occurred while processing your request, try again!");
 		});
     }
 
 	function back()
     {
-        Util.redirect('/project/index');
+        Util.redirect("/project/index");
     }
 
 	function projectTaskRun(projectId, taskId)
     {
-        Task.run(projectId, taskId);
+        Task.run(projectId, taskId, function() {
+            Util.showProgressWindow();
+        }, function() {
+            Util.showSuccessWindow("Your task was added to queue with success");
+        });
     }
 
 	function projectTaskView(projectId, taskId)
     {
-        Util.redirect('/task/view?project=' + projectId + '&task=' + taskId);
+        Util.redirect("/task/view?project=" + projectId + "&task=" + taskId);
     }
 
 	$(document).ready(function() {

@@ -33,9 +33,12 @@ var Project = new function()
         $('#project-task-list').append(html);
     }
 
-    this.list = function(success, error)
+    this.list = function(preProcess, success, error)
     {
-        Util.showLoadingData();
+        if (!Util.isNullOrUndefined(preProcess))
+        {
+            preProcess();
+        }
 
         $.ajax({
             url: '/api/project/list',
@@ -43,71 +46,19 @@ var Project = new function()
             dataType: 'json',
             success: function(response)
             {
-                var errorMessage = "";
+                var wr = new WebResponse().parse(response);
 
-                if (!Util.isUndefined(response))
+                if (wr.success)
                 {
-                    if (response != "" && response != null)
+                    if (!Util.isNullOrUndefined(success))
                     {
-                        if (response.success)
-                        {
-                            var list = response.data.list
-
-                            if (!Util.isUndefined(list) && !Util.isNull(list))
-                            {
-                                Project.clearProjectList();
-
-                                if (list.length > 0)
-                                {
-                                    for (var x = 0; x < list.length; x++)
-                                    {
-                                        if (!$("#project-row-" + list[x].id).length > 0)
-                                        {
-                                            Project.addProjectToHTML(list[x]);
-                                        }
-                                    }
-
-                                    Util.showData();
-
-                                    if (!Util.isUndefined(success))
-                                    {
-                                        success();
-                                    }
-
-                                    return;
-                                }
-                                else
-                                {
-                                    Util.showNoData();
-
-                                    if (!Util.isUndefined(success))
-                                    {
-                                        success();
-                                    }
-
-                                    return;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            errorMessage = Util.getFirstErrorMessage(response.data.errors);
-                        }
+                        success(wr);
                     }
-                }
-
-                Util.showErrorData(errorMessage);
-
-                if (!Util.isUndefined(error))
-                {
-                    error();
                 }
             },
             error: function()
             {
-                Util.showErrorData();
-
-                if (!Util.isUndefined(error))
+                if (!Util.isNullOrUndefined(error))
                 {
                     error();
                 }
@@ -115,9 +66,12 @@ var Project = new function()
         });
     }
 
-    this.view = function(projectId, success, error)
+    this.view = function(projectId, preProcess, success, error)
     {
-        Util.showLoadingData();
+        if (!Util.isNullOrUndefined(preProcess))
+        {
+            preProcess();
+        }
 
         $.ajax({
             url: '/api/project/view',
@@ -126,58 +80,19 @@ var Project = new function()
             dataType: 'json',
             success: function(response)
             {
-                var errorMessage = "";
+                var wr = new WebResponse().parse(response);
 
-                if (!Util.isUndefined(response))
+                if (wr.success)
                 {
-                    if (response != "" && response != null)
+                    if (!Util.isNullOrUndefined(success))
                     {
-                        if (response.success)
-                        {
-                            Project.clearProjectTaskList();
-
-                            $('.ph-project-name').html(response.data.project.name);
-                            $('.ph-project-description').html(response.data.project.description);
-                            $('.ph-project-tasks-num').html(response.data.project.tasks.length);
-
-                            var tasks = response.data.project.tasks;
-
-                            for (var x = 0; x < tasks.length; x++)
-                            {
-                                if (!$("#project-task-row-" + tasks[x].id).length > 0)
-                                {
-                                    Project.addProjectTaskToHTML(projectId, tasks[x]);
-                                }
-                            }
-
-                            Util.showData();
-
-                            if (!Util.isUndefined(success))
-                            {
-                                success();
-                            }
-
-                            return;
-                        }
-                        else
-                        {
-                            errorMessage = Util.getFirstErrorMessage(response.data.errors);
-                        }
+                        success(wr);
                     }
-                }
-
-                Util.showErrorData(errorMessage);
-
-                if (!Util.isUndefined(error))
-                {
-                    error();
                 }
             },
             error: function()
             {
-                Util.showErrorData();
-
-                if (!Util.isUndefined(error))
+                if (!Util.isNullOrUndefined(error))
                 {
                     error();
                 }

@@ -1,9 +1,12 @@
 var Task = new function()
 {
 
-    this.view = function(projectId, taskId, success, error)
+    this.view = function(projectId, taskId, preProcess, success, error)
     {
-        Util.showLoadingData();
+        if (!Util.isNullOrUndefined(preProcess))
+        {
+            preProcess();
+        }
 
         $.ajax({
             url: '/api/task/view',
@@ -12,46 +15,19 @@ var Task = new function()
             dataType: 'json',
             success: function(response)
             {
-                var errorMessage = "";
+                var wr = new WebResponse().parse(response);
 
-                if (!Util.isUndefined(response))
+                if (wr.success)
                 {
-                    if (response != "" && response != null)
+                    if (!Util.isNullOrUndefined(success))
                     {
-                        if (response.success)
-                        {
-                            $('.ph-project-task-name').html(response.data.task.name);
-                            $('.ph-project-task-description').html(response.data.task.description);
-                            $('.ph-project-task-steps-num').html(response.data.task.steps.length);
-
-                            Util.showData();
-
-                            if (!Util.isUndefined(success))
-                            {
-                                success();
-                            }
-
-                            return;
-                        }
-                        else
-                        {
-                            errorMessage = Util.getFirstErrorMessage(response.data.errors);
-                        }
+                        success(wr);
                     }
-                }
-
-                Util.showErrorData(errorMessage);
-
-                if (!Util.isUndefined(error))
-                {
-                    error();
                 }
             },
             error: function()
             {
-                Util.showErrorData();
-
-                if (!Util.isUndefined(error))
+                if (!Util.isNullOrUndefined(error))
                 {
                     error();
                 }
@@ -59,10 +35,12 @@ var Task = new function()
         });
     }
 
-    this.run = function(projectId, taskId, success, error)
+    this.run = function(projectId, taskId, preProcess, success, error)
     {
-        Task.disableRunButton(taskId);
-        Util.showProgressWindow();
+        if (!Util.isNullOrUndefined(preProcess))
+        {
+            preProcess();
+        }
 
         $.ajax({
             url: '/api/task/run',

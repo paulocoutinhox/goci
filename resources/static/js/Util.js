@@ -253,4 +253,14 @@ var Util = new function()
         .replace(/-+$/, '');            // Trim - from end of text
     }
 
+    this.isNullOrUndefined = function(object)
+    {
+        if (object == null || object == undefined)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 };

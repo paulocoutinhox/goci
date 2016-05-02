@@ -62,27 +62,151 @@
 
 <!-- STARTUP -->
 <script>
+    var lastResultJobId = "";
+
     function load()
     {
-        Task.view(Util.getQueryParam('project'), Util.getQueryParam('task'), function() {
+        var projectId = Util.getQueryParam("project");
+        var taskId = Util.getQueryParam("task");
+
+        Task.view(projectId, taskId, function() {
+            Util.showLoadingData();
+        }, function(wr) {
+            var errorMessage = null;
+
+        	if (wr.success)
+			{
+			    var task = wr.getDataItem("task");
+
+                if (Util.isNullOrUndefined(task))
+                {
+                    errorMessage = "Task data is invalid";
+                }
+                else
+                {
+                    $('.ph-project-task-name').html(task.name);
+                    $('.ph-project-task-description').html(task.description);
+                    $('.ph-project-task-steps-num').html(task.steps.length);
+
+                    Util.showData();
+                    Util.showOptionsContainer();
+                }
+
+                projectTaskJobLastResult(projectId, taskId);
+			}
+			else
+			{
+				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+			}
+
+			if (errorMessage)
+			{
+				Util.showErrorData(errorMessage);
+			}
+
 			Util.showOptionsContainer();
-			projectTaskJobLastResult(Util.getQueryParam('project'), Util.getQueryParam('task'));
+		}, function() {
+            Util.showErrorData("An error occurred while processing your request, try again!");
 		});
     }
 
 	function projectTaskRun(taskId)
     {
-        Task.run(Util.getQueryParam('project'), taskId);
+        var projectId = Util.getQueryParam("project");
+
+        Task.run(projectId, taskId, function() {
+            Util.showProgressWindow();
+        }, function() {
+            Util.showSuccessWindow("Your task was added to queue with success");
+        });
     }
 
 	function projectTaskJobLastResult(projectId, taskId)
     {
-        Job.lastResult(Util.getQueryParam('project'), taskId);
+        var projectId = Util.getQueryParam("project");
+        Job.lastResult(projectId, taskId, function() {
+            // progress ?
+        }, function(wr) {
+            var errorMessage = "";
+            var html = "";
+            var result = wr.getDataItem("result");
+
+            if (Util.isNullOrUndefined(result))
+            {
+                $(".ph-project-task-job-last-result-tabs").html("");
+                $(".ph-project-task-job-last-result-tab-contents").html("");
+            }
+            else
+            {
+                var outputGroup = result.outputGroup;
+
+                if (Util.isNullOrUndefined(result))
+                {
+                     outputGroup = []
+                }
+
+                var currentLastResultJobId = result.jobId;
+
+                if (Job.lastResultJobId != currentLastResultJobId)
+                {
+                    $(".ph-project-task-job-last-result-tabs").html("");
+                    $(".ph-project-task-job-last-result-tab-contents").html("");
+                }
+
+                lastResultJobId = currentLastResultJobId;
+
+                var tabToActivate = "";
+
+                for (var x = 0; x < outputGroup.length; x++)
+                {
+                    var outputGroupName = outputGroup[x].name;
+                    var tabId = Util.slugify(outputGroup[x].name);
+                    var outputGroupContent = outputGroup[x].output;
+
+                    var tabHTML = '' +
+                    '<li role="presentation">' +
+                    '    <a id="tab-' + tabId + '" href="#tab-content-' + tabId + '" aria-controls="tab-content-' + tabId + '" role="tab" data-toggle="tab">' + outputGroupName + '</a>' +
+                    '</li>';
+
+                    var tabContentHTML = '' +
+                    '<div role="tabpanel" class="tab-pane" id="tab-content-' + tabId + '">' +
+                    '    <div class="panel panel-default">' +
+                    '        <div id="tab-content-body-' + tabId + '" class="panel-body"> ' +
+                    '            ' + outputGroupContent +
+                    '        </div>' +
+                    '    </div>' +
+                    '</div>';
+
+                    if ($("#tab-" + tabId).length == 0)
+                    {
+                        if (tabToActivate == "")
+                        {
+                            tabToActivate = tabId;
+                        }
+
+                        $(".ph-project-task-job-last-result-tabs").append(tabHTML);
+                        $(".ph-project-task-job-last-result-tab-contents").append(tabContentHTML);
+                    }
+                    else
+                    {
+                        $("#tab-content-body-" + tabId).html(outputGroupContent);
+                    }
+                }
+
+                $(".ph-project-task-job-last-result-tabs a").click(function (e) {
+                    e.preventDefault();
+                    $(this).tab("show");
+                });
+
+                $("#tab-" + tabToActivate).tab("show");
+            }
+        });
     }
 
 	function back()
     {
-        Util.redirect('/project/view?project=' + Util.getQueryParam('project'));
+        var projectId = Util.getQueryParam("project");
+        Util.redirect("/project/view?project=" + projectId);
     }
 
 	$(document).ready(function() {

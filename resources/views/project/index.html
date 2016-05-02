@@ -46,13 +46,59 @@
 	function load()
     {
         Project.list(function() {
-			Util.showOptionsContainer();
+            Util.showLoadingData();
+        }, function(wr) {
+        	var errorMessage = null;
+
+        	if (wr.success)
+			{
+				var list = wr.getDataItem("list");
+
+				if (!Util.isNullOrUndefined(list))
+				{
+					Project.clearProjectList();
+
+					if (list.length > 0)
+					{
+						for (var x = 0; x < list.length; x++)
+						{
+							if (!$("#project-row-" + list[x].id).length > 0)
+							{
+								Project.addProjectToHTML(list[x]);
+							}
+						}
+
+						Util.showData();
+					}
+					else
+					{
+						Util.showNoData();
+					}
+
+					Util.showOptionsContainer();
+				}
+				else
+				{
+					errorMessage = "Project list is invalid";
+				}
+			}
+			else
+			{
+				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+			}
+
+			if (errorMessage)
+			{
+				Util.showErrorData(errorMessage);
+			}
+		}, function() {
+			Util.showErrorData("An error occurred while processing your request, try again!");
 		});
     }
 
     function back()
     {
-        Util.redirect('/');
+        Util.redirect("/");
     }
 
 	$(document).ready(function() {
