@@ -79,7 +79,7 @@ func (This *WebServer) LoadConfiguration() {
 				resourcesDir := serverSection.Key("resourcesDir").Value()
 
 				if resourcesDir == "" {
-					resourcesDir = "./"
+					resourcesDir = ""
 				}
 
 				This.ResourcesDir = resourcesDir
