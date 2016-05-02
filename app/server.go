@@ -31,7 +31,7 @@ func NewWebServer() *WebServer {
 }
 
 func (This *WebServer) CreateBasicRoutes() {
-	This.Router.Static("/static", This.ResourcesDir+"resources/static")
+	This.Router.Static("/static", This.ResourcesDir+"/resources/static")
 	log.Println("Router creation : OK")
 }
 

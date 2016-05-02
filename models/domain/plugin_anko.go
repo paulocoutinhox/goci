@@ -69,7 +69,7 @@ func (This *PluginAnko) Process() error {
 		}
 
 		// check for file name
-		file = strings.Replace(file, "${GOCI_WORKSPACE}", app.Server.WorkspaceDir, -1)
+		file = strings.Replace(file, "${GOCI_WORKSPACE_DIR}", app.Server.WorkspaceDir, -1)
 		file = strings.Trim(file, " ")
 
 		if file == "" {
@@ -119,13 +119,11 @@ func (This *PluginAnko) Process() error {
 				m := loader(env)
 				return m
 			}
-			panic(fmt.Sprintf("package '%s' not found", s))
-		})
 
-		env.Define("JOB_OUTPUT_GROUP_CONSOLE_NAME", JOB_OUTPUT_GROUP_CONSOLE_NAME)
-		env.Define("GOCI_WORKSPACE", app.Server.WorkspaceDir)
-		env.Define("GOCI_CONFIG", app.Server.Config)
-		env.Define("GOCI_HOST", app.Server.Host)
+			errorMessage := fmt.Sprintf("Step executed with error: package '%s' not found", s)
+			util.Debugf(errorMessage)
+			return err
+		})
 
 		env.Define("job", This.Job)
 		env.Define("step", This.Step)
@@ -167,5 +165,10 @@ func (This *PluginAnko) GociExec(command string, params ...string) error {
 func (This *PluginAnko) GociAnkoImport(env *vm.Env) *vm.Env {
 	m := env.NewPackage("goci")
 	m.Define("Exec", This.GociExec)
+	m.Define("WORKSPACE_DIR", app.Server.WorkspaceDir)
+	m.Define("RESOURCES_DIR", app.Server.ResourcesDir)
+	m.Define("CONFIG", app.Server.Config)
+	m.Define("HOST", app.Server.Host)
+	m.Define("JOB_OUTPUT_GROUP_CONSOLE_NAME", JOB_OUTPUT_GROUP_CONSOLE_NAME)
 	return m
 }
