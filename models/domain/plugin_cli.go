@@ -1,48 +1,48 @@
 package domain
 
 import (
-	"fmt"
 	"github.com/prsolucoes/goci/models/util"
 	"os/exec"
 	"strings"
 	"time"
 )
 
+const (
+	PLUGIN_CLI_NAME = "cli"
+)
+
 type PluginCLI struct {
+	Job       *Job
+	Step      *ProjectTaskStep
+	StepIndex int
 }
 
 func (This *PluginCLI) GetName() string {
-	return "cli"
+	return PLUGIN_CLI_NAME
 }
 
-func (This *PluginCLI) Process(job *Job, step *ProjectTaskStep, stepIndex int) error {
-	// create a new output group if empty
-	if len(job.OutputGroup) == 0 {
-		outputGroup := &JobResultOutputGroup{
-			Name:   "Console",
-			Output: "",
-		}
+func (This *PluginCLI) Init(job *Job, step *ProjectTaskStep, stepIndex int) error {
+	This.Job = job
+	This.Step = step
+	This.StepIndex = stepIndex
 
-		outputGroupList := []*JobResultOutputGroup{}
-		outputGroupList = append(outputGroupList, outputGroup)
+	return nil
+}
 
-		job.OutputGroup = outputGroupList
-	}
-
-	// show step description
-	job.OutputGroup[0].Output += fmt.Sprintf("<p>%s</p>", step.Description)
+func (This *PluginCLI) Process() error {
+	This.Job.AppendOutputContentLine(JOB_OUTPUT_GROUP_CONSOLE_NAME, This.Step.Description)
 
 	// set current progress
-	totalSteps := len(job.Task.Steps)
-	job.SetProgress((100 * (stepIndex + 1)) / totalSteps)
+	totalSteps := len(This.Job.Task.Steps)
+	This.Job.SetProgress((100 * (This.StepIndex + 1)) / totalSteps)
 
 	// set execution options
-	if len(step.Options) > 0 {
+	if len(This.Step.Options) > 0 {
 		command := ""
 		params := []string{}
 		workingDir := ""
 
-		for _, option := range step.Options {
+		for _, option := range This.Step.Options {
 			if option.ID == "working-dir" {
 				workingDir = option.Value
 			} else if option.ID == "command" {
@@ -58,21 +58,20 @@ func (This *PluginCLI) Process(job *Job, step *ProjectTaskStep, stepIndex int) e
 
 		if err != nil {
 			util.Debugf("Step executed with error: %v", err)
-			job.OutputGroup[0].Output += fmt.Sprintf("<p>%s</p>", err.Error())
 			return err
 		} else {
 			outList := strings.Split(string(out), "\n")
 
 			for _, outListItem := range outList {
-				job.OutputGroup[0].Output += fmt.Sprintf("<p>%s</p>", outListItem)
+				This.Job.AppendOutputContentLine(JOB_OUTPUT_GROUP_CONSOLE_NAME, outListItem)
 			}
 		}
 	}
 
 	// save step result
 	stepFinishedAt := time.Now().UTC().Unix()
-	job.Duration = stepFinishedAt - job.StartedAt
-	job.Save()
+	This.Job.Duration = stepFinishedAt - This.Job.StartedAt
+	This.Job.Save()
 
 	return nil
 }

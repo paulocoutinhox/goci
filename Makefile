@@ -24,6 +24,7 @@ format:
 	${GOFMT} models/domain/job_result.go
 	${GOFMT} models/domain/job_result_output_group.go
 	${GOFMT} models/domain/job_results.go
+	${GOFMT} models/domain/plugin_anko.go
 	${GOFMT} models/domain/plugin_cli.go
 	${GOFMT} models/domain/plugin_interface.go
 	${GOFMT} models/domain/plugin_manager.go
