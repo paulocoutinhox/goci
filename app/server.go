@@ -66,22 +66,12 @@ func (This *WebServer) LoadConfiguration() {
 			{
 				// workspace
 				workspaceDir := serverSection.Key("workspaceDir").Value()
-
-				if workspaceDir == "" {
-					workspaceDir = "./"
-				}
-
 				This.WorkspaceDir = workspaceDir
 			}
 
 			{
 				// resources dir
 				resourcesDir := serverSection.Key("resourcesDir").Value()
-
-				if resourcesDir == "" {
-					resourcesDir = ""
-				}
-
 				This.ResourcesDir = resourcesDir
 			}
 		}
