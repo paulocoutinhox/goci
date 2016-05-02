@@ -23,6 +23,10 @@ format:
 	${GOFMT} models/domain/job.go
 	${GOFMT} models/domain/job_result.go
 	${GOFMT} models/domain/job_result_output_group.go
+	${GOFMT} models/domain/job_results.go
+	${GOFMT} models/domain/plugin_cli.go
+	${GOFMT} models/domain/plugin_interface.go
+	${GOFMT} models/domain/plugin_manager.go
 	${GOFMT} models/domain/project.go
 	${GOFMT} models/domain/project_task.go
 	${GOFMT} models/domain/project_task_step.go
@@ -35,6 +39,7 @@ deps:
 	${GODEPS} github.com/prsolucoes/gowebresponse
 	${GODEPS} github.com/gin-gonic/gin
 	${GODEPS} github.com/go-ini/ini
+	${GODEPS} github.com/mattn/anko
 
 stop:
 	pkill -f ${EXECUTABLE}

@@ -8,8 +8,8 @@ import (
 	"github.com/prsolucoes/goci/models/util"
 	"io/ioutil"
 	"path/filepath"
-	"strings"
 	"sort"
+	"strings"
 )
 
 type JobResult struct {
@@ -21,6 +21,7 @@ type JobResult struct {
 	FinishedAt  int64                   `json:"finishedAt"`
 	Duration    int64                   `json:"duration"`
 	Status      string                  `json:"status"`
+	Progress    int                     `json:"progress"`
 	OutputGroup []*JobResultOutputGroup `json:"outputGroup"`
 }
 

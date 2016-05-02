@@ -4,6 +4,7 @@ import (
 	"github.com/prsolucoes/goci/app"
 	"github.com/prsolucoes/goci/controllers"
 	"github.com/prsolucoes/goci/jobs"
+	"github.com/prsolucoes/goci/models/domain"
 )
 
 func main() {
@@ -11,6 +12,7 @@ func main() {
 	app.Server.LoadConfiguration()
 	app.Server.CreateStructure()
 	app.Server.CreateBasicRoutes()
+	domain.PluginManagerLoadPlugins()
 
 	{
 		controller := controllers.HomeController{}

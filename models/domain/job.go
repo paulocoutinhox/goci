@@ -7,9 +7,7 @@ import (
 	"github.com/prsolucoes/goci/models/util"
 	"io/ioutil"
 	"os"
-	"os/exec"
 	"time"
-	"strings"
 )
 
 const (
@@ -20,74 +18,46 @@ const (
 )
 
 type Job struct {
-	ID         string `json:"id"`
-	TaskID     string `json:"taskId"`
-	ProjectID  string `json:"projectId"`
-	Output     string `json:"output"`
-	Duration   int64  `json:"duration"`
-	Status     string `json:"status"`
-	CreatedAt  int64  `json:"createdAt"`
-	StartedAt  int64  `json:"startedAt"`
-	FinishedAt int64  `json:"finishedAt"`
-	Task       *ProjectTask
+	ID          string                  `json:"id"`
+	TaskID      string                  `json:"taskId"`
+	ProjectID   string                  `json:"projectId"`
+	OutputGroup []*JobResultOutputGroup `json:"outputGroup"`
+	Duration    int64                   `json:"duration"`
+	Progress    int                     `json:"progress"`
+	Status      string                  `json:"status"`
+	CreatedAt   int64                   `json:"createdAt"`
+	StartedAt   int64                   `json:"startedAt"`
+	FinishedAt  int64                   `json:"finishedAt"`
+	Task        *ProjectTask
 }
 
 func NewJob() *Job {
 	return &Job{
-		ID:        util.CreateNewJobID(),
-		Output:    "",
-		Duration:  0,
-		Status:    JOB_STATUS_ON_QUEUE,
-		CreatedAt: time.Now().UTC().Unix(),
+		ID:          util.CreateNewJobID(),
+		OutputGroup: []*JobResultOutputGroup{},
+		Duration:    0,
+		Status:      JOB_STATUS_ON_QUEUE,
+		CreatedAt:   time.Now().UTC().Unix(),
 	}
 }
 
 func (This *Job) Run() {
 	util.Debugf("New job started: %v", This.ID)
 	This.StartedAt = time.Now().UTC().Unix()
+	This.FinishedAt = 0
 	This.Status = JOB_STATUS_RUNNING
 
 	jobError := false
 
-	for _, step := range This.Task.Steps {
-		util.Debug("Step started")
+	for stepIndex, step := range This.Task.Steps {
+		util.Debugf("Step started: %v", step.Description)
+		err := PluginManagerProcess(This, step, stepIndex)
 
-		This.Output += fmt.Sprintf("<p>%s</p>", step.Description)
-
-		if len(step.Options) > 0 {
-			command := ""
-			params := []string{}
-			workingDir := ""
-
-			for _, option := range step.Options {
-				if option.ID == "working-dir" {
-					workingDir = option.Value
-				} else if option.ID == "command" {
-					command = option.Value
-				} else if option.ID == "param" {
-					params = append(params, option.Value)
-				}
-			}
-
-			cmd := exec.Command(command, params...)
-			cmd.Dir = workingDir
-			out, err := cmd.Output()
-
-			if err != nil {
-				util.Debugf("Step executed with error: %v", err)
-				This.Output += fmt.Sprintf("<p>%s</p>", err.Error())
-				jobError = true
-				break
-			} else {
-				outList := strings.Split(string(out), "\n")
-
-				for _, outListItem := range outList {
-					This.Output += fmt.Sprintf("<p>%s</p>", outListItem)
-				}
-			}
-
-			util.Debug("Step finished")
+		if err != nil {
+			jobError = true
 		}
+
+		util.Debugf("Step finished: %v", step.Description)
 	}
 
 	if jobError {
@@ -103,14 +73,6 @@ func (This *Job) Run() {
 }
 
 func (This *Job) Save() {
-	outputGroup := &JobResultOutputGroup{
-		Name:   "Console",
-		Output: This.Output,
-	}
-
-	outputGroupList := make([]*JobResultOutputGroup, 0)
-	outputGroupList = append(outputGroupList, outputGroup)
-
 	result := &JobResult{
 		JobID:       This.ID,
 		ProjectId:   This.ProjectID,
@@ -119,7 +81,8 @@ func (This *Job) Save() {
 		StartedAt:   This.StartedAt,
 		FinishedAt:  This.FinishedAt,
 		Duration:    This.Duration,
-		OutputGroup: outputGroupList,
+		Progress:    This.Progress,
+		OutputGroup: This.OutputGroup,
 		Status:      This.Status,
 	}
 
@@ -149,4 +112,14 @@ func (This *Job) Save() {
 		util.Debugf("Erro while save the job result file: %v", err)
 		return
 	}
+}
+
+func (This *Job) SetProgress(progress int) {
+	if progress < 0 {
+		progress = 0
+	} else if progress > 100 {
+		progress = 100
+	}
+
+	This.Progress = progress
 }
