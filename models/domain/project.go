@@ -19,7 +19,7 @@ type Project struct {
 }
 
 func ProjectGetAll() ([]*Project, error) {
-	path := app.Server.Workspace + "/projects/*.json"
+	path := app.Server.WorkspaceDir + "/projects/*.json"
 	fileList, err := filepath.Glob(path)
 
 	if err != nil {

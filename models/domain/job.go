@@ -100,7 +100,7 @@ func (This *Job) Save() {
 
 	// create log structure for this project
 	filename := fmt.Sprintf("%s.json", This.ID)
-	dir := app.Server.Workspace + "/logs/" + This.ProjectID + "/" + This.TaskID + "/"
+	dir := app.Server.WorkspaceDir + "/logs/" + This.ProjectID + "/" + This.TaskID + "/"
 
 	err = os.MkdirAll(dir, 0777)
 

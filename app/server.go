@@ -9,10 +9,11 @@ import (
 )
 
 type WebServer struct {
-	Router    *gin.Engine
-	Config    *ini.File
-	Host      string
-	Workspace string
+	Router       *gin.Engine
+	Config       *ini.File
+	Host         string
+	WorkspaceDir string
+	ResourcesDir string
 }
 
 var (
@@ -30,7 +31,7 @@ func NewWebServer() *WebServer {
 }
 
 func (This *WebServer) CreateBasicRoutes() {
-	This.Router.Static("/static", "resources/static")
+	This.Router.Static("/static", This.ResourcesDir+"resources/static")
 	log.Println("Router creation : OK")
 }
 
@@ -48,7 +49,8 @@ func (This *WebServer) LoadConfiguration() {
 
 		if err != nil {
 			This.Host = ":8080"
-			This.Workspace = "./"
+			This.WorkspaceDir = "./"
+			This.ResourcesDir = ""
 		} else {
 			{
 				// host
@@ -63,13 +65,24 @@ func (This *WebServer) LoadConfiguration() {
 
 			{
 				// workspace
-				workspace := serverSection.Key("workspace").Value()
+				workspaceDir := serverSection.Key("workspaceDir").Value()
 
-				if workspace == "" {
-					workspace = "./"
+				if workspaceDir == "" {
+					workspaceDir = "./"
 				}
 
-				This.Workspace = workspace
+				This.WorkspaceDir = workspaceDir
+			}
+
+			{
+				// resources dir
+				resourcesDir := serverSection.Key("resourcesDir").Value()
+
+				if resourcesDir == "" {
+					resourcesDir = "./"
+				}
+
+				This.ResourcesDir = resourcesDir
 			}
 		}
 
@@ -81,7 +94,7 @@ func (This *WebServer) LoadConfiguration() {
 
 func (This *WebServer) CreateStructure() {
 	{
-		dir := This.Workspace + "/projects"
+		dir := This.WorkspaceDir + "/projects"
 		err := os.MkdirAll(dir, 0777)
 
 		if err != nil {
@@ -90,7 +103,7 @@ func (This *WebServer) CreateStructure() {
 	}
 
 	{
-		dir := This.Workspace + "/logs"
+		dir := This.WorkspaceDir + "/logs"
 		err := os.MkdirAll(dir, 0777)
 
 		if err != nil {
@@ -98,7 +111,7 @@ func (This *WebServer) CreateStructure() {
 		}
 	}
 
-	log.Printf("Structure created on %v : OK", This.Workspace)
+	log.Printf("Structure created on %v : OK", This.WorkspaceDir)
 }
 
 func (This *WebServer) Start() {

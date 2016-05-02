@@ -69,7 +69,7 @@ func (This *PluginAnko) Process() error {
 		}
 
 		// check for file name
-		file = strings.Replace(file, "${GOCI_WORKSPACE}", app.Server.Workspace, -1)
+		file = strings.Replace(file, "${GOCI_WORKSPACE}", app.Server.WorkspaceDir, -1)
 		file = strings.Trim(file, " ")
 
 		if file == "" {
@@ -123,7 +123,7 @@ func (This *PluginAnko) Process() error {
 		})
 
 		env.Define("JOB_OUTPUT_GROUP_CONSOLE_NAME", JOB_OUTPUT_GROUP_CONSOLE_NAME)
-		env.Define("GOCI_WORKSPACE", app.Server.Workspace)
+		env.Define("GOCI_WORKSPACE", app.Server.WorkspaceDir)
 		env.Define("GOCI_CONFIG", app.Server.Config)
 		env.Define("GOCI_HOST", app.Server.Host)
 

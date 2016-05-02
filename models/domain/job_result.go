@@ -34,7 +34,7 @@ func JobResultGetAllByProjectIdAndTaskId(projectId string, taskId string) (JobRe
 		return nil, errors.New("Task ID is invalid")
 	}
 
-	path := app.Server.Workspace + "/logs/" + projectId + "/" + taskId + "/*.json"
+	path := app.Server.WorkspaceDir + "/logs/" + projectId + "/" + taskId + "/*.json"
 	fileList, err := filepath.Glob(path)
 
 	if err != nil {
