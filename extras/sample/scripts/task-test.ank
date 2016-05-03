@@ -9,6 +9,7 @@ var time = import("time")
 goci.Job.SetProgress(10)
 d, _ = time.ParseDuration("10s")
 time.Sleep(d)
+goci.Job.UpdateDuration()
 
 # append html/string to output
 goci.Job.SetProgress(20)
@@ -26,17 +27,20 @@ goci.Job.SetProgress(30)
 tabName = "Result"
 goci.Job.AppendOutputContentLine(tabName, "<img src='http://placehold.it/350x150'>")
 goci.Job.AppendOutputContentLine(tabName, "This is a new content for a new tab. You can create many tabs you want!")
+goci.Job.UpdateDuration()
 
 # execute anything command line and append results to output
 goci.Job.SetProgress(70)
 cmd = exec.Command("ls", "-lah")
 o = cmd.Run()
+goci.Job.UpdateDuration()
 
 # call functions from GoCI
 goci.Job.SetProgress(80)
 d, _ = time.ParseDuration("10s")
 time.Sleep(d)
 goci.Exec("ls", "-l")
+goci.Job.UpdateDuration()
 
 # set job progress
 goci.Job.SetProgress(100)
