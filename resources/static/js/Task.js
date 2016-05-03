@@ -17,12 +17,9 @@ var Task = new function()
             {
                 var wr = new WebResponse().parse(response);
 
-                if (wr.success)
+                if (!Util.isNullOrUndefined(success))
                 {
-                    if (!Util.isNullOrUndefined(success))
-                    {
-                        success(wr);
-                    }
+                    success(wr);
                 }
             },
             error: function()

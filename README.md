@@ -34,6 +34,10 @@ workspaceDir = YOUR-WORKSPACE-DIRECTORY
 resourcesDir = YOUR-GOPATH-DIRECTORY + /src/github.com/prsolucoes/goci
 ```
 
+# Sample files
+
+I have created a sampleproject file, a sample config file and a sample anko script file. Check it on **extras/sample** directory.
+
 # Starting
 
 1. Execute: go get -u github.com/prsolucoes/goci  
@@ -55,6 +59,8 @@ You can use some make commands to control GoCI service, like start, stop and upd
 
 1. make stop   = it will kill current GoCI process
 2. make update = it will update code from git and install on $GOPATH/bin directory
+3. make deps   = download all dependencies
+4. make format = format all files (use it before make a pull-request)
 
 So if you want start your server for example, you only need call "make start".
 

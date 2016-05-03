@@ -136,8 +136,7 @@ var Util = new function()
 
 		if ($('#' + prefix + 'data').is(':hidden'))
 		{
-		    console.log('#' + prefix + 'data');
-			$('#' + prefix + 'data').show();
+		    $('#' + prefix + 'data').show();
 		}
 
 		$('#' + prefix + 'no-data').hide();
