@@ -16,7 +16,7 @@ const (
 	JOB_STATUS_SUCCESS  = "success"
 	JOB_STATUS_ERROR    = "error"
 
-	JOB_OUTPUT_GROUP_CONSOLE_NAME = "Console"
+	OG_CONSOLE = "Console"
 )
 
 type Job struct {
@@ -58,7 +58,7 @@ func (This *Job) Run() {
 		if err != nil {
 			jobError = true
 
-			This.AppendOutputContentLine(JOB_OUTPUT_GROUP_CONSOLE_NAME, err.Error())
+			This.AppendOutputLine(OG_CONSOLE, err.Error())
 		}
 
 		util.Debugf("Step finished: %v", step.Description)
@@ -146,10 +146,10 @@ func (This *Job) CreateOutputGroup(name string) (*JobResultOutputGroup, error) {
 }
 
 func (This *Job) CreateConsoleOutputGroup(name string, content string) {
-	This.CreateOutputGroup(JOB_OUTPUT_GROUP_CONSOLE_NAME)
+	This.CreateOutputGroup(OG_CONSOLE)
 }
 
-func (This *Job) AppendOutputGroupContent(name string, content string) {
+func (This *Job) AppendOutputContent(name string, content string) {
 	og, err := This.CreateOutputGroup(name)
 
 	if err == nil {
@@ -157,8 +157,8 @@ func (This *Job) AppendOutputGroupContent(name string, content string) {
 	}
 }
 
-func (This *Job) AppendOutputContentLine(name string, contentLine string) {
-	This.AppendOutputGroupContent(name, fmt.Sprintf("<p>%s</p>", contentLine))
+func (This *Job) AppendOutputLine(name string, contentLine string) {
+	This.AppendOutputContent(name, fmt.Sprintf("<p>%s</p>", contentLine))
 }
 
 func (This *Job) UpdateDuration() {

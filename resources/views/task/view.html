@@ -227,7 +227,7 @@
                     }
                     else if (result.status == Job.JOB_STATUS_RUNNING)
                     {
-                        progressClass += " progress-bar progress-bar-warning ";
+                        progressClass += " progress-bar progress-bar-striped progress-bar-warning ";
                     }
                     else if (result.status == Job.JOB_STATUS_SUCCESS)
                     {
@@ -246,7 +246,7 @@
 
                     var progressHTML = '' +
                     '<div class="progress">' +
-                    '    <div class="progress-bar progress-bar-success progress-bar-striped ' + progressClass + '" role="progressbar" aria-valuenow="' + result.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + result.progress + '%" style="min-width: 2em;">' +
+                    '    <div class="' + progressClass + '" role="progressbar" aria-valuenow="' + result.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + result.progress + '%" style="min-width: 2em;">' +
                     '        ' + result.progress + '%' +
                     '    </div>' +
                     '</div>';

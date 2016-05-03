@@ -12,21 +12,24 @@ time.Sleep(d)
 goci.Job.UpdateDuration()
 
 # append html/string to output
+tabName = goci.OG_CONSOLE
+
 goci.Job.SetProgress(20)
-goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "My text!")
-goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "GOCI_WORKSPACE: " + goci.WORKSPACE_DIR)
-goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "GOCI_RESOURCES_DIR: " + goci.RESOURCES_DIR)
-goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "GOCI_HOST: " + goci.HOST)
-goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "JOB ID: " + goci.Job.ID)
-goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "TASK ID: " + goci.Job.TaskID)
-goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "STEP DESC: " + goci.Step.Description)
-goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "STEP INDEX: " + goci.StepIndex)
+goci.Job.AppendOutputLine(tabName, "My text!")
+goci.Job.AppendOutputLine(tabName, "GOCI_WORKSPACE: " + goci.WORKSPACE_DIR)
+goci.Job.AppendOutputLine(tabName, "GOCI_RESOURCES_DIR: " + goci.RESOURCES_DIR)
+goci.Job.AppendOutputLine(tabName, "GOCI_HOST: " + goci.HOST)
+goci.Job.AppendOutputLine(tabName, "JOB ID: " + goci.Job.ID)
+goci.Job.AppendOutputLine(tabName, "TASK ID: " + goci.Job.TaskID)
+goci.Job.AppendOutputLine(tabName, "STEP DESC: " + goci.Step.Description)
+goci.Job.AppendOutputLine(tabName, "STEP INDEX: " + goci.StepIndex)
 
 # create a new tab with any html/text
 goci.Job.SetProgress(30)
 tabName = "Result"
-goci.Job.AppendOutputContentLine(tabName, "<img src='http://placehold.it/350x150'>")
-goci.Job.AppendOutputContentLine(tabName, "This is a new content for a new tab. You can create many tabs you want!")
+
+goci.Job.AppendOutputLine(tabName, "<img src='http://placehold.it/350x150'>")
+goci.Job.AppendOutputLine(tabName, "This is a new content for a new tab. You can create many tabs you want!")
 goci.Job.UpdateDuration()
 
 # execute anything command line and append results to output

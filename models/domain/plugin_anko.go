@@ -56,7 +56,7 @@ func (This *PluginAnko) Init(job *Job, step *ProjectTaskStep, stepIndex int) err
 }
 
 func (This *PluginAnko) Process() error {
-	This.Job.AppendOutputContentLine(JOB_OUTPUT_GROUP_CONSOLE_NAME, This.Step.Description)
+	This.Job.AppendOutputLine(OG_CONSOLE, This.Step.Description)
 
 	// set execution options
 	if len(This.Step.Options) > 0 {
@@ -151,7 +151,7 @@ func (This *PluginAnko) GociExec(command string, params ...string) error {
 		outList := strings.Split(string(out), "\n")
 
 		for _, outListItem := range outList {
-			This.Job.AppendOutputContentLine(JOB_OUTPUT_GROUP_CONSOLE_NAME, outListItem)
+			This.Job.AppendOutputLine(OG_CONSOLE, outListItem)
 		}
 	}
 
@@ -165,7 +165,7 @@ func (This *PluginAnko) GociAnkoImport(env *vm.Env) *vm.Env {
 	m.Define("RESOURCES_DIR", app.Server.ResourcesDir)
 	m.Define("CONFIG", app.Server.Config)
 	m.Define("HOST", app.Server.Host)
-	m.Define("JOB_OUTPUT_GROUP_CONSOLE_NAME", JOB_OUTPUT_GROUP_CONSOLE_NAME)
+	m.Define("OG_CONSOLE", OG_CONSOLE)
 	m.Define("Job", This.Job)
 	m.Define("Step", This.Step)
 	m.Define("StepIndex", This.StepIndex)
