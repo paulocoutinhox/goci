@@ -6,33 +6,37 @@ var os, exec = import("os"), import("os/exec")
 var time = import("time")
 
 # sleep function
-job.SetProgress(10)
+goci.Job.SetProgress(10)
 d, _ = time.ParseDuration("10s")
 time.Sleep(d)
 
 # append html/string to output
-job.SetProgress(20)
-job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "Meu texto!")
-job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "GOCI_WORKSPACE: " + goci.WORKSPACE_DIR)
-job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "GOCI_RESOURCES_DIR: " + goci.RESOURCES_DIR)
-job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "GOCI_HOST: " + goci.HOST)
+goci.Job.SetProgress(20)
+goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "My text!")
+goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "GOCI_WORKSPACE: " + goci.WORKSPACE_DIR)
+goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "GOCI_RESOURCES_DIR: " + goci.RESOURCES_DIR)
+goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "GOCI_HOST: " + goci.HOST)
+goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "JOB ID: " + goci.Job.ID)
+goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "TASK ID: " + goci.Job.TaskID)
+goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "STEP DESC: " + goci.Step.Description)
+goci.Job.AppendOutputContentLine(goci.JOB_OUTPUT_GROUP_CONSOLE_NAME, "STEP INDEX: " + goci.StepIndex)
 
 # create a new tab with any html/text
-job.SetProgress(30)
+goci.Job.SetProgress(30)
 tabName = "Result"
-job.AppendOutputContentLine(tabName, "<img src='http://placehold.it/350x150'>")
-job.AppendOutputContentLine(tabName, "This is a new content for a new tab. You can create many tabs you want!")
+goci.Job.AppendOutputContentLine(tabName, "<img src='http://placehold.it/350x150'>")
+goci.Job.AppendOutputContentLine(tabName, "This is a new content for a new tab. You can create many tabs you want!")
 
 # execute anything command line and append results to output
-job.SetProgress(70)
+goci.Job.SetProgress(70)
 cmd = exec.Command("ls", "-lah")
 o = cmd.Run()
 
 # call functions from GoCI
-job.SetProgress(80)
+goci.Job.SetProgress(80)
 d, _ = time.ParseDuration("10s")
 time.Sleep(d)
 goci.Exec("ls", "-l")
 
 # set job progress
-job.SetProgress(100)
+goci.Job.SetProgress(100)

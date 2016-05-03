@@ -36,8 +36,9 @@
                         <div><strong>Started at:</strong> <span class="ph-project-task-job-last-result-started-at"></span></div>
                         <div><strong>Finished at:</strong> <span class="ph-project-task-job-last-result-finished-at"></span></div>
                         <div><strong>Duration:</strong> <span class="ph-project-task-job-last-result-duration"></span></div>
-                        <div><strong>Progress:</strong> <span class="ph-project-task-job-last-result-progress"></span></div>
                         <div><strong>Status:</strong> <span class="ph-project-task-job-last-result-status"></span></div>
+                        <div>&nbsp;</div>
+                        <div><strong>Progress:</strong> <span class="ph-project-task-job-last-result-progress"></span></div>
                     </div>
                 </div>
             </div>
@@ -218,13 +219,68 @@
 
                     lastResultJobId = currentLastResultJobId;
 
+                    var progressClass = '';
+
+                    if (result.status == Job.JOB_STATUS_ON_QUEUE)
+                    {
+                        progressClass += " progress-bar progress-bar-info ";
+                    }
+                    else if (result.status == Job.JOB_STATUS_RUNNING)
+                    {
+                        progressClass += " progress-bar progress-bar-warning ";
+                    }
+                    else if (result.status == Job.JOB_STATUS_SUCCESS)
+                    {
+                        progressClass += " progress-bar progress-bar-success ";
+                    }
+                    else if (result.status == Job.JOB_STATUS_ERROR)
+                    {
+                        progressClass += " progress-bar progress-bar-danger ";
+                    }
+                    else
+                    {
+                        progressClass += " progress-bar progress-bar-success ";
+                    }
+
+                    progressClass += (result.progress < 100) ? ' active ' : ' ';
+
+                    var progressHTML = '' +
+                    '<div class="progress">' +
+                    '    <div class="progress-bar progress-bar-success progress-bar-striped ' + progressClass + '" role="progressbar" aria-valuenow="' + result.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + result.progress + '%" style="min-width: 2em;">' +
+                    '        ' + result.progress + '%' +
+                    '    </div>' +
+                    '</div>';
+
+                    var statusHTML = '';
+
+                    if (result.status == Job.JOB_STATUS_ON_QUEUE)
+                    {
+                        statusHTML += '<span class="label label-primary">' + result.status + '</span>';
+                    }
+                    else if (result.status == Job.JOB_STATUS_RUNNING)
+                    {
+                        statusHTML += '<span class="label label-warning">' + result.status + '</span>';
+                    }
+                    else if (result.status == Job.JOB_STATUS_SUCCESS)
+                    {
+                        statusHTML += '<span class="label label-success">' + result.status + '</span>';
+                    }
+                    else if (result.status == Job.JOB_STATUS_ERROR)
+                    {
+                        statusHTML += '<span class="label label-danger">' + result.status + '</span>';
+                    }
+                    else
+                    {
+                        statusHTML += '<span class="label label-success">' + result.status + '</span>';
+                    }
+
                     $(".ph-project-task-job-last-result-job-id").html(result.jobId);
                     $(".ph-project-task-job-last-result-created-at").html(Util.unixTimestampToDateTime(result.createdAt));
                     $(".ph-project-task-job-last-result-started-at").html(Util.unixTimestampToDateTime(result.startedAt));
                     $(".ph-project-task-job-last-result-finished-at").html(Util.unixTimestampToDateTime(result.finishedAt));
-                    $(".ph-project-task-job-last-result-duration").html(result.duration);
-                    $(".ph-project-task-job-last-result-progress").html(result.progress);
-                    $(".ph-project-task-job-last-result-status").html(result.status);
+                    $(".ph-project-task-job-last-result-duration").html(result.duration + "s");
+                    $(".ph-project-task-job-last-result-progress").html(progressHTML);
+                    $(".ph-project-task-job-last-result-status").html(statusHTML);
 
                     var tabToActivate = "";
 

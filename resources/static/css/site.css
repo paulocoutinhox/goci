@@ -235,3 +235,7 @@ a.desc:after {
     margin-top: -5px;
     margin-right: 10px;
 }
+
+.ph-project-task-job-last-result-progress .progress {
+    margin-bottom: 0;
+}

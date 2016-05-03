@@ -160,3 +160,8 @@ func (This *Job) AppendOutputGroupContent(name string, content string) {
 func (This *Job) AppendOutputContentLine(name string, contentLine string) {
 	This.AppendOutputGroupContent(name, fmt.Sprintf("<p>%s</p>", contentLine))
 }
+
+func (This *Job) UpdateDuration() {
+	currentTime := time.Now().UTC().Unix()
+	This.Duration = currentTime - This.StartedAt
+}

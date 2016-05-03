@@ -125,10 +125,6 @@ func (This *PluginAnko) Process() error {
 			return err
 		})
 
-		env.Define("job", This.Job)
-		env.Define("step", This.Step)
-		env.Define("stepIndex", This.StepIndex)
-
 		_, err = env.Execute(string(fileContent))
 
 		if err != nil {
@@ -170,5 +166,8 @@ func (This *PluginAnko) GociAnkoImport(env *vm.Env) *vm.Env {
 	m.Define("CONFIG", app.Server.Config)
 	m.Define("HOST", app.Server.Host)
 	m.Define("JOB_OUTPUT_GROUP_CONSOLE_NAME", JOB_OUTPUT_GROUP_CONSOLE_NAME)
+	m.Define("Job", This.Job)
+	m.Define("Step", This.Step)
+	m.Define("StepIndex", This.StepIndex)
 	return m
 }
