@@ -117,8 +117,27 @@
     {
         Task.run(projectId, taskId, function() {
             Util.showProgressWindow();
+        }, function(wr) {
+            Util.hideProgressWindow();
+
+            var errorMessage = null;
+
+        	if (wr.success)
+			{
+			    Util.showSuccessWindow("Your task was added to queue with success");
+			}
+			else
+			{
+				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+			}
+
+			if (errorMessage)
+			{
+				Util.showErrorWindow(errorMessage);
+			}
         }, function() {
-            Util.showSuccessWindow("Your task was added to queue with success");
+            Util.hideProgressWindow();
+            Util.showErrorWindow("An error occurred while processing your request, try again!");
         });
     }
 

@@ -46,44 +46,16 @@ var Task = new function()
             dataType: 'json',
             success: function(response)
             {
-                Util.hideProgressWindow();
-                Task.enableRunButton(taskId);
+                var wr = new WebResponse().parse(response);
 
-                var errorMessage = "";
-
-                if (!Util.isUndefined(response))
+                if (!Util.isNullOrUndefined(success))
                 {
-                    if (response != "" && response != null)
-                    {
-                        if (response.success)
-                        {
-                            if (!Util.isUndefined(success))
-                            {
-                                success();
-                            }
-
-                            return;
-                        }
-                        else
-                        {
-                            errorMessage = Util.getFirstErrorMessage(response.data.errors);
-                        }
-                    }
-                }
-
-                Util.showErrorWindow(errorMessage);
-
-                if (!Util.isUndefined(error))
-                {
-                    error();
+                    success(wr);
                 }
             },
             error: function()
             {
-                Util.hideProgressWindow();
-                Util.showErrorWindow();
-
-                if (!Util.isUndefined(error))
+                if (!Util.isNullOrUndefined(error))
                 {
                     error();
                 }
