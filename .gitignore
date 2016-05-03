@@ -1,6 +1,6 @@
 .DS_Store
 *.iml
 .idea
-config.ini
+/config.ini
 /goci
 extras/sample/logs
