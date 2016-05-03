@@ -5,7 +5,7 @@
     "tasks": [
         {
             "id": "task-test-1",
-            "name": "Task Test 1",
+            "name": "Task Test 1 - ANKO",
             "description": "This is a test task only",
             "steps": [
                 {
@@ -23,7 +23,26 @@
             ]
         },
         {
-            "id": "task-teste-2",
+            "id": "task-test-2",
+            "name": "Task Test 2 - JS",
+            "description": "This is a test task only",
+            "steps": [
+                {
+                    "description": "Executing...",
+                    "plugin": "js",
+                    "options": [
+                        {
+                            "id": "file",
+                            "description": "The JS file to execute",
+                            "type": "text",
+                            "value": "${GOCI_WORKSPACE_DIR}/scripts/task-test2.js"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "task-test-3",
             "name": "Get IFCONFIG data",
             "description": "Get IFCONFIG data from command line",
             "steps": [

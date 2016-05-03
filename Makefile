@@ -41,6 +41,7 @@ deps:
 	${GODEPS} github.com/gin-gonic/gin
 	${GODEPS} github.com/go-ini/ini
 	${GODEPS} github.com/mattn/anko
+	${GODEPS} github.com/robertkrimen/otto
 
 stop:
 	pkill -f ${EXECUTABLE}
