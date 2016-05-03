@@ -9,7 +9,7 @@ import (
 
 var (
 	JobList            []*domain.Job
-	CanRunJobs         bool
+	CanRunJobs bool
 	JobProcessorTicker *time.Ticker
 )
 
@@ -27,7 +27,7 @@ func StartJobProcessor() {
 
 						for i := 0; i < len(JobList); i++ {
 							if JobList[i].ID == job.ID {
-								JobList = append(JobList[:i], JobList[i+1:]...)
+								JobList = append(JobList[:i], JobList[i + 1:]...)
 								break
 							}
 						}
@@ -55,5 +55,23 @@ func JobGetFirstOnQueue() (*domain.Job, error) {
 		}
 	}
 
-	return nil, errors.New("No jobs found")
+	return nil, errors.New("Job was not found")
+}
+
+func JobGetFirstByProjectIdAndTaskId(projectId string, taskId string) (*domain.Job, error) {
+	if JobList == nil {
+		return nil, errors.New("No jobs found")
+	}
+
+	if len(JobList) == 0 {
+		return nil, errors.New("No jobs found")
+	}
+
+	for _, job := range JobList {
+		if job.ProjectID == projectId && job.TaskID == taskId {
+			return job, nil
+		}
+	}
+
+	return nil, errors.New("Job was not found")
 }

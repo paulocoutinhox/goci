@@ -130,8 +130,21 @@ func (This *APIController) APIProjectTaskJobGetLastResult(c *gin.Context) {
 		_, err := domain.TaskGetById(project, taskId)
 
 		if err == nil {
-			result, err := domain.JobResultGetLastByProjectIdAndTaskId(projectId, taskId)
+			// try get the first job on memory
+			var result *domain.JobResult
 
+			job, err := jobs.JobGetFirstByProjectIdAndTaskId(projectId, taskId)
+
+			if err == nil {
+				result, err = domain.JobResultCreateFromJob(job)
+			}
+
+			// try get the result from disk
+			if result == nil {
+				result, err = domain.JobResultGetLastByProjectIdAndTaskId(projectId, taskId)
+			}
+
+			// send response
 			if err == nil {
 				response.Success = true
 				response.Message = ""

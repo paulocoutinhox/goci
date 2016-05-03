@@ -25,12 +25,51 @@
             </div>
         </div>
 
-        <h5>Last job results</h5>
+        <div id="ph-project-task-job-last-result-data" class="hiddenContent">
+            <h5>Last job result</h5>
 
-        <div class="ph-project-task-job-last-result">
-            <ul class="ph-project-task-job-last-result-tabs nav nav-tabs" role="tablist"></ul>
-            <br />
-            <div class="tab-content ph-project-task-job-last-result-tab-contents"></div>
+            <div class="ph-project-task-job-last-result-details">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div><strong>Job:</strong> <span class="ph-project-task-job-last-result-job-id"></span></div>
+                        <div><strong>Created at:</strong> <span class="ph-project-task-job-last-result-created-at"></span></div>
+                        <div><strong>Started at:</strong> <span class="ph-project-task-job-last-result-started-at"></span></div>
+                        <div><strong>Finished at:</strong> <span class="ph-project-task-job-last-result-finished-at"></span></div>
+                        <div><strong>Duration:</strong> <span class="ph-project-task-job-last-result-duration"></span></div>
+                        <div><strong>Progress:</strong> <span class="ph-project-task-job-last-result-progress"></span></div>
+                        <div><strong>Status:</strong> <span class="ph-project-task-job-last-result-status"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul class="ph-project-task-job-last-result-tabs nav nav-tabs" role="tablist"></ul>
+                <br />
+                <div class="tab-content ph-project-task-job-last-result-tab-contents"></div>
+            </div>
+        </div>
+
+        <div id="ph-project-task-job-last-result-no-data" class="hiddenContent">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div>Last job result not found</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ph-project-task-job-last-result-error-data" class="hiddenContent">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Problem while loading last job result</h3>
+                    <p id="ph-project-task-job-last-result-error-data-message"></p>
+                    <button type="button" class="btn btn-primary" onclick="projectTaskJobLastResult()">Try again</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="ph-project-task-job-last-result-loading-data" class="hiddenContent">
+            <div class="panel panel-default">
+                <div class="panel-body">Loading last job result...</div>
+            </div>
         </div>
     </div>
 
@@ -92,7 +131,7 @@
                     Util.showOptionsContainer();
                 }
 
-                projectTaskJobLastResult(projectId, taskId);
+                projectTaskJobLastResult();
 			}
 			else
 			{
@@ -121,85 +160,110 @@
         });
     }
 
-	function projectTaskJobLastResult(projectId, taskId)
+	function projectTaskJobLastResult()
     {
         var projectId = Util.getQueryParam("project");
+        var taskId = Util.getQueryParam("task");
+
         Job.lastResult(projectId, taskId, function() {
-            // progress ?
+            Util.showLoadingData("ph-project-task-job-last-result");
         }, function(wr) {
             var errorMessage = "";
-            var html = "";
-            var result = wr.getDataItem("result");
 
-            if (Util.isNullOrUndefined(result))
+            if (wr.success)
             {
-                $(".ph-project-task-job-last-result-tabs").html("");
-                $(".ph-project-task-job-last-result-tab-contents").html("");
-            }
-            else
-            {
-                var outputGroup = result.outputGroup;
+                var html = "";
+                var result = wr.getDataItem("result");
 
                 if (Util.isNullOrUndefined(result))
-                {
-                     outputGroup = []
-                }
-
-                var currentLastResultJobId = result.jobId;
-
-                if (Job.lastResultJobId != currentLastResultJobId)
                 {
                     $(".ph-project-task-job-last-result-tabs").html("");
                     $(".ph-project-task-job-last-result-tab-contents").html("");
                 }
-
-                lastResultJobId = currentLastResultJobId;
-
-                var tabToActivate = "";
-
-                for (var x = 0; x < outputGroup.length; x++)
+                else
                 {
-                    var outputGroupName = outputGroup[x].name;
-                    var tabId = Util.slugify(outputGroup[x].name);
-                    var outputGroupContent = outputGroup[x].output;
+                    var outputGroup = result.outputGroup;
 
-                    var tabHTML = '' +
-                    '<li role="presentation">' +
-                    '    <a id="tab-' + tabId + '" href="#tab-content-' + tabId + '" aria-controls="tab-content-' + tabId + '" role="tab" data-toggle="tab">' + outputGroupName + '</a>' +
-                    '</li>';
-
-                    var tabContentHTML = '' +
-                    '<div role="tabpanel" class="tab-pane" id="tab-content-' + tabId + '">' +
-                    '    <div class="panel panel-default">' +
-                    '        <div id="tab-content-body-' + tabId + '" class="panel-body"> ' +
-                    '            ' + outputGroupContent +
-                    '        </div>' +
-                    '    </div>' +
-                    '</div>';
-
-                    if ($("#tab-" + tabId).length == 0)
+                    if (Util.isNullOrUndefined(result))
                     {
-                        if (tabToActivate == "")
+                         outputGroup = []
+                    }
+
+                    var currentLastResultJobId = result.jobId;
+
+                    if (Job.lastResultJobId != currentLastResultJobId)
+                    {
+                        $(".ph-project-task-job-last-result-tabs").html("");
+                        $(".ph-project-task-job-last-result-tab-contents").html("");
+                    }
+
+                    lastResultJobId = currentLastResultJobId;
+
+                    $(".ph-project-task-job-last-result-job-id").html(result.jobId);
+                    $(".ph-project-task-job-last-result-created-at").html(Util.unixTimestampToDateTime(result.createdAt));
+                    $(".ph-project-task-job-last-result-started-at").html(Util.unixTimestampToDateTime(result.startedAt));
+                    $(".ph-project-task-job-last-result-finished-at").html(Util.unixTimestampToDateTime(result.finishedAt));
+                    $(".ph-project-task-job-last-result-duration").html(result.duration);
+                    $(".ph-project-task-job-last-result-progress").html(result.progress);
+                    $(".ph-project-task-job-last-result-status").html(result.status);
+
+                    var tabToActivate = "";
+
+                    for (var x = 0; x < outputGroup.length; x++)
+                    {
+                        var outputGroupName = outputGroup[x].name;
+                        var tabId = Util.slugify(outputGroup[x].name);
+                        var outputGroupContent = outputGroup[x].output;
+
+                        var tabHTML = '' +
+                        '<li role="presentation">' +
+                        '    <a id="tab-' + tabId + '" href="#tab-content-' + tabId + '" aria-controls="tab-content-' + tabId + '" role="tab" data-toggle="tab">' + outputGroupName + '</a>' +
+                        '</li>';
+
+                        var tabContentHTML = '' +
+                        '<div role="tabpanel" class="tab-pane" id="tab-content-' + tabId + '">' +
+                        '    <div class="panel panel-default">' +
+                        '        <div id="tab-content-body-' + tabId + '" class="panel-body"> ' +
+                        '            ' + outputGroupContent +
+                        '        </div>' +
+                        '    </div>' +
+                        '</div>';
+
+                        if ($("#tab-" + tabId).length == 0)
                         {
-                            tabToActivate = tabId;
-                        }
+                            if (tabToActivate == "")
+                            {
+                                tabToActivate = tabId;
+                            }
 
-                        $(".ph-project-task-job-last-result-tabs").append(tabHTML);
-                        $(".ph-project-task-job-last-result-tab-contents").append(tabContentHTML);
+                            $(".ph-project-task-job-last-result-tabs").append(tabHTML);
+                            $(".ph-project-task-job-last-result-tab-contents").append(tabContentHTML);
+                        }
+                        else
+                        {
+                            $("#tab-content-body-" + tabId).html(outputGroupContent);
+                        }
                     }
-                    else
-                    {
-                        $("#tab-content-body-" + tabId).html(outputGroupContent);
-                    }
+
+                    $(".ph-project-task-job-last-result-tabs a").click(function (e) {
+                        e.preventDefault();
+                        $(this).tab("show");
+                    });
+
+                    $("#tab-" + tabToActivate).tab("show");
                 }
 
-                $(".ph-project-task-job-last-result-tabs a").click(function (e) {
-                    e.preventDefault();
-                    $(this).tab("show");
-                });
-
-                $("#tab-" + tabToActivate).tab("show");
+                Util.showData("ph-project-task-job-last-result");
             }
+            else
+			{
+				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+			}
+
+			if (errorMessage)
+			{
+				//Util.showErrorData(errorMessage);
+			}
         });
     }
 

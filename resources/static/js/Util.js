@@ -136,6 +136,7 @@ var Util = new function()
 
 		if ($('#' + prefix + 'data').is(':hidden'))
 		{
+		    console.log('#' + prefix + 'data');
 			$('#' + prefix + 'data').show();
 		}
 
@@ -261,6 +262,23 @@ var Util = new function()
         }
 
         return false;
+    }
+
+    this.unixTimestampToDateTime = function(timestamp)
+    {
+        if (this.isNullOrUndefined(timestamp))
+        {
+            return "";
+        }
+
+        if (timestamp <= 0)
+        {
+            return "";
+        }
+
+        var date = new Date(timestamp * 1000);
+        var formatted = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear() + ' - ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        return formatted;
     }
 
 };

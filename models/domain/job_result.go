@@ -93,3 +93,24 @@ func JobResultGetLastByProjectIdAndTaskId(projectId string, taskId string) (*Job
 
 	return nil, errors.New("Job result not found")
 }
+
+func JobResultCreateFromJob(job *Job) (*JobResult, error) {
+	if job == nil {
+		return nil, errors.New("Job is invalid")
+	}
+
+	result := &JobResult{
+		JobID:       job.ID,
+		ProjectId:   job.ProjectID,
+		TaskId:      job.TaskID,
+		CreatedAt:   job.CreatedAt,
+		StartedAt:   job.StartedAt,
+		FinishedAt:  job.FinishedAt,
+		Duration:    job.Duration,
+		Progress:    job.Progress,
+		OutputGroup: job.OutputGroup,
+		Status:      job.Status,
+	}
+
+	return result, nil
+}
