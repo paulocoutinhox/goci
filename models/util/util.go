@@ -3,6 +3,7 @@ package util
 import (
 	"fmt"
 	"github.com/pborman/uuid"
+	"github.com/prsolucoes/goci/app"
 	"html/template"
 	"log"
 	"net/http"
@@ -17,7 +18,7 @@ func Debugf(format string, params ...interface{}) {
 }
 
 func RenderTemplate(w http.ResponseWriter, templateName string, params map[string]string) {
-	tmpl := template.Must(template.ParseFiles("resources/views/layouts/layout.html", "resources/views/"+templateName+".html"))
+	tmpl := template.Must(template.ParseFiles(app.Server.ResourcesDir+"/resources/views/layouts/layout.html", "resources/views/"+templateName+".html"))
 	tmpl.ExecuteTemplate(w, "layout", params)
 }
 

@@ -9,7 +9,7 @@ import (
 
 var (
 	JobList            []*domain.Job
-	CanRunJobs bool
+	CanRunJobs         bool
 	JobProcessorTicker *time.Ticker
 )
 
@@ -27,7 +27,7 @@ func StartJobProcessor() {
 
 						for i := 0; i < len(JobList); i++ {
 							if JobList[i].ID == job.ID {
-								JobList = append(JobList[:i], JobList[i + 1:]...)
+								JobList = append(JobList[:i], JobList[i+1:]...)
 								break
 							}
 						}
