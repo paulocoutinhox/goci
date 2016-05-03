@@ -18,7 +18,7 @@ func Debugf(format string, params ...interface{}) {
 }
 
 func RenderTemplate(w http.ResponseWriter, templateName string, params map[string]string) {
-	tmpl := template.Must(template.ParseFiles(app.Server.ResourcesDir+"/views/layouts/layout.html", "resources/views/"+templateName+".html"))
+	tmpl := template.Must(template.ParseFiles(app.Server.ResourcesDir+"/views/layouts/layout.html", app.Server.ResourcesDir+"/views/"+templateName+".html"))
 	tmpl.ExecuteTemplate(w, "layout", params)
 }
 
