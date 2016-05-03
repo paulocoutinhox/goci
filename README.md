@@ -3,14 +3,14 @@
 
 # GoCI
 
-GoCI is a simple continuous integration system made with Go (Golang).
+GoCI was made to be a simple continuous integration system made with Go (Golang).
 
-It use a simple plugin mechanism that let you use some different plugins to execute tasks. Today we have two main plugins:
-CLI = Execute anything from command line
-Anko = Execute anko scripts (like go - but in external script file - https://github.com/mattn/anko)
-
+It use a simple plugin mechanism that let you use some different plugins to execute tasks. Today we have two main plugins:  
+- CLI = Execute anything from command line  
+- Anko = Execute anko scripts (like go - but in external script file - https://github.com/mattn/anko)  
+  
 Some project advantages:
-- With anko script you can create scripts that have logic, http request, regexp, command line execution, json parser and more - dont need use bash script
+- With anko script you can create scripts that have logic, http request, regexp, command line execution, json parser and more - dont need use bash script (https://github.com/mattn/anko)
 - Everything is a simples JSON file - yes, you dont need one database!
 - From project to results - you can versioning everything if you want
 - You dont need reload the server for nothing - unless a crash or bug :)
