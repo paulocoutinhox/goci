@@ -142,7 +142,12 @@ func (This *PluginAnko) Process() error {
 }
 
 func (This *PluginAnko) GociExec(command string, params ...string) error {
+	return This.GociExecOnDir("", command, params...)
+}
+
+func (This *PluginAnko) GociExecOnDir(dir string, command string, params ...string) error {
 	cmd := exec.Command(command, params...)
+	cmd.Dir = dir
 	out, err := cmd.Output()
 
 	if err != nil {
@@ -161,6 +166,7 @@ func (This *PluginAnko) GociExec(command string, params ...string) error {
 func (This *PluginAnko) GociAnkoImport(env *vm.Env) *vm.Env {
 	m := env.NewPackage("goci")
 	m.Define("Exec", This.GociExec)
+	m.Define("ExecOnDir", This.GociExecOnDir)
 	m.Define("WORKSPACE_DIR", app.Server.WorkspaceDir)
 	m.Define("RESOURCES_DIR", app.Server.ResourcesDir)
 	m.Define("CONFIG", app.Server.Config)
