@@ -36,7 +36,7 @@ resourcesDir = YOUR-GOPATH-DIRECTORY + /src/github.com/prsolucoes/goci
 
 # Sample files
 
-I have created a sampleproject file, a sample config file and a sample anko script file. Check it on **extras/sample** directory.
+I have created a sample project file, a sample config file and a sample anko script file. Check it on **extras/sample** directory.
 
 # Starting
 
@@ -51,7 +51,7 @@ I have created a sampleproject file, a sample config file and a sample anko scri
 # API
 
 **Check file: controllers/api.go**  
-[TODO]  
+Today we dont have a API doc - but is simple looking code [TODO]  
 
 # Command line interface
 
