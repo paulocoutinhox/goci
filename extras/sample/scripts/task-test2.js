@@ -1,34 +1,30 @@
-console.log("Task test 2 :)");
-
 // sleep function
 goci.Job.SetProgress(10);
-// time.Sleep(10s)
+time.SleepDuration("10s");
 goci.Job.UpdateDuration();
 
 // append html/string to output
-var tabName = goci.OG_CONSOLE;
+var tabName = goci.const.OG_CONSOLE;
 
 goci.Job.SetProgress(20);
 goci.Job.AppendOutputLine(tabName, "My text!")
-goci.Job.AppendOutputLine(tabName, "GOCI_WORKSPACE: " + goci.WORKSPACE_DIR);
-goci.Job.AppendOutputLine(tabName, "GOCI_RESOURCES_DIR: " + goci.RESOURCES_DIR);
-goci.Job.AppendOutputLine(tabName, "GOCI_HOST: " + goci.HOST);
+goci.Job.AppendOutputLine(tabName, "GOCI_WORKSPACE: " + goci.const.WORKSPACE_DIR);
+goci.Job.AppendOutputLine(tabName, "GOCI_RESOURCES_DIR: " + goci.const.RESOURCES_DIR);
+goci.Job.AppendOutputLine(tabName, "GOCI_HOST: " + goci.const.HOST);
 goci.Job.AppendOutputLine(tabName, "JOB ID: " + goci.Job.ID);
 goci.Job.AppendOutputLine(tabName, "TASK ID: " + goci.Job.TaskID);
 goci.Job.AppendOutputLine(tabName, "STEP DESC: " + goci.Step.Description);
 goci.Job.AppendOutputLine(tabName, "STEP INDEX: " + goci.StepIndex);
+goci.Job.AppendOutputLine(tabName, "OS HOME DIR: " + os.Getenv("HOME"));
 
 // http functions - get
 goci.Job.AppendOutputLine(tabName, "Getting HTTP content using GET...");
-var r = http.Get("https://httpbin.org/ip", "", "", "", "", "", "", "", "");
-var b = ioutil.ReadAll(r[0].Body)
-
-try {
-    console.log(goci.ByteArrayToString(b[0], "aaa"));
-} catch (e) {
-    console.log("ERROR!!! " + e);
-}
-
+var r = net.http.Get("https://httpbin.org/ip");
+var b = ioutil.ReadAll(r[0].Body);
+var cBytes = b[0];
+var cString = converter.ByteArrayToString(cBytes);
+goci.Job.AppendOutputLine(tabName, cString);
+ioutil.WriteFile("/tmp/test.txt", cBytes, 0777);
 
 // http functions - post
 //goci.Job.AppendOutputLine(tabName, "Getting HTTP content using POST...");
@@ -50,7 +46,7 @@ goci.Job.UpdateDuration();
 
 // call functions from GoCI
 goci.Job.SetProgress(80);
-// time.Sleep 10s
+time.SleepDuration("10s");
 goci.Exec("ls", "-l");
 goci.Job.UpdateDuration();
 
