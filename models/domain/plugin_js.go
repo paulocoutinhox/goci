@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"strings"
 	"time"
+	"net/http"
 )
 
 const (
@@ -66,6 +67,7 @@ func (This *PluginJS) Process() error {
 
 		// define variables, functions and execute file content
 		vm := otto.New()
+		vm = This.GoCIJSImport(vm)
 		_, err = vm.Run(string(fileContent))
 
 		if err != nil {
@@ -105,5 +107,34 @@ func (This *PluginJS) GoCIExecOnDir(dir string, command string, params ...string
 }
 
 func (This *PluginJS) GoCIJSImport(vm *otto.Otto) *otto.Otto {
+	vm.Set("goci", map[string]interface{}{
+		"Job": This.Job,
+		"Step": This.Step,
+		"StepIndex": This.StepIndex,
+		"OG_CONSOLE": OG_CONSOLE,
+		"WORKSPACE_DIR": app.Server.WorkspaceDir,
+		"RESOURCES_DIR": app.Server.ResourcesDir,
+		"CONFIG": app.Server.Config,
+		"HOST": app.Server.Host,
+		"Exec": This.GoCIExec,
+		"ExecOnDir": This.GoCIExecOnDir,
+		"ByteArrayToString": func (a []byte) string {
+			return string(a)
+		},
+	})
+
+	vm.Set("http", map[string]interface{}{
+		"Get": http.Get,
+		"Post": http.Post,
+		"PostForm": http.PostForm,
+		"NewRequest": http.NewRequest,
+	})
+
+	vm.Set("ioutil", map[string]interface{}{
+		"ReadAll": ioutil.ReadAll,
+		"ReadDir": ioutil.ReadDir,
+		"ReadFile": ioutil.ReadFile,
+	})
+
 	return vm
 }

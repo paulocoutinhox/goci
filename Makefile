@@ -27,6 +27,7 @@ format:
 	${GOFMT} models/domain/plugin_anko.go
 	${GOFMT} models/domain/plugin_cli.go
 	${GOFMT} models/domain/plugin_interface.go
+	${GOFMT} models/domain/plugin_js.go
 	${GOFMT} models/domain/plugin_manager.go
 	${GOFMT} models/domain/project.go
 	${GOFMT} models/domain/project_task.go

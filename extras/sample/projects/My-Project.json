@@ -5,7 +5,7 @@
     "tasks": [
         {
             "id": "task-test-1",
-            "name": "Task Test 1 - ANKO",
+            "name": "Test 1 - ANKO",
             "description": "This is a test task only",
             "steps": [
                 {
@@ -24,7 +24,7 @@
         },
         {
             "id": "task-test-2",
-            "name": "Task Test 2 - JS",
+            "name": "Test 2 - JS",
             "description": "This is a test task only",
             "steps": [
                 {
