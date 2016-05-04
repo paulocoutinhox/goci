@@ -4,33 +4,17 @@ import (
 	"errors"
 	"fmt"
 	anko_core "github.com/mattn/anko/builtins"
-	anko_encoding_json "github.com/mattn/anko/builtins/encoding/json"
-	anko_flag "github.com/mattn/anko/builtins/flag"
-	anko_fmt "github.com/mattn/anko/builtins/fmt"
-	anko_io "github.com/mattn/anko/builtins/io"
-	anko_io_ioutil "github.com/mattn/anko/builtins/io/ioutil"
-	anko_math "github.com/mattn/anko/builtins/math"
-	anko_math_rand "github.com/mattn/anko/builtins/math/rand"
-	anko_net "github.com/mattn/anko/builtins/net"
-	anko_net_http "github.com/mattn/anko/builtins/net/http"
-	anko_net_url "github.com/mattn/anko/builtins/net/url"
-	anko_os "github.com/mattn/anko/builtins/os"
-	anko_os_exec "github.com/mattn/anko/builtins/os/exec"
-	anko_os_signal "github.com/mattn/anko/builtins/os/signal"
-	anko_path "github.com/mattn/anko/builtins/path"
-	anko_path_filepath "github.com/mattn/anko/builtins/path/filepath"
-	anko_regexp "github.com/mattn/anko/builtins/regexp"
-	anko_runtime "github.com/mattn/anko/builtins/runtime"
-	anko_sort "github.com/mattn/anko/builtins/sort"
-	anko_strings "github.com/mattn/anko/builtins/strings"
-	anko_time "github.com/mattn/anko/builtins/time"
 	"github.com/mattn/anko/vm"
 	"github.com/prsolucoes/goci/app"
+	"github.com/prsolucoes/goci/lib/ioutil"
+	"github.com/prsolucoes/goci/lib/net/http"
+	"github.com/prsolucoes/goci/lib/os"
+	"github.com/prsolucoes/goci/lib/time"
 	"github.com/prsolucoes/goci/models/util"
-	"io/ioutil"
+	goioutil "io/ioutil"
 	"os/exec"
 	"strings"
-	"time"
+	gtime "time"
 )
 
 const (
@@ -79,7 +63,7 @@ func (This *PluginAnko) Process() error {
 		}
 
 		// check for file content
-		fileContent, err := ioutil.ReadFile(file)
+		fileContent, err := goioutil.ReadFile(file)
 
 		if err != nil {
 			util.Debugf("Step executed with error: %v", err.Error())
@@ -91,27 +75,13 @@ func (This *PluginAnko) Process() error {
 		anko_core.Import(env)
 
 		pkgs := map[string]func(env *vm.Env) *vm.Env{
-			"encoding/json": anko_encoding_json.Import,
-			"flag":          anko_flag.Import,
-			"fmt":           anko_fmt.Import,
-			"io":            anko_io.Import,
-			"io/ioutil":     anko_io_ioutil.Import,
-			"math":          anko_math.Import,
-			"math/rand":     anko_math_rand.Import,
-			"net":           anko_net.Import,
-			"net/http":      anko_net_http.Import,
-			"net/url":       anko_net_url.Import,
-			"os":            anko_os.Import,
-			"os/exec":       anko_os_exec.Import,
-			"os/signal":     anko_os_signal.Import,
-			"path":          anko_path.Import,
-			"path/filepath": anko_path_filepath.Import,
-			"regexp":        anko_regexp.Import,
-			"runtime":       anko_runtime.Import,
-			"sort":          anko_sort.Import,
-			"strings":       anko_strings.Import,
-			"time":          anko_time.Import,
-			"goci":          This.GociAnkoImport,
+			"goci":       This.LibGoCIImport,
+			"goci/const": This.LibGoCIConstantsImport,
+			"goci/exec":  This.LibGoCIExecImport,
+			"ioutil":     This.LibIoUtilImport,
+			"net/http":   This.LibNetHttpImport,
+			"os":         This.LibOSImport,
+			"time":       This.LibTimeImport,
 		}
 
 		env.Define("import", func(s string) interface{} {
@@ -134,18 +104,18 @@ func (This *PluginAnko) Process() error {
 	}
 
 	// save step result
-	stepFinishedAt := time.Now().UTC().Unix()
+	stepFinishedAt := gtime.Now().UTC().Unix()
 	This.Job.Duration = stepFinishedAt - This.Job.StartedAt
 	This.Job.Save()
 
 	return nil
 }
 
-func (This *PluginAnko) GociExec(command string, params ...string) error {
-	return This.GociExecOnDir("", command, params...)
+func (This *PluginAnko) GoCIExec(command string, params ...string) error {
+	return This.GoCIExecOnDir("", command, params...)
 }
 
-func (This *PluginAnko) GociExecOnDir(dir string, command string, params ...string) error {
+func (This *PluginAnko) GoCIExecOnDir(dir string, command string, params ...string) error {
 	cmd := exec.Command(command, params...)
 	cmd.Dir = dir
 	out, err := cmd.Output()
@@ -163,17 +133,56 @@ func (This *PluginAnko) GociExecOnDir(dir string, command string, params ...stri
 	return nil
 }
 
-func (This *PluginAnko) GociAnkoImport(env *vm.Env) *vm.Env {
+func (This *PluginAnko) LibGoCIImport(env *vm.Env) *vm.Env {
 	m := env.NewPackage("goci")
-	m.Define("Exec", This.GociExec)
-	m.Define("ExecOnDir", This.GociExecOnDir)
+	m.Define("Job", This.Job)
+	m.Define("Step", This.Step)
+	m.Define("StepIndex", This.StepIndex)
+	return m
+}
+
+func (This *PluginAnko) LibGoCIConstantsImport(env *vm.Env) *vm.Env {
+	m := env.NewPackage("goci/const")
 	m.Define("WORKSPACE_DIR", app.Server.WorkspaceDir)
 	m.Define("RESOURCES_DIR", app.Server.ResourcesDir)
 	m.Define("CONFIG", app.Server.Config)
 	m.Define("HOST", app.Server.Host)
 	m.Define("OG_CONSOLE", OG_CONSOLE)
-	m.Define("Job", This.Job)
-	m.Define("Step", This.Step)
-	m.Define("StepIndex", This.StepIndex)
+	return m
+}
+
+func (This *PluginAnko) LibGoCIExecImport(env *vm.Env) *vm.Env {
+	m := env.NewPackage("goci/exec")
+	m.Define("Exec", This.GoCIExec)
+	m.Define("ExecOnDir", This.GoCIExecOnDir)
+	return m
+}
+
+func (This *PluginAnko) LibNetHttpImport(env *vm.Env) *vm.Env {
+	m := env.NewPackage("net/http")
+	m.Define("Get", http.Lib_Net_Http_Get)
+	return m
+}
+
+func (This *PluginAnko) LibIoUtilImport(env *vm.Env) *vm.Env {
+	m := env.NewPackage("ioutil")
+	m.Define("ReadFile", ioutil.Lib_IoUtil_ReadFile)
+	m.Define("WriteFile", ioutil.Lib_IoUtil_WriteFile)
+	return m
+}
+
+func (This *PluginAnko) LibOSImport(env *vm.Env) *vm.Env {
+	m := env.NewPackage("os")
+	m.Define("Getenv", os.Lib_OS_Getenv)
+	m.Define("Mkdir", os.Lib_OS_Mkdir)
+	m.Define("MkdirAll", os.Lib_OS_MkdirAll)
+	m.Define("Remove", os.Lib_OS_Remove)
+	m.Define("RemoveAll", os.Lib_OS_RemoveAll)
+	return m
+}
+
+func (This *PluginAnko) LibTimeImport(env *vm.Env) *vm.Env {
+	m := env.NewPackage("time")
+	m.Define("Sleep", time.Lib_Time_Sleep)
 	return m
 }
