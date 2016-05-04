@@ -20,7 +20,7 @@ goci.Job.AppendOutputLine(tabName, "STEP INDEX: " + goci.StepIndex);
 
 // http functions - get
 goci.Job.AppendOutputLine(tabName, "Getting HTTP content using GET...");
-var r = http.Get("https://httpbin.org/ip");
+var r = http.Get("https://httpbin.org/ip", "", "", "", "", "", "", "", "");
 var b = ioutil.ReadAll(r[0].Body)
 
 try {
