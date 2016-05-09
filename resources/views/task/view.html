@@ -1,354 +1,319 @@
 {{define "content"}}
 <div class="project-view">
 
-    <!-- OPTIONS -->
-    <div id="options-container" class="panel panel-default hiddenContent">
-        <div class="panel-body">
-            <h3 class="options-container-title">Task <span class="ph-project-task-name"></span></h3>
-            <button type="button" class="btn btn-primary ph-project-task-run-button"
-                    onclick="projectTaskRun(Util.getQueryParam('task'))">Run
-            </button>
-            <button type="button" class="btn btn-success" onclick="load()">Refresh</button>
-            <button type="button" class="btn btn-default" onclick="back()">Back</button>
-        </div>
-    </div>
+	<!-- OPTIONS -->
+	<div id="options-container" class="panel panel-default hiddenContent">
+		<div class="panel-body">
+			<h3 class="options-container-title">Task <span class="ph-project-task-name"></span></h3>
+			<button type="button" class="btn btn-primary ph-project-task-run-button" onclick="projectTaskRun(Util.getQueryParam('task'))">Run</button>
+			<button type="button" class="btn btn-success" onclick="load()">Refresh</button>
+			<button type="button" class="btn btn-default" onclick="back()">Back</button>
+		</div>
+	</div>
 
-    <!-- DATA -->
-    <div id="data">
-        <h5>Details</h5>
+	<!-- DATA -->
+	<div id="data">
+		<h5>Details</h5>
 
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div><strong>Name:</strong> <span class="ph-project-task-name"></span></div>
-                <div><strong>Description:</strong> <span class="ph-project-task-description"></span></div>
-                <div><strong>Steps:</strong> <span class="ph-project-task-steps-num"></span></div>
-            </div>
-        </div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div><strong>Name:</strong> <span class="ph-project-task-name"></span></div>
+				<div><strong>Description:</strong> <span class="ph-project-task-description"></span></div>
+				<div><strong>Steps:</strong> <span class="ph-project-task-steps-num"></span></div>
+			</div>
+		</div>
 
-        <div id="ph-project-task-job-last-result-data" class="hiddenContent">
-            <h5>Last job result</h5>
+		<div id="ph-project-task-job-last-result-data" class="hiddenContent">
+			<h5>Last job result</h5>
 
-            <div class="ph-project-task-job-last-result-details">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div><strong>Job:</strong> <span class="ph-project-task-job-last-result-job-id"></span></div>
-                        <div><strong>Created at:</strong> <span class="ph-project-task-job-last-result-created-at"></span></div>
-                        <div><strong>Started at:</strong> <span class="ph-project-task-job-last-result-started-at"></span></div>
-                        <div><strong>Finished at:</strong> <span class="ph-project-task-job-last-result-finished-at"></span></div>
-                        <div><strong>Duration:</strong> <span class="ph-project-task-job-last-result-duration"></span></div>
-                        <div><strong>Status:</strong> <span class="ph-project-task-job-last-result-status"></span></div>
-                        <div>&nbsp;</div>
-                        <div><strong>Progress:</strong> <span class="ph-project-task-job-last-result-progress"></span></div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <ul class="ph-project-task-job-last-result-tabs nav nav-tabs" role="tablist"></ul>
-                <br />
-                <div class="tab-content ph-project-task-job-last-result-tab-contents"></div>
-            </div>
-        </div>
+			<div class="ph-project-task-job-last-result-details">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div><strong>Job:</strong> <span class="ph-project-task-job-last-result-job-id"></span></div>
+						<div><strong>Created at:</strong>
+							<span class="ph-project-task-job-last-result-created-at"></span></div>
+						<div><strong>Started at:</strong>
+							<span class="ph-project-task-job-last-result-started-at"></span></div>
+						<div><strong>Finished at:</strong>
+							<span class="ph-project-task-job-last-result-finished-at"></span></div>
+						<div><strong>Duration:</strong> <span class="ph-project-task-job-last-result-duration"></span>
+						</div>
+						<div><strong>Status:</strong> <span class="ph-project-task-job-last-result-status"></span></div>
+						<div>&nbsp;</div>
+						<div><strong>Progress:</strong> <span class="ph-project-task-job-last-result-progress"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<ul class="ph-project-task-job-last-result-tabs nav nav-tabs" role="tablist"></ul>
+				<br/>
+				<div class="tab-content ph-project-task-job-last-result-tab-contents"></div>
+			</div>
+		</div>
 
-        <div id="ph-project-task-job-last-result-no-data" class="hiddenContent">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div>Last job result not found</div>
-                </div>
-            </div>
-        </div>
+		<div id="ph-project-task-job-last-result-no-data" class="hiddenContent">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>Last job result not found</div>
+				</div>
+			</div>
+		</div>
 
-        <div id="ph-project-task-job-last-result-error-data" class="hiddenContent">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h3>Problem while loading last job result</h3>
-                    <p id="ph-project-task-job-last-result-error-data-message"></p>
-                    <button type="button" class="btn btn-primary" onclick="projectTaskJobLastResult()">Try again</button>
-                </div>
-            </div>
-        </div>
+		<div id="ph-project-task-job-last-result-error-data" class="hiddenContent">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h3>Problem while loading last job result</h3>
+					<p id="ph-project-task-job-last-result-error-data-message"></p>
+					<button type="button" class="btn btn-primary" onclick="projectTaskJobLastResult()">Try again</button>
+				</div>
+			</div>
+		</div>
 
-        <div id="ph-project-task-job-last-result-loading-data" class="hiddenContent">
-            <div class="panel panel-default">
-                <div class="panel-body">Loading last job result...</div>
-            </div>
-        </div>
-    </div>
+		<div id="ph-project-task-job-last-result-loading-data" class="hiddenContent">
+			<div class="panel panel-default">
+				<div class="panel-body">Loading last job result...</div>
+			</div>
+		</div>
+	</div>
 
-    <div id="no-data">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div>Task not found</div>
-            </div>
-        </div>
-    </div>
+	<div id="no-data">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div>Task not found</div>
+			</div>
+		</div>
+	</div>
 
-    <div id="error-data">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3>Problem while loading task</h3>
-                <p id="error-data-message"></p>
-                <button type="button" class="btn btn-primary" onclick="back()">Back</button>
-            </div>
-        </div>
-    </div>
+	<div id="error-data">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h3>Problem while loading task</h3>
+				<p id="error-data-message"></p>
+				<button type="button" class="btn btn-primary" onclick="back()">Back</button>
+			</div>
+		</div>
+	</div>
 
-    <div id="loading-data">
-        <div class="panel panel-default">
-            <div class="panel-body">Loading...</div>
-        </div>
-    </div>
+	<div id="loading-data">
+		<div class="panel panel-default">
+			<div class="panel-body">Loading...</div>
+		</div>
+	</div>
 
 </div>
 
 <!-- STARTUP -->
 <script>
-    var lastResultJobId = "";
+	var lastResultJobId = "";
 
-    function load()
-    {
-        var projectId = Util.getQueryParam("project");
-        var taskId = Util.getQueryParam("task");
+	function load() {
+		var projectId = Util.getQueryParam("project");
+		var taskId = Util.getQueryParam("task");
 
-        Task.view(projectId, taskId, function() {
-            Util.showLoadingData();
-        }, function(wr) {
-            var errorMessage = null;
+		Task.view(projectId, taskId, function () {
+			Util.showLoadingData();
+		}, function (wr) {
+			var errorMessage = null;
 
-        	if (wr.success)
-			{
-			    var task = wr.getDataItem("task");
+			if (wr.success) {
+				var task = wr.getDataItem("task");
 
-                if (Util.isNullOrUndefined(task))
-                {
-                    errorMessage = "Task data is invalid";
-                }
-                else
-                {
-                    $('.ph-project-task-name').html(task.name);
-                    $('.ph-project-task-description').html(task.description);
-                    $('.ph-project-task-steps-num').html(task.steps.length);
+				if (Util.isNullOrUndefined(task)) {
+					errorMessage = "Task data is invalid";
+				} else {
+					$('.ph-project-task-name').html(task.name);
+					$('.ph-project-task-description').html(task.description);
+					$('.ph-project-task-steps-num').html(task.steps.length);
 
-                    Util.showData();
-                    Util.showOptionsContainer();
-                }
+					Util.showData();
+					Util.showOptionsContainer();
+				}
 
-                projectTaskJobLastResult();
-			}
-			else
-			{
+				projectTaskJobLastResult();
+			} else {
 				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
 			}
 
-			if (errorMessage)
-			{
+			if (errorMessage) {
 				Util.showErrorData(errorMessage);
 			}
 
 			Util.showOptionsContainer();
-		}, function() {
-            Util.showErrorData("An error occurred while processing your request, try again!");
+		}, function () {
+			Util.showErrorData("An error occurred while processing your request, try again!");
 		});
-    }
+	}
 
-	function projectTaskRun(taskId)
-    {
-        var projectId = Util.getQueryParam("project");
+	function projectTaskRun(taskId) {
+		var projectId = Util.getQueryParam("project");
 
-        Task.run(projectId, taskId, function() {
-            Util.showProgressWindow();
-        }, function(wr) {
-            Util.hideProgressWindow();
+		Task.run(projectId, taskId, function () {
+			Util.showProgressWindow();
+		}, function (wr) {
+			Util.hideProgressWindow();
 
-            var errorMessage = null;
+			var errorMessage = null;
 
-        	if (wr.success)
-			{
-			    Util.showSuccessWindow("Your task was added to queue with success");
-			}
-			else
-			{
+			if (wr.success) {
+				Util.showSuccessWindow("Your task was added to queue with success");
+			} else {
 				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
 			}
 
-			if (errorMessage)
-			{
+			if (errorMessage) {
 				Util.showErrorWindow(errorMessage);
 			}
-        }, function() {
-            Util.hideProgressWindow();
-            Util.showErrorWindow("An error occurred while processing your request, try again!");
-        });
-    }
+		}, function () {
+			Util.hideProgressWindow();
+			Util.showErrorWindow("An error occurred while processing your request, try again!");
+		});
+	}
 
-	function projectTaskJobLastResult()
-    {
-        var projectId = Util.getQueryParam("project");
-        var taskId = Util.getQueryParam("task");
+	function projectTaskJobLastResult() {
+		var projectId = Util.getQueryParam("project");
+		var taskId = Util.getQueryParam("task");
 
-        Job.lastResult(projectId, taskId, function() {
-            Util.showLoadingData("ph-project-task-job-last-result");
-        }, function(wr) {
-            var errorMessage = "";
+		Job.lastResult(projectId, taskId, function () {
+			if (lastResultJobId == '') {
+				Util.showLoadingData("ph-project-task-job-last-result");
+			}
+		}, function (wr) {
+			var errorMessage = "";
 
-            if (wr.success)
-            {
-                var html = "";
-                var result = wr.getDataItem("result");
+			if (wr.success) {
+				var result = wr.getDataItem("result");
 
-                if (Util.isNullOrUndefined(result))
-                {
-                    $(".ph-project-task-job-last-result-tabs").html("");
-                    $(".ph-project-task-job-last-result-tab-contents").html("");
-                }
-                else
-                {
-                    var outputGroup = result.outputGroup;
+				if (Util.isNullOrUndefined(result)) {
+					$(".ph-project-task-job-last-result-tabs").html("");
+					$(".ph-project-task-job-last-result-tab-contents").html("");
+				} else {
+					var outputGroup = result.outputGroup;
 
-                    if (Util.isNullOrUndefined(result))
-                    {
-                         outputGroup = []
-                    }
+					if (Util.isNullOrUndefined(result)) {
+						outputGroup = []
+					}
 
-                    var currentLastResultJobId = result.jobId;
+					var currentLastResultJobId = result.jobId;
 
-                    if (Job.lastResultJobId != currentLastResultJobId)
-                    {
-                        $(".ph-project-task-job-last-result-tabs").html("");
-                        $(".ph-project-task-job-last-result-tab-contents").html("");
-                    }
+					if (Job.lastResultJobId != currentLastResultJobId) {
+						$(".ph-project-task-job-last-result-tabs").html("");
+						$(".ph-project-task-job-last-result-tab-contents").html("");
+					}
 
-                    lastResultJobId = currentLastResultJobId;
+					lastResultJobId = currentLastResultJobId;
 
-                    var progressClass = '';
+					var progressClass = '';
 
-                    if (result.status == Job.JOB_STATUS_ON_QUEUE)
-                    {
-                        progressClass += " progress-bar progress-bar-info ";
-                    }
-                    else if (result.status == Job.JOB_STATUS_RUNNING)
-                    {
-                        progressClass += " progress-bar progress-bar-striped progress-bar-warning ";
-                    }
-                    else if (result.status == Job.JOB_STATUS_SUCCESS)
-                    {
-                        progressClass += " progress-bar progress-bar-success ";
-                    }
-                    else if (result.status == Job.JOB_STATUS_ERROR)
-                    {
-                        progressClass += " progress-bar progress-bar-danger ";
-                    }
-                    else
-                    {
-                        progressClass += " progress-bar progress-bar-success ";
-                    }
+					if (result.status == Job.JOB_STATUS_ON_QUEUE) {
+						progressClass += " progress-bar progress-bar-info ";
+					} else if (result.status == Job.JOB_STATUS_RUNNING) {
+						progressClass += " progress-bar progress-bar-striped progress-bar-warning ";
+					} else if (result.status == Job.JOB_STATUS_SUCCESS) {
+						progressClass += " progress-bar progress-bar-success ";
+					} else if (result.status == Job.JOB_STATUS_ERROR) {
+						progressClass += " progress-bar progress-bar-danger ";
+					} else {
+						progressClass += " progress-bar progress-bar-success ";
+					}
 
-                    progressClass += (result.progress < 100) ? ' active ' : ' ';
+					progressClass += (result.progress < 100) ? ' active ' : ' ';
 
-                    var progressHTML = '' +
-                    '<div class="progress">' +
-                    '    <div class="' + progressClass + '" role="progressbar" aria-valuenow="' + result.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + result.progress + '%" style="min-width: 2em;">' +
-                    '        ' + result.progress + '%' +
-                    '    </div>' +
-                    '</div>';
+					var progressHTML = '' +
+						'<div class="progress">' +
+						'    <div class="' + progressClass + '" role="progressbar" aria-valuenow="' + result.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + result.progress + '%" style="min-width: 2em;">' +
+						'        ' + result.progress + '%' +
+						'    </div>' +
+						'</div>';
 
-                    var statusHTML = '';
+					var statusHTML = '';
 
-                    if (result.status == Job.JOB_STATUS_ON_QUEUE)
-                    {
-                        statusHTML += '<span class="label label-primary">' + result.status + '</span>';
-                    }
-                    else if (result.status == Job.JOB_STATUS_RUNNING)
-                    {
-                        statusHTML += '<span class="label label-warning">' + result.status + '</span>';
-                    }
-                    else if (result.status == Job.JOB_STATUS_SUCCESS)
-                    {
-                        statusHTML += '<span class="label label-success">' + result.status + '</span>';
-                    }
-                    else if (result.status == Job.JOB_STATUS_ERROR)
-                    {
-                        statusHTML += '<span class="label label-danger">' + result.status + '</span>';
-                    }
-                    else
-                    {
-                        statusHTML += '<span class="label label-success">' + result.status + '</span>';
-                    }
+					if (result.status == Job.JOB_STATUS_ON_QUEUE) {
+						statusHTML += '<span class="label label-primary">' + result.status + '</span>';
+					} else if (result.status == Job.JOB_STATUS_RUNNING) {
+						statusHTML += '<span class="label label-warning">' + result.status + '</span>';
+					} else if (result.status == Job.JOB_STATUS_SUCCESS) {
+						statusHTML += '<span class="label label-success">' + result.status + '</span>';
+					} else if (result.status == Job.JOB_STATUS_ERROR) {
+						statusHTML += '<span class="label label-danger">' + result.status + '</span>';
+					} else {
+						statusHTML += '<span class="label label-success">' + result.status + '</span>';
+					}
 
-                    $(".ph-project-task-job-last-result-job-id").html(result.jobId);
-                    $(".ph-project-task-job-last-result-created-at").html(Util.unixTimestampToDateTime(result.createdAt));
-                    $(".ph-project-task-job-last-result-started-at").html(Util.unixTimestampToDateTime(result.startedAt));
-                    $(".ph-project-task-job-last-result-finished-at").html(Util.unixTimestampToDateTime(result.finishedAt));
-                    $(".ph-project-task-job-last-result-duration").html(result.duration + "s");
-                    $(".ph-project-task-job-last-result-progress").html(progressHTML);
-                    $(".ph-project-task-job-last-result-status").html(statusHTML);
+					$(".ph-project-task-job-last-result-job-id").html(result.jobId);
+					$(".ph-project-task-job-last-result-created-at").html(Util.unixTimestampToDateTime(result.createdAt));
+					$(".ph-project-task-job-last-result-started-at").html(Util.unixTimestampToDateTime(result.startedAt));
+					$(".ph-project-task-job-last-result-finished-at").html(Util.unixTimestampToDateTime(result.finishedAt));
+					$(".ph-project-task-job-last-result-duration").html(result.duration + "s");
+					$(".ph-project-task-job-last-result-progress").html(progressHTML);
+					$(".ph-project-task-job-last-result-status").html(statusHTML);
 
-                    var tabToActivate = "";
+					var tabToActivate = "";
 
-                    for (var x = 0; x < outputGroup.length; x++)
-                    {
-                        var outputGroupName = outputGroup[x].name;
-                        var tabId = Util.slugify(outputGroup[x].name);
-                        var outputGroupContent = outputGroup[x].output;
+					for (var x = 0; x < outputGroup.length; x++) {
+						var outputGroupName = outputGroup[x].name;
+						var tabId = Util.slugify(outputGroup[x].name);
+						var outputGroupContent = outputGroup[x].output;
 
-                        var tabHTML = '' +
-                        '<li role="presentation">' +
-                        '    <a id="tab-' + tabId + '" href="#tab-content-' + tabId + '" aria-controls="tab-content-' + tabId + '" role="tab" data-toggle="tab">' + outputGroupName + '</a>' +
-                        '</li>';
+						var tabHTML = '' +
+							'<li role="presentation">' +
+							'    <a id="tab-' + tabId + '" href="#tab-content-' + tabId + '" aria-controls="tab-content-' + tabId + '" role="tab" data-toggle="tab">' + outputGroupName + '</a>' +
+							'</li>';
 
-                        var tabContentHTML = '' +
-                        '<div role="tabpanel" class="tab-pane" id="tab-content-' + tabId + '">' +
-                        '    <div class="panel panel-default">' +
-                        '        <div id="tab-content-body-' + tabId + '" class="panel-body"> ' +
-                        '            ' + outputGroupContent +
-                        '        </div>' +
-                        '    </div>' +
-                        '</div>';
+						var tabContentHTML = '' +
+							'<div role="tabpanel" class="tab-pane" id="tab-content-' + tabId + '">' +
+							'    <div class="panel panel-default">' +
+							'        <div id="tab-content-body-' + tabId + '" class="panel-body"> ' +
+							'            ' + outputGroupContent +
+							'        </div>' +
+							'    </div>' +
+							'</div>';
 
-                        if ($("#tab-" + tabId).length == 0)
-                        {
-                            if (tabToActivate == "")
-                            {
-                                tabToActivate = tabId;
-                            }
+						if ($("#tab-" + tabId).length == 0) {
+							if (tabToActivate == "") {
+								tabToActivate = tabId;
+							}
 
-                            $(".ph-project-task-job-last-result-tabs").append(tabHTML);
-                            $(".ph-project-task-job-last-result-tab-contents").append(tabContentHTML);
-                        }
-                        else
-                        {
-                            $("#tab-content-body-" + tabId).html(outputGroupContent);
-                        }
-                    }
+							$(".ph-project-task-job-last-result-tabs").append(tabHTML);
+							$(".ph-project-task-job-last-result-tab-contents").append(tabContentHTML);
+						} else {
+							$("#tab-content-body-" + tabId).html(outputGroupContent);
+						}
+					}
 
-                    $(".ph-project-task-job-last-result-tabs a").click(function (e) {
-                        e.preventDefault();
-                        $(this).tab("show");
-                    });
+					$(".ph-project-task-job-last-result-tabs a").click(function (e) {
+						e.preventDefault();
+						$(this).tab("show");
+					});
 
-                    $("#tab-" + tabToActivate).tab("show");
-                }
+					$("#tab-" + tabToActivate).tab("show");
+				}
 
-                Util.showData("ph-project-task-job-last-result");
-            }
-            else
-			{
+				Util.showData("ph-project-task-job-last-result");
+			} else {
 				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
 			}
 
-			if (errorMessage)
-			{
+			if (errorMessage) {
 				Util.showErrorData(errorMessage, "ph-project-task-job-last-result");
 			}
-        });
-    }
 
-	function back()
-    {
-        var projectId = Util.getQueryParam("project");
-        Util.redirect("/project/view?project=" + projectId);
-    }
+			autoLoadProjectTaskJobLastResult();
+		});
+	}
 
-	$(document).ready(function() {
+	function back() {
+		var projectId = Util.getQueryParam("project");
+		Util.redirect("/project/view?project=" + projectId);
+	}
+
+	function autoLoadProjectTaskJobLastResult() {
+		setTimeout(function () {
+			projectTaskJobLastResult();
+		}, 2000);
+	}
+
+	$(document).ready(function () {
 		load();
 	});
 </script>

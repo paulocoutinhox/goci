@@ -1,152 +1,135 @@
 {{define "content"}}
 <div class="project-view">
 
-    <!-- OPTIONS -->
-    <div id="options-container" class="panel panel-default hiddenContent">
-        <div class="panel-body">
-            <h3 class="options-container-title">Project <span class="ph-project-name"></span></h3>
-            <button type="button" class="btn btn-success" onclick="load()">Refresh</button>
-            <button type="button" class="btn btn-default" onclick="back()">Back</button>
-        </div>
-    </div>
+	<!-- OPTIONS -->
+	<div id="options-container" class="panel panel-default hiddenContent">
+		<div class="panel-body">
+			<h3 class="options-container-title">Project <span class="ph-project-name"></span></h3>
+			<button type="button" class="btn btn-success" onclick="load()">Refresh</button>
+			<button type="button" class="btn btn-default" onclick="back()">Back</button>
+		</div>
+	</div>
 
-    <!-- DATA -->
-    <div id="data">
-        <h5>Details</h5>
+	<!-- DATA -->
+	<div id="data">
+		<h5>Details</h5>
 
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div><strong>Name:</strong> <span class="ph-project-name"></span></div>
-                <div><strong>Description:</strong> <span class="ph-project-description"></span></div>
-                <div><strong>Tasks:</strong> <span class="ph-project-tasks-num"></span></div>
-            </div>
-        </div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div><strong>Name:</strong> <span class="ph-project-name"></span></div>
+				<div><strong>Description:</strong> <span class="ph-project-description"></span></div>
+				<div><strong>Tasks:</strong> <span class="ph-project-tasks-num"></span></div>
+			</div>
+		</div>
 
-        <h5>Tasks</h5>
+		<h5>Tasks</h5>
 
-        <div id="project-task-list" class="list-group"></div>
-    </div>
+		<div id="project-task-list" class="list-group"></div>
+	</div>
 
-    <div id="no-data">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div>Project not found</div>
-            </div>
-        </div>
-    </div>
+	<div id="no-data">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div>Project not found</div>
+			</div>
+		</div>
+	</div>
 
-    <div id="error-data">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3>Problem while loading project</h3>
-                <p id="error-data-message"></p>
-                <button type="button" class="btn btn-primary" onclick="back()">Back</button>
-            </div>
-        </div>
-    </div>
+	<div id="error-data">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h3>Problem while loading project</h3>
+				<p id="error-data-message"></p>
+				<button type="button" class="btn btn-primary" onclick="back()">Back</button>
+			</div>
+		</div>
+	</div>
 
-    <div id="loading-data">
-        <div class="panel panel-default">
-            <div class="panel-body">Loading...</div>
-        </div>
-    </div>
+	<div id="loading-data">
+		<div class="panel panel-default">
+			<div class="panel-body">Loading...</div>
+		</div>
+	</div>
 
 </div>
 
 <!-- STARTUP -->
 <script>
-    function load()
-    {
-        var projectId = Util.getQueryParam('project');
+	function load() {
+		var projectId = Util.getQueryParam('project');
 
-        Project.view(projectId, function() {
-            Util.showLoadingData();
-        }, function(wr) {
-        	var errorMessage = null;
+		Project.view(projectId, function () {
+			Util.showLoadingData();
+		}, function (wr) {
+			var errorMessage = null;
 
-        	if (wr.success)
-			{
-			    Project.clearProjectTaskList();
+			if (wr.success) {
+				Project.clearProjectTaskList();
 
-                var project = wr.getDataItem("project");
+				var project = wr.getDataItem("project");
 
-                if (Util.isNullOrUndefined(project))
-                {
-                    errorMessage = "Project data is invalid";
-                }
-                else
-                {
-                    $(".ph-project-name").html(project.name);
-                    $(".ph-project-description").html(project.description);
-                    $(".ph-project-tasks-num").html(project.tasks.length);
+				if (Util.isNullOrUndefined(project)) {
+					errorMessage = "Project data is invalid";
+				} else {
+					$(".ph-project-name").html(project.name);
+					$(".ph-project-description").html(project.description);
+					$(".ph-project-tasks-num").html(project.tasks.length);
 
-                    var tasks = project.tasks;
+					var tasks = project.tasks;
 
-                    for (var x = 0; x < tasks.length; x++)
-                    {
-                        if (!$("#project-task-row-" + tasks[x].id).length > 0)
-                        {
-                            Project.addProjectTaskToHTML(projectId, tasks[x]);
-                        }
-                    }
+					for (var x = 0; x < tasks.length; x++) {
+						if (!$("#project-task-row-" + tasks[x].id).length > 0) {
+							Project.addProjectTaskToHTML(projectId, tasks[x]);
+						}
+					}
 
-                    Util.showData();
-                    Util.showOptionsContainer();
-                }
-			}
-			else
-			{
+					Util.showData();
+					Util.showOptionsContainer();
+				}
+			} else {
 				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
 			}
 
-			if (errorMessage)
-			{
+			if (errorMessage) {
 				Util.showErrorData(errorMessage);
 			}
-		}, function() {
+		}, function () {
 			Util.showErrorData("An error occurred while processing your request, try again!");
 		});
-    }
+	}
 
-	function back()
-    {
-        Util.redirect("/project/index");
-    }
+	function back() {
+		Util.redirect("/project/index");
+	}
 
-	function projectTaskRun(projectId, taskId)
-    {
-        Task.run(projectId, taskId, function() {
-            Util.showProgressWindow();
-        }, function(wr) {
-            Util.hideProgressWindow();
+	function projectTaskRun(projectId, taskId) {
+		Task.run(projectId, taskId, function () {
+			Util.showProgressWindow();
+		}, function (wr) {
+			Util.hideProgressWindow();
 
-            var errorMessage = null;
+			var errorMessage = null;
 
-        	if (wr.success)
-			{
-			    Util.showSuccessWindow("Your task was added to queue with success");
-			}
-			else
-			{
+			if (wr.success) {
+				Util.showSuccessWindow("Your task was added to queue with success");
+			} else {
 				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
 			}
 
-			if (errorMessage)
-			{
+			if (errorMessage) {
 				Util.showErrorWindow(errorMessage);
 			}
-        }, function() {
-            Util.hideProgressWindow();
-            Util.showErrorWindow("An error occurred while processing your request, try again!");
-        });
-    }
+		}, function () {
+			Util.hideProgressWindow();
+			Util.showErrorWindow("An error occurred while processing your request, try again!");
+		});
+	}
 
-	function projectTaskView(projectId, taskId)
-    {
-        Util.redirect("/task/view?project=" + projectId + "&task=" + taskId);
-    }
+	function projectTaskView(projectId, taskId) {
+		Util.redirect("/task/view?project=" + projectId + "&task=" + taskId);
+	}
 
-	$(document).ready(function() {
+	$(document).ready(function () {
 		load();
 	});
 </script>
