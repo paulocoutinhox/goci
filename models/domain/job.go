@@ -58,7 +58,7 @@ func (This *Job) Run() {
 		if err != nil {
 			jobError = true
 
-			This.AppendOutputLine(OG_CONSOLE, err.Error())
+			This.Log(OG_CONSOLE, err.Error())
 		}
 
 		util.Debugf("Step finished: %v", step.Description)
@@ -157,8 +157,24 @@ func (This *Job) AppendOutputContent(name string, content string) {
 	}
 }
 
-func (This *Job) AppendOutputLine(name string, contentLine string) {
+func (This *Job) Log(name string, contentLine string) {
 	This.AppendOutputContent(name, fmt.Sprintf("<p>%s</p>", contentLine))
+}
+
+func (This *Job) LogInfo(name string, contentLine string) {
+	This.AppendOutputContent(name, fmt.Sprintf("<p class='output-content-line-info'>%s</p>", contentLine))
+}
+
+func (This *Job) LogWarning(name string, contentLine string) {
+	This.AppendOutputContent(name, fmt.Sprintf("<p class='output-content-line-warning'>%s</p>", contentLine))
+}
+
+func (This *Job) LogError(name string, contentLine string) {
+	This.AppendOutputContent(name, fmt.Sprintf("<p class='output-content-line-error'>%s</p>", contentLine))
+}
+
+func (This *Job) LogSuccess(name string, contentLine string) {
+	This.AppendOutputContent(name, fmt.Sprintf("<p class='output-content-line-success'>%s</p>", contentLine))
 }
 
 func (This *Job) UpdateDuration() {

@@ -12,7 +12,6 @@ var (
 
 func PluginManagerLoadPlugins() {
 	PluginManagerAddPlugin(PLUGIN_CLI_NAME, reflect.TypeOf(PluginCLI{}))
-	PluginManagerAddPlugin(PLUGIN_ANKO_NAME, reflect.TypeOf(PluginAnko{}))
 	PluginManagerAddPlugin(PLUGIN_JS_NAME, reflect.TypeOf(PluginJS{}))
 	log.Println("Plugins loaded : OK")
 }

@@ -4,27 +4,8 @@
     "description": "My sample project - modify if you want",
     "tasks": [
         {
-            "id": "task-test-1",
-            "name": "Test 1 - ANKO",
-            "description": "This is a test task only",
-            "steps": [
-                {
-                    "description": "Executing...",
-                    "plugin": "anko",
-                    "options": [
-                        {
-                            "id": "file",
-                            "description": "The anko file to execute",
-                            "type": "text",
-                            "value": "${GOCI_WORKSPACE_DIR}/scripts/task-test.ank"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "task-test-2",
-            "name": "Test 2 - JS",
+            "id": "task-test-js",
+            "name": "Test - JS",
             "description": "This is a test task only",
             "steps": [
                 {
@@ -35,14 +16,14 @@
                             "id": "file",
                             "description": "The JS file to execute",
                             "type": "text",
-                            "value": "${GOCI_WORKSPACE_DIR}/scripts/task-test2.js"
+                            "value": "${GOCI_WORKSPACE_DIR}/scripts/task-test.js"
                         }
                     ]
                 }
             ]
         },
         {
-            "id": "task-test-3",
+            "id": "task-test-cli",
             "name": "Get IFCONFIG data",
             "description": "Get IFCONFIG data from command line",
             "steps": [

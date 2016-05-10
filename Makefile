@@ -28,7 +28,6 @@ format:
 	${GOFMT} models/domain/job_result.go
 	${GOFMT} models/domain/job_result_output_group.go
 	${GOFMT} models/domain/job_results.go
-	${GOFMT} models/domain/plugin_anko.go
 	${GOFMT} models/domain/plugin_cli.go
 	${GOFMT} models/domain/plugin_interface.go
 	${GOFMT} models/domain/plugin_js.go
@@ -45,7 +44,6 @@ deps:
 	${GODEPS} github.com/prsolucoes/gowebresponse
 	${GODEPS} github.com/gin-gonic/gin
 	${GODEPS} github.com/go-ini/ini
-	${GODEPS} github.com/mattn/anko
 	${GODEPS} github.com/robertkrimen/otto
 
 stop:
