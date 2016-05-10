@@ -20,6 +20,10 @@ format:
 	${GOFMT} controllers/project.go
 	${GOFMT} controllers/task.go
 	${GOFMT} jobs/jobs.go
+	${GOFMT} lib/ioutil/ioutil.go
+	${GOFMT} lib/net/http/http.go
+	${GOFMT} lib/time/time.go
+	${GOFMT} lib/os/os.go
 	${GOFMT} models/domain/job.go
 	${GOFMT} models/domain/job_result.go
 	${GOFMT} models/domain/job_result_output_group.go

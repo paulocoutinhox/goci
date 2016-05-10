@@ -1,16 +1,18 @@
 * {
-    font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 
 html,
 body {
-    height: 100%;
+	height: 100%;
 }
 
-body { padding-top: 70px; }
+body {
+	padding-top: 70px;
+}
 
 *:focus {
-    outline:none !important;
+	outline: none !important;
 }
 
 .navbar {
@@ -73,14 +75,14 @@ a:hover {
 }
 
 .wrap {
-    min-height: 100%;
-    height: auto;
-    margin: 0 auto -60px;
-    padding: 0 0 60px;
+	min-height: 100%;
+	height: auto;
+	margin: 0 auto -60px;
+	padding: 0 0 60px;
 }
 
 .wrap > .container {
-    padding: 15px 20px;
+	padding: 15px 20px;
 }
 
 .wrap > .container-fluid {
@@ -88,79 +90,79 @@ a:hover {
 }
 
 .footer {
-    height: 60px;
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
+	height: 60px;
+	background-color: #f5f5f5;
+	border-top: 1px solid #ddd;
+	padding-top: 20px;
 }
 
 .jumbotron {
-    text-align: center;
-    background-color: transparent;
+	text-align: center;
+	background-color: transparent;
 }
 
 .jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
+	font-size: 21px;
+	padding: 14px 24px;
 }
 
 .not-set {
-    color: #3d96f3;
-    font-style: italic;
+	color: #3d96f3;
+	font-style: italic;
 }
 
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    padding-left: 5px;
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	padding-left: 5px;
 }
 
 a.asc:after {
-    content: /*"\e113"*/ "\e151";
+	content: /*"\e113"*/ "\e151";
 }
 
 a.desc:after {
-    content: /*"\e114"*/ "\e152";
+	content: /*"\e114"*/ "\e152";
 }
 
 .sort-numerical a.asc:after {
-    content: "\e153";
+	content: "\e153";
 }
 
 .sort-numerical a.desc:after {
-    content: "\e154";
+	content: "\e154";
 }
 
 .sort-ordinal a.asc:after {
-    content: "\e155";
+	content: "\e155";
 }
 
 .sort-ordinal a.desc:after {
-    content: "\e156";
+	content: "\e156";
 }
 
 .grid-view th {
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 .hint-block {
-    display: block;
-    margin-top: 5px;
-    color: #999;
+	display: block;
+	margin-top: 5px;
+	color: #999;
 }
 
 .error-summary {
-    color: #205081;
-    background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
+	color: #205081;
+	background: #fdf7f7;
+	border-left: 3px solid #eed3d7;
+	padding: 10px 20px;
+	margin: 0 0 15px 0;
 }
 
 .wrap-log {
@@ -198,7 +200,7 @@ a.desc:after {
 }
 
 #error-data h3 {
-    margin-top: 0;
+	margin-top: 0;
 }
 
 #data {
@@ -206,36 +208,36 @@ a.desc:after {
 }
 
 .hiddenContent {
-    display: none;
+	display: none;
 }
 
 .modalErrorWindowMessageList {
-    text-align: left;
+	text-align: left;
 }
 
 .action-icon {
-    width: 32px;
-    height: 32px;
+	width: 32px;
+	height: 32px;
 }
 
 .project-task-row .list-group-item-heading {
-    margin-right: 70px;
+	margin-right: 70px;
 }
 
 .project-task-row .list-group-item-text {
-    margin-right: 70px;
+	margin-right: 70px;
 }
 
 .home-index .logo {
-    width: 200px;
+	width: 200px;
 }
 
 .navbar-brand .logo {
-    width: 28px;
-    margin-top: -5px;
-    margin-right: 10px;
+	width: 28px;
+	margin-top: -5px;
+	margin-right: 10px;
 }
 
 .ph-project-task-job-last-result-progress .progress {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }

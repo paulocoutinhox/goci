@@ -2,10 +2,11 @@ package app
 
 import (
 	"flag"
-	"github.com/gin-gonic/gin"
-	"github.com/go-ini/ini"
 	"log"
 	"os"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-ini/ini"
 )
 
 type WebServer struct {

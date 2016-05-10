@@ -1,28 +1,35 @@
-# import GoCI package (optional)
+# import GoCI packages
 var goci = import("goci")
-
-# import Go packages (one or any on same line)
-var os, exec = import("os"), import("os/exec")
+var gociConst = import("goci/const")
+var gociExec = import("goci/exec")
+var os = import("os")
 var time = import("time")
+var http = import("net/http")
+var ioutil = import("ioutil")
 
 # sleep function
 goci.Job.SetProgress(10)
-d, _ = time.ParseDuration("10s")
-time.Sleep(d)
+time.Sleep("2s")
 goci.Job.UpdateDuration()
 
 # append html/string to output
-tabName = goci.OG_CONSOLE
+tabName = gociConst.OG_CONSOLE
 
 goci.Job.SetProgress(20)
 goci.Job.AppendOutputLine(tabName, "My text!")
-goci.Job.AppendOutputLine(tabName, "GOCI_WORKSPACE: " + goci.WORKSPACE_DIR)
-goci.Job.AppendOutputLine(tabName, "GOCI_RESOURCES_DIR: " + goci.RESOURCES_DIR)
-goci.Job.AppendOutputLine(tabName, "GOCI_HOST: " + goci.HOST)
+goci.Job.AppendOutputLine(tabName, "GOCI_WORKSPACE: " + gociConst.WORKSPACE_DIR)
+goci.Job.AppendOutputLine(tabName, "GOCI_RESOURCES_DIR: " + gociConst.RESOURCES_DIR)
+goci.Job.AppendOutputLine(tabName, "GOCI_HOST: " + gociConst.HOST)
 goci.Job.AppendOutputLine(tabName, "JOB ID: " + goci.Job.ID)
 goci.Job.AppendOutputLine(tabName, "TASK ID: " + goci.Job.TaskID)
 goci.Job.AppendOutputLine(tabName, "STEP DESC: " + goci.Step.Description)
 goci.Job.AppendOutputLine(tabName, "STEP INDEX: " + goci.StepIndex)
+
+# http functions - get
+goci.Job.AppendOutputLine(tabName, "Getting HTTP content using GET...")
+var content = http.Get("https://httpbin.org/ip")
+goci.Job.AppendOutputLine(tabName, content)
+ioutil.WriteFile("/tmp/test.txt", content, 0777)
 
 # create a new tab with any html/text
 goci.Job.SetProgress(30)
@@ -34,15 +41,13 @@ goci.Job.UpdateDuration()
 
 # execute anything command line and append results to output
 goci.Job.SetProgress(70)
-cmd = exec.Command("ls", "-lah")
-o = cmd.Run()
+gociExec.Exec("uptime")
 goci.Job.UpdateDuration()
 
 # call functions from GoCI
 goci.Job.SetProgress(80)
-d, _ = time.ParseDuration("10s")
-time.Sleep(d)
-goci.Exec("ls", "-l")
+time.Sleep("2s")
+gociExec.Exec("ls", "-l")
 goci.Job.UpdateDuration()
 
 # set job progress
