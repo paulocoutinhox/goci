@@ -146,27 +146,29 @@
 	}
 
 	function projectTaskRun(taskId) {
-		var projectId = Util.getQueryParam("project");
+		bootbox.confirm("Are you sure that you want run this task?", function (result) {
+			if (result) {
+				var projectId = Util.getQueryParam("project");
 
-		Task.run(projectId, taskId, function () {
-			Util.showProgressWindow();
-		}, function (wr) {
-			Util.hideProgressWindow();
+				Task.run(projectId, taskId, function () {
+					Util.showProgressWindow();
+				}, function (wr) {
+					Util.hideProgressWindow();
 
-			var errorMessage = null;
+					var errorMessage = null;
 
-			if (wr.success) {
-				Util.showSuccessWindow("Your task was added to queue with success");
-			} else {
-				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+					if (!wr.success) {
+						errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+					}
+
+					if (errorMessage) {
+						Util.showErrorWindow(errorMessage);
+					}
+				}, function () {
+					Util.hideProgressWindow();
+					Util.showErrorWindow("An error occurred while processing your request, try again!");
+				});
 			}
-
-			if (errorMessage) {
-				Util.showErrorWindow(errorMessage);
-			}
-		}, function () {
-			Util.hideProgressWindow();
-			Util.showErrorWindow("An error occurred while processing your request, try again!");
 		});
 	}
 
