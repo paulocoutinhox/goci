@@ -241,3 +241,19 @@ a.desc:after {
 .ph-project-task-job-last-result-progress .progress {
 	margin-bottom: 0;
 }
+
+.output-content-line-error {
+	color: #ff0017;
+}
+
+.output-content-line-warning {
+	color: #f2b902;
+}
+
+.output-content-line-info {
+	color: #127fff;
+}
+
+.output-content-line-success {
+	color: #00BB08;
+}

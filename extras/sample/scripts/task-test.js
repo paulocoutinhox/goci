@@ -1,3 +1,6 @@
+// throw error if you need
+//throw "My error!";
+
 // sleep function
 goci.Job.SetProgress(10);
 time.Sleep("10s");
@@ -38,13 +41,13 @@ goci.Job.UpdateDuration();
 
 // execute anything command line and append results to output
 goci.Job.SetProgress(70);
-goci.Exec("ls");
+goci.exec.Exec("ls");
 goci.Job.UpdateDuration();
 
 // call functions from GoCI
 goci.Job.SetProgress(80);
-time.SleepDuration("10s");
-goci.Exec("ls", "-l", "-a", "-h");
+time.Sleep("10s");
+goci.exec.Exec("ls", "-l", "-a", "-h");
 goci.Job.UpdateDuration();
 
 // set job progress

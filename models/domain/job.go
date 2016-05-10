@@ -58,7 +58,7 @@ func (This *Job) Run() {
 		if err != nil {
 			jobError = true
 
-			This.Log(OG_CONSOLE, err.Error())
+			This.LogError(OG_CONSOLE, err.Error())
 		}
 
 		util.Debugf("Step finished: %v", step.Description)

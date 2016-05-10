@@ -70,7 +70,7 @@ func (This *PluginJS) Process() error {
 
 		// define variables, functions and execute file content
 		vm := otto.New()
-		This.GoCIJSImport(vm)
+		This.ImportLib(vm)
 		_, err = vm.Run(string(fileContent))
 
 		if err != nil {
@@ -87,29 +87,35 @@ func (This *PluginJS) Process() error {
 	return nil
 }
 
-func (This *PluginJS) GoCIExec(command string, params ...string) error {
+func (This *PluginJS) GoCIExec(command string, params ...string) string {
 	return This.GoCIExecOnDir("", command, params...)
 }
 
-func (This *PluginJS) GoCIExecOnDir(dir string, command string, params ...string) error {
+func (This *PluginJS) GoCIExecOnDir(dir string, command string, params ...string) string {
 	cmd := exec.Command(command, params...)
 	cmd.Dir = dir
-	out, err := cmd.Output()
+	outBytes, err := cmd.Output()
+	out := ""
 
-	if err != nil {
-		return err
-	} else {
-		outList := strings.Split(string(out), "\n")
-
-		for _, outListItem := range outList {
-			This.Job.Log(OG_CONSOLE, outListItem)
-		}
+	if outBytes != nil {
+		out = string(outBytes)
 	}
 
-	return nil
+	outList := strings.Split(out, "\n")
+
+	for _, outListItem := range outList {
+		This.Job.Log(OG_CONSOLE, outListItem)
+	}
+
+	if err != nil {
+		This.Job.LogError(OG_CONSOLE, err.Error())
+		return err.Error()
+	}
+
+	return out
 }
 
-func (This *PluginJS) GoCIJSImport(vm *otto.Otto) {
+func (This *PluginJS) ImportLib(vm *otto.Otto) {
 	vm.Set("goci", map[string]interface{}{
 		"Job":       This.Job,
 		"Step":      This.Step,
