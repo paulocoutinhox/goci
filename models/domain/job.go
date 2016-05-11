@@ -2,11 +2,15 @@ package domain
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/prsolucoes/goci/app"
 	"github.com/prsolucoes/goci/models/util"
 	"io/ioutil"
 	"os"
+	"path/filepath"
+	"sort"
+	"strings"
 	"time"
 )
 
@@ -20,27 +24,96 @@ const (
 )
 
 type Job struct {
-	ID          string                  `json:"id"`
-	TaskID      string                  `json:"taskId"`
-	ProjectID   string                  `json:"projectId"`
-	OutputGroup []*JobResultOutputGroup `json:"outputGroup"`
-	Duration    int64                   `json:"duration"`
-	Progress    int                     `json:"progress"`
-	Status      string                  `json:"status"`
-	CreatedAt   int64                   `json:"createdAt"`
-	StartedAt   int64                   `json:"startedAt"`
-	FinishedAt  int64                   `json:"finishedAt"`
+	ID          string            `json:"id"`
+	TaskID      string            `json:"taskId"`
+	ProjectID   string            `json:"projectId"`
+	OutputGroup []*JobOutputGroup `json:"outputGroup"`
+	Duration    int64             `json:"duration"`
+	Progress    int               `json:"progress"`
+	Status      string            `json:"status"`
+	CreatedAt   int64             `json:"createdAt"`
+	StartedAt   int64             `json:"startedAt"`
+	FinishedAt  int64             `json:"finishedAt"`
 	Task        *ProjectTask
 }
 
 func NewJob() *Job {
 	return &Job{
 		ID:          util.CreateNewJobID(),
-		OutputGroup: []*JobResultOutputGroup{},
+		OutputGroup: []*JobOutputGroup{},
 		Duration:    0,
 		Status:      JOB_STATUS_ON_QUEUE,
 		CreatedAt:   time.Now().UTC().Unix(),
 	}
+}
+
+func JobFilesGetAllByProjectIdAndTaskId(projectId string, taskId string) (Jobs, error) {
+	if projectId == "" {
+		return nil, errors.New("Project ID is invalid")
+	}
+
+	if taskId == "" {
+		return nil, errors.New("Task ID is invalid")
+	}
+
+	path := app.Server.WorkspaceDir + "/logs/" + projectId + "/" + taskId + "/*.json"
+	fileList, err := filepath.Glob(path)
+
+	if err != nil {
+		return nil, errors.New(fmt.Sprintf("Failed to get all job result files: %v", err))
+	}
+
+	util.Debugf("Job result files found: %v", len(fileList))
+
+	resultList := []*Job{}
+
+	for _, resultFile := range fileList {
+		util.Debugf("Loading job result: %s", resultFile)
+		file, err := ioutil.ReadFile(resultFile)
+
+		if err != nil {
+			return nil, errors.New(fmt.Sprintf("Failed to load job result file: %v", err))
+		}
+
+		result := &Job{}
+		err = json.Unmarshal(file, &result)
+
+		if err != nil {
+			return nil, errors.New(fmt.Sprintf("Failed to read job result file: %v", err))
+		}
+
+		resultList = append(resultList, result)
+
+		util.Debugf("Job result (%s) loaded", resultFile)
+	}
+
+	return resultList, nil
+}
+
+func JobFilesGetLastByProjectIdAndTaskId(projectId string, taskId string) (*Job, error) {
+	projectId = strings.Trim(projectId, " ")
+	taskId = strings.Trim(taskId, " ")
+
+	if projectId == "" {
+		return nil, errors.New("Project ID is invalid")
+	}
+
+	if taskId == "" {
+		return nil, errors.New("Task ID is invalid")
+	}
+
+	results, err := JobFilesGetAllByProjectIdAndTaskId(projectId, taskId)
+	sort.Sort(results)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if len(results) > 0 {
+		return results[len(results)-1], nil
+	}
+
+	return nil, errors.New("Job result not found")
 }
 
 func (This *Job) Run() {
@@ -58,7 +131,7 @@ func (This *Job) Run() {
 		if err != nil {
 			jobError = true
 
-			This.AppendOutputLine(OG_CONSOLE, err.Error())
+			This.LogError(OG_CONSOLE, err.Error())
 		}
 
 		util.Debugf("Step finished: %v", step.Description)
@@ -77,21 +150,8 @@ func (This *Job) Run() {
 }
 
 func (This *Job) Save() {
-	result := &JobResult{
-		JobID:       This.ID,
-		ProjectId:   This.ProjectID,
-		TaskId:      This.TaskID,
-		CreatedAt:   This.CreatedAt,
-		StartedAt:   This.StartedAt,
-		FinishedAt:  This.FinishedAt,
-		Duration:    This.Duration,
-		Progress:    This.Progress,
-		OutputGroup: This.OutputGroup,
-		Status:      This.Status,
-	}
-
 	// create file content
-	content, err := json.Marshal(result)
+	content, err := json.Marshal(This)
 
 	if err != nil {
 		util.Debugf("Erro while marshal the job result: %v", err)
@@ -128,14 +188,14 @@ func (This *Job) SetProgress(progress int) {
 	This.Progress = progress
 }
 
-func (This *Job) CreateOutputGroup(name string) (*JobResultOutputGroup, error) {
+func (This *Job) CreateOutputGroup(name string) (*JobOutputGroup, error) {
 	for _, outputGroup := range This.OutputGroup {
 		if outputGroup.Name == name {
 			return outputGroup, nil
 		}
 	}
 
-	outputGroup := &JobResultOutputGroup{
+	outputGroup := &JobOutputGroup{
 		Name:   name,
 		Output: "",
 	}
@@ -157,8 +217,24 @@ func (This *Job) AppendOutputContent(name string, content string) {
 	}
 }
 
-func (This *Job) AppendOutputLine(name string, contentLine string) {
+func (This *Job) Log(name string, contentLine string) {
 	This.AppendOutputContent(name, fmt.Sprintf("<p>%s</p>", contentLine))
+}
+
+func (This *Job) LogInfo(name string, contentLine string) {
+	This.AppendOutputContent(name, fmt.Sprintf("<p class='output-content-line-info'>%s</p>", contentLine))
+}
+
+func (This *Job) LogWarning(name string, contentLine string) {
+	This.AppendOutputContent(name, fmt.Sprintf("<p class='output-content-line-warning'>%s</p>", contentLine))
+}
+
+func (This *Job) LogError(name string, contentLine string) {
+	This.AppendOutputContent(name, fmt.Sprintf("<p class='output-content-line-error'>%s</p>", contentLine))
+}
+
+func (This *Job) LogSuccess(name string, contentLine string) {
+	This.AppendOutputContent(name, fmt.Sprintf("<p class='output-content-line-success'>%s</p>", contentLine))
 }
 
 func (This *Job) UpdateDuration() {

@@ -30,7 +30,7 @@ func (This *PluginCLI) Init(job *Job, step *ProjectTaskStep, stepIndex int) erro
 }
 
 func (This *PluginCLI) Process() error {
-	This.Job.AppendOutputLine(OG_CONSOLE, This.Step.Description)
+	This.Job.Log(OG_CONSOLE, This.Step.Description)
 
 	// set current progress
 	totalSteps := len(This.Job.Task.Steps)
@@ -63,7 +63,7 @@ func (This *PluginCLI) Process() error {
 			outList := strings.Split(string(out), "\n")
 
 			for _, outListItem := range outList {
-				This.Job.AppendOutputLine(OG_CONSOLE, outListItem)
+				This.Job.Log(OG_CONSOLE, outListItem)
 			}
 		}
 	}

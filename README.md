@@ -7,10 +7,10 @@ GoCI was made to be a simple continuous integration system made with Go (Golang)
 
 It use a simple plugin mechanism that let you use some different plugins to execute tasks. Today we have two main plugins:  
 - CLI = Execute anything from command line  
-- Anko = Execute anko scripts (like go - but in external script file - https://github.com/mattn/anko)  
+- JS = Execute a javascript file
   
 Some project advantages:
-- With anko script you can create scripts that have logic, http request, regexp, command line execution, json parser and more - dont need use bash script (https://github.com/mattn/anko)
+- With javascript you can create scripts that have own logic inside and use bultin function like: http request, regexp, command line execution, json parser and more - dont need use bash script for it
 - Everything is a simples JSON file - yes, you dont need one database!
 - From project to results - you can versioning everything if you want
 - You dont need reload the server for nothing - unless a crash or bug :)
@@ -36,7 +36,7 @@ resourcesDir = YOUR-GOPATH-DIRECTORY + /src/github.com/prsolucoes/goci
 
 # Sample files
 
-I have created a sample project file, a sample config file and a sample anko script file. Check it on **extras/sample** directory.
+I have created a sample project file, a sample config file and a sample javascript file. Check it on **extras/sample** directory.
 
 # Starting
 
@@ -47,6 +47,8 @@ I have created a sample project file, a sample config file and a sample anko scr
 5. Create config file (config.ini) based on some above example  
 6. Execute: goci -f=config.ini
 7. Open in your browser: http://localhost:8080  
+
+** dont use character / on any configuration path **
 
 # API
 
@@ -68,6 +70,14 @@ So if you want start your server for example, you only need call "make start".
 
 1. go build
 2. ./goci -f=config.ini
+
+# Sugestion
+
+Today, only some functions are implemented. If you need one, you can make a pull-request or send a message in Github Issue.
+
+# Supported By Jetbrains IntelliJ IDEA
+
+![alt text](https://github.com/prsolucoes/goci/extras/jetbrainslogo.png "Supported By Jetbrains IntelliJ IDEA")
 
 # Author WebSite
 
