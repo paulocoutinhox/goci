@@ -1,6 +1,6 @@
 package domain
 
-type JobResultOutputGroup struct {
+type JobOutputGroup struct {
 	Name   string `json:"name"`
 	Output string `json:"output"`
 }

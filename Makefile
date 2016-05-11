@@ -25,9 +25,8 @@ format:
 	${GOFMT} lib/time/time.go
 	${GOFMT} lib/os/os.go
 	${GOFMT} models/domain/job.go
-	${GOFMT} models/domain/job_result.go
-	${GOFMT} models/domain/job_result_output_group.go
-	${GOFMT} models/domain/job_results.go
+	${GOFMT} models/domain/job_output_group.go
+	${GOFMT} models/domain/jobs.go
 	${GOFMT} models/domain/plugin_cli.go
 	${GOFMT} models/domain/plugin_interface.go
 	${GOFMT} models/domain/plugin_js.go

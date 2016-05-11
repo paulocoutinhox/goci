@@ -3,16 +3,16 @@ package domain
 import (
 	"errors"
 	"github.com/prsolucoes/goci/app"
+	"github.com/prsolucoes/goci/lib/ioutil"
+	"github.com/prsolucoes/goci/lib/net/http"
+	"github.com/prsolucoes/goci/lib/os"
+	"github.com/prsolucoes/goci/lib/time"
 	"github.com/prsolucoes/goci/models/util"
 	"github.com/robertkrimen/otto"
 	gioutil "io/ioutil"
 	"os/exec"
 	"strings"
-	"github.com/prsolucoes/goci/lib/net/http"
 	gtime "time"
-	"github.com/prsolucoes/goci/lib/ioutil"
-	"github.com/prsolucoes/goci/lib/os"
-	"github.com/prsolucoes/goci/lib/time"
 )
 
 const (
@@ -142,15 +142,15 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 	})
 
 	vm.Set("ioutil", map[string]interface{}{
-		"ReadFile": ioutil.Lib_IoUtil_ReadFile,
+		"ReadFile":  ioutil.Lib_IoUtil_ReadFile,
 		"WriteFile": ioutil.Lib_IoUtil_WriteFile,
 	})
 
 	vm.Set("os", map[string]interface{}{
-		"Getenv": os.Lib_OS_Getenv,
-		"Mkdir": os.Lib_OS_Mkdir,
-		"MkdirAll": os.Lib_OS_MkdirAll,
-		"Remove": os.Lib_OS_Remove,
+		"Getenv":    os.Lib_OS_Getenv,
+		"Mkdir":     os.Lib_OS_Mkdir,
+		"MkdirAll":  os.Lib_OS_MkdirAll,
+		"Remove":    os.Lib_OS_Remove,
 		"RemoveAll": os.Lib_OS_RemoveAll,
 	})
 
