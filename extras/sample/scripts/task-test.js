@@ -3,7 +3,7 @@
 
 // sleep function
 goci.Job.SetProgress(10);
-time.Sleep("10s");
+time.Sleep("2s");
 goci.Job.UpdateDuration();
 
 // append html/string to output
@@ -41,13 +41,13 @@ goci.Job.UpdateDuration();
 
 // execute anything command line and append results to output
 goci.Job.SetProgress(70);
-goci.exec.Exec("ls");
+os.Exec(true, "date");
 goci.Job.UpdateDuration();
 
 // call functions from GoCI
 goci.Job.SetProgress(80);
-time.Sleep("10s");
-goci.exec.Exec("ls", "-l", "-a", "-h");
+time.Sleep("2s");
+os.Exec(false, "ls", "-l", "-a", "-h");
 goci.Job.UpdateDuration();
 
 // set job progress

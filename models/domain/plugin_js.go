@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"bytes"
 	"errors"
 	"github.com/prsolucoes/goci/app"
 	"github.com/prsolucoes/goci/lib/ioutil"
@@ -87,28 +88,31 @@ func (This *PluginJS) Process() error {
 	return nil
 }
 
-func (This *PluginJS) GoCIExec(command string, params ...string) string {
-	return This.GoCIExecOnDir("", command, params...)
+func (This *PluginJS) GoCIExec(addToLog bool, command string, params ...string) string {
+	return This.GoCIExecOnDir(addToLog, "", command, params...)
 }
 
-func (This *PluginJS) GoCIExecOnDir(dir string, command string, params ...string) string {
+func (This *PluginJS) GoCIExecOnDir(addToLog bool, dir string, command string, params ...string) string {
+	var outBuffer bytes.Buffer
+
 	cmd := exec.Command(command, params...)
 	cmd.Dir = dir
-	outBytes, err := cmd.Output()
-	out := ""
-
-	if outBytes != nil {
-		out = string(outBytes)
-	}
-
+	cmd.Stdout = &outBuffer
+	err := cmd.Run()
+	out := outBuffer.String()
 	outList := strings.Split(out, "\n")
 
 	for _, outListItem := range outList {
-		This.Job.Log(OG_CONSOLE, outListItem)
+		if addToLog {
+			This.Job.Log(OG_CONSOLE, outListItem)
+		}
 	}
 
 	if err != nil {
-		This.Job.LogError(OG_CONSOLE, err.Error())
+		if addToLog {
+			This.Job.LogError(OG_CONSOLE, err.Error())
+		}
+
 		return err.Error()
 	}
 
@@ -127,11 +131,6 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 			"RESOURCES_DIR": app.Server.ResourcesDir,
 			"CONFIG":        app.Server.Config,
 			"HOST":          app.Server.Host,
-		},
-
-		"exec": map[string]interface{}{
-			"Exec":      This.GoCIExec,
-			"ExecOnDir": This.GoCIExecOnDir,
 		},
 	})
 
@@ -152,6 +151,8 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 		"MkdirAll":  os.Lib_OS_MkdirAll,
 		"Remove":    os.Lib_OS_Remove,
 		"RemoveAll": os.Lib_OS_RemoveAll,
+		"Exec":      This.GoCIExec,
+		"ExecOnDir": This.GoCIExecOnDir,
 	})
 
 	vm.Set("time", map[string]interface{}{
