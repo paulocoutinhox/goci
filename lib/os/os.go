@@ -46,6 +46,12 @@ func Lib_OS_Getenv(key string) string {
 	return os.Getenv(key)
 }
 
-func Lib_OS_Setenv(key, value string) string {
-	return os.Setenv(key, value)
+func Lib_OS_Setenv(key, value string) bool {
+	err := os.Setenv(key, value)
+
+	if err != nil {
+		return false
+	}
+
+	return true
 }
