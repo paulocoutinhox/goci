@@ -45,3 +45,7 @@ func Lib_OS_Remove(name string) bool {
 func Lib_OS_Getenv(key string) string {
 	return os.Getenv(key)
 }
+
+func Lib_OS_Setenv(key, value string) string {
+	return os.Setenv(key, value)
+}

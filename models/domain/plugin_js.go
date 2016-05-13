@@ -147,6 +147,7 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 
 	vm.Set("os", map[string]interface{}{
 		"Getenv":    os.Lib_OS_Getenv,
+		"Setenv":    os.Lib_OS_Setenv,
 		"Mkdir":     os.Lib_OS_Mkdir,
 		"MkdirAll":  os.Lib_OS_MkdirAll,
 		"Remove":    os.Lib_OS_Remove,
