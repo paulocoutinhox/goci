@@ -24,23 +24,23 @@ const (
 )
 
 type Job struct {
-	ID          string            `json:"id"`
-	TaskID      string            `json:"taskId"`
-	ProjectID   string            `json:"projectId"`
-	OutputGroup []*JobOutputGroup `json:"outputGroup"`
-	Duration    int64             `json:"duration"`
-	Progress    int               `json:"progress"`
-	Status      string            `json:"status"`
-	CreatedAt   int64             `json:"createdAt"`
-	StartedAt   int64             `json:"startedAt"`
-	FinishedAt  int64             `json:"finishedAt"`
+	ID          string           `json:"id"`
+	TaskID      string           `json:"taskId"`
+	ProjectID   string           `json:"projectId"`
+	OutputGroup []*JobOutputData `json:"outputGroup"`
+	Duration    int64            `json:"duration"`
+	Progress    int              `json:"progress"`
+	Status      string           `json:"status"`
+	CreatedAt   int64            `json:"createdAt"`
+	StartedAt   int64            `json:"startedAt"`
+	FinishedAt  int64            `json:"finishedAt"`
 	Task        *ProjectTask
 }
 
 func NewJob() *Job {
 	return &Job{
 		ID:          util.CreateNewJobID(),
-		OutputGroup: []*JobOutputGroup{},
+		OutputGroup: []*JobOutputData{},
 		Duration:    0,
 		Status:      JOB_STATUS_ON_QUEUE,
 		CreatedAt:   time.Now().UTC().Unix(),
@@ -188,14 +188,14 @@ func (This *Job) SetProgress(progress int) {
 	This.Progress = progress
 }
 
-func (This *Job) CreateOutputGroup(name string) (*JobOutputGroup, error) {
+func (This *Job) CreateOutputGroup(name string) (*JobOutputData, error) {
 	for _, outputGroup := range This.OutputGroup {
 		if outputGroup.Name == name {
 			return outputGroup, nil
 		}
 	}
 
-	outputGroup := &JobOutputGroup{
+	outputGroup := &JobOutputData{
 		Name:   name,
 		Output: "",
 	}
