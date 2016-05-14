@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"bytes"
+	"bufio"
 	"errors"
 	"github.com/prsolucoes/goci/app"
 	"github.com/prsolucoes/goci/lib/ioutil"
@@ -93,20 +93,11 @@ func (This *PluginJS) GoCIExec(addToLog bool, command string, params ...string) 
 }
 
 func (This *PluginJS) GoCIExecOnDir(addToLog bool, dir string, command string, params ...string) string {
-	var outBuffer bytes.Buffer
+	outBuffer := ""
 
 	cmd := exec.Command(command, params...)
 	cmd.Dir = dir
-	cmd.Stdout = &outBuffer
-	err := cmd.Run()
-	out := outBuffer.String()
-	outList := strings.Split(out, "\n")
-
-	for _, outListItem := range outList {
-		if addToLog {
-			This.Job.Log(OG_CONSOLE, outListItem)
-		}
-	}
+	stdout, err := cmd.StdoutPipe()
 
 	if err != nil {
 		if addToLog {
@@ -116,7 +107,34 @@ func (This *PluginJS) GoCIExecOnDir(addToLog bool, dir string, command string, p
 		return err.Error()
 	}
 
-	return out
+	if err := cmd.Start(); err != nil {
+		if addToLog {
+			This.Job.LogError(OG_CONSOLE, err.Error())
+		}
+
+		return err.Error()
+	}
+
+	// read command's stdout line by line
+	in := bufio.NewScanner(stdout)
+
+	for in.Scan() {
+		outBuffer += in.Text()
+
+		if addToLog {
+			This.Job.Log(OG_CONSOLE, in.Text())
+		}
+	}
+
+	if err := in.Err(); err != nil {
+		if addToLog {
+			This.Job.LogError(OG_CONSOLE, err.Error())
+		}
+
+		return err.Error()
+	}
+
+	return outBuffer
 }
 
 func (This *PluginJS) ImportLib(vm *otto.Otto) {
