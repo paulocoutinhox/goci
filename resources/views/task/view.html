@@ -223,6 +223,7 @@
 						$(".ph-project-task-job-last-result-tabs").html("");
 						$(".ph-project-task-job-last-result-tabs").hide();
 						$(".ph-project-task-job-last-result-tab-contents").html("");
+						$(".ph-project-task-job-last-result-job-id").html(result.id);
 					}
 
 					lastResultJobId = result.id;
@@ -264,7 +265,6 @@
 						statusHTML += '<span class="label label-success">' + result.status + '</span>';
 					}
 
-					$(".ph-project-task-job-last-result-job-id").html(result.id);
 					$(".ph-project-task-job-last-result-created-at").html(Util.unixTimestampToDateTime(result.createdAt));
 					$(".ph-project-task-job-last-result-started-at").html(Util.unixTimestampToDateTime(result.startedAt));
 					$(".ph-project-task-job-last-result-finished-at").html(Util.unixTimestampToDateTime(result.finishedAt));
