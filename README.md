@@ -77,7 +77,7 @@ Today, only some functions are implemented. If you need one, you can make a pull
 
 # Supported By Jetbrains IntelliJ IDEA
 
-![alt text](https://github.com/prsolucoes/goci/extras/jetbrainslogo.png "Supported By Jetbrains IntelliJ IDEA")
+![alt text](https://github.com/prsolucoes/goci/extras/jetbrains/logo.png "Supported By Jetbrains IntelliJ IDEA")
 
 # Author WebSite
 
