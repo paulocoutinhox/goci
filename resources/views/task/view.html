@@ -29,25 +29,39 @@
 			<div class="ph-project-task-job-last-result-details">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<div><strong>Job:</strong> <span class="ph-project-task-job-last-result-job-id"></span></div>
-						<div><strong>Created at:</strong>
-							<span class="ph-project-task-job-last-result-created-at"></span></div>
-						<div><strong>Started at:</strong>
-							<span class="ph-project-task-job-last-result-started-at"></span></div>
-						<div><strong>Finished at:</strong>
-							<span class="ph-project-task-job-last-result-finished-at"></span></div>
-						<div><strong>Duration:</strong> <span class="ph-project-task-job-last-result-duration"></span>
+						<div>
+							<strong>Job:</strong>
+							<span class="ph-project-task-job-last-result-job-id"></span>
 						</div>
-						<div><strong>Status:</strong> <span class="ph-project-task-job-last-result-status"></span></div>
+						<div>
+							<strong>Created at:</strong>
+							<span class="ph-project-task-job-last-result-created-at"></span>
+						</div>
+						<div>
+							<strong>Started at:</strong>
+							<span class="ph-project-task-job-last-result-started-at"></span>
+						</div>
+						<div>
+							<strong>Finished at:</strong>
+							<span class="ph-project-task-job-last-result-finished-at"></span>
+						</div>
+						<div>
+							<strong>Duration:</strong>
+							<span class="ph-project-task-job-last-result-duration"></span>
+						</div>
+						<div>
+							<strong>Status:</strong>
+							<span class="ph-project-task-job-last-result-status"></span></div>
 						<div>&nbsp;</div>
-						<div><strong>Progress:</strong> <span class="ph-project-task-job-last-result-progress"></span>
+						<div>
+							<strong>Progress:</strong>
+							<span class="ph-project-task-job-last-result-progress"></span>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div>
 				<ul class="ph-project-task-job-last-result-tabs nav nav-tabs" role="tablist"></ul>
-				<br/>
 				<div class="tab-content ph-project-task-job-last-result-tab-contents"></div>
 			</div>
 		</div>
@@ -106,6 +120,13 @@
 <!-- STARTUP -->
 <script>
 	var lastResultJobId = "";
+	var lastResultJobProgress;
+	var lastResultJobStatus;
+
+	function reset() {
+		lastResultJobProgress = -1;
+		lastResultJobStatus = "";
+	}
 
 	function load() {
 		var projectId = Util.getQueryParam("project");
@@ -188,6 +209,7 @@
 
 				if (Util.isNullOrUndefined(result)) {
 					$(".ph-project-task-job-last-result-tabs").html("");
+					$(".ph-project-task-job-last-result-tabs").hide();
 					$(".ph-project-task-job-last-result-tab-contents").html("");
 				} else {
 					var outputGroup = result.outputGroup;
@@ -196,14 +218,14 @@
 						outputGroup = []
 					}
 
-					var currentLastResultJobId = result.jobId;
-
-					if (Job.lastResultJobId != currentLastResultJobId) {
+					if (lastResultJobId != result.id) {
+						reset();
 						$(".ph-project-task-job-last-result-tabs").html("");
+						$(".ph-project-task-job-last-result-tabs").hide();
 						$(".ph-project-task-job-last-result-tab-contents").html("");
 					}
 
-					lastResultJobId = currentLastResultJobId;
+					lastResultJobId = result.id;
 
 					var progressClass = '';
 
@@ -242,53 +264,73 @@
 						statusHTML += '<span class="label label-success">' + result.status + '</span>';
 					}
 
-					$(".ph-project-task-job-last-result-job-id").html(result.jobId);
+					$(".ph-project-task-job-last-result-job-id").html(result.id);
 					$(".ph-project-task-job-last-result-created-at").html(Util.unixTimestampToDateTime(result.createdAt));
 					$(".ph-project-task-job-last-result-started-at").html(Util.unixTimestampToDateTime(result.startedAt));
 					$(".ph-project-task-job-last-result-finished-at").html(Util.unixTimestampToDateTime(result.finishedAt));
 					$(".ph-project-task-job-last-result-duration").html(result.duration + "s");
-					$(".ph-project-task-job-last-result-progress").html(progressHTML);
-					$(".ph-project-task-job-last-result-status").html(statusHTML);
 
-					var tabToActivate = "";
+					var needUpdateOutputGroup = true;
 
-					for (var x = 0; x < outputGroup.length; x++) {
-						var outputGroupName = outputGroup[x].name;
-						var tabId = Util.slugify(outputGroup[x].name);
-						var outputGroupContent = outputGroup[x].output;
-
-						var tabHTML = '' +
-							'<li role="presentation">' +
-							'    <a id="tab-' + tabId + '" href="#tab-content-' + tabId + '" aria-controls="tab-content-' + tabId + '" role="tab" data-toggle="tab">' + outputGroupName + '</a>' +
-							'</li>';
-
-						var tabContentHTML = '' +
-							'<div role="tabpanel" class="tab-pane" id="tab-content-' + tabId + '">' +
-							'    <div class="panel panel-default">' +
-							'        <div id="tab-content-body-' + tabId + '" class="panel-body"> ' +
-							'            ' + outputGroupContent +
-							'        </div>' +
-							'    </div>' +
-							'</div>';
-
-						if ($("#tab-" + tabId).length == 0) {
-							if (tabToActivate == "") {
-								tabToActivate = tabId;
-							}
-
-							$(".ph-project-task-job-last-result-tabs").append(tabHTML);
-							$(".ph-project-task-job-last-result-tab-contents").append(tabContentHTML);
-						} else {
-							$("#tab-content-body-" + tabId).html(outputGroupContent);
-						}
+					if (lastResultJobStatus == Job.JOB_STATUS_SUCCESS) {
+						needUpdateOutputGroup = false;
+					} else if (lastResultJobStatus == Job.JOB_STATUS_ERROR) {
+						needUpdateOutputGroup = false;
 					}
 
-					$(".ph-project-task-job-last-result-tabs a").click(function (e) {
-						e.preventDefault();
-						$(this).tab("show");
-					});
+					if (needUpdateOutputGroup) {
+						var tabToActivate = "";
 
-					$("#tab-" + tabToActivate).tab("show");
+						for (var x = 0; x < outputGroup.length; x++) {
+							var outputGroupName = outputGroup[x].name;
+							var tabId = Util.slugify(outputGroup[x].name);
+							var outputGroupContent = outputGroup[x].output;
+
+							var tabHTML = '' +
+								'<li role="presentation">' +
+								'    <a id="tab-' + tabId + '" href="#tab-content-' + tabId + '" aria-controls="tab-content-' + tabId + '" role="tab" data-toggle="tab">' + outputGroupName + '</a>' +
+								'</li>';
+
+							var tabContentHTML = '' +
+								'<div role="tabpanel" class="tab-pane tab-pane-output-group" id="tab-content-' + tabId + '">' +
+								'    <div class="panel panel-default">' +
+								'        <div id="tab-content-body-' + tabId + '" class="panel-body"> ' +
+								'            ' + outputGroupContent +
+								'        </div>' +
+								'    </div>' +
+								'</div>';
+
+							if ($("#tab-" + tabId).length == 0) {
+								if (tabToActivate == "") {
+									tabToActivate = tabId;
+								}
+
+								$(".ph-project-task-job-last-result-tabs").append(tabHTML);
+								$(".ph-project-task-job-last-result-tabs").show();
+								$(".ph-project-task-job-last-result-tab-contents").append(tabContentHTML);
+							} else {
+								$("#tab-content-body-" + tabId).html(outputGroupContent);
+							}
+						}
+
+						$(".ph-project-task-job-last-result-tabs a").click(function (e) {
+							e.preventDefault();
+							$(this).tab("show");
+						});
+
+						$("#tab-" + tabToActivate).tab("show");
+					}
+
+					if (lastResultJobStatus != result.status) {
+						lastResultJobStatus = result.status;
+						$(".ph-project-task-job-last-result-status").html(statusHTML);
+						$(".ph-project-task-job-last-result-progress").html(progressHTML);
+					}
+
+					if (lastResultJobProgress != result.progress) {
+						lastResultJobProgress = result.progress;
+						$(".ph-project-task-job-last-result-progress").html(progressHTML);
+					}
 				}
 
 				Util.showData("ph-project-task-job-last-result");
@@ -318,6 +360,7 @@
 	}
 
 	$(document).ready(function () {
+		reset();
 		load();
 	});
 </script>

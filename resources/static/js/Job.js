@@ -6,8 +6,6 @@ var Job = new function()
     this.JOB_STATUS_SUCCESS  = "success";
     this.JOB_STATUS_ERROR    = "error";
 
-    this.lastResultJobId = "";
-
     this.lastResult = function(projectId, taskId, preProcess, success, error)
     {
         if (!Util.isNullOrUndefined(preProcess))

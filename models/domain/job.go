@@ -34,7 +34,7 @@ type Job struct {
 	CreatedAt   int64            `json:"createdAt"`
 	StartedAt   int64            `json:"startedAt"`
 	FinishedAt  int64            `json:"finishedAt"`
-	Task        *ProjectTask
+	Task        *ProjectTask     `json:"task"`
 }
 
 func NewJob() *Job {
@@ -137,10 +137,12 @@ func (This *Job) Run() {
 		util.Debugf("Step finished: %v", step.Description)
 	}
 
-	if jobError {
-		This.Status = JOB_STATUS_ERROR
-	} else {
-		This.Status = JOB_STATUS_SUCCESS
+	if !This.StatusIsFinalState() {
+		if jobError {
+			This.Status = JOB_STATUS_ERROR
+		} else {
+			This.Status = JOB_STATUS_SUCCESS
+		}
 	}
 
 	This.FinishedAt = time.Now().UTC().Unix()
@@ -237,7 +239,59 @@ func (This *Job) LogSuccess(name string, contentLine string) {
 	This.AppendOutputContent(name, fmt.Sprintf("<p class='output-content-line-success'>%s</p>", contentLine))
 }
 
+func (This *Job) LogML(name string, content string) {
+	outList := strings.Split(content, "\n")
+
+	for _, outListItem := range outList {
+		This.Log(name, outListItem)
+	}
+}
+
+func (This *Job) LogInfoML(name string, content string) {
+	outList := strings.Split(content, "\n")
+
+	for _, outListItem := range outList {
+		This.LogInfo(name, outListItem)
+	}
+}
+
+func (This *Job) LogWarningML(name string, content string) {
+	outList := strings.Split(content, "\n")
+
+	for _, outListItem := range outList {
+		This.LogWarning(name, outListItem)
+	}
+}
+
+func (This *Job) LogErrorML(name string, content string) {
+	outList := strings.Split(content, "\n")
+
+	for _, outListItem := range outList {
+		This.LogError(name, outListItem)
+	}
+}
+
+func (This *Job) LogSuccessML(name string, content string) {
+	outList := strings.Split(content, "\n")
+
+	for _, outListItem := range outList {
+		This.LogSuccess(name, outListItem)
+	}
+}
+
 func (This *Job) UpdateDuration() {
 	currentTime := time.Now().UTC().Unix()
 	This.Duration = currentTime - This.StartedAt
+}
+
+func (This *Job) SetStatusError() {
+	This.Status = JOB_STATUS_ERROR
+}
+
+func (This *Job) SetStatusSuccess() {
+	This.Status = JOB_STATUS_SUCCESS
+}
+
+func (This *Job) StatusIsFinalState() bool {
+	return (This.Status == JOB_STATUS_SUCCESS || This.Status == JOB_STATUS_ERROR)
 }

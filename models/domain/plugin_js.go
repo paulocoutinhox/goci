@@ -115,11 +115,10 @@ func (This *PluginJS) GoCIExecOnDir(addToLog bool, dir string, command string, p
 		return err.Error()
 	}
 
-	// read command's stdout line by line
 	in := bufio.NewScanner(stdout)
 
 	for in.Scan() {
-		outBuffer += in.Text()
+		outBuffer += in.Text() + "\n"
 
 		if addToLog {
 			This.Job.Log(OG_CONSOLE, in.Text())

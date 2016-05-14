@@ -253,3 +253,12 @@ a.desc:after {
 .output-content-line-success {
 	color: #00BB08;
 }
+
+.tab-pane-output-group .panel {
+	border-top:0 none;
+	border-radius: 0;
+}
+
+.tab-pane-output-group .panel .panel-body {
+	word-wrap: break-word;
+}
