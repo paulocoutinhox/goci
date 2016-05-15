@@ -75,3 +75,45 @@ func JobGetFirstByProjectIdAndTaskId(projectId string, taskId string) (*domain.J
 
 	return nil, errors.New("Job was not found")
 }
+
+func JobGetByJobId(jobId string) (*domain.Job, error) {
+	if JobList == nil {
+		return nil, errors.New("No jobs found")
+	}
+
+	if len(JobList) == 0 {
+		return nil, errors.New("No jobs found")
+	}
+
+	for _, job := range JobList {
+		if job.ID == jobId {
+			return job, nil
+		}
+	}
+
+	return nil, errors.New("Job was not found")
+}
+
+func JobGetAllByProjectIdAndTaskId(projectId string, taskId string) ([]*domain.Job, error) {
+	if JobList == nil {
+		return nil, errors.New("No jobs found")
+	}
+
+	if len(JobList) == 0 {
+		return nil, errors.New("No jobs found")
+	}
+
+	jobs := []*domain.Job{}
+
+	for _, job := range JobList {
+		if projectId != "" && taskId != "" {
+			if job.ProjectID == projectId && job.TaskID == taskId {
+				jobs = append(jobs, job)
+			}
+		} else {
+			jobs = append(jobs, job)
+		}
+	}
+
+	return jobs, nil
+}
