@@ -51,6 +51,7 @@ func JobGetFirstOnQueue() (*domain.Job, error) {
 
 	for _, job := range JobList {
 		if job.Status == domain.JOB_STATUS_ON_QUEUE {
+			job.UpdateTemporaryDuration()
 			return job, nil
 		}
 	}
@@ -69,6 +70,7 @@ func JobGetFirstByProjectIdAndTaskId(projectId string, taskId string) (*domain.J
 
 	for _, job := range JobList {
 		if job.ProjectID == projectId && job.TaskID == taskId {
+			job.UpdateTemporaryDuration()
 			return job, nil
 		}
 	}
@@ -87,6 +89,7 @@ func JobGetByJobId(jobId string) (*domain.Job, error) {
 
 	for _, job := range JobList {
 		if job.ID == jobId {
+			job.UpdateTemporaryDuration()
 			return job, nil
 		}
 	}
@@ -108,9 +111,11 @@ func JobGetAllByProjectIdAndTaskId(projectId string, taskId string) ([]*domain.J
 	for _, job := range JobList {
 		if projectId != "" && taskId != "" {
 			if job.ProjectID == projectId && job.TaskID == taskId {
+				job.UpdateTemporaryDuration()
 				jobs = append(jobs, job)
 			}
 		} else {
+			job.UpdateTemporaryDuration()
 			jobs = append(jobs, job)
 		}
 	}

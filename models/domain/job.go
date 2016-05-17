@@ -281,7 +281,28 @@ func (This *Job) LogSuccessML(name string, content string) {
 
 func (This *Job) UpdateDuration() {
 	currentTime := time.Now().UTC().Unix()
-	This.Duration = currentTime - This.StartedAt
+	startedTime := This.StartedAt
+
+	if startedTime == 0 {
+		startedTime = currentTime
+	}
+
+	This.Duration = currentTime - startedTime
+}
+
+func (This *Job) UpdateTemporaryDuration() {
+	if This.Duration > 0 && This.FinishedAt > 0 {
+		return
+	}
+
+	currentTime := time.Now().UTC().Unix()
+	startedTime := This.StartedAt
+
+	if startedTime == 0 {
+		startedTime = currentTime
+	}
+
+	This.Duration = currentTime - startedTime
 }
 
 func (This *Job) SetStatusError() {
