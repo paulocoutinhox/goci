@@ -262,3 +262,7 @@ a.desc:after {
 .tab-pane-output-group .panel .panel-body {
 	word-wrap: break-word;
 }
+
+#job-list .progress {
+	margin-bottom: 0;
+}

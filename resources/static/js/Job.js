@@ -9,7 +9,7 @@ var Job = new function () {
 		var html = '' +
 			'<div class="job-row list-group-item">' +
 			'    <h4 class="list-group-item-heading">' + job.task.name + '</h4>' +
-			'    <p class="list-group-item-text">' +
+			'    <div class="list-group-item-text">' +
 			//'        <div><strong>Job:</strong> <span class="ph-project-task-last-job-id-' + job.id + '"></span></div>' +
 			//'        <div><strong>Created at:</strong> <span class="ph-project-task-last-job-created-at-' + job.id + '"></span></div>' +
 			//'        <div><strong>Started at:</strong> <span class="ph-project-task-last-job-started-at-' + job.id + '"></span></div>' +
@@ -17,7 +17,7 @@ var Job = new function () {
 			'        <div><strong>Duration:</strong> <span class="ph-project-task-last-job-duration-' + job.id + '"></span></div>' +
 			'        <div><strong>Status:</strong> <span class="ph-project-task-last-job-status-' + job.id + '"></span></div>' +
 			'        <div><strong>Progress:</strong> <span class="ph-project-task-last-job-progress-' + job.id + '"></span></div>' +
-			'    </p>' +
+			'    </div>' +
 			'</div>';
 
 		$('#job-list').append(html);
