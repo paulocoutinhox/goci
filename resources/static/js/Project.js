@@ -10,7 +10,7 @@ var Project = new function()
         '</a>';
 
         $('#project-list').append(html);
-    }
+    };
 
     this.addProjectTaskToHTML = function(projectId, task)
     {
@@ -31,7 +31,17 @@ var Project = new function()
         '</div>';
 
         $('#project-task-list').append(html);
-    }
+    };
+
+    this.clearProjectList = function()
+    {
+        $('.project-row').remove();
+    };
+
+    this.clearProjectTaskList = function()
+    {
+        $('.project-task-row').remove();
+    };
 
     this.list = function(preProcess, success, error)
     {
@@ -61,7 +71,7 @@ var Project = new function()
                 }
             }
         });
-    }
+    };
 
     this.view = function(projectId, preProcess, success, error)
     {
@@ -92,16 +102,6 @@ var Project = new function()
                 }
             }
         });
-    }
-
-    this.clearProjectList = function()
-    {
-        $('.project-row').remove();
-    }
-
-    this.clearProjectTaskList = function()
-    {
-        $('.project-task-row').remove();
-    }
+    };
 
 };

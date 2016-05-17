@@ -1,0 +1,150 @@
+{{define "content"}}
+<div class="job-list">
+
+	<!-- OPTIONS -->
+	<div id="options-container" class="panel panel-default hiddenContent">
+		<div class="panel-body">
+			<h3 class="options-container-title">Job List</h3>
+			<button type="button" class="btn btn-default" onclick="back()">Back</button>
+		</div>
+	</div>
+
+	<!-- DATA -->
+	<div id="data">
+		<div id="job-list" class="list-group"></div>
+	</div>
+
+	<div id="no-data">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div>No jobs found</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="error-data">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h3>Problem while loading job list</h3>
+				<p id="error-data-message"></p>
+				<button type="button" class="btn btn-primary" onclick="load();">Try again</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="loading-data">
+		<div class="panel panel-default">
+			<div class="panel-body">Loading...</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- STARTUP -->
+<script>
+	function load() {
+		Job.runningList(function () {
+			// ?
+		}, function (wr) {
+			var errorMessage = null;
+
+			if (wr.success) {
+				var list = wr.getDataItem("jobs");
+
+				if (!Util.isNullOrUndefined(list)) {
+					Job.clearJobList();
+
+					if (list.length > 0) {
+						for (var x = 0; x < list.length; x++) {
+							if (!$("#job-row-" + list[x].id).length > 0) {
+								var job = list[x];
+
+								Job.addJobToHTML(job);
+
+								$(".ph-project-task-last-job-id-" + job.id).html(job.id);
+
+								var progressClass = '';
+
+								if (job.status == Job.JOB_STATUS_ON_QUEUE) {
+									progressClass += " progress-bar progress-bar-info ";
+								} else if (job.status == Job.JOB_STATUS_RUNNING) {
+									progressClass += " progress-bar progress-bar-striped progress-bar-warning ";
+								} else if (job.status == Job.JOB_STATUS_SUCCESS) {
+									progressClass += " progress-bar progress-bar-success ";
+								} else if (job.status == Job.JOB_STATUS_ERROR) {
+									progressClass += " progress-bar progress-bar-danger ";
+								} else {
+									progressClass += " progress-bar progress-bar-success ";
+								}
+
+								progressClass += (job.progress < 100) ? ' active ' : ' ';
+
+								var progressHTML = '' +
+									'<div class="progress">' +
+									'    <div class="' + progressClass + '" role="progressbar" aria-valuenow="' + job.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + job.progress + '%" style="min-width: 2em;">' +
+									'        ' + job.progress + '%' +
+									'    </div>' +
+									'</div>';
+
+								var statusHTML = '';
+
+								if (job.status == Job.JOB_STATUS_ON_QUEUE) {
+									statusHTML += '<span class="label label-primary">' + job.status + '</span>';
+								} else if (job.status == Job.JOB_STATUS_RUNNING) {
+									statusHTML += '<span class="label label-warning">' + job.status + '</span>';
+								} else if (job.status == Job.JOB_STATUS_SUCCESS) {
+									statusHTML += '<span class="label label-success">' + job.status + '</span>';
+								} else if (job.status == Job.JOB_STATUS_ERROR) {
+									statusHTML += '<span class="label label-danger">' + job.status + '</span>';
+								} else {
+									statusHTML += '<span class="label label-success">' + job.status + '</span>';
+								}
+
+								$(".ph-project-task-last-job-created-at-" + job.id).html(Util.unixTimestampToDateTime(job.createdAt));
+								$(".ph-project-task-last-job-started-at-" + job.id).html(Util.unixTimestampToDateTime(job.startedAt));
+								$(".ph-project-task-last-job-finished-at-" + job.id).html(Util.unixTimestampToDateTime(job.finishedAt));
+								$(".ph-project-task-last-job-duration-" + job.id).html(job.duration + "s");
+								$(".ph-project-task-last-job-status-" + job.id).html(statusHTML);
+								$(".ph-project-task-last-job-progress-" + job.id).html(progressHTML);
+							}
+						}
+
+						Util.showData();
+					} else {
+						Util.showNoData();
+					}
+
+					Util.showOptionsContainer();
+				} else {
+					errorMessage = "Job list is invalid";
+				}
+			} else {
+				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+			}
+
+			if (errorMessage) {
+				Util.showErrorData(errorMessage);
+			}
+
+			autoLoad();
+		}, function () {
+			Util.showErrorData("An error occurred while processing your request, try again!");
+			autoLoad();
+		});
+	}
+
+	function autoLoad() {
+		setTimeout(function () {
+			load();
+		}, 2000);
+	}
+
+	function back() {
+		Util.redirect("/");
+	}
+
+	$(document).ready(function () {
+		load();
+	});
+</script>
+{{end}}

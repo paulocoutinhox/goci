@@ -25,6 +25,7 @@
 	<script src="/static/js/Project.js"></script>
 	<script src="/static/js/Task.js"></script>
 	<script src="/static/js/Job.js"></script>
+	<script src="/static/js/main.js"></script>
 
 	<script>
 		var WEB_BASE_URL = '/';
@@ -58,6 +59,12 @@
 				</ul>
 				{{else}}
 				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="/job/list">
+							<span class="ph-job-running-list-count">0</span>
+							<span class="ph-job-running-list-text">jobs</span>
+						</a>
+					</li>
 					<li>
 						<a href="/">Home</a>
 					</li>

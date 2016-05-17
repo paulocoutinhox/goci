@@ -98,15 +98,15 @@ func JobGetByJobId(jobId string) (*domain.Job, error) {
 }
 
 func JobGetAllByProjectIdAndTaskId(projectId string, taskId string) ([]*domain.Job, error) {
+	jobs := []*domain.Job{}
+
 	if JobList == nil {
-		return nil, errors.New("No jobs found")
+		return jobs, nil
 	}
 
 	if len(JobList) == 0 {
-		return nil, errors.New("No jobs found")
+		return jobs, nil
 	}
-
-	jobs := []*domain.Job{}
 
 	for _, job := range JobList {
 		if projectId != "" && taskId != "" {

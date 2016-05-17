@@ -25,6 +25,11 @@ func main() {
 	}
 
 	{
+		controller := controllers.JobController{}
+		controller.Register()
+	}
+
+	{
 		controller := controllers.TaskController{}
 		controller.Register()
 	}

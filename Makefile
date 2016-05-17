@@ -17,6 +17,7 @@ format:
 	${GOFMT} app/server.go
 	${GOFMT} controllers/api.go
 	${GOFMT} controllers/home.go
+	${GOFMT} controllers/job.go
 	${GOFMT} controllers/project.go
 	${GOFMT} controllers/task.go
 	${GOFMT} jobs/jobs.go

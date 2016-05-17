@@ -17,7 +17,7 @@ function WebResponse()
         }
 
         return null;
-    }
+    };
 
     this.parseFromObject = function(fromObject)
     {
@@ -68,13 +68,13 @@ function WebResponse()
         }
 
         return this;
-    }
+    };
 
     this.parseFromString = function(fromString)
     {
         var object = eval(fromString);
         return this.parseFromObject(object);
-    }
+    };
 
     this.getDataItem = function(item)
     {
@@ -89,7 +89,7 @@ function WebResponse()
         }
 
         return this.data[item];
-    }
+    };
 
     this.isNullOrUndefined = function(object)
     {
@@ -99,6 +99,6 @@ function WebResponse()
         }
 
         return false;
-    }
+    };
 
-};
+}

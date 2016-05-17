@@ -18,8 +18,8 @@ func (This *APIController) Register() {
 	app.Server.Router.GET("/api/task/view", This.APITaskView)
 	app.Server.Router.GET("/api/task/run", This.APITaskRun)
 	app.Server.Router.GET("/api/job/last", This.APIJobLast)
-	app.Server.Router.GET("/api/job/list", This.APIJobList)
-	app.Server.Router.GET("/api/job/view", This.APIJobView)
+	app.Server.Router.GET("/api/job/runningList", This.APIJobRunningList)
+	app.Server.Router.GET("/api/job/runningView", This.APIJobRunningView)
 	log.Println("APIController register : OK")
 }
 
@@ -165,7 +165,7 @@ func (This *APIController) APIJobLast(c *gin.Context) {
 	c.JSON(200, response)
 }
 
-func (This *APIController) APIJobList(c *gin.Context) {
+func (This *APIController) APIJobRunningList(c *gin.Context) {
 	projectId := strings.Trim(c.Request.URL.Query().Get("project"), " ")
 	taskId := strings.Trim(c.Request.URL.Query().Get("task"), " ")
 
@@ -213,7 +213,7 @@ func (This *APIController) APIJobList(c *gin.Context) {
 	c.JSON(200, response)
 }
 
-func (This *APIController) APIJobView(c *gin.Context) {
+func (This *APIController) APIJobRunningView(c *gin.Context) {
 	jobId := strings.Trim(c.Request.URL.Query().Get("job"), " ")
 	response := new(gowebresponse.WebResponse)
 

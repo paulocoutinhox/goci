@@ -30,7 +30,7 @@ var Task = new function()
                 }
             }
         });
-    }
+    };
 
     this.run = function(projectId, taskId, preProcess, success, error)
     {
@@ -61,18 +61,6 @@ var Task = new function()
                 }
             }
         });
-    }
-
-    this.disableRunButton = function(taskId)
-    {
-        $('.ph-project-task-run-button').addClass('disabled');
-        $('.ph-project-task-run-button-' + taskId).addClass('disabled');
-    }
-
-    this.enableRunButton = function(taskId)
-    {
-        $('.ph-project-task-run-button').removeClass('disabled');
-        $('.ph-project-task-run-button-' + taskId).removeClass('disabled');
-    }
-
+    };
+    
 };
