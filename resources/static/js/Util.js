@@ -54,7 +54,8 @@ var Util = new function () {
 		}
 
 		var options = {
-			"progressBar": true
+			"progressBar": true,
+			"closeButton": true
 		};
 
 		toastr.success(message, '', options);
@@ -66,7 +67,8 @@ var Util = new function () {
 		}
 
 		var options = {
-			"progressBar": true
+			"progressBar": true,
+			"closeButton": true
 		};
 
 		toastr.error(message, '', options);
@@ -78,7 +80,8 @@ var Util = new function () {
 		}
 
 		var options = {
-			"progressBar": true
+			"progressBar": true,
+			"closeButton": true
 		};
 
 		toastr.info(message, '', options);
@@ -90,7 +93,8 @@ var Util = new function () {
 		}
 
 		var options = {
-			"progressBar": true
+			"progressBar": true,
+			"closeButton": true
 		};
 
 		toastr.warning(message, '', options);
