@@ -26,7 +26,7 @@ func StartJobProcessor() {
 						job.Run()
 
 						for {
-							currentTime := time.Now().Unix()
+							currentTime := time.Now().UTC().Unix()
 							finishedTime := currentTime
 
 							if job.FinishedAt > 0 {
