@@ -48,6 +48,54 @@ var Util = new function () {
 		$('#modalSuccessWindow').modal();
 	};
 
+	this.showSuccessNotification = function (message) {
+		if (Util.isUndefined(message)) {
+			message = 'Your request was processed successfully!';
+		}
+
+		var options = {
+			"progressBar": true
+		};
+
+		toastr.success(message, '', options);
+	};
+
+	this.showErrorNotification = function (message) {
+		if (Util.isUndefined(message)) {
+			message = 'Error when process your request. Please, try again!';
+		}
+
+		var options = {
+			"progressBar": true
+		};
+
+		toastr.error(message, '', options);
+	};
+
+	this.showInfoNotification = function (message) {
+		if (Util.isUndefined(message)) {
+			message = '';
+		}
+
+		var options = {
+			"progressBar": true
+		};
+
+		toastr.info(message, '', options);
+	};
+
+	this.showWarningNotification = function (message) {
+		if (Util.isUndefined(message)) {
+			message = '';
+		}
+
+		var options = {
+			"progressBar": true
+		};
+
+		toastr.warning(message, '', options);
+	};
+
 	this.getFirstErrorMessage = function (errors) {
 		if (this.isUndefined(errors) || !(errors instanceof Array) || errors.length == 0) {
 			return "";
