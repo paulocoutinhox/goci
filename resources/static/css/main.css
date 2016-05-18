@@ -199,6 +199,10 @@ a.desc:after {
 	margin-top: 0;
 }
 
+#graph-data h3 {
+	margin-top: 0;
+}
+
 #data {
 	display: none;
 }
@@ -265,4 +269,20 @@ a.desc:after {
 
 #job-list .progress {
 	margin-bottom: 0;
+}
+
+.pie-chart-serie-on-queue {
+	stroke: #08b4fa;
+}
+
+.pie-chart-serie-running {
+	stroke: #ffbe41;
+}
+
+.pie-chart-serie-success {
+	stroke: #39c558;
+}
+
+.pie-chart-serie-error {
+	stroke: #ff3e43;
 }

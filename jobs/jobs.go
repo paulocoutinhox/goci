@@ -25,9 +25,24 @@ func StartJobProcessor() {
 					go func() {
 						job.Run()
 
-						for i := 0; i < len(JobList); i++ {
-							if JobList[i].ID == job.ID {
-								JobList = append(JobList[:i], JobList[i+1:]...)
+						for {
+							currentTime := time.Now().Unix()
+							finishedTime := currentTime
+
+							if job.FinishedAt > 0 {
+								finishedTime = job.FinishedAt
+							}
+
+							seconds := currentTime - finishedTime
+
+							if seconds > 60 {
+								for i := 0; i < len(JobList); i++ {
+									if JobList[i].ID == job.ID {
+										JobList = append(JobList[:i], JobList[i + 1:]...)
+										break
+									}
+								}
+
 								break
 							}
 						}

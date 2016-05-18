@@ -1,3 +1,5 @@
+var jobList = [];
+
 function loadJobRunningList() {
     Job.runningList(function () {
         // ?
