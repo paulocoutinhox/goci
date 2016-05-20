@@ -14,7 +14,7 @@ var (
 )
 
 func StartJobProcessor() {
-	JobProcessorTicker = time.NewTicker(time.Second * 2)
+	JobProcessorTicker = time.NewTicker(time.Second * 1)
 
 	go func() {
 		for range JobProcessorTicker.C {
