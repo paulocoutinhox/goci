@@ -106,6 +106,11 @@ func (This *WebServer) CreateStructure() {
 }
 
 func (This *WebServer) Start() {
+	err := This.Router.Run(This.Host)
+
+	if err != nil {
+		log.Fatalf("Server not started: %v", err)
+	}
+
 	log.Printf("Server started on %v : OK", This.Host)
-	This.Router.Run(This.Host)
 }
