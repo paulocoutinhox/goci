@@ -86,3 +86,25 @@ Today, only some functions are implemented. If you need one, you can make a pull
 # License
 
 MIT
+
+# Screenshots
+
+**# HOME**
+
+![SS1](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot1.png "Screenshot 1")
+
+**# PROJECT LIST**
+
+![SS2](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot2.png "Screenshot 2")
+
+**# TASK LIST OF SELECTED PROJECT**
+
+![SS3](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot3.png "Screenshot 3")
+
+**# TASK RESULTS VIEW**
+
+![SS4](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot4.png "Screenshot 4")
+
+**# RUNNING AND LAST JOBS**
+
+![SS5](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot5.png "Screenshot 5")
