@@ -28,43 +28,35 @@ function WebResponse()
         }
 
         // success property
-        if (this.isNullOrUndefined(fromObject.success))
+        this.success = fromObject["success"];
+
+        if (this.isNullOrUndefined(this.success))
         {
             this.success = false;
         }
-        else
-        {
-            this.success = fromObject.success;
-        }
 
         // message property
-        if (this.isNullOrUndefined(fromObject.message))
+        this.message = fromObject["message"];
+
+        if (this.isNullOrUndefined(this.message))
         {
             this.message = "";
         }
-        else
-        {
-            this.message = fromObject.message;
-        }
 
         // data property
-        if (this.isNullOrUndefined(fromObject.data))
+        this.data = fromObject["data"];
+
+        if (this.isNullOrUndefined(this.data))
         {
             this.data = {};
         }
-        else
-        {
-            this.data = fromObject.data;
-        }
 
         // data error property
-        if (this.isNullOrUndefined(fromObject.data.errors))
+        this.data.errors = this.data["errors"];
+
+        if (this.isNullOrUndefined(this.data.errors))
         {
             this.data.errors = [];
-        }
-        else
-        {
-            this.data.errors = fromObject.data.errors;
         }
 
         return this;
