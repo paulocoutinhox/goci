@@ -289,4 +289,17 @@ var Util = new function () {
 		}
 	};
 
+	this.callAfterDelay = function (fn, delay) {
+		if (this.isNullOrUndefined(fn)) {
+			return;
+		}
+
+		if (this.isNullOrUndefined(delay)) {
+			delay = 1000;
+		}
+		setTimeout(function () {
+			fn();
+		}, delay);
+	};
+
 };
