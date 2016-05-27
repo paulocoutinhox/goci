@@ -50,14 +50,18 @@ var Task = new function()
 
                 if (!Util.isNullOrUndefined(success))
                 {
-                    success(wr);
+                    Util.callAfterDelay(function () {
+                        success(wr);
+                    });
                 }
             },
             error: function()
             {
                 if (!Util.isNullOrUndefined(error))
                 {
-                    error();
+                    Util.callAfterDelay(function () {
+                        error();
+                    });
                 }
             }
         });
