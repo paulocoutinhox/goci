@@ -112,7 +112,7 @@ func JobGetByJobId(jobId string) (*domain.Job, error) {
 	return nil, errors.New("Job was not found")
 }
 
-func JobGetAllByProjectIdAndTaskId(projectId string, taskId string) ([]*domain.Job, error) {
+func JobGetAllByProjectIdAndTaskId(projectId string, taskId string, status string) ([]*domain.Job, error) {
 	jobs := []*domain.Job{}
 
 	if JobList == nil {
@@ -126,12 +126,22 @@ func JobGetAllByProjectIdAndTaskId(projectId string, taskId string) ([]*domain.J
 	for _, job := range JobList {
 		if projectId != "" && taskId != "" {
 			if job.ProjectID == projectId && job.TaskID == taskId {
+				if status == "" {
+					job.UpdateTemporaryDuration()
+					jobs = append(jobs, job)
+				} else if status != "" && status == job.Status {
+					job.UpdateTemporaryDuration()
+					jobs = append(jobs, job)
+				}
+			}
+		} else {
+			if status == "" {
+				job.UpdateTemporaryDuration()
+				jobs = append(jobs, job)
+			} else if status != "" && status == job.Status {
 				job.UpdateTemporaryDuration()
 				jobs = append(jobs, job)
 			}
-		} else {
-			job.UpdateTemporaryDuration()
-			jobs = append(jobs, job)
 		}
 	}
 

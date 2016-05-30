@@ -195,7 +195,7 @@ func (This *APIController) APIJobRunningList(c *gin.Context) {
 		}
 	}
 
-	jobs, err := jobs.JobGetAllByProjectIdAndTaskId(projectId, taskId)
+	jobs, err := jobs.JobGetAllByProjectIdAndTaskId(projectId, taskId, domain.JOB_STATUS_RUNNING)
 
 	if err != nil {
 		response.Success = false

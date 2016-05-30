@@ -45,7 +45,7 @@
 				<div class="panel-body">
 					<h3>Job graph</h3>
 					<br/>
-					<div class="ct-chart ct-perfect-fourth"></div>
+					<canvas id="graph"></canvas>
 				</div>
 			</div>
 		</div>
@@ -54,6 +54,14 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div>No jobs for graph</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="graph-error-data">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>Problem while loading job list</div>
 				</div>
 			</div>
 		</div>
@@ -69,6 +77,13 @@
 
 <!-- STARTUP -->
 <script>
+	var lastGraphTotalSuccess = 0;
+	var lastGraphTotalOnQueue = 0;
+	var lastGraphTotalError = 0;
+	var lastGraphTotalRunning = 0;
+	var graph = null;
+	var graphDataChanged = false;
+
 	function hasJobById(jobId) {
 		var job = getJobById(jobId);
 
@@ -287,58 +302,86 @@
 				if (graphTotal == 0) {
 					Util.showNoData('graph');
 				} else {
-					var graphDataSeries = [];
+					if (graphTotalSuccess != lastGraphTotalSuccess) {
+						lastGraphTotalSuccess = graphTotalSuccess;
+						graphDataChanged = true;
+					} else if (graphTotalOnQueue != lastGraphTotalOnQueue) {
+						lastGraphTotalOnQueue = graphTotalOnQueue;
+						graphDataChanged = true;
+					} else if (graphTotalError != lastGraphTotalError) {
+						lastGraphTotalError = graphTotalError;
+						graphDataChanged = true;
+					} else if (graphTotalRunning != lastGraphTotalRunning) {
+						lastGraphTotalRunning = graphTotalRunning;
+						graphDataChanged = true;
+					}
+
+					var graphDatasets = [];
 					var graphDataLabels = [];
-
-					if (graphTotalOnQueue > 0) {
-						graphDataSeries.push({
-							value: graphTotalOnQueue,
-							className: "pie-chart-serie-on-queue",
-							name: "on queue"
-						});
-						graphDataLabels.push('On Queue');
-					}
-
-					if (graphTotalRunning > 0) {
-						graphDataSeries.push({
-							value: graphTotalRunning,
-							className: "pie-chart-serie-running",
-							name: "running"
-						});
-						graphDataLabels.push('Running');
-					}
+					var graphDataColors = [];
 
 					if (graphTotalSuccess > 0) {
-						graphDataSeries.push({
-							value: graphTotalSuccess,
-							className: "pie-chart-serie-success",
-							name: "success"
-						});
+						graphDatasets.push(graphTotalSuccess);
 						graphDataLabels.push('Success');
+						graphDataColors.push('#39c558');
+					}
+
+					if (graphTotalOnQueue > 0) {
+						graphDatasets.push(graphTotalOnQueue);
+						graphDataLabels.push('On Queue');
+						graphDataColors.push('#08b4fa');
 					}
 
 					if (graphTotalError > 0) {
-						graphDataSeries.push({
-							value: graphTotalError,
-							className: "pie-chart-serie-error",
-							name: "error"
-						});
+						graphDatasets.push(graphTotalError);
 						graphDataLabels.push('Error');
+						graphDataColors.push('#ff3e43');
+					}
+
+					if (graphTotalRunning > 0) {
+						graphDatasets.push(graphTotalRunning);
+						graphDataLabels.push('Running');
+						graphDataColors.push('#ffbe41');
 					}
 
 					var graphData = {
-						labels: graphDataLabels,
-						series: graphDataSeries
-					};
-
-					var options = {
-						labelInterpolationFnc: function (value) {
-							return value
+						animation: {
+							animateScale: false,
+							animateRotate: false
 						},
-						donut: true
+						labels: graphDataLabels,
+						datasets: [
+							{
+								data: graphDatasets,
+								backgroundColor: graphDataColors,
+								hoverBackgroundColor: graphDataColors
+							}
+						]
 					};
 
-					new Chartist.Pie('.ct-chart', graphData, options);
+					var graphContext = document.getElementById("graph");
+					var graphOptions = {
+						animation: false
+					};
+
+					if (Util.isNullOrUndefined(graph)) {
+						graph = new Chart(graphContext, {
+							type: 'doughnut',
+							data: graphData,
+							options: graphOptions
+						});
+					} else {
+						if (graphDataChanged) {
+							graphDataChanged = false;
+
+							graph.data.labels = graphData.labels;
+							graph.data.datasets = graphData.datasets;
+							graph.data.backgroundColor = graphData.backgroundColor;
+							graph.data.hoverBackgroundColor = graphData.hoverBackgroundColor;
+
+							graph.update();
+						}
+					}
 
 					Util.showData('graph');
 				}
@@ -357,7 +400,7 @@
 			autoLoad();
 		}, function () {
 			Util.showErrorData("An error occurred while processing your request, try again!");
-			Util.showNoData();
+			Util.showErrorData("An error occurred while processing your request, try again!", "graph");
 			Job.clearJobList();
 			clearJobList();
 			autoLoad();
