@@ -207,15 +207,12 @@ func (This *Job) CreateOutputGroup(name string) (*JobOutputData, error) {
 	return outputGroup, nil
 }
 
-func (This *Job) CreateConsoleOutputGroup(name string, content string) {
-	This.CreateOutputGroup(OG_CONSOLE)
-}
-
 func (This *Job) AppendOutputContent(name string, content string) {
 	og, err := This.CreateOutputGroup(name)
 
 	if err == nil {
 		og.Output += content
+		og.UpdateUpdatedAt()
 	}
 }
 

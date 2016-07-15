@@ -210,6 +210,8 @@ func (This *PluginJS) GoCIExec(options map[string]interface{}, command string, p
 		return err.Error()
 	}
 
+	cmd.Wait()
+
 	return outBuffer
 }
 

@@ -17,7 +17,8 @@
 
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<div><strong>Name:</strong> <span class="ph-project-task-name"></span></div>
+				<div><strong>Project:</strong> <span class="ph-project-name"></span></div>
+				<div><strong>Task:</strong> <span class="ph-project-task-name"></span></div>
 				<div><strong>Description:</strong> <span class="ph-project-task-description"></span></div>
 				<div><strong>Steps:</strong> <span class="ph-project-task-steps-num"></span></div>
 			</div>
@@ -122,6 +123,7 @@
 	var lastJobId = "";
 	var lastJobProgress;
 	var lastJobStatus;
+	var contentUpdatedAtList = [];
 
 	function reset() {
 		lastJobProgress = -1;
@@ -143,6 +145,7 @@
 				if (Util.isNullOrUndefined(task)) {
 					errorMessage = "Task data is invalid";
 				} else {
+					$('.ph-project-name').html(projectId);
 					$('.ph-project-task-name').html(task.name);
 					$('.ph-project-task-description').html(task.description);
 					$('.ph-project-task-steps-num').html(task.steps.length);
@@ -286,32 +289,31 @@
 						for (var x = 0; x < outputGroup.length; x++) {
 							var outputGroupName = outputGroup[x].name;
 							var tabId = Util.slugify(outputGroup[x].name);
-							var outputGroupContent = outputGroup[x].output;
-
-							var tabHTML = '' +
-								'<li role="presentation">' +
-								'    <a id="tab-' + tabId + '" href="#tab-content-' + tabId + '" aria-controls="tab-content-' + tabId + '" role="tab" data-toggle="tab">' + outputGroupName + '</a>' +
-								'</li>';
-
-							var tabContentHTML = '' +
-								'<div role="tabpanel" class="tab-pane tab-pane-output-group" id="tab-content-' + tabId + '">' +
-								'    <div class="panel panel-default">' +
-								'        <div id="tab-content-body-' + tabId + '" class="panel-body"> ' +
-								'            ' + outputGroupContent +
-								'        </div>' +
-								'    </div>' +
-								'</div>';
 
 							if ($("#tab-" + tabId).length == 0) {
 								if (tabToActivate == "") {
 									tabToActivate = tabId;
 								}
 
+								var tabHTML = '' +
+									'<li role="presentation">' +
+									'    <a id="tab-' + tabId + '" href="#tab-content-' + tabId + '" aria-controls="tab-content-' + tabId + '" role="tab" data-toggle="tab">' + outputGroupName + '</a>' +
+									'</li>';
+
+								var tabContentHTML = '' +
+									'<div role="tabpanel" class="tab-pane tab-pane-output-group" id="tab-content-' + tabId + '">' +
+									'    <div class="panel panel-default">' +
+									'        <div id="tab-content-body-' + tabId + '" class="panel-body"> ' +
+									'            ' + outputGroup[x].output +
+									'        </div>' +
+									'    </div>' +
+									'</div>';
+
 								$(".ph-project-task-last-job-tabs").append(tabHTML);
 								$(".ph-project-task-last-job-tabs").show();
 								$(".ph-project-task-last-job-tab-contents").append(tabContentHTML);
 							} else {
-								$("#tab-content-body-" + tabId).html(outputGroupContent);
+								$("#tab-content-body-" + tabId).html(outputGroup[x].output);
 							}
 						}
 
