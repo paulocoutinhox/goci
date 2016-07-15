@@ -16,9 +16,9 @@ import (
 
 const (
 	JOB_STATUS_ON_QUEUE = "onqueue"
-	JOB_STATUS_RUNNING  = "running"
-	JOB_STATUS_SUCCESS  = "success"
-	JOB_STATUS_ERROR    = "error"
+	JOB_STATUS_RUNNING = "running"
+	JOB_STATUS_SUCCESS = "success"
+	JOB_STATUS_ERROR = "error"
 
 	OG_CONSOLE = "Console"
 )
@@ -27,6 +27,7 @@ type Job struct {
 	ID          string           `json:"id"`
 	TaskID      string           `json:"taskId"`
 	ProjectID   string           `json:"projectId"`
+	ProjectName string           `json:"projectName"`
 	OutputGroup []*JobOutputData `json:"outputGroup"`
 	Duration    int64            `json:"duration"`
 	Progress    int              `json:"progress"`
@@ -47,7 +48,7 @@ func NewJob() *Job {
 	}
 }
 
-func JobFilesGetAllByProjectIdAndTaskId(projectId string, taskId string) (Jobs, error) {
+func JobFilesGetAllByProjectIdAndTaskId(projectId string, taskId string) (JobsByCreatedAtDesc, error) {
 	if projectId == "" {
 		return nil, errors.New("Project ID is invalid")
 	}
@@ -103,14 +104,14 @@ func JobFilesGetLastByProjectIdAndTaskId(projectId string, taskId string) (*Job,
 	}
 
 	results, err := JobFilesGetAllByProjectIdAndTaskId(projectId, taskId)
-	sort.Sort(results)
+	sort.Sort(sort.Reverse(results))
 
 	if err != nil {
 		return nil, err
 	}
 
 	if len(results) > 0 {
-		return results[len(results)-1], nil
+		return results[0], nil
 	}
 
 	return nil, errors.New("Job result not found")
@@ -172,7 +173,7 @@ func (This *Job) Save() {
 	}
 
 	// write file contents
-	err = ioutil.WriteFile(dir+filename, content, 0777)
+	err = ioutil.WriteFile(dir + filename, content, 0777)
 
 	if err != nil {
 		util.Debugf("Erro while save the job result file: %v", err)

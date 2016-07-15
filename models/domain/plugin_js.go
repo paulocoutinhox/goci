@@ -198,7 +198,7 @@ func (This *PluginJS) GoCIExec(options map[string]interface{}, command string, p
 		outBuffer += inError.Text() + "\n"
 
 		if addToLog {
-			This.Job.Log(logErrorTabName, inError.Text())
+			This.Job.LogError(logErrorTabName, inError.Text())
 		}
 	}
 

@@ -5,6 +5,7 @@ import (
 	"github.com/prsolucoes/goci/models/domain"
 	"log"
 	"time"
+	"sort"
 )
 
 var (
@@ -74,16 +75,19 @@ func JobGetFirstOnQueue() (*domain.Job, error) {
 	return nil, errors.New("Job was not found")
 }
 
-func JobGetFirstByProjectIdAndTaskId(projectId string, taskId string) (*domain.Job, error) {
-	if JobList == nil {
+func JobGetFirstByProjectIdAndTaskIdOrderByCreatedAtDesc(projectId string, taskId string) (*domain.Job, error) {
+	jobList := domain.JobsByCreatedAtDesc(JobList)
+	sort.Sort(sort.Reverse(jobList))
+
+	if jobList == nil {
 		return nil, errors.New("No jobs found")
 	}
 
-	if len(JobList) == 0 {
+	if len(jobList) == 0 {
 		return nil, errors.New("No jobs found")
 	}
 
-	for _, job := range JobList {
+	for _, job := range jobList {
 		if job.ProjectID == projectId && job.TaskID == taskId {
 			job.UpdateTemporaryDuration()
 			return job, nil

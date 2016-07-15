@@ -123,7 +123,6 @@
 	var lastJobId = "";
 	var lastJobProgress;
 	var lastJobStatus;
-	var contentUpdatedAtList = [];
 
 	function reset() {
 		lastJobProgress = -1;
@@ -141,11 +140,12 @@
 
 			if (wr.success) {
 				var task = wr.getDataItem("task");
+				var project = wr.getDataItem("project");
 
 				if (Util.isNullOrUndefined(task)) {
 					errorMessage = "Task data is invalid";
 				} else {
-					$('.ph-project-name').html(projectId);
+					$('.ph-project-name').html(project.name);
 					$('.ph-project-task-name').html(task.name);
 					$('.ph-project-task-description').html(task.description);
 					$('.ph-project-task-steps-num').html(task.steps.length);

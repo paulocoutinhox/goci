@@ -74,6 +74,11 @@ func (This *APIController) APITaskView(c *gin.Context) {
 			response.Success = true
 			response.Message = ""
 			response.AddData("task", task)
+			response.AddData("project", map[string]interface{}{
+				"id": project.ID,
+				"name": project.Name,
+				"description": project.Description,
+			})
 		} else {
 			response.Success = false
 			response.Message = "error"
@@ -103,6 +108,8 @@ func (This *APIController) APITaskRun(c *gin.Context) {
 			job.Task = task
 			job.TaskID = task.ID
 			job.ProjectID = projectId
+			job.ProjectName = project.Name
+
 			jobs.JobList = append(jobs.JobList, job)
 
 			response.Success = true
@@ -134,7 +141,7 @@ func (This *APIController) APIJobLast(c *gin.Context) {
 
 		if err == nil {
 			// try get the first job on memory
-			job, err := jobs.JobGetFirstByProjectIdAndTaskId(projectId, taskId)
+			job, err := jobs.JobGetFirstByProjectIdAndTaskIdOrderByCreatedAtDesc(projectId, taskId)
 
 			// try get the result from disk
 			if job == nil {
