@@ -88,46 +88,123 @@ func (This *PluginJS) Process() error {
 	return nil
 }
 
-func (This *PluginJS) GoCIExec(addToLog bool, command string, params ...string) string {
-	return This.GoCIExecOnDir(addToLog, "", command, params...)
-}
-
-func (This *PluginJS) GoCIExecOnDir(addToLog bool, dir string, command string, params ...string) string {
+func (This *PluginJS) GoCIExec(options map[string]interface{}, command string, params ...string) string {
 	outBuffer := ""
 
+	addToLog := false
+	logTabName := OG_CONSOLE
+	logErrorTabName := logTabName
+	directory := ""
+
+	// check for addToLog option
+	addToLogOption, ok := options["addToLog"]
+
+	if ok {
+		addToLogValue, ok := addToLogOption.(bool)
+
+		if ok {
+			addToLog = addToLogValue
+		}
+	}
+
+	// check for log tab name option
+	logTabNameOption, ok := options["logTabName"]
+
+	if ok {
+		logTabNameValue, ok := logTabNameOption.(string)
+
+		if ok {
+			logTabName = logTabNameValue
+		}
+	}
+
+	// check for log tab name option
+	logErrorTabNameOption, ok := options["logErrorTabName"]
+
+	if ok {
+		logErrorTabNameValue, ok := logErrorTabNameOption.(string)
+
+		if ok {
+			logErrorTabName = logErrorTabNameValue
+		}
+	}
+
+	// check for directory option
+	directoryOption, ok := options["dir"]
+
+	if ok {
+		directoryValue, ok := directoryOption.(string)
+
+		if ok {
+			directory = directoryValue
+		}
+	}
+
+	// prepare to execute
 	cmd := exec.Command(command, params...)
-	cmd.Dir = dir
+	cmd.Dir = directory
 	stdout, err := cmd.StdoutPipe()
 
 	if err != nil {
 		if addToLog {
-			This.Job.LogError(OG_CONSOLE, err.Error())
+			This.Job.LogError(logErrorTabName, err.Error())
 		}
 
 		return err.Error()
 	}
 
+	stderr, err := cmd.StderrPipe()
+
+	if err != nil {
+		if addToLog {
+			This.Job.LogError(logErrorTabName, err.Error())
+		}
+
+		return err.Error()
+	}
+
+	// execute async
 	if err := cmd.Start(); err != nil {
 		if addToLog {
-			This.Job.LogError(OG_CONSOLE, err.Error())
+			This.Job.LogError(logErrorTabName, err.Error())
 		}
 
 		return err.Error()
 	}
 
+	// read stdout while executing
 	in := bufio.NewScanner(stdout)
 
 	for in.Scan() {
 		outBuffer += in.Text() + "\n"
 
 		if addToLog {
-			This.Job.Log(OG_CONSOLE, in.Text())
+			This.Job.Log(logTabName, in.Text())
 		}
 	}
 
 	if err := in.Err(); err != nil {
 		if addToLog {
-			This.Job.LogError(OG_CONSOLE, err.Error())
+			This.Job.LogError(logErrorTabName, err.Error())
+		}
+
+		return err.Error()
+	}
+
+	// read stderr while executing
+	inError := bufio.NewScanner(stderr)
+
+	for inError.Scan() {
+		outBuffer += inError.Text() + "\n"
+
+		if addToLog {
+			This.Job.Log(logErrorTabName, inError.Text())
+		}
+	}
+
+	if err := inError.Err(); err != nil {
+		if addToLog {
+			This.Job.LogError(logErrorTabName, err.Error())
 		}
 
 		return err.Error()
@@ -170,7 +247,6 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 		"Remove":    os.Lib_OS_Remove,
 		"RemoveAll": os.Lib_OS_RemoveAll,
 		"Exec":      This.GoCIExec,
-		"ExecOnDir": This.GoCIExecOnDir,
 	})
 
 	vm.Set("time", map[string]interface{}{

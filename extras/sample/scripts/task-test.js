@@ -3,7 +3,7 @@
 
 // sleep function
 goci.Job.SetProgress(10);
-time.Sleep("5s");
+time.Sleep("2s");
 goci.Job.UpdateDuration();
 
 // append html/string to output
@@ -41,13 +41,18 @@ goci.Job.UpdateDuration();
 
 // execute anything command line and append results to output
 goci.Job.SetProgress(70);
-os.Exec(true, "date");
+os.Exec({"addToLog": true, "logTabName": "MyTab"}, "date");
 goci.Job.UpdateDuration();
 
 // call functions from GoCI
 goci.Job.SetProgress(80);
-time.Sleep("5s");
-os.Exec(false, "ls", "-l", "-a", "-h");
+time.Sleep("2s");
+os.Exec({"addToLog": false}, "ls", "-l", "-a", "-h");
+goci.Job.UpdateDuration();
+
+// call functions from GoCI to simulate an error
+goci.Job.SetProgress(90);
+os.Exec({"addToLog": true, "logErrorTabName": "MyTabWithError"}, goci.const.WORKSPACE_DIR + "/bash/simulate-error.sh");
 goci.Job.UpdateDuration();
 
 // set job progress

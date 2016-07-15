@@ -38,7 +38,7 @@ func StartJobProcessor() {
 							if seconds > 60 {
 								for i := 0; i < len(JobList); i++ {
 									if JobList[i].ID == job.ID {
-										JobList = append(JobList[:i], JobList[i + 1:]...)
+										JobList = append(JobList[:i], JobList[i+1:]...)
 										break
 									}
 								}
