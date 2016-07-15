@@ -10,12 +10,13 @@ var Job = new function () {
 			'<div id="job-row-' + job.id + '" class="job-row list-group-item">' +
 			'    <h4 class="list-group-item-heading">' + job.task.name + '</h4>' +
 			'    <div class="list-group-item-text">' +
-			//'        <div><strong>Job:</strong> <span class="ph-job-id-' + job.id + '"></span></div>' +
-			//'        <div><strong>Created at:</strong> <span class="ph-job-created-at-' + job.id + '"></span></div>' +
-			//'        <div><strong>Started at:</strong> <span class="ph-job-started-at-' + job.id + '"></span></div>' +
-			//'        <div><strong>Finished at:</strong> <span class="ph-job-finished-at-' + job.id + '"></span></div>' +
+			'        <div><strong>Project:</strong> <span class="ph-job-project-name-' + job.id + '"></span></div>' +
+			'        <div><strong>Job:</strong> <span class="ph-job-id-' + job.id + '"></span></div>' +
 			'        <div><strong>Duration:</strong> <span class="ph-job-duration-' + job.id + '"></span></div>' +
 			'        <div><strong>Status:</strong> <span class="ph-job-status-' + job.id + '"></span></div>' +
+			'        <div><strong>Created at:</strong> <span class="ph-job-created-at-' + job.id + '"></span></div>' +
+			'        <div><strong>Started at:</strong> <span class="ph-job-started-at-' + job.id + '"></span></div>' +
+			'        <div><strong>Finished at:</strong> <span class="ph-job-finished-at-' + job.id + '"></span></div>' +
 			'        <div><strong>Progress:</strong> <span class="ph-job-progress-' + job.id + '">' +
 			'       </span></div>' +
 			'    </div>' +
