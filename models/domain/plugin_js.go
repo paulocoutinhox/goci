@@ -91,7 +91,7 @@ func (This *PluginJS) Process() error {
 func (This *PluginJS) GoCIExec(options map[string]interface{}, command string, params ...string) string {
 	outBuffer := ""
 
-	addToLog := false
+	addToLog := true
 	logTabName := OG_CONSOLE
 	logErrorTabName := logTabName
 	directory := ""
