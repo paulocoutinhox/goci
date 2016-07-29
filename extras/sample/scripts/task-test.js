@@ -1,5 +1,6 @@
 // throw error if you need
 //throw "My error!";
+require(goci.const.WORKSPACE_DIR + "/scripts/functions.js");
 
 // sleep function
 goci.Job.SetProgress(10);
@@ -9,8 +10,11 @@ goci.Job.UpdateDuration();
 // append html/string to output
 var tab = goci.const.OG_CONSOLE;
 
+// call a function inside functions.js
+testFunction("Paulo Coutinho");
+
 goci.Job.SetProgress(20);
-goci.Job.Log(tab, "My text!")
+goci.Job.Log(tab, "My text!");
 goci.Job.Log(tab, "GOCI_WORKSPACE: " + goci.const.WORKSPACE_DIR);
 goci.Job.Log(tab, "GOCI_RESOURCES_DIR: " + goci.const.RESOURCES_DIR);
 goci.Job.Log(tab, "GOCI_HOST: " + goci.const.HOST);

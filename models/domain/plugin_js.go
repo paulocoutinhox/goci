@@ -215,6 +215,24 @@ func (This *PluginJS) GoCIExec(options map[string]interface{}, command string, p
 	return outBuffer
 }
 
+func (This *PluginJS) JSRequire(call otto.FunctionCall) otto.Value {
+	file := call.Argument(0).String()
+
+	data, err := gioutil.ReadFile(file)
+
+	if err != nil {
+		panic(call.Otto.MakeCustomError("RequireException", err.Error()))
+	}
+
+	_, err = call.Otto.Run(string(data))
+
+	if err != nil {
+		panic(call.Otto.MakeCustomError("RequireException", err.Error()))
+	}
+
+	return otto.TrueValue()
+}
+
 func (This *PluginJS) ImportLib(vm *otto.Otto) {
 	vm.Set("goci", map[string]interface{}{
 		"Job":       This.Job,
@@ -254,4 +272,6 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 	vm.Set("time", map[string]interface{}{
 		"Sleep": time.Lib_Time_Sleep,
 	})
+
+	vm.Set("require", This.JSRequire)
 }
