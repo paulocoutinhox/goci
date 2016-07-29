@@ -2,7 +2,6 @@ package domain
 
 import (
 	"errors"
-	"github.com/prsolucoes/goci/models/util"
 	"strings"
 )
 
@@ -32,7 +31,7 @@ func TaskGetById(project *Project, taskID string) (*ProjectTask, error) {
 
 	for _, task := range tasks {
 		if task.ID == taskID {
-			util.Debugf("Task found: %v", taskID)
+			//util.Debugf("Task found: %v", taskID)
 			return task, nil
 		}
 	}

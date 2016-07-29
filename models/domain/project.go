@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/prsolucoes/goci/app"
-	"github.com/prsolucoes/goci/models/util"
 	"io/ioutil"
 	"path/filepath"
 	"strings"
@@ -26,12 +25,12 @@ func ProjectGetAll() ([]*Project, error) {
 		return nil, errors.New(fmt.Sprintf("Failed to get all project files: %v", err))
 	}
 
-	util.Debugf("Projects files found: %v", len(fileList))
+	//util.Debugf("Projects files found: %v", len(fileList))
 
 	projectList := []*Project{}
 
 	for _, projectFile := range fileList {
-		util.Debugf("Loading project: %s", projectFile)
+		//util.Debugf("Loading project: %s", projectFile)
 		file, err := ioutil.ReadFile(projectFile)
 
 		if err != nil {
@@ -47,7 +46,7 @@ func ProjectGetAll() ([]*Project, error) {
 
 		projectList = append(projectList, project)
 
-		util.Debugf("Project (%s) loaded", projectFile)
+		//util.Debugf("Project (%s) loaded", projectFile)
 	}
 
 	return projectList, nil
@@ -68,7 +67,7 @@ func ProjectGetById(projectId string) (*Project, error) {
 
 	for _, project := range projects {
 		if project.ID == projectId {
-			util.Debugf("Project found: %v", projectId)
+			//util.Debugf("Project found: %v", projectId)
 			return project, nil
 		}
 	}
