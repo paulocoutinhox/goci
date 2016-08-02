@@ -17,6 +17,8 @@ func (This *APIController) Register() {
 	app.Server.Router.GET("/api/project/view", This.APIProjectView)
 	app.Server.Router.GET("/api/task/view", This.APITaskView)
 	app.Server.Router.GET("/api/task/run", This.APITaskRun)
+	app.Server.Router.GET("/api/task/options", This.APITaskOptions)
+	app.Server.Router.GET("/api/task/steps", This.APITaskSteps)
 	app.Server.Router.GET("/api/job/last", This.APIJobLast)
 	app.Server.Router.GET("/api/job/runningList", This.APIJobRunningList)
 	app.Server.Router.GET("/api/job/runningView", This.APIJobRunningView)
@@ -115,6 +117,62 @@ func (This *APIController) APITaskRun(c *gin.Context) {
 			response.Success = true
 			response.Message = ""
 			response.AddData("job", job)
+		} else {
+			response.Success = false
+			response.Message = "error"
+			response.AddDataError("error", err.Error())
+		}
+	} else {
+		response.Success = false
+		response.Message = "error"
+		response.AddDataError("error", err.Error())
+	}
+
+	c.JSON(200, response)
+}
+
+func (This *APIController) APITaskOptions(c *gin.Context) {
+	projectId := c.Request.URL.Query().Get("project")
+	project, err := domain.ProjectGetById(projectId)
+
+	response := new(gowebresponse.WebResponse)
+
+	if err == nil {
+		taskId := c.Request.URL.Query().Get("task")
+		task, err := domain.TaskGetById(project, taskId)
+
+		if err == nil {
+			response.Success = true
+			response.Message = ""
+			response.AddData("options", task.Options)
+		} else {
+			response.Success = false
+			response.Message = "error"
+			response.AddDataError("error", err.Error())
+		}
+	} else {
+		response.Success = false
+		response.Message = "error"
+		response.AddDataError("error", err.Error())
+	}
+
+	c.JSON(200, response)
+}
+
+func (This *APIController) APITaskSteps(c *gin.Context) {
+	projectId := c.Request.URL.Query().Get("project")
+	project, err := domain.ProjectGetById(projectId)
+
+	response := new(gowebresponse.WebResponse)
+
+	if err == nil {
+		taskId := c.Request.URL.Query().Get("task")
+		task, err := domain.TaskGetById(project, taskId)
+
+		if err == nil {
+			response.Success = true
+			response.Message = ""
+			response.AddData("steps", task.Steps)
 		} else {
 			response.Success = false
 			response.Message = "error"

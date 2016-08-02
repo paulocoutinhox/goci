@@ -34,6 +34,7 @@ format:
 	${GOFMT} models/domain/plugin_manager.go
 	${GOFMT} models/domain/project.go
 	${GOFMT} models/domain/project_task.go
+	${GOFMT} models/domain/project_task_option.go
 	${GOFMT} models/domain/project_task_step.go
 	${GOFMT} models/domain/project_task_step_option.go
 	${GOFMT} models/util/util.go

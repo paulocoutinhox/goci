@@ -10,6 +10,7 @@ type ProjectTask struct {
 	Name        string             `json:"name"`
 	Description string             `json:"description"`
 	Steps       []*ProjectTaskStep `json:"steps"`
+	Options     []*ProjectTaskStepOption `json:"options"`
 }
 
 func TaskGetById(project *Project, taskID string) (*ProjectTask, error) {
@@ -31,7 +32,6 @@ func TaskGetById(project *Project, taskID string) (*ProjectTask, error) {
 
 	for _, task := range tasks {
 		if task.ID == taskID {
-			//util.Debugf("Task found: %v", taskID)
 			return task, nil
 		}
 	}
