@@ -10,11 +10,12 @@ import (
 )
 
 type WebServer struct {
-	Router       *gin.Engine
-	Config       *ini.File
-	Host         string
-	WorkspaceDir string
-	ResourcesDir string
+	Router               *gin.Engine
+	Config               *ini.File
+	Host                 string
+	WorkspaceDir         string
+	ResourcesDir         string
+	UseInMemoryResources bool
 }
 
 var (
@@ -27,6 +28,8 @@ func NewWebServer() *WebServer {
 	gin.SetMode(gin.ReleaseMode)
 	server.Router = gin.New()
 	server.Router.Use(gin.Recovery())
+
+	server.UseInMemoryResources = true
 
 	return server
 }
@@ -52,6 +55,8 @@ func (This *WebServer) LoadConfiguration() {
 			This.Host = ":8080"
 			This.WorkspaceDir = "./"
 			This.ResourcesDir = ""
+			This.UseInMemoryResources = true
+			log.Println("Use in-memory resources : YES")
 		} else {
 			{
 				// host
@@ -74,6 +79,24 @@ func (This *WebServer) LoadConfiguration() {
 				// resources dir
 				resourcesDir := serverSection.Key("resourcesDir").Value()
 				This.ResourcesDir = resourcesDir
+			}
+
+			{
+				// in memory resources
+				useInMemoryResources := serverSection.Key("useInMemoryResources").Value()
+
+				if useInMemoryResources == "" {
+					This.UseInMemoryResources = true
+					log.Println("Use in-memory resources : YES")
+				} else {
+					if useInMemoryResources == "1" {
+						This.UseInMemoryResources = true
+						log.Println("Use in-memory resources : YES")
+					} else {
+						This.UseInMemoryResources = false
+						log.Println("Use in-memory resources : NO")
+					}
+				}
 			}
 		}
 

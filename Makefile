@@ -40,6 +40,7 @@ format:
 	${GOFMT} models/domain/project_task_step.go
 	${GOFMT} models/domain/project_task_step_option.go
 	${GOFMT} models/util/util.go
+	${GOFMT} template/template.go
 
 test:
 
@@ -60,3 +61,6 @@ start:
 update:
 	git pull origin master
 	make install
+
+generate-assets:
+	go-bindata -o assets/bindata.go -pkg assets -ignore=.gitignore -ignore .DS_Store resources/...
