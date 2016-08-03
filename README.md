@@ -121,6 +121,6 @@ MIT
 
 ![SS5](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot5.png "Screenshot 5")
 
-**# TASK PARAMS WHEN RUN **
+**# TASK PARAMS WHEN RUN**
 
 ![SS5](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot6.png "Screenshot 6")
