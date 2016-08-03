@@ -35,7 +35,7 @@ workspaceDir = YOUR-WORKSPACE-DIRECTORY
 resourcesDir = YOUR-GOPATH-DIRECTORY + /src/github.com/prsolucoes/goci
 ```
 
-* You dont need "resourcesDir", because you can use in-memory resources loading. GoCI will use all assets from memory and not from disk. Use config "ueInMemoryResources" = "1". You can check sample config file. 
+* You dont need "resourcesDir", because you can use in-memory resources loading. GoCI will use all assets from memory and not from disk. Use config "useInMemoryResources" = "1". You can check sample config file. 
 
 # Sample files
 
