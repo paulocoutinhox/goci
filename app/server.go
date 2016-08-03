@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-ini/ini"
+	"github.com/prsolucoes/goci/models/integration"
 )
 
 type WebServer struct {
@@ -16,6 +17,7 @@ type WebServer struct {
 	WorkspaceDir         string
 	ResourcesDir         string
 	UseInMemoryResources bool
+	IntegrationManager   *integration.IntegrationManager
 }
 
 var (
@@ -30,6 +32,8 @@ func NewWebServer() *WebServer {
 	server.Router.Use(gin.Recovery())
 
 	server.UseInMemoryResources = true
+
+	server.IntegrationManager = &integration.IntegrationManager{}
 
 	return server
 }
@@ -104,6 +108,14 @@ func (This *WebServer) LoadConfiguration() {
 	} else {
 		log.Fatalf("Configuration file load error : %s", err.Error())
 	}
+}
+
+func (This *WebServer) LoadIntegrations() {
+	This.IntegrationManager.Add(&integration.IntegrationHttpGet{})
+	This.IntegrationManager.Add(&integration.IntegrationPushBullet{})
+	This.IntegrationManager.Add(&integration.IntegrationSendGrid{})
+	This.IntegrationManager.Add(&integration.IntegrationSlackWebHook{})
+	log.Println("Integrations : OK")
 }
 
 func (This *WebServer) CreateStructure() {

@@ -13,7 +13,7 @@ var (
 func PluginManagerLoadPlugins() {
 	PluginManagerAddPlugin(PLUGIN_CLI_NAME, reflect.TypeOf(PluginCLI{}))
 	PluginManagerAddPlugin(PLUGIN_JS_NAME, reflect.TypeOf(PluginJS{}))
-	log.Println("Plugins loaded : OK")
+	log.Println("Plugins : OK")
 }
 
 func PluginManagerAddPlugin(name string, plugin reflect.Type) {

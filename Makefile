@@ -39,6 +39,13 @@ format:
 	${GOFMT} models/domain/project_task_option_values_item.go
 	${GOFMT} models/domain/project_task_step.go
 	${GOFMT} models/domain/project_task_step_option.go
+	${GOFMT} models/integration/integration_interface.go
+	${GOFMT} models/integration/integration_http_get.go
+	${GOFMT} models/integration/integration_manager.go
+	${GOFMT} models/integration/integration_push_bullet.go
+	${GOFMT} models/integration/integration_sendgrid.go
+	${GOFMT} models/integration/integration_slack_webhook.go
+	${GOFMT} models/response/response.go
 	${GOFMT} models/util/util.go
 	${GOFMT} template/template.go
 
@@ -49,6 +56,10 @@ deps:
 	${GODEPS} github.com/gin-gonic/gin
 	${GODEPS} github.com/go-ini/ini
 	${GODEPS} github.com/robertkrimen/otto
+	${GODEPS} github.com/mitsuse/pushbullet-go
+	${GODEPS} github.com/mitsuse/pushbullet-go/requests
+	${GODEPS} github.com/sendgrid/sendgrid-go
+	${GODEPS} github.com/bluele/slack
 
 stop:
 	pkill -f ${EXECUTABLE}

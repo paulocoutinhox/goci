@@ -59,8 +59,7 @@ goci.Job.SetProgress(80);
 tab = "Options";
 goci.Job.Log(tab, "Total of options sent: " + goci.Job.Options.length);
 
-for (var x = 0; x < goci.Job.Options.length; x++)
-{
+for (var x = 0; x < goci.Job.Options.length; x++) {
 	goci.Job.Log(tab, "Option: <strong>" + goci.Job.Options[x].ID + "</strong> | Values: " + goci.Job.Options[x].Values);
 }
 

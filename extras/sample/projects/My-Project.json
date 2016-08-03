@@ -51,11 +51,26 @@
 					"description": "Select field",
 					"type": "select",
 					"values": [
-						{"value": "selectOption1", "text": "Select Option 1"},
-						{"value": "selectOption2", "text": "Select Option 2"},
-						{"value": "selectOption3", "text": "Select Option 3"},
-						{"value": "selectOption4", "text": "Select Option 4"},
-						{"value": "selectOption5", "text": "Select Option 5"}
+						{
+							"value": "selectOption1",
+							"text": "Select Option 1"
+						},
+						{
+							"value": "selectOption2",
+							"text": "Select Option 2"
+						},
+						{
+							"value": "selectOption3",
+							"text": "Select Option 3"
+						},
+						{
+							"value": "selectOption4",
+							"text": "Select Option 4"
+						},
+						{
+							"value": "selectOption5",
+							"text": "Select Option 5"
+						}
 					]
 				},
 				{
@@ -92,6 +107,25 @@
 							"description": "The params of process getter",
 							"type": "text",
 							"value": "-a"
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "task-test-integration-js",
+			"name": "Integration Test - JS",
+			"description": "This is a integration test task only",
+			"steps": [
+				{
+					"description": "Test all integrations",
+					"plugin": "js",
+					"options": [
+						{
+							"id": "file",
+							"description": "The JS file to execute",
+							"type": "text",
+							"value": "${GOCI_WORKSPACE_DIR}/scripts/task-integration-test.js"
 						}
 					]
 				}
