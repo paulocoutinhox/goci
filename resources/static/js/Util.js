@@ -38,6 +38,7 @@ var Util = new function () {
 		$('#modalTaskOptionsWindowHeader').html(headerContent);
 		$('#modalTaskOptionsWindowBody').html(bodyContent);
 		$('#modalTaskOptionsWindow').modal();
+		$('#modalTaskOptionsButtonRun').focus();
 	};
 
 	this.hideTaskOptionsWindow = function () {
