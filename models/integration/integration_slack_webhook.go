@@ -1,23 +1,22 @@
 package integration
 
 import (
-	"github.com/prsolucoes/goci/models/response"
 	"github.com/bluele/slack"
+	"github.com/prsolucoes/goci/models/response"
 )
 
 type IntegrationSlackWebHook struct {
-
 }
 
 const (
 	INTEGRATION_NAME_SLACK_WEB_HOOK = "SlackWebHook"
 )
 
-func (This *IntegrationSlackWebHook)GetName() string {
+func (This *IntegrationSlackWebHook) GetName() string {
 	return INTEGRATION_NAME_SLACK_WEB_HOOK
 }
 
-func (This *IntegrationSlackWebHook)Call(options map[string]interface{}) *response.Response {
+func (This *IntegrationSlackWebHook) Call(options map[string]interface{}) *response.Response {
 	response := response.NewResponse()
 
 	optWebHookURL := ""

@@ -1,24 +1,23 @@
 package integration
 
 import (
-	"github.com/prsolucoes/goci/models/response"
 	"github.com/mitsuse/pushbullet-go"
 	"github.com/mitsuse/pushbullet-go/requests"
+	"github.com/prsolucoes/goci/models/response"
 )
 
 type IntegrationPushBullet struct {
-
 }
 
 const (
 	INTEGRATION_NAME_PUSH_BULLET = "PushBullet"
 )
 
-func (This *IntegrationPushBullet)GetName() string {
+func (This *IntegrationPushBullet) GetName() string {
 	return INTEGRATION_NAME_PUSH_BULLET
 }
 
-func (This *IntegrationPushBullet)Call(options map[string]interface{}) *response.Response {
+func (This *IntegrationPushBullet) Call(options map[string]interface{}) *response.Response {
 	response := response.NewResponse()
 
 	optAccessToken := ""

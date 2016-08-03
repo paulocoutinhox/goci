@@ -6,18 +6,17 @@ import (
 )
 
 type IntegrationSendGrid struct {
-
 }
 
 const (
 	INTEGRATION_NAME_SEND_GRID = "SendGrid"
 )
 
-func (This *IntegrationSendGrid)GetName() string {
+func (This *IntegrationSendGrid) GetName() string {
 	return INTEGRATION_NAME_SEND_GRID
 }
 
-func (This *IntegrationSendGrid)Call(options map[string]interface{}) *response.Response {
+func (This *IntegrationSendGrid) Call(options map[string]interface{}) *response.Response {
 	response := response.NewResponse()
 
 	optMailToList := []string{}

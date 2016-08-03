@@ -235,9 +235,9 @@ func (This *PluginJS) JSRequire(call otto.FunctionCall) otto.Value {
 
 func (This *PluginJS) ImportLib(vm *otto.Otto) {
 	vm.Set("goci", map[string]interface{}{
-		"Job":       This.Job,
-		"Step":      This.Step,
-		"StepIndex": This.StepIndex,
+		"Job":                This.Job,
+		"Step":               This.Step,
+		"StepIndex":          This.StepIndex,
 		"IntegrationManager": app.Server.IntegrationManager,
 
 		"const": map[string]interface{}{

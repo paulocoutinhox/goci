@@ -1,24 +1,23 @@
 package integration
 
 import (
-	"net/http"
-	"io/ioutil"
 	"github.com/prsolucoes/goci/models/response"
+	"io/ioutil"
+	"net/http"
 )
 
 type IntegrationHttpGet struct {
-
 }
 
 const (
 	INTEGRATION_NAME_HTTP_GET = "HttpGet"
 )
 
-func (This *IntegrationHttpGet)GetName() string {
+func (This *IntegrationHttpGet) GetName() string {
 	return INTEGRATION_NAME_HTTP_GET
 }
 
-func (This *IntegrationHttpGet)Call(options map[string]interface{}) *response.Response {
+func (This *IntegrationHttpGet) Call(options map[string]interface{}) *response.Response {
 	response := response.NewResponse()
 	url, ok := options["url"]
 

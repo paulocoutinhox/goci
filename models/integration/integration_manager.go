@@ -1,23 +1,23 @@
 package integration
 
 import (
-	"github.com/prsolucoes/goci/models/response"
 	"fmt"
+	"github.com/prsolucoes/goci/models/response"
 )
 
 type IntegrationManager struct {
 	Integrations []IIntegration
 }
 
-func (This *IntegrationManager)Init() {
+func (This *IntegrationManager) Init() {
 	This.Integrations = []IIntegration{}
 }
 
-func (This *IntegrationManager)Add(integration IIntegration) {
+func (This *IntegrationManager) Add(integration IIntegration) {
 	This.Integrations = append(This.Integrations, integration)
 }
 
-func (This *IntegrationManager)Has(name string) bool {
+func (This *IntegrationManager) Has(name string) bool {
 	if This.Integrations == nil {
 		return false
 	}
@@ -31,7 +31,7 @@ func (This *IntegrationManager)Has(name string) bool {
 	return false
 }
 
-func (This *IntegrationManager)Count() int {
+func (This *IntegrationManager) Count() int {
 	if This.Integrations == nil {
 		return 0
 	}
@@ -39,7 +39,7 @@ func (This *IntegrationManager)Count() int {
 	return len(This.Integrations)
 }
 
-func (This *IntegrationManager)Call(name string, options map[string]interface{}) *response.Response {
+func (This *IntegrationManager) Call(name string, options map[string]interface{}) *response.Response {
 	response := response.NewResponse()
 
 	if This.Integrations == nil {
