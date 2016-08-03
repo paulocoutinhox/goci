@@ -32,10 +32,11 @@ Example of:
 [server]
 host = :8080
 workspaceDir = YOUR-WORKSPACE-DIRECTORY
+useInMemoryResources = 1
 resourcesDir = YOUR-GOPATH-DIRECTORY + /src/github.com/prsolucoes/goci
 ```
 
-* You dont need "resourcesDir", because you can use in-memory resources loading. GoCI will use all assets from memory and not from disk. Use config "useInMemoryResources" = "1". You can check sample config file. 
+* You dont need "resourcesDir" if you are using "useInMemoryResources", because all resources files is loaded from memory and not from disk. 
 
 # Sample files
 
