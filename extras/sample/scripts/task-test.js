@@ -44,14 +44,26 @@ goci.Job.Log(tab, "This is a new content for a new tab. You can create many tabs
 goci.Job.UpdateDuration();
 
 // execute anything command line and append results to output
-goci.Job.SetProgress(70);
+goci.Job.SetProgress(60);
 os.Exec({"addToLog": true, "logTabName": "MyTab"}, "date");
 goci.Job.UpdateDuration();
 
 // call functions from GoCI
-goci.Job.SetProgress(80);
+goci.Job.SetProgress(70);
 time.Sleep("2s");
 os.Exec({"addToLog": false}, "ls", "-l", "-a", "-h");
+goci.Job.UpdateDuration();
+
+// show all options sent
+goci.Job.SetProgress(80);
+tab = "Options";
+goci.Job.Log(tab, "Total of options sent: " + goci.Job.Options.length);
+
+for (var x = 0; x < goci.Job.Options.length; x++)
+{
+	goci.Job.Log(tab, "Option: <strong>" + goci.Job.Options[x].ID + "</strong> | Values: " + goci.Job.Options[x].Values);
+}
+
 goci.Job.UpdateDuration();
 
 // call functions from GoCI to simulate an error

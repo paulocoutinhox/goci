@@ -1,57 +1,101 @@
 {
-    "id": "my-project",
-    "name": "My Project",
-    "description": "My sample project - modify if you want",
-    "tasks": [
-        {
-            "id": "task-test-js",
-            "name": "Test - JS",
-            "description": "This is a test task only",
-            "steps": [
-                {
-                    "description": "Executing...",
-                    "plugin": "js",
-                    "options": [
-                        {
-                            "id": "file",
-                            "description": "The JS file to execute",
-                            "type": "text",
-                            "value": "${GOCI_WORKSPACE_DIR}/scripts/task-test.js"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "task-test-cli",
-            "name": "Get IFCONFIG data",
-            "description": "Get IFCONFIG data from command line",
-            "steps": [
-                {
-                    "description": "Getting...",
-                    "plugin": "cli",
-                    "options": [
-                        {
-                            "id": "working-dir",
-                            "description": "The project root directory",
-                            "type": "text",
-                            "value": "/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci"
-                        },
-                        {
-                            "id": "command",
-                            "description": "The main command",
-                            "type": "text",
-                            "value": "ifconfig"
-                        },
-                        {
-                            "id": "param",
-                            "description": "The params of process getter",
-                            "type": "text",
-                            "value": "-a"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+	"id": "my-project",
+	"name": "My Project",
+	"description": "My sample project - modify if you want",
+	"tasks": [
+		{
+			"id": "task-test-js",
+			"name": "Test - JS",
+			"description": "This is a test task only",
+			"steps": [
+				{
+					"description": "Test of some functions",
+					"plugin": "js",
+					"options": [
+						{
+							"id": "file",
+							"description": "The JS file to execute",
+							"type": "text",
+							"value": "${GOCI_WORKSPACE_DIR}/scripts/task-test.js"
+						}
+					]
+				}
+			],
+			"options": [
+				{
+					"id": "textField",
+					"description": "Text field",
+					"type": "text",
+					"value": "the text value"
+				},
+				{
+					"id": "hiddenField",
+					"description": "Hidden field",
+					"type": "hidden",
+					"value": "the hidden value"
+				},
+				{
+					"id": "passwordField",
+					"description": "Password field",
+					"type": "password",
+					"value": ""
+				},
+				{
+					"id": "checkField",
+					"description": "Checkbox field",
+					"type": "checkbox",
+					"value": "the checkbox value"
+				},
+				{
+					"id": "selectField",
+					"description": "Select field",
+					"type": "select",
+					"values": [
+						{"value": "selectOption1", "text": "Select Option 1"},
+						{"value": "selectOption2", "text": "Select Option 2"},
+						{"value": "selectOption3", "text": "Select Option 3"},
+						{"value": "selectOption4", "text": "Select Option 4"},
+						{"value": "selectOption5", "text": "Select Option 5"}
+					]
+				},
+				{
+					"id": "textAreaField",
+					"description": "A textarea field",
+					"type": "textarea",
+					"value": "This is a large text are value with some text to know what happen in large and small devices and to know if it will break and show fine with multiple lines"
+				}
+			]
+		},
+		{
+			"id": "task-test-cli",
+			"name": "Get IFCONFIG data",
+			"description": "Get IFCONFIG data from command line",
+			"steps": [
+				{
+					"description": "Test of CLI call",
+					"plugin": "cli",
+					"options": [
+						{
+							"id": "working-dir",
+							"description": "The project root directory",
+							"type": "text",
+							"value": "/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci"
+						},
+						{
+							"id": "command",
+							"description": "The main command",
+							"type": "text",
+							"value": "ifconfig"
+						},
+						{
+							"id": "param",
+							"description": "The params of process getter",
+							"type": "text",
+							"value": "-a"
+						}
+					]
+				}
+			]
+		}
+	]
 }

@@ -5,8 +5,8 @@
 	<div id="options-container" class="panel panel-default hiddenContent">
 		<div class="panel-body">
 			<h3 class="options-container-title">Task <span class="ph-project-task-name"></span></h3>
-			<button type="button" class="btn btn-primary ph-project-task-run-button" onclick="projectTaskRun(Util.getQueryParam('task'))">Run</button>
-			<button type="button" class="btn btn-success" onclick="load()">Refresh</button>
+			<button type="button" class="btn btn-success ph-project-task-run-button" onclick="projectTaskRun(Util.getQueryParam('task'))">Run</button>
+			<button type="button" class="btn btn-primary" onclick="load()">Refresh</button>
 			<button type="button" class="btn btn-default" onclick="back()">Back</button>
 		</div>
 	</div>
@@ -170,31 +170,27 @@
 	}
 
 	function projectTaskRun(taskId) {
-		bootbox.confirm("Are you sure that you want run this task?", function (result) {
-			if (result) {
-				var projectId = Util.getQueryParam("project");
+		var projectId = Util.getQueryParam("project");
 
-				Task.run(projectId, taskId, function () {
-					Util.showProgressWindow();
-				}, function (wr) {
-					Util.hideProgressWindow();
+		Task.run(projectId, taskId, function () {
+			Util.showProgressWindow();
+		}, function (wr) {
+			Util.hideProgressWindow();
 
-					var errorMessage = null;
+			var errorMessage = null;
 
-					if (wr.success) {
-						Util.showSuccessNotification('Your task was queued with success!');
-					} else {
-						errorMessage = Util.getFirstErrorMessage(wr.data.errors);
-					}
-
-					if (errorMessage) {
-						Util.showErrorNotification(errorMessage);
-					}
-				}, function () {
-					Util.hideProgressWindow();
-					Util.showErrorNotification("An error occurred while processing your request, try again!");
-				});
+			if (wr.success) {
+				Util.showSuccessNotification('Your task was queued with success!');
+			} else {
+				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
 			}
+
+			if (errorMessage) {
+				Util.showErrorNotification(errorMessage);
+			}
+		}, function () {
+			Util.hideProgressWindow();
+			Util.showErrorNotification("An error occurred while processing your request, try again!");
 		});
 	}
 
