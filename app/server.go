@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-ini/ini"
+	"github.com/prsolucoes/goci/models/integration"
 )
 
 type WebServer struct {
@@ -16,6 +17,7 @@ type WebServer struct {
 	WorkspaceDir         string
 	ResourcesDir         string
 	UseInMemoryResources bool
+	IntegrationManager   *integration.IntegrationManager
 }
 
 var (
@@ -31,11 +33,13 @@ func NewWebServer() *WebServer {
 
 	server.UseInMemoryResources = true
 
+	server.IntegrationManager = &integration.IntegrationManager{}
+
 	return server
 }
 
 func (This *WebServer) CreateBasicRoutes() {
-	This.Router.Static("/static", This.ResourcesDir+"/static")
+	This.Router.Static("/static", This.ResourcesDir + "/static")
 	log.Println("Router creation : OK")
 }
 
@@ -104,6 +108,11 @@ func (This *WebServer) LoadConfiguration() {
 	} else {
 		log.Fatalf("Configuration file load error : %s", err.Error())
 	}
+}
+
+func (This *WebServer) LoadIntegrations() {
+	This.IntegrationManager.Add(&integration.IntegrationHttpGet{})
+	log.Println("Integrations load : OK")
 }
 
 func (This *WebServer) CreateStructure() {

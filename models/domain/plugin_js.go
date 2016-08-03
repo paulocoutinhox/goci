@@ -238,6 +238,7 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 		"Job":       This.Job,
 		"Step":      This.Step,
 		"StepIndex": This.StepIndex,
+		"IntegrationManager": app.Server.IntegrationManager,
 
 		"const": map[string]interface{}{
 			"OG_CONSOLE":    OG_CONSOLE,

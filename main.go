@@ -10,6 +10,7 @@ import (
 func main() {
 	app.Server = app.NewWebServer()
 	app.Server.LoadConfiguration()
+	app.Server.LoadIntegrations()
 	app.Server.CreateStructure()
 	app.Server.CreateBasicRoutes()
 	domain.PluginManagerLoadPlugins()
