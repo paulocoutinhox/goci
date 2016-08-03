@@ -72,6 +72,17 @@ So if you want start your server for example, you only need call "make start".
 1. go build
 2. ./goci -f=config.ini
 
+# Task options
+
+Today we support this types of task option to be selected when RUN it:  
+  
+1. text 
+2. checkbox
+3. textarea
+4. password
+5. hidden
+6. select
+
 # Sugestion
 
 Today, only some functions are implemented. If you need one, you can make a pull-request or send a message in Github Issue.
