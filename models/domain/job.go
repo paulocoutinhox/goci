@@ -65,12 +65,9 @@ func JobFilesGetAllByProjectIdAndTaskId(projectId string, taskId string) (JobsBy
 		return nil, errors.New(fmt.Sprintf("Failed to get all job result files: %v", err))
 	}
 
-	//util.Debugf("Job result files found: %v", len(fileList))
-
 	resultList := []*Job{}
 
 	for _, resultFile := range fileList {
-		//util.Debugf("Loading job result: %s", resultFile)
 		file, err := ioutil.ReadFile(resultFile)
 
 		if err != nil {
@@ -86,7 +83,6 @@ func JobFilesGetAllByProjectIdAndTaskId(projectId string, taskId string) (JobsBy
 
 		resultList = append(resultList, result)
 
-		//util.Debugf("Job result (%s) loaded", resultFile)
 	}
 
 	return resultList, nil
@@ -136,7 +132,6 @@ func (This *Job) Run() {
 			This.LogError(OG_CONSOLE, err.Error())
 		}
 
-		//util.Debugf("Step finished: %v", step.Description)
 	}
 
 	if !This.StatusIsFinalState() {
@@ -158,7 +153,6 @@ func (This *Job) Save() {
 	content, err := json.Marshal(This)
 
 	if err != nil {
-		//util.Debugf("Erro while marshal the job result: %v", err)
 		return
 	}
 
