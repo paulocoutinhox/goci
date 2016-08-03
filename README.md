@@ -74,7 +74,7 @@ So if you want start your server for example, you only need call "make start".
 
 # Task options
 
-Today we support this types of task option to be selected when RUN it:  
+Today we support this types of fields for task option:  
   
 1. text 
 2. checkbox
