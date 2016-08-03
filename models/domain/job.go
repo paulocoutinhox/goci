@@ -123,7 +123,6 @@ func (This *Job) Run() {
 	jobError := false
 
 	for stepIndex, step := range This.Task.Steps {
-		//util.Debugf("Step started: %v", step.Description)
 		err := PluginManagerProcess(This, step, stepIndex)
 
 		if err != nil {
