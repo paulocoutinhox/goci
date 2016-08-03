@@ -10,9 +10,45 @@ goci.Job.Log(tab, "Total of loaded integrations: <strong>" + goci.IntegrationMan
 
 var integrations = [
 	{
-		name: "httpGet",
+		name: "HttpGet",
 		params: {
-			url: "http://www.pcoutinho.com"
+			"url": "http://www.pcoutinho.com"
+		}
+	},
+	{
+		name: "PushBullet",
+		params: {
+			"accessToken": "[REQUIRED]",
+			"deviceIden": "",
+			"email": "[REQUIRED]",
+			"channelTag": "",
+			"clientIden": "",
+			"title": "Push title",
+			"body": "Push body"
+		}
+	},
+	{
+		name: "SendGrid",
+		params: {
+			"to": [
+				"[REQUIRED]"
+			],
+			"fromEmail": "[REQUIRED]",
+			"fromName": "[REQUIRED]",
+			"key": "[REQUIRED]",
+			"mailSubject": "Mail subject",
+			"mailBody": "Mail body with HTML"
+		}
+	},
+	{
+		name: "SlackWebHook",
+		params: {
+			"url": "[REQUIRED]",
+			"channel": "",
+			"attachmentTitle": "Attachment title",
+			"attachmentBody": "Attachment body",
+			"attachmentColor": "#ed5565",
+			"messageBody": "Message body"
 		}
 	}
 ];

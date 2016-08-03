@@ -53,6 +53,6 @@ func (This *IntegrationManager)Call(name string, options map[string]interface{})
 		}
 	}
 
-	response.AddDataError("integration", fmt.Sprintf("Integration was not found: %v", name))
+	response.AddDataError("integration", fmt.Sprintf("Integration was not found (%v)", name))
 	return response
 }

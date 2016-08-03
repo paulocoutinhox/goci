@@ -11,7 +11,7 @@ type IntegrationHttpGet struct {
 }
 
 const (
-	INTEGRATION_NAME_HTTP_GET = "httpGet"
+	INTEGRATION_NAME_HTTP_GET = "HttpGet"
 )
 
 func (This *IntegrationHttpGet)GetName() string {

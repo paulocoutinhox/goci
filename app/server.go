@@ -112,7 +112,10 @@ func (This *WebServer) LoadConfiguration() {
 
 func (This *WebServer) LoadIntegrations() {
 	This.IntegrationManager.Add(&integration.IntegrationHttpGet{})
-	log.Println("Integrations load : OK")
+	This.IntegrationManager.Add(&integration.IntegrationPushBullet{})
+	This.IntegrationManager.Add(&integration.IntegrationSendGrid{})
+	This.IntegrationManager.Add(&integration.IntegrationSlackWebHook{})
+	log.Println("Integrations : OK")
 }
 
 func (This *WebServer) CreateStructure() {

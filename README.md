@@ -19,6 +19,7 @@ Some project advantages:
 - Each job execution has progress, html ouput compatible with bootstrap, status, etc
 - Everything work with API and you can consume using external tools
 - You can define task options to be selected in a modal dialog when you RUN (see the screenshot or sample JS task to see it in action)
+- Native integrations to be called from your JS task file (SendGrid, Slack, PushBullet and more), check sample task file "task-integration-test.js"
 - It is open-source - you can collaborate
 - You can DONATE!
 
@@ -86,6 +87,15 @@ Today we support this types of fields for task option:
 4. password
 5. hidden
 6. select
+
+# Integrations
+
+Today we support this integrations:  
+  
+1. SendGrid (send emails)
+2. PushBullet (send push message)
+3. HttpGet (call any URL using GET method)
+4. SlackWebHook (send message using web hook to Slack)
 
 # Sugestion
 
