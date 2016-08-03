@@ -4,8 +4,8 @@ import (
 	"errors"
 	"github.com/prsolucoes/goci/models/domain"
 	"log"
-	"time"
 	"sort"
+	"time"
 )
 
 var (

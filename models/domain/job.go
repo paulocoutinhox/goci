@@ -16,9 +16,9 @@ import (
 
 const (
 	JOB_STATUS_ON_QUEUE = "onqueue"
-	JOB_STATUS_RUNNING = "running"
-	JOB_STATUS_SUCCESS = "success"
-	JOB_STATUS_ERROR = "error"
+	JOB_STATUS_RUNNING  = "running"
+	JOB_STATUS_SUCCESS  = "success"
+	JOB_STATUS_ERROR    = "error"
 
 	OG_CONSOLE = "Console"
 )
@@ -36,6 +36,7 @@ type Job struct {
 	StartedAt   int64            `json:"startedAt"`
 	FinishedAt  int64            `json:"finishedAt"`
 	Task        *ProjectTask     `json:"task"`
+	Options     []*JobOptionItem `json:"options"`
 }
 
 func NewJob() *Job {
@@ -173,7 +174,7 @@ func (This *Job) Save() {
 	}
 
 	// write file contents
-	err = ioutil.WriteFile(dir + filename, content, 0777)
+	err = ioutil.WriteFile(dir+filename, content, 0777)
 
 	if err != nil {
 		util.Debugf("Erro while save the job result file: %v", err)

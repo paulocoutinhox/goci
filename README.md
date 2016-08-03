@@ -11,13 +11,14 @@ It use a simple plugin mechanism that let you use some different plugins to exec
   
 Some project advantages:
 - With javascript you can create scripts that have own logic inside and use bultin function like: http request, regexp, command line execution, json parser and more - dont need use bash script for it
-- Everything is a simples JSON file - yes, you dont need one database!
-- From project to results - you can versioning everything if you want
+- Everything is a simples JSON file - yes, you dont need a database!
+- From project to result log - you can versioning everything if you want
 - You dont need reload the server for nothing - unless a crash or bug :)
-- It use a workspace directory, so you can have a lot of workspaces or one for all projects
+- GoCI use a workspace directory, so you can have a lot of workspaces or one for all projects
 - The web interface if nice - made with bootstrap - all results need send HTML
 - Each job execution has progress, html ouput compatible with bootstrap, status, etc
 - Everything work with API and you can consume using external tools
+- You can define task options to be selected in a modal dialog when you RUN (see the screenshot or sample JS task to see it in action)
 - It is open-source - you can collaborate
 - You can DONATE!
 
@@ -108,3 +109,7 @@ MIT
 **# RUNNING AND LAST JOBS**
 
 ![SS5](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot5.png "Screenshot 5")
+
+**# TASK PARAMS WHEN RUN **
+
+![SS5](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot6.png "Screenshot 6")

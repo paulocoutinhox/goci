@@ -26,8 +26,9 @@ format:
 	${GOFMT} lib/time/time.go
 	${GOFMT} lib/os/os.go
 	${GOFMT} models/domain/job.go
+	${GOFMT} models/domain/job_option_item.go
 	${GOFMT} models/domain/job_output_data.go
-	${GOFMT} models/domain/jobs.go
+	${GOFMT} models/domain/jobs_by_created_at_desc.go
 	${GOFMT} models/domain/plugin_cli.go
 	${GOFMT} models/domain/plugin_interface.go
 	${GOFMT} models/domain/plugin_js.go
@@ -35,6 +36,7 @@ format:
 	${GOFMT} models/domain/project.go
 	${GOFMT} models/domain/project_task.go
 	${GOFMT} models/domain/project_task_option.go
+	${GOFMT} models/domain/project_task_option_values_item.go
 	${GOFMT} models/domain/project_task_step.go
 	${GOFMT} models/domain/project_task_step_option.go
 	${GOFMT} models/util/util.go

@@ -6,11 +6,11 @@ import (
 )
 
 type ProjectTask struct {
-	ID          string             `json:"id"`
-	Name        string             `json:"name"`
-	Description string             `json:"description"`
-	Steps       []*ProjectTaskStep `json:"steps"`
-	Options     []*ProjectTaskStepOption `json:"options"`
+	ID          string               `json:"id"`
+	Name        string               `json:"name"`
+	Description string               `json:"description"`
+	Steps       []*ProjectTaskStep   `json:"steps"`
+	Options     []*ProjectTaskOption `json:"options"`
 }
 
 func TaskGetById(project *Project, taskID string) (*ProjectTask, error) {

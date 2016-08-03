@@ -16,7 +16,7 @@ func (This *APIController) Register() {
 	app.Server.Router.GET("/api/project/list", This.APIProjectList)
 	app.Server.Router.GET("/api/project/view", This.APIProjectView)
 	app.Server.Router.GET("/api/task/view", This.APITaskView)
-	app.Server.Router.GET("/api/task/run", This.APITaskRun)
+	app.Server.Router.POST("/api/task/run", This.APITaskRun)
 	app.Server.Router.GET("/api/task/options", This.APITaskOptions)
 	app.Server.Router.GET("/api/task/steps", This.APITaskSteps)
 	app.Server.Router.GET("/api/job/last", This.APIJobLast)
@@ -77,8 +77,8 @@ func (This *APIController) APITaskView(c *gin.Context) {
 			response.Message = ""
 			response.AddData("task", task)
 			response.AddData("project", map[string]interface{}{
-				"id": project.ID,
-				"name": project.Name,
+				"id":          project.ID,
+				"name":        project.Name,
 				"description": project.Description,
 			})
 		} else {
@@ -96,22 +96,36 @@ func (This *APIController) APITaskView(c *gin.Context) {
 }
 
 func (This *APIController) APITaskRun(c *gin.Context) {
-	projectId := c.Request.URL.Query().Get("project")
+	projectId := c.Request.FormValue("project")
 	project, err := domain.ProjectGetById(projectId)
 
 	response := new(gowebresponse.WebResponse)
 
 	if err == nil {
-		taskId := c.Request.URL.Query().Get("task")
+		taskId := c.Request.FormValue("task")
 		task, err := domain.TaskGetById(project, taskId)
 
 		if err == nil {
+			// job data
 			job := domain.NewJob()
 			job.Task = task
 			job.TaskID = task.ID
 			job.ProjectID = projectId
 			job.ProjectName = project.Name
 
+			// task options
+			options := []*domain.JobOptionItem{}
+
+			for id, values := range c.Request.PostForm {
+				options = append(options, &domain.JobOptionItem{
+					ID:     id,
+					Values: values,
+				})
+			}
+
+			job.Options = options
+
+			// append to job list
 			jobs.JobList = append(jobs.JobList, job)
 
 			response.Success = true
@@ -145,6 +159,16 @@ func (This *APIController) APITaskOptions(c *gin.Context) {
 			response.Success = true
 			response.Message = ""
 			response.AddData("options", task.Options)
+			response.AddData("project", map[string]interface{}{
+				"id":          project.ID,
+				"name":        project.Name,
+				"description": project.Description,
+			})
+			response.AddData("task", map[string]interface{}{
+				"id":          task.ID,
+				"name":        task.Name,
+				"description": task.Description,
+			})
 		} else {
 			response.Success = false
 			response.Message = "error"

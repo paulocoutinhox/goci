@@ -30,6 +30,20 @@ var Util = new function () {
 		$('#modalProgressWindow').modal('hide');
 	};
 
+	this.showTaskOptionsWindow = function (headerContent, bodyContent) {
+		if (Util.isUndefined(bodyContent)) {
+			bodyContent = '<p class="text-center">No options are required for this task, click on RUN button to start the task</p>';
+		}
+
+		$('#modalTaskOptionsWindowHeader').html(headerContent);
+		$('#modalTaskOptionsWindowBody').html(bodyContent);
+		$('#modalTaskOptionsWindow').modal();
+	};
+
+	this.hideTaskOptionsWindow = function () {
+		$('#modalTaskOptionsWindow').modal('hide');
+	};
+
 	this.showErrorWindow = function (message) {
 		if (Util.isUndefined(message)) {
 			message = 'Error when process your request. Please, try again!';
@@ -300,6 +314,87 @@ var Util = new function () {
 		setTimeout(function () {
 			fn();
 		}, delay);
+	};
+
+	this.createTaskOptionsFields = function (options) {
+		var noOptionsText = '<p class="text-center">No options are required for this task, click on RUN button to start the task</p>';
+
+		if (this.isNullOrUndefined(options)) {
+			return noOptionsText;
+		}
+
+		if (!(options instanceof Array)) {
+			return noOptionsText;
+		}
+
+		if (options.length == 0) {
+			return noOptionsText;
+		}
+
+		var content = '';
+		content += '<div>';
+
+		for (var o = 0; o < options.length; o++) {
+			var option = options[o];
+
+			if (option.type == 'text') {
+				content += '<div class="form-group">';
+				content += '    <label for="' + option.id + '">' + option.description + '</label>';
+				content += '    <input type="text" class="form-control" id="' + option.id + '" placeholder="" name="' + option.id + '" value="' + option.value + '" autocomplete="off" />';
+				content += '</div>';
+			} else if (option.type == 'password') {
+				content += '<div class="form-group">';
+				content += '    <label for="' + option.id + '">' + option.description + '</label>';
+				content += '    <input type="password" class="form-control" id="' + option.id + '" placeholder="" name="' + option.id + '" value="' + option.value + '" autocomplete="off" />';
+				content += '</div>';
+			} else if (option.type == 'checkbox') {
+				content += '<div class="form-group">';
+				content += '    <div class="checkbox">';
+				content += '        <label for="' + option.id + '">';
+				content += '            <input type="checkbox" id="' + option.id + '" name="' + option.id + '" value="' + option.value + '" autocomplete="off" />';
+				content += '            ' + option.description + '';
+				content += '        </label>';
+				content += '    </div>';
+				content += '</div>';
+			} else if (option.type == 'hidden') {
+				content += '<input type="hidden" class="form-control" id="' + option.id + '" placeholder="" name="' + option.id + '" value="' + option.value + '" autocomplete="off" />';
+			} else if (option.type == 'select') {
+				var selectValues = option.values;
+
+				if (this.isNullOrUndefined(selectValues)) {
+					continue;
+				}
+
+				if (!(selectValues instanceof Array)) {
+					continue;
+				}
+
+				if (selectValues.length == 0) {
+					continue;
+				}
+
+				content += '<div class="form-group">';
+				content += '    <label for="' + option.id + '">' + option.description + '</label>';
+				content += '    <select class="form-control" id="' + option.id + '" name="' + option.id + '" autocomplete="off">';
+
+				for (var v = 0; v < selectValues.length; v++) {
+					var selectValue = selectValues[v];
+					content += '<option value="' + selectValue.value + '">' + selectValue.text + '</option>';
+				}
+
+				content += '    </select>';
+				content += '</div>';
+			} else if (option.type == 'textarea') {
+				content += '<div class="form-group">';
+				content += '    <label for="' + option.id + '">' + option.description + '</label>';
+				content += '    <textarea rows="5" class="form-control" id="' + option.id + '" placeholder="" name="' + option.id + '" autocomplete="off">' + option.value + '</textarea>';
+				content += '</div>';
+			}
+		}
+
+		content += '</div>';
+
+		return content;
 	};
 
 };
