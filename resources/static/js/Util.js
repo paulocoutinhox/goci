@@ -19,11 +19,10 @@ var Util = new function () {
 
 		$('#modalProgressWindowMessage').html(message);
 
-		$('#modalProgressWindow').modal(
-			{
-				keyboard: false,
-				backdrop: 'static'
-			});
+		$('#modalProgressWindow').modal({
+			keyboard: false,
+			backdrop: 'static'
+		});
 	};
 
 	this.hideProgressWindow = function () {
@@ -37,7 +36,9 @@ var Util = new function () {
 
 		$('#modalTaskOptionsWindowHeader').html(headerContent);
 		$('#modalTaskOptionsWindowBody').html(bodyContent);
-		$('#modalTaskOptionsWindow').modal();
+		$('#modalTaskOptionsWindow').modal({
+			backdrop: 'static'
+		});
 		$('#modalTaskOptionsButtonRun').focus();
 	};
 
@@ -51,7 +52,9 @@ var Util = new function () {
 		}
 
 		$('#modalErrorWindowMessage').html(message);
-		$('#modalErrorWindow').modal();
+		$('#modalErrorWindow').modal({
+			backdrop: 'static'
+		});
 	};
 
 	this.showSuccessWindow = function (message) {
@@ -60,7 +63,9 @@ var Util = new function () {
 		}
 
 		$('#modalSuccessWindowMessage').html(message);
-		$('#modalSuccessWindow').modal();
+		$('#modalSuccessWindow').modal({
+			backdrop: 'static'
+		});
 	};
 
 	this.showSuccessNotification = function (message) {

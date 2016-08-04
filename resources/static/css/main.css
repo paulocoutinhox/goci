@@ -330,3 +330,14 @@ a.desc:after {
 .form-task-options label {
 	font-weight: bold;
 }
+
+body.modal-open {
+	overflow: auto;
+}
+body.modal-open[style] {
+	padding-right: 0px !important;
+}
+
+.modal::-webkit-scrollbar {
+	width: 0 !important;
+}
