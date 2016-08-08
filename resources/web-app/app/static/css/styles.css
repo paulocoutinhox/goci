@@ -1,0 +1,47 @@
+html,
+body {
+	height: 100%;
+}
+
+body {
+	padding-top: 70px;
+}
+
+*:focus {
+	outline: none !important;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+a:focus {
+	text-decoration: none;
+	color: #3d96f3;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #3d96f3;
+}
+
+.wrap {
+	min-height: 100%;
+	height: auto;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.wrap > .container {
+	padding: 15px 20px;
+}
+
+.wrap > .container-fluid {
+	padding: 0;
+}
+
+.not-set {
+	color: #3d96f3;
+	font-style: italic;
+}

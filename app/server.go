@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-ini/ini"
 	"github.com/prsolucoes/goci/models/integration"
+	"net/http"
 )
 
 type WebServer struct {
@@ -39,8 +40,16 @@ func NewWebServer() *WebServer {
 }
 
 func (This *WebServer) CreateBasicRoutes() {
-	This.Router.Static("/static", This.ResourcesDir+"/static")
+	This.Router.NoRoute(This.RouteGeneral)
+	This.Router.Static("/node_modules", This.ResourcesDir + "/web-app/node_modules")
+	This.Router.Static("/app", This.ResourcesDir + "/web-app/app")
+	This.Router.StaticFile("/systemjs.config.js", This.ResourcesDir + "/web-app/systemjs.config.js")
+	This.Router.StaticFS("/web-app", http.Dir(This.ResourcesDir + "/web-app"))
 	log.Println("Router creation : OK")
+}
+
+func (This *WebServer) RouteGeneral(c *gin.Context) {
+	c.File(This.ResourcesDir + "/web-app/index.html")
 }
 
 func (This *WebServer) LoadConfiguration() {

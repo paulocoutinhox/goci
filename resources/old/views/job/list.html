@@ -1,0 +1,425 @@
+{{define "content"}}
+<div class="job-list">
+
+	<div class="col-md-8 col-lg-8">
+		<!-- OPTIONS -->
+		<div id="options-container" class="panel panel-default hiddenContent">
+			<div class="panel-body">
+				<h3 class="options-container-title">Job List</h3>
+				<button type="button" class="btn btn-default" onclick="back()">Back</button>
+			</div>
+		</div>
+
+		<!-- DATA -->
+		<div id="data">
+			<div id="job-list" class="list-group"></div>
+		</div>
+
+		<div id="no-data">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>No jobs found</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="error-data">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h3>Problem while loading job list</h3>
+					<p id="error-data-message"></p>
+					<button type="button" class="btn btn-primary" onclick="load();">Try again</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="loading-data">
+			<div class="panel panel-default">
+				<div class="panel-body">Loading...</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-lg-4">
+		<div id="graph-data">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h3>Job graph</h3>
+					<br/>
+					<canvas id="graph"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<div id="graph-no-data">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>No jobs for graph</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="graph-error-data">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>Problem while loading job list</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="graph-loading-data">
+			<div class="panel panel-default">
+				<div class="panel-body">Loading...</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- STARTUP -->
+<script>
+	var lastGraphTotalSuccess = 0;
+	var lastGraphTotalOnQueue = 0;
+	var lastGraphTotalError = 0;
+	var lastGraphTotalRunning = 0;
+	var graph = null;
+	var graphDataChanged = false;
+
+	function hasJobById(jobId) {
+		var job = getJobById(jobId);
+
+		return (!Util.isNullOrUndefined(job));
+	}
+
+	function addJob(job) {
+		if (!hasJobById(job.id)) {
+			job.lastProgress = -1;
+			jobList.push(job);
+		}
+	}
+
+	function getJobById(jobId) {
+		for (var x = 0; x < jobList.length; x++) {
+			if (jobList[x].id == jobId) {
+				return jobList[x];
+			}
+		}
+
+		return null;
+	}
+
+	function getJobIndexById(jobId) {
+		for (var x = 0; x < jobList.length; x++) {
+			if (jobList[x].id == jobId) {
+				return x;
+			}
+		}
+
+		return null;
+	}
+
+	function clearJobList() {
+		jobList = [];
+	}
+
+	function removeJobById(jobId) {
+		var jobIndex = getJobIndexById(jobId);
+
+		if (!Util.isNullOrUndefined(jobIndex)) {
+			jobList.splice(jobIndex, 1);
+		}
+	}
+
+	function getJobLastProgressById(jobId) {
+		var job = getJobById(jobId);
+
+		if (!Util.isNullOrUndefined(job)) {
+			return job.lastProgress;
+		}
+
+		return null;
+	}
+
+	function updateJobLastProgressById(jobId, progress) {
+		var job = getJobById(jobId);
+
+		if (!Util.isNullOrUndefined(job)) {
+			job.lastProgress = progress;
+		}
+	}
+
+	function load() {
+		Job.runningList(function () {
+			// ?
+		}, function (wr) {
+			var errorMessage = null;
+
+			if (wr.success) {
+				var list = wr.getDataItem("jobsCount");
+
+				// check for invalid list
+				if (Util.isNullOrUndefined(list)) {
+					Util.showNoData();
+					Job.clearJobList();
+					clearJobList();
+					autoLoad();
+					return;
+				}
+
+				// update current job list - add new job to list
+				if (list.length > 0) {
+					for (var x = 0; x < list.length; x++) {
+						var job = list[x];
+
+						if (!hasJobById(job.id)) {
+							addJob(job);
+						}
+					}
+				}
+
+				// update current job list - remove old jobsCount from list
+				for (var x = 0; x < jobList.length; x++) {
+					var job = jobList[x];
+					var found = false;
+
+					for (var y = 0; y < list.length; y++) {
+						if (list[y].id == job.id) {
+							found = true;
+						}
+					}
+
+					if (!found) {
+						removeJobById(job.id);
+						$("#job-row-" + job.id).remove();
+					}
+				}
+
+				// update current job list - only data
+				for (var x = 0; x < jobList.length; x++) {
+					var job = jobList[x];
+
+					for (var y = 0; y < list.length; y++) {
+						var currentJob = list[y];
+
+						if (job.id == currentJob.id) {
+							job.duration = currentJob.duration;
+							job.status = currentJob.status;
+							job.progress = currentJob.progress;
+							break;
+						}
+					}
+				}
+
+				// add html for job if not exists
+				for (var x = 0; x < jobList.length; x++) {
+					var job = jobList[x];
+
+					if (!$("#job-row-" + job.id).length > 0) {
+						Job.addJobToHTML(job);
+					}
+
+					// set job data on html
+					$(".ph-job-id-" + job.id).html(job.id);
+					$(".ph-job-project-name-" + job.id).html(job.projectName);
+
+					var progressClass = '';
+
+					if (job.status == Job.JOB_STATUS_ON_QUEUE) {
+						progressClass += " progress-bar progress-bar-info ";
+					} else if (job.status == Job.JOB_STATUS_RUNNING) {
+						progressClass += " progress-bar progress-bar-striped progress-bar-warning ";
+					} else if (job.status == Job.JOB_STATUS_SUCCESS) {
+						progressClass += " progress-bar progress-bar-success ";
+					} else if (job.status == Job.JOB_STATUS_ERROR) {
+						progressClass += " progress-bar progress-bar-danger ";
+					} else {
+						progressClass += " progress-bar progress-bar-success ";
+					}
+
+					progressClass += (job.progress < 100) ? ' active ' : ' ';
+
+					var progressHTML = '' +
+						'<div class="progress">' +
+						'    <div class="' + progressClass + '" role="progressbar" aria-valuenow="' + job.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + job.progress + '%" style="min-width: 2em;">' +
+						'        ' + job.progress + '%' +
+						'    </div>' +
+						'</div>';
+
+					var statusHTML = '';
+
+					if (job.status == Job.JOB_STATUS_ON_QUEUE) {
+						statusHTML += '<span class="label label-primary">' + job.status + '</span>';
+					} else if (job.status == Job.JOB_STATUS_RUNNING) {
+						statusHTML += '<span class="label label-warning">' + job.status + '</span>';
+					} else if (job.status == Job.JOB_STATUS_SUCCESS) {
+						statusHTML += '<span class="label label-success">' + job.status + '</span>';
+					} else if (job.status == Job.JOB_STATUS_ERROR) {
+						statusHTML += '<span class="label label-danger">' + job.status + '</span>';
+					} else {
+						statusHTML += '<span class="label label-success">' + job.status + '</span>';
+					}
+
+					$(".ph-job-created-at-" + job.id).html(Util.unixTimestampToDateTime(job.createdAt));
+					$(".ph-job-started-at-" + job.id).html(Util.unixTimestampToDateTime(job.startedAt));
+					$(".ph-job-finished-at-" + job.id).html(Util.unixTimestampToDateTime(job.finishedAt));
+					$(".ph-job-duration-" + job.id).html(job.duration + "s");
+					$(".ph-job-status-" + job.id).html(statusHTML);
+
+					var currentJobProgress = getJobLastProgressById(job.id);
+
+					if (currentJobProgress != job.progress) {
+						updateJobLastProgressById(job.id, job.progress);
+						$(".ph-job-progress-" + job.id).html(progressHTML);
+					}
+				}
+
+				if (jobList.length > 0) {
+					Util.showData();
+				} else {
+					Util.showNoData();
+				}
+
+				// create graph
+				var graphTotalOnQueue = 0;
+				var graphTotalRunning = 0;
+				var graphTotalSuccess = 0;
+				var graphTotalError = 0;
+
+				for (var x = 0; x < jobList.length; x++) {
+					var job = jobList[x];
+
+					if (job.status == Job.JOB_STATUS_ON_QUEUE) {
+						graphTotalOnQueue = graphTotalOnQueue + 1;
+					} else if (job.status == Job.JOB_STATUS_RUNNING) {
+						graphTotalRunning = graphTotalRunning + 1;
+					} else if (job.status == Job.JOB_STATUS_SUCCESS) {
+						graphTotalSuccess = graphTotalSuccess + 1;
+					} else if (job.status == Job.JOB_STATUS_ERROR) {
+						graphTotalError = graphTotalError + 1;
+					}
+				}
+
+				var graphTotal = graphTotalOnQueue + graphTotalRunning + graphTotalSuccess + graphTotalError;
+
+				if (graphTotal == 0) {
+					Util.showNoData('graph');
+				} else {
+					if (graphTotalSuccess != lastGraphTotalSuccess) {
+						lastGraphTotalSuccess = graphTotalSuccess;
+						graphDataChanged = true;
+					} else if (graphTotalOnQueue != lastGraphTotalOnQueue) {
+						lastGraphTotalOnQueue = graphTotalOnQueue;
+						graphDataChanged = true;
+					} else if (graphTotalError != lastGraphTotalError) {
+						lastGraphTotalError = graphTotalError;
+						graphDataChanged = true;
+					} else if (graphTotalRunning != lastGraphTotalRunning) {
+						lastGraphTotalRunning = graphTotalRunning;
+						graphDataChanged = true;
+					}
+
+					var graphDatasets = [];
+					var graphDataLabels = [];
+					var graphDataColors = [];
+
+					if (graphTotalSuccess > 0) {
+						graphDatasets.push(graphTotalSuccess);
+						graphDataLabels.push('Success');
+						graphDataColors.push('#39c558');
+					}
+
+					if (graphTotalOnQueue > 0) {
+						graphDatasets.push(graphTotalOnQueue);
+						graphDataLabels.push('On Queue');
+						graphDataColors.push('#08b4fa');
+					}
+
+					if (graphTotalError > 0) {
+						graphDatasets.push(graphTotalError);
+						graphDataLabels.push('Error');
+						graphDataColors.push('#ff3e43');
+					}
+
+					if (graphTotalRunning > 0) {
+						graphDatasets.push(graphTotalRunning);
+						graphDataLabels.push('Running');
+						graphDataColors.push('#ffbe41');
+					}
+
+					var graphData = {
+						animation: {
+							animateScale: false,
+							animateRotate: false
+						},
+						labels: graphDataLabels,
+						datasets: [
+							{
+								data: graphDatasets,
+								backgroundColor: graphDataColors,
+								hoverBackgroundColor: graphDataColors
+							}
+						]
+					};
+
+					var graphContext = document.getElementById("graph");
+					var graphOptions = {
+						animation: false
+					};
+
+					if (Util.isNullOrUndefined(graph)) {
+						graph = new Chart(graphContext, {
+							type: 'doughnut',
+							data: graphData,
+							options: graphOptions
+						});
+					} else {
+						if (graphDataChanged) {
+							graphDataChanged = false;
+
+							graph.data.labels = graphData.labels;
+							graph.data.datasets = graphData.datasets;
+							graph.data.backgroundColor = graphData.backgroundColor;
+							graph.data.hoverBackgroundColor = graphData.hoverBackgroundColor;
+
+							graph.update();
+						}
+					}
+
+					Util.showData('graph');
+				}
+
+				Util.showOptionsContainer();
+			} else {
+				errorMessage = Util.getFirstErrorMessage(wr.data.errors);
+			}
+
+			if (errorMessage) {
+				Job.clearJobList();
+				clearJobList();
+				Util.showErrorData(errorMessage);
+			}
+
+			autoLoad();
+		}, function () {
+			Util.showErrorData("An error occurred while processing your request, try again!");
+			Util.showErrorData("An error occurred while processing your request, try again!", "graph");
+			Job.clearJobList();
+			clearJobList();
+			autoLoad();
+		});
+	}
+
+	function autoLoad() {
+		setTimeout(function () {
+			load();
+		}, 1000);
+	}
+
+	function back() {
+		Util.redirect("/project/index");
+	}
+
+	$(document).ready(function () {
+		load();
+	});
+</script>
+{{end}}

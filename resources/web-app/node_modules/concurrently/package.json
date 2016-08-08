@@ -1,0 +1,77 @@
+{
+  "name": "concurrently",
+  "version": "2.2.0",
+  "description": "Run commands concurrently",
+  "main": "src/main.js",
+  "bin": {
+    "concurrent": "./src/main.js",
+    "concurrently": "./src/main.js"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimmobrunfeldt/concurrently.git"
+  },
+  "keywords": [
+    "bash",
+    "concurrent",
+    "parallel",
+    "concurrently",
+    "command",
+    "sh"
+  ],
+  "author": {
+    "name": "Kimmo Brunfeldt"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kimmobrunfeldt/concurrently/issues"
+  },
+  "homepage": "https://github.com/kimmobrunfeldt/concurrently",
+  "dependencies": {
+    "bluebird": "2.9.6",
+    "chalk": "0.5.1",
+    "commander": "2.6.0",
+    "cross-spawn": "^0.2.9",
+    "lodash": "^4.5.1",
+    "moment": "^2.11.2",
+    "rx": "2.3.24"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "mustache": "^1.0.0",
+    "semver": "^4.2.0",
+    "shell-quote": "^1.4.3",
+    "shelljs": "^0.3.0",
+    "string": "^3.0.0"
+  },
+  "gitHead": "497a6c35a19df981ba67430feb7f8612ab0bfd29",
+  "_id": "concurrently@2.2.0",
+  "_shasum": "bad248e0bb129fb1621768903a6311d45d56895a",
+  "_from": "concurrently@>=2.0.0 <3.0.0",
+  "_npmVersion": "3.8.6",
+  "_nodeVersion": "6.1.0",
+  "_npmUser": {
+    "name": "kimmobrunfeldt",
+    "email": "kimmo.brunfeldt@gmail.com"
+  },
+  "dist": {
+    "shasum": "bad248e0bb129fb1621768903a6311d45d56895a",
+    "tarball": "https://registry.npmjs.org/concurrently/-/concurrently-2.2.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "kimmobrunfeldt",
+      "email": "kimmo.brunfeldt@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/concurrently-2.2.0.tgz_1467712409992_0.07769871852360666"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/concurrently/-/concurrently-2.2.0.tgz"
+}
