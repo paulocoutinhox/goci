@@ -45,6 +45,7 @@ export class AppMainComponent implements OnInit {
 				this.globalService.jobsCount = res.data.count;
 				this.globalService.jobList = res.data.jobs;
 				this.globalService.emitJobsCount();
+				this.globalService.emitJobList();
 			})
 			.catch(error => {
 				//

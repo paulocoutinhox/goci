@@ -36,6 +36,7 @@ var AppMainComponent = (function () {
             _this.globalService.jobsCount = res.data.count;
             _this.globalService.jobList = res.data.jobs;
             _this.globalService.emitJobsCount();
+            _this.globalService.emitJobList();
         })
             .catch(function (error) {
             //

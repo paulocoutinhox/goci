@@ -6,6 +6,7 @@ export class GlobalService {
 	public jobsCount: number = 0;
 	public jobList: any;
 	public jobsCountEmitter = new EventEmitter<number>();
+	public jobListEmitter = new EventEmitter<any>();
 
 	constructor() {
 
@@ -13,6 +14,10 @@ export class GlobalService {
 
 	emitJobsCount() {
 		this.jobsCountEmitter.emit(this.jobsCount);
+	}
+
+	emitJobList() {
+		this.jobListEmitter.emit(this.jobList);
 	}
 
 }

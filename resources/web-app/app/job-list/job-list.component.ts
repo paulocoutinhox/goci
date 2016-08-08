@@ -1,4 +1,6 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'job-list',
@@ -6,5 +8,22 @@ import {Component} from "@angular/core";
 	styleUrls: ['app/job-list/job-list.component.css']
 })
 
-export class JobListComponent {
+export class JobListComponent implements OnInit {
+
+
+
+	constructor(private globalService: GlobalService, private router: Router) {
+
+	}
+
+	ngOnInit(): any {
+		this.globalService.jobListEmitter.subscribe(value => {
+			console.log(value);
+		});
+	}
+
+	backToHome() {
+		this.router.navigate(['/']);
+	}
+
 }

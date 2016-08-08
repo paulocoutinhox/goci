@@ -13,9 +13,13 @@ var GlobalService = (function () {
     function GlobalService() {
         this.jobsCount = 0;
         this.jobsCountEmitter = new core_1.EventEmitter();
+        this.jobListEmitter = new core_1.EventEmitter();
     }
     GlobalService.prototype.emitJobsCount = function () {
         this.jobsCountEmitter.emit(this.jobsCount);
+    };
+    GlobalService.prototype.emitJobList = function () {
+        this.jobListEmitter.emit(this.jobList);
     };
     GlobalService = __decorate([
         core_1.Injectable(), 
