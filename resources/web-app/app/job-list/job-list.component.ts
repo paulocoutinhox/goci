@@ -10,8 +10,6 @@ import {GlobalService} from "../services/GlobalService";
 
 export class JobListComponent implements OnInit {
 
-
-
 	constructor(private globalService: GlobalService, private router: Router) {
 
 	}
