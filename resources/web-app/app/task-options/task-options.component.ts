@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from "@angular/core";
 import {TaskService} from "../services/TaskService";
 import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from "@angular/forms";
 import {TaskOption} from "../domain/TaskOption";
+import {Utils} from "../domain/Utils";
 
 @Component({
 	selector: 'task-options',
@@ -62,14 +63,8 @@ export class TaskOptionsComponent implements OnInit {
 
 	run() {
 		let formValues = this.form.value;
-		let formData = `project=${this.projectId}&task=${this.taskId}`;
-
-		if (formValues != null) {
-			for (var formKey in formValues) {
-				var formValue = formValues[formKey];
-				formData += `&${formKey}=${formValue}`;
-			}
-		}
+		let formData = Utils.formValuesEncoded(formValues);
+		formData += `&project=${this.projectId}&task=${this.taskId}`;
 
 		this.taskService.run(this.projectId, this.taskId, formData)
 			.then(response => {

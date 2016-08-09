@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var TaskService_1 = require("../services/TaskService");
 var forms_1 = require("@angular/forms");
 var TaskOption_1 = require("../domain/TaskOption");
+var Utils_1 = require("../domain/Utils");
 var TaskOptionsComponent = (function () {
     function TaskOptionsComponent(taskService) {
         this.taskService = taskService;
@@ -41,13 +42,8 @@ var TaskOptionsComponent = (function () {
     TaskOptionsComponent.prototype.run = function () {
         var _this = this;
         var formValues = this.form.value;
-        var formData = "project=" + this.projectId + "&task=" + this.taskId;
-        if (formValues != null) {
-            for (var formKey in formValues) {
-                var formValue = formValues[formKey];
-                formData += "&" + formKey + "=" + formValue;
-            }
-        }
+        var formData = Utils_1.Utils.formValuesEncoded(formValues);
+        formData += "&project=" + this.projectId + "&task=" + this.taskId;
         this.taskService.run(this.projectId, this.taskId, formData)
             .then(function (response) {
             if (response != null && response.success == true) {
