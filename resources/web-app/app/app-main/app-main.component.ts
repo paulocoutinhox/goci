@@ -9,6 +9,7 @@ import {NotFoundComponent} from "../not-found/not-found.component";
 import {GlobalService} from "../services/GlobalService";
 import {JobService} from "../services/JobService";
 import {Observable} from "rxjs/Rx";
+import {ProjectViewComponent} from "../project-view/project-view.component";
 
 @Component({
 	selector: 'app-main',
@@ -21,6 +22,7 @@ import {Observable} from "rxjs/Rx";
 		AppFooterComponent,
 		JobListComponent,
 		ProjectListComponent,
+		ProjectViewComponent,
 		NotFoundComponent
 	],
 	providers: [

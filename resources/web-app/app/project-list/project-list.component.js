@@ -64,6 +64,9 @@ var ProjectListComponent = (function () {
         this.showError = true;
         this.list = [];
     };
+    ProjectListComponent.prototype.view = function (projectId) {
+        this.router.navigate(['/project/view', projectId]);
+    };
     ProjectListComponent = __decorate([
         core_1.Component({
             selector: 'project-list',

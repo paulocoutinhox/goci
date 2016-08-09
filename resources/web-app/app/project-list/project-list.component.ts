@@ -77,4 +77,8 @@ export class ProjectListComponent implements OnInit {
 		this.list = [];
 	}
 
+	view(projectId) {
+		this.router.navigate(['/project/view', projectId]);
+	}
+
 }

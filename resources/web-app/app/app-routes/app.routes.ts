@@ -3,6 +3,7 @@ import {HomeComponent} from "../home/home.component";
 import {JobListComponent} from "../job-list/job-list.component";
 import {ProjectListComponent} from "../project-list/project-list.component";
 import {NotFoundComponent} from "../not-found/not-found.component";
+import {ProjectViewComponent} from "../project-view/project-view.component";
 
 const routes: RouterConfig = [
 	//{ path: '**', component: PageNotFoundComponent },
@@ -19,6 +20,9 @@ const routes: RouterConfig = [
 	},
 	{
 		path: 'project/list', component: ProjectListComponent
+	},
+	{
+		path: 'project/view/:project', component: ProjectViewComponent
 	},
 	{
 		path: '**',

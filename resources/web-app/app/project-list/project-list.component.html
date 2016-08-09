@@ -12,7 +12,7 @@
 	<!-- DATA -->
 	<div id="data" *ngIf="showList">
 		<div id="project-list" class="list-group">
-			<a *ngFor="let item of list" href="/project/view?project=' + project.id + '" id="project-row-{{item.id}}" class="project-row list-group-item">
+			<a *ngFor="let item of list" href="javascript: void(0);" (click)="view(item.id)" class="project-row list-group-item">
 				<h4 class="list-group-item-heading">{{item.name}}</h4>
 				<p class="list-group-item-text">{{item.description}}</p>
 			</a>

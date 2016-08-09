@@ -19,6 +19,7 @@ var not_found_component_1 = require("../not-found/not-found.component");
 var GlobalService_1 = require("../services/GlobalService");
 var JobService_1 = require("../services/JobService");
 var Rx_1 = require("rxjs/Rx");
+var project_view_component_1 = require("../project-view/project-view.component");
 var AppMainComponent = (function () {
     function AppMainComponent(globalService, jobService) {
         this.globalService = globalService;
@@ -54,6 +55,7 @@ var AppMainComponent = (function () {
                 app_footer_component_1.AppFooterComponent,
                 job_list_component_1.JobListComponent,
                 project_list_component_1.ProjectListComponent,
+                project_view_component_1.ProjectViewComponent,
                 not_found_component_1.NotFoundComponent
             ],
             providers: [
