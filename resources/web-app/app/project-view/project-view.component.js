@@ -12,11 +12,16 @@ var core_1 = require("@angular/core");
 var ProjectService_1 = require("../services/ProjectService");
 var router_1 = require("@angular/router");
 var Rx_1 = require("rxjs/Rx");
+var TaskService_1 = require("../services/TaskService");
+var forms_1 = require("@angular/forms");
+var TaskOption_1 = require("../domain/TaskOption");
 var ProjectViewComponent = (function () {
-    function ProjectViewComponent(projectService, router, route) {
+    function ProjectViewComponent(projectService, taskService, router, route) {
         this.projectService = projectService;
+        this.taskService = taskService;
         this.router = router;
         this.route = route;
+        this.form = new forms_1.FormGroup({});
     }
     ProjectViewComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -72,19 +77,60 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent.prototype.view = function (projectId, taskId) {
         this.router.navigate(['/task/view', projectId, taskId]);
     };
-    ProjectViewComponent.prototype.run = function (projectId, taskId) {
+    ProjectViewComponent.prototype.showTaskOptions = function (projectId, taskId) {
+        var _this = this;
         toastr.success("Job to be queued:<br />" + projectId + " | " + taskId);
+        this.form = null;
+        this.taskOptions = [];
+        this.taskService.options(projectId, taskId)
+            .then(function (response) {
+            if (response != null && response.success == true) {
+                var options = response.data.options;
+                var controlList_1 = {};
+                if (options != null) {
+                    options.forEach(function (option) {
+                        controlList_1[option["id"]] = new forms_1.FormControl(option["value"]);
+                        _this.taskOptions.push(new TaskOption_1.TaskOption({
+                            id: option['id'],
+                            type: option['type'],
+                            description: option['description'],
+                            value: option['value'],
+                            values: option['values']
+                        }));
+                    });
+                }
+                console.log(_this.taskOptions);
+                _this.form = new forms_1.FormGroup(controlList_1);
+            }
+            else {
+                console.log('Error on get task options');
+            }
+        })
+            .catch(function () {
+            console.log('Error on get task options');
+        });
     };
+    ProjectViewComponent.prototype.run = function (projectId, taskId) {
+        console.log(JSON.stringify(this.form.value));
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array)
+    ], ProjectViewComponent.prototype, "taskOptions", void 0);
     ProjectViewComponent = __decorate([
         core_1.Component({
             selector: 'project-view',
             templateUrl: 'app/project-view/project-view.component.html',
             styleUrls: ['app/project-view/project-view.component.css'],
             providers: [
-                ProjectService_1.ProjectService
+                ProjectService_1.ProjectService,
+                TaskService_1.TaskService
+            ],
+            directives: [
+                forms_1.REACTIVE_FORM_DIRECTIVES
             ]
         }), 
-        __metadata('design:paramtypes', [ProjectService_1.ProjectService, router_1.Router, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [ProjectService_1.ProjectService, TaskService_1.TaskService, router_1.Router, router_1.ActivatedRoute])
     ], ProjectViewComponent);
     return ProjectViewComponent;
 }());
