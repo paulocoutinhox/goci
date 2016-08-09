@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var ProjectService_1 = require("../services/ProjectService");
 var router_1 = require("@angular/router");
+var Rx_1 = require("rxjs/Rx");
 var ProjectViewComponent = (function () {
     function ProjectViewComponent(projectService, router, route) {
         this.projectService = projectService;
@@ -20,8 +21,57 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
-            _this.projectName = params['project'] + '!';
+            _this.projectId = params['project'];
         });
+        this.load();
+    };
+    ProjectViewComponent.prototype.load = function () {
+        var _this = this;
+        this.hideAll();
+        this.showLoading = true;
+        Rx_1.Observable.empty().delay(1000).subscribe(null, null, function () {
+            _this.getData();
+        });
+        toastr.success('Are you the 6 fingered man?', 'aaa', { 'hideDuration': 99999999 });
+    };
+    ProjectViewComponent.prototype.getData = function () {
+        var _this = this;
+        this.projectService.view(this.projectId)
+            .then(function (response) {
+            if (response != null && response.success == true) {
+                _this.project = response.data.project;
+                _this.hideAll();
+                if (_this.project != null) {
+                    _this.showData = true;
+                }
+                else {
+                    _this.showEmptyData = true;
+                }
+            }
+            else {
+                _this.onError();
+            }
+        })
+            .catch(function () {
+            _this.onError();
+        });
+    };
+    ProjectViewComponent.prototype.back = function () {
+        this.router.navigate(['/project/list']);
+    };
+    ProjectViewComponent.prototype.hideAll = function () {
+        this.showData = false;
+        this.showEmptyData = false;
+        this.showLoading = false;
+        this.showError = false;
+    };
+    ProjectViewComponent.prototype.onError = function () {
+        this.hideAll();
+        this.showError = true;
+        this.project = null;
+    };
+    ProjectViewComponent.prototype.view = function (projectId, taskId) {
+        this.router.navigate(['/task/view', projectId, taskId]);
     };
     ProjectViewComponent = __decorate([
         core_1.Component({

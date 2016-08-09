@@ -30,7 +30,7 @@ var ProjectListComponent = (function () {
     };
     ProjectListComponent.prototype.getData = function () {
         var _this = this;
-        this.projectService.getProjectList()
+        this.projectService.list()
             .then(function (response) {
             if (response != null && response.success == true) {
                 _this.list = response.data.list;

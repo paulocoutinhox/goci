@@ -15,8 +15,14 @@ var ProjectService = (function () {
     function ProjectService(http) {
         this.http = http;
     }
-    ProjectService.prototype.getProjectList = function () {
+    ProjectService.prototype.list = function () {
         return this.http.get('/api/project/list')
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    ProjectService.prototype.view = function (projectId) {
+        return this.http.get('/api/project/view?project=' + projectId)
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);

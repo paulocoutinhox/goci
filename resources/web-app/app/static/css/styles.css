@@ -49,3 +49,43 @@ a:hover {
 h3 {
 	margin-top: 0px;
 }
+
+.toast-success {
+	color: #ffffff;
+	border-color: #1bbf89;
+	background-color: #1bbf89;
+}
+
+.toast-warning {
+	color: #ffffff;
+	border-color: #f7af3e;
+	background-color: #f7af3e;
+}
+
+.toast-info {
+	color: #ffffff;
+	border-color: #56C0E0;
+	background-color: #56C0E0;
+}
+
+.toast-error {
+	color: #ffffff;
+	border-color: #DB524B;
+	background-color: #DB524B;
+}
+
+#toast-container > div {
+	opacity: 1;
+	margin-top: 20px;
+	border-radius: 3px;
+	padding: 20px 20px 20px 50px;
+	-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#toast-container > div:hover {
+	-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}

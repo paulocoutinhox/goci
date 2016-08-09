@@ -39,7 +39,7 @@ export class ProjectListComponent implements OnInit {
 	}
 
 	getData() {
-		this.projectService.getProjectList()
+		this.projectService.list()
 			.then(response => {
 				if (response != null && response.success == true) {
 					this.list = response.data.list;

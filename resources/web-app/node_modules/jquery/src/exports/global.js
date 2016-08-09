@@ -1,11 +1,3 @@
-/* ExcludeStart */
-
-// This file is included in a different way from all the others
-// so the "use strict" pragma is not needed.
-/* eslint strict: "off" */
-
-/* ExcludeEnd */
-
 var
 
 	// Map over jQuery in case of overwrite

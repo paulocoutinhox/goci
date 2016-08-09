@@ -9,8 +9,15 @@ export class ProjectService {
 
 	}
 
-	getProjectList() {
+	list() {
 		return this.http.get('/api/project/list')
+			.toPromise()
+			.then(response => response.json())
+			.catch(this.handleError);
+	}
+
+	view(projectId:String) {
+		return this.http.get('/api/project/view?project=' + projectId)
 			.toPromise()
 			.then(response => response.json())
 			.catch(this.handleError);
