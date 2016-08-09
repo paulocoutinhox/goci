@@ -10,17 +10,19 @@ import {GlobalService} from "../services/GlobalService";
 
 export class JobListComponent implements OnInit {
 
+	private jobList: Array<any>;
+
 	constructor(private globalService: GlobalService, private router: Router) {
 
 	}
 
 	ngOnInit(): any {
 		this.globalService.jobListEmitter.subscribe(value => {
-			console.log(value);
+			this.jobList = value;
 		});
 	}
 
-	backToHome() {
+	back() {
 		this.router.navigate(['/']);
 	}
 

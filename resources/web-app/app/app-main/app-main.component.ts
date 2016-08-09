@@ -35,8 +35,8 @@ export class AppMainComponent implements OnInit {
 	}
 
 	ngOnInit(): any {
-		let jobsCountTimer = Observable.timer(2000, 1000);
-		jobsCountTimer.subscribe(t => this.setJobCount());
+		let jobsCountTimer = Observable.timer(1000, 1000);
+		jobsCountTimer.subscribe(() => this.setJobCount());
 	}
 
 	setJobCount() {

@@ -17,11 +17,12 @@ var JobListComponent = (function () {
         this.router = router;
     }
     JobListComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.globalService.jobListEmitter.subscribe(function (value) {
-            console.log(value);
+            _this.jobList = value;
         });
     };
-    JobListComponent.prototype.backToHome = function () {
+    JobListComponent.prototype.back = function () {
         this.router.navigate(['/']);
     };
     JobListComponent = __decorate([

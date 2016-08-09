@@ -26,8 +26,8 @@ var AppMainComponent = (function () {
     }
     AppMainComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var jobsCountTimer = Rx_1.Observable.timer(2000, 1000);
-        jobsCountTimer.subscribe(function (t) { return _this.setJobCount(); });
+        var jobsCountTimer = Rx_1.Observable.timer(1000, 1000);
+        jobsCountTimer.subscribe(function () { return _this.setJobCount(); });
     };
     AppMainComponent.prototype.setJobCount = function () {
         var _this = this;
