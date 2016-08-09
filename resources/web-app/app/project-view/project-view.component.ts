@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Rx";
 import {TaskService} from "../services/TaskService";
 import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from "@angular/forms";
 import {TaskOption} from "../domain/TaskOption";
+import {TaskOptionsComponent} from "../task-options/task-options.component";
 
 @Component({
 	selector: 'project-view',
@@ -15,7 +16,8 @@ import {TaskOption} from "../domain/TaskOption";
 		TaskService
 	],
 	directives: [
-		REACTIVE_FORM_DIRECTIVES
+		REACTIVE_FORM_DIRECTIVES,
+		TaskOptionsComponent
 	]
 })
 
@@ -29,10 +31,10 @@ export class ProjectViewComponent implements OnInit {
 	private showError: boolean;
 	private showLoading: boolean;
 
-	private form: FormGroup = new FormGroup({});
-
-	@Input()
-	private taskOptions: Array<TaskOption>;
+	private runTaskOptions: any;
+	private runProjectId: String;
+	private runTaskId: String;
+	private showTaskOptionsForm: boolean;
 
 	constructor(private projectService: ProjectService, private taskService: TaskService, private router: Router, private route: ActivatedRoute) {
 
@@ -99,35 +101,16 @@ export class ProjectViewComponent implements OnInit {
 	}
 
 	showTaskOptions(projectId, taskId) {
-		toastr.success("Job to be queued:<br />" + projectId + " | " + taskId);
-
-		this.form = null;
-		this.taskOptions = [];
+		this.showTaskOptionsForm = false;
+		this.runProjectId = projectId;
+		this.runTaskId = taskId;
+		this.runTaskOptions = null;
 
 		this.taskService.options(projectId, taskId)
 			.then(response => {
 				if (response != null && response.success == true) {
-					let options = response.data.options;
-
-					let controlList: any = {};
-
-					if (options != null) {
-						options.forEach(option => {
-							controlList[option["id"]] = new FormControl(option["value"]);
-
-							this.taskOptions.push(new TaskOption({
-								id: option['id'],
-								type: option['type'],
-								description: option['description'],
-								value: option['value'],
-								values: option['values']
-							}));
-						});
-					}
-
-					console.log(this.taskOptions);
-
-					this.form = new FormGroup(controlList);
+					this.runTaskOptions = response.data.options;
+					this.showTaskOptionsForm = true;
 				} else {
 					console.log('Error on get task options');
 				}
@@ -135,10 +118,6 @@ export class ProjectViewComponent implements OnInit {
 			.catch(() => {
 				console.log('Error on get task options');
 			});
-	}
-
-	run(projectId, taskId) {
-		console.log(JSON.stringify(this.form.value));
 	}
 
 }

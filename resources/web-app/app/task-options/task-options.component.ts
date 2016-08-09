@@ -1,0 +1,88 @@
+import {Component, OnInit, Input} from "@angular/core";
+import {TaskService} from "../services/TaskService";
+import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from "@angular/forms";
+import {TaskOption} from "../domain/TaskOption";
+
+@Component({
+	selector: 'task-options',
+	templateUrl: 'app/task-options/task-options.component.html',
+	styleUrls: ['app/task-options/task-options.component.css'],
+	providers: [
+		TaskService
+	],
+	directives: [
+		REACTIVE_FORM_DIRECTIVES
+	]
+})
+
+export class TaskOptionsComponent implements OnInit {
+
+	@Input()
+	private projectId: String;
+
+	@Input()
+	private taskId: String;
+
+	@Input()
+	private options: any;
+
+	private form: FormGroup = new FormGroup({});
+
+	@Input()
+	private taskOptions: Array<TaskOption>;
+
+	constructor(private taskService: TaskService) {
+
+	}
+
+	ngOnInit(): any {
+		this.load();
+	}
+
+	load() {
+		let controlList: any = {};
+		this.taskOptions = [];
+
+		if (this.options != null) {
+			this.options.forEach(option => {
+				controlList[option["id"]] = new FormControl(option["value"]);
+
+				this.taskOptions.push(new TaskOption({
+					id: option['id'],
+					type: option['type'],
+					description: option['description'],
+					value: option['value'],
+					values: option['values']
+				}));
+			});
+		}
+
+		this.form = new FormGroup(controlList);
+	}
+
+	run() {
+		let formValues = this.form.value;
+		let formData = `project=${this.projectId}&task=${this.taskId}`;
+
+		if (formValues != null) {
+			for (var formKey in formValues) {
+				var formValue = formValues[formKey];
+				formData += `&${formKey}=${formValue}`;
+			}
+		}
+
+		this.taskService.run(this.projectId, this.taskId, formData)
+			.then(response => {
+				if (response != null && response.success == true) {
+					toastr.success("Your task was added to queue with success!");
+					this.form = null;
+				} else {
+					toastr.error(response.data.errors[0][1]);
+				}
+			})
+			.catch(error => {
+				toastr.error(error);
+			});
+	}
+
+}

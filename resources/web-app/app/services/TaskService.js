@@ -21,6 +21,16 @@ var TaskService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    TaskService.prototype.run = function (projectId, taskId, options) {
+        console.log(options);
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        return this.http.post('/api/task/run', options, { headers: headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
     TaskService.prototype.handleError = function (error) {
         return Promise.reject(error.message || error);
     };

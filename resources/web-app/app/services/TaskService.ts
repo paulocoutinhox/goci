@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 import "rxjs/add/operator/toPromise";
 
 @Injectable()
@@ -9,8 +9,21 @@ export class TaskService {
 
 	}
 
-	options(projectId:String, taskId:String) {
+	options(projectId: String, taskId: String) {
 		return this.http.get('/api/task/options?project=' + projectId + '&task=' + taskId)
+			.toPromise()
+			.then(response => response.json())
+			.catch(this.handleError);
+	}
+
+	run(projectId: String, taskId: String, options: any) {
+		console.log(options);
+
+		let headers:Headers = new Headers({
+			'Content-Type': 'application/x-www-form-urlencoded'
+		});
+
+		return this.http.post('/api/task/run', options, {headers: headers})
 			.toPromise()
 			.then(response => response.json())
 			.catch(this.handleError);
