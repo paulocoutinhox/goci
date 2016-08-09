@@ -32,7 +32,6 @@ var ProjectViewComponent = (function () {
         Rx_1.Observable.empty().delay(1000).subscribe(null, null, function () {
             _this.getData();
         });
-        toastr.success('Are you the 6 fingered man?', 'aaa', { 'hideDuration': 99999999 });
     };
     ProjectViewComponent.prototype.getData = function () {
         var _this = this;
@@ -72,6 +71,9 @@ var ProjectViewComponent = (function () {
     };
     ProjectViewComponent.prototype.view = function (projectId, taskId) {
         this.router.navigate(['/task/view', projectId, taskId]);
+    };
+    ProjectViewComponent.prototype.run = function (projectId, taskId) {
+        toastr.success("Job to be queued:<br />" + projectId + " | " + taskId);
     };
     ProjectViewComponent = __decorate([
         core_1.Component({

@@ -41,8 +41,6 @@ export class ProjectViewComponent implements OnInit {
 		Observable.empty().delay(1000).subscribe(null, null, () => {
 			this.getData();
 		});
-
-		toastr.success('Are you the 6 fingered man?', 'aaa', {'hideDuration':  99999999});
 	}
 
 	getData() {
@@ -86,6 +84,10 @@ export class ProjectViewComponent implements OnInit {
 
 	view(projectId, taskId) {
 		this.router.navigate(['/task/view', projectId, taskId]);
+	}
+
+	run(projectId, taskId) {
+		toastr.success("Job to be queued:<br />" + projectId + " | " + taskId);
 	}
 
 }
