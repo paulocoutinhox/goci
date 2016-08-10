@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {TaskService} from "../services/TaskService";
 import {FormControl, FormGroup} from "@angular/forms";
 import {TaskOption} from "../domain/TaskOption";
@@ -22,6 +22,12 @@ export class TaskOptionsComponent implements OnInit {
 	private options: any;
 
 	private form: FormGroup = new FormGroup({});
+
+	@Output()
+	private taskRunWithSuccess = new EventEmitter();
+
+	@Output()
+	private taskRunWithError = new EventEmitter();
 
 	@Input()
 	private taskOptions: Array<TaskOption>;
@@ -64,13 +70,15 @@ export class TaskOptionsComponent implements OnInit {
 			.then(response => {
 				if (response != null && response.success == true) {
 					toastr.success("Your task was added to queue with success!");
-					this.form = null;
+					this.taskRunWithSuccess.emit();
 				} else {
 					toastr.error(response.data.errors[0][1]);
+					this.taskRunWithError.emit();
 				}
 			})
 			.catch(error => {
 				toastr.error(error);
+				this.taskRunWithError.emit();
 			});
 	}
 

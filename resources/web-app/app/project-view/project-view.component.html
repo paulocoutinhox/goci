@@ -33,7 +33,7 @@
 						<strong>Steps:</strong>{{task.steps?.length}}
 					</p>
 					<div>
-						<button type="button" class="btn btn-success" (click)="showTaskOptions(project.id, task.id)">Run</button>
+						<button type="button" class="btn btn-success" (click)="showTaskOptions(project.id, task.id, task.name, task.description)">Run</button>
 						<button type="button" class="btn btn-default" (click)="view(project.id, task.id)">View</button>
 					</div>
 				</div>
@@ -65,6 +65,17 @@
 		</div>
 	</div>
 
-	<task-options *ngIf="showTaskOptionsForm" [projectId]="runProjectId" [taskId]="runTaskId" [options]="runTaskOptions"></task-options>
+	<div *ngIf="showTaskOptionsForm">
+		<h5>Task options</h5>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div><strong>Name:</strong> {{runTaskName}}</div>
+				<div><strong>Description:</strong> {{runTaskDescription}}</div>
+			</div>
+		</div>
+
+		<task-options [projectId]="runProjectId" [taskId]="runTaskId" [options]="runTaskOptions" (taskRunWithSuccess)="taskRunWithSuccess($event)" (taskRunWithError)="taskRunWithError($event)"></task-options>
+	</div>
 
 </div>

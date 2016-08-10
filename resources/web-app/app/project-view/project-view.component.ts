@@ -27,6 +27,8 @@ export class ProjectViewComponent implements OnInit {
 	private runTaskOptions: any;
 	private runProjectId: String;
 	private runTaskId: String;
+	private runTaskName: String;
+	private runTaskDescription: String;
 	private showTaskOptionsForm: boolean;
 
 	constructor(private projectService: ProjectService, private taskService: TaskService, private router: Router, private route: ActivatedRoute) {
@@ -81,6 +83,7 @@ export class ProjectViewComponent implements OnInit {
 		this.showEmptyData = false;
 		this.showLoading = false;
 		this.showError = false;
+		this.showTaskOptionsForm = false;
 	}
 
 	onError() {
@@ -93,24 +96,36 @@ export class ProjectViewComponent implements OnInit {
 		this.router.navigate(['/task/view', projectId, taskId]);
 	}
 
-	showTaskOptions(projectId, taskId) {
+	showTaskOptions(projectId, taskId, taskName, taskDescription) {
 		this.showTaskOptionsForm = false;
 		this.runProjectId = projectId;
 		this.runTaskId = taskId;
+		this.runTaskName = taskName;
+		this.runTaskDescription = taskDescription;
 		this.runTaskOptions = null;
 
 		this.taskService.options(projectId, taskId)
 			.then(response => {
 				if (response != null && response.success == true) {
+					this.hideAll();
 					this.runTaskOptions = response.data.options;
 					this.showTaskOptionsForm = true;
 				} else {
-					console.log('Error on get task options');
+					toastr.error('Error when get task options, try again');
 				}
 			})
-			.catch(() => {
-				console.log('Error on get task options');
+			.catch(error => {
+				toastr.error(error);
 			});
+	}
+
+	taskRunWithSuccess($event) {
+		this.hideAll();
+		this.showData = true;
+	}
+
+	taskRunWithError($event) {
+
 	}
 
 }

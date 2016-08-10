@@ -66,6 +66,7 @@ var ProjectViewComponent = (function () {
         this.showEmptyData = false;
         this.showLoading = false;
         this.showError = false;
+        this.showTaskOptionsForm = false;
     };
     ProjectViewComponent.prototype.onError = function () {
         this.hideAll();
@@ -75,25 +76,34 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent.prototype.view = function (projectId, taskId) {
         this.router.navigate(['/task/view', projectId, taskId]);
     };
-    ProjectViewComponent.prototype.showTaskOptions = function (projectId, taskId) {
+    ProjectViewComponent.prototype.showTaskOptions = function (projectId, taskId, taskName, taskDescription) {
         var _this = this;
         this.showTaskOptionsForm = false;
         this.runProjectId = projectId;
         this.runTaskId = taskId;
+        this.runTaskName = taskName;
+        this.runTaskDescription = taskDescription;
         this.runTaskOptions = null;
         this.taskService.options(projectId, taskId)
             .then(function (response) {
             if (response != null && response.success == true) {
+                _this.hideAll();
                 _this.runTaskOptions = response.data.options;
                 _this.showTaskOptionsForm = true;
             }
             else {
-                console.log('Error on get task options');
+                toastr.error('Error when get task options, try again');
             }
         })
-            .catch(function () {
-            console.log('Error on get task options');
+            .catch(function (error) {
+            toastr.error(error);
         });
+    };
+    ProjectViewComponent.prototype.taskRunWithSuccess = function ($event) {
+        this.hideAll();
+        this.showData = true;
+    };
+    ProjectViewComponent.prototype.taskRunWithError = function ($event) {
     };
     ProjectViewComponent = __decorate([
         core_1.Component({

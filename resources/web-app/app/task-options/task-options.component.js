@@ -17,6 +17,8 @@ var TaskOptionsComponent = (function () {
     function TaskOptionsComponent(taskService) {
         this.taskService = taskService;
         this.form = new forms_1.FormGroup({});
+        this.taskRunWithSuccess = new core_1.EventEmitter();
+        this.taskRunWithError = new core_1.EventEmitter();
     }
     TaskOptionsComponent.prototype.ngOnInit = function () {
         this.load();
@@ -48,14 +50,16 @@ var TaskOptionsComponent = (function () {
             .then(function (response) {
             if (response != null && response.success == true) {
                 toastr.success("Your task was added to queue with success!");
-                _this.form = null;
+                _this.taskRunWithSuccess.emit();
             }
             else {
                 toastr.error(response.data.errors[0][1]);
+                _this.taskRunWithError.emit();
             }
         })
             .catch(function (error) {
             toastr.error(error);
+            _this.taskRunWithError.emit();
         });
     };
     __decorate([
@@ -70,6 +74,14 @@ var TaskOptionsComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], TaskOptionsComponent.prototype, "options", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], TaskOptionsComponent.prototype, "taskRunWithSuccess", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], TaskOptionsComponent.prototype, "taskRunWithError", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)

@@ -1,20 +1,49 @@
-<div>
-	<form *ngIf="form" (ngSubmit)="run()" [formGroup]="form">
-		<div *ngFor="let taskOption of taskOptions" class="form-row">
-			<label [attr.for]="taskOption.id">{{taskOption.description}}</label>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<form *ngIf="form" (ngSubmit)="run()" [formGroup]="form">
+			<div *ngFor="let taskOption of taskOptions">
 
-			<div [ngSwitch]="taskOption.type">
+				<div [ngSwitch]="taskOption.type">
 
-				<input *ngSwitchCase="'text'" [formControlName]="taskOption.id" [id]="taskOption.id" type="text">
+					<div *ngSwitchCase="'text'" class="form-group">
+						<label [attr.for]="taskOption.id">{{taskOption.description}}</label>
+						<input [formControlName]="taskOption.id" [id]="taskOption.id" type="text" class="form-control">
+					</div>
 
-				<select [id]="taskOption.id" *ngSwitchCase="'select'" [formControlName]="taskOption.id">
-					<option *ngFor="let selectOption of taskOption.values" [value]="selectOption.value">{{selectOption.text}}</option>
-				</select>
+					<div *ngSwitchCase="'password'" class="form-group">
+						<label [attr.for]="taskOption.id">{{taskOption.description}}</label>
+						<input [formControlName]="taskOption.id" [id]="taskOption.id" type="password" class="form-control">
+					</div>
+
+					<div *ngSwitchCase="'hidden'" class="form-group">
+						<input [formControlName]="taskOption.id" [id]="taskOption.id" type="hidden" class="form-control">
+					</div>
+
+					<div *ngSwitchCase="'select'" class="form-group">
+						<label [attr.for]="taskOption.id">{{taskOption.description}}</label>
+
+						<select [id]="taskOption.id" [formControlName]="taskOption.id" class="form-control">
+							<option *ngFor="let selectOption of taskOption.values" [value]="selectOption.value">{{selectOption.text}}</option>
+						</select>
+					</div>
+
+					<div *ngSwitchCase="'checkbox'" class="checkbox">
+						<label [attr.for]="taskOption.id">
+							<input [formControlName]="taskOption.id" [id]="taskOption.id" type="checkbox">
+							{{taskOption.description}}
+						</label>
+					</div>
+
+					<div *ngSwitchCase="'textarea'" class="form-group">
+						<label [attr.for]="taskOption.id">{{taskOption.description}}</label>
+						<textarea [formControlName]="taskOption.id" [id]="taskOption.id" type="text" class="form-control" rows="5"></textarea>
+					</div>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-row">
-			<button type="submit" class="btn btn-success">Run</button>
-		</div>
-	</form>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success">Run</button>
+			</div>
+		</form>
+	</div>
 </div>
