@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "lite": "lite-server",
+    "lite": "lite-server -c bs-config.js",
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
@@ -33,6 +33,8 @@
   },
   "devDependencies": {
     "concurrently": "^2.2.0",
+    "connect-modrewrite": "^0.9.0",
+    "http-proxy-middleware": "^0.17.0",
     "lite-server": "^2.2.2",
     "typescript": "^1.8.10",
     "typings": "^1.3.2"
