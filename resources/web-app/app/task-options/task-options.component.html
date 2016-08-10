@@ -1,42 +1,42 @@
 <div class="panel panel-default">
 	<div class="panel-body">
-		<form *ngIf="form" (ngSubmit)="run()" [formGroup]="form">
+		<form *ngIf="form" (ngSubmit)="run()" [formGroup]="form" autocomplete="off">
 			<div *ngFor="let taskOption of taskOptions">
 
 				<div [ngSwitch]="taskOption.type">
 
 					<div *ngSwitchCase="'text'" class="form-group">
 						<label [attr.for]="taskOption.id">{{taskOption.description}}</label>
-						<input [formControlName]="taskOption.id" [id]="taskOption.id" type="text" class="form-control">
+						<input [formControlName]="taskOption.id" [id]="taskOption.id" type="text" class="form-control" autocomplete="off">
 					</div>
 
 					<div *ngSwitchCase="'password'" class="form-group">
 						<label [attr.for]="taskOption.id">{{taskOption.description}}</label>
-						<input [formControlName]="taskOption.id" [id]="taskOption.id" type="password" class="form-control">
+						<input [formControlName]="taskOption.id" [id]="taskOption.id" type="password" class="form-control" autocomplete="off">
 					</div>
 
 					<div *ngSwitchCase="'hidden'" class="form-group">
-						<input [formControlName]="taskOption.id" [id]="taskOption.id" type="hidden" class="form-control">
+						<input [formControlName]="taskOption.id" [id]="taskOption.id" type="hidden" class="form-control" autocomplete="off">
 					</div>
 
 					<div *ngSwitchCase="'select'" class="form-group">
 						<label [attr.for]="taskOption.id">{{taskOption.description}}</label>
 
-						<select [id]="taskOption.id" [formControlName]="taskOption.id" class="form-control">
+						<select [id]="taskOption.id" [formControlName]="taskOption.id" class="form-control" autocomplete="off">
 							<option *ngFor="let selectOption of taskOption.values" [value]="selectOption.value">{{selectOption.text}}</option>
 						</select>
 					</div>
 
 					<div *ngSwitchCase="'checkbox'" class="checkbox">
 						<label [attr.for]="taskOption.id">
-							<input [formControlName]="taskOption.id" [id]="taskOption.id" type="checkbox">
+							<input [formControlName]="taskOption.id" [id]="taskOption.id" type="checkbox" autocomplete="off">
 							{{taskOption.description}}
 						</label>
 					</div>
 
 					<div *ngSwitchCase="'textarea'" class="form-group">
 						<label [attr.for]="taskOption.id">{{taskOption.description}}</label>
-						<textarea [formControlName]="taskOption.id" [id]="taskOption.id" type="text" class="form-control" rows="5"></textarea>
+						<textarea [formControlName]="taskOption.id" [id]="taskOption.id" type="text" class="form-control" rows="5" autocomplete="off"></textarea>
 					</div>
 				</div>
 			</div>
