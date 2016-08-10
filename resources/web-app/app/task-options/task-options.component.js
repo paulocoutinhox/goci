@@ -19,6 +19,7 @@ var TaskOptionsComponent = (function () {
         this.form = new forms_1.FormGroup({});
         this.taskRunWithSuccess = new core_1.EventEmitter();
         this.taskRunWithError = new core_1.EventEmitter();
+        this.taskRunCancel = new core_1.EventEmitter();
     }
     TaskOptionsComponent.prototype.ngOnInit = function () {
         this.load();
@@ -62,6 +63,9 @@ var TaskOptionsComponent = (function () {
             _this.taskRunWithError.emit();
         });
     };
+    TaskOptionsComponent.prototype.cancel = function () {
+        this.taskRunWithSuccess.emit();
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
@@ -82,6 +86,10 @@ var TaskOptionsComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], TaskOptionsComponent.prototype, "taskRunWithError", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], TaskOptionsComponent.prototype, "taskRunCancel", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)

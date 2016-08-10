@@ -105,6 +105,10 @@ var ProjectViewComponent = (function () {
     };
     ProjectViewComponent.prototype.taskRunWithError = function ($event) {
     };
+    ProjectViewComponent.prototype.taskRunCancel = function ($event) {
+        this.hideAll();
+        this.showData = true;
+    };
     ProjectViewComponent = __decorate([
         core_1.Component({
             selector: 'project-view',

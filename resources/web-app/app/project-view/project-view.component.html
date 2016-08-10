@@ -75,7 +75,7 @@
 			</div>
 		</div>
 
-		<task-options [projectId]="runProjectId" [taskId]="runTaskId" [options]="runTaskOptions" (taskRunWithSuccess)="taskRunWithSuccess($event)" (taskRunWithError)="taskRunWithError($event)"></task-options>
+		<task-options [projectId]="runProjectId" [taskId]="runTaskId" [options]="runTaskOptions" (taskRunWithSuccess)="taskRunWithSuccess($event)" (taskRunWithError)="taskRunWithError($event)" (taskRunCancel)="taskRunCancel($event)"></task-options>
 	</div>
 
 </div>

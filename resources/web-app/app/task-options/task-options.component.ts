@@ -29,6 +29,9 @@ export class TaskOptionsComponent implements OnInit {
 	@Output()
 	private taskRunWithError = new EventEmitter();
 
+	@Output()
+	private taskRunCancel = new EventEmitter();
+
 	@Input()
 	private taskOptions: Array<TaskOption>;
 
@@ -80,6 +83,10 @@ export class TaskOptionsComponent implements OnInit {
 				toastr.error(error);
 				this.taskRunWithError.emit();
 			});
+	}
+
+	cancel() {
+		this.taskRunWithSuccess.emit();
 	}
 
 }

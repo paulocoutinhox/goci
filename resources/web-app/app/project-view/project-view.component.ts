@@ -128,4 +128,9 @@ export class ProjectViewComponent implements OnInit {
 
 	}
 
+	taskRunCancel($event) {
+		this.hideAll();
+		this.showData = true;
+	}
+
 }
