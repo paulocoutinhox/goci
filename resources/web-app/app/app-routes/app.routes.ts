@@ -1,15 +1,15 @@
-import {provideRouter, RouterConfig} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "../home/home.component";
 import {JobListComponent} from "../job-list/job-list.component";
 import {ProjectListComponent} from "../project-list/project-list.component";
 import {NotFoundComponent} from "../not-found/not-found.component";
 import {ProjectViewComponent} from "../project-view/project-view.component";
 
-const routes: RouterConfig = [
+const appRoutes: Routes = [
 	//{ path: '**', component: PageNotFoundComponent },
 	{
 		path: '',
-		redirectTo: 'home',
+		redirectTo: '/home',
 		pathMatch: 'full'
 	},
 	{
@@ -30,6 +30,4 @@ const routes: RouterConfig = [
 	}
 ];
 
-export const appRouterProviders = [
-	provideRouter(routes)
-];
+export const routing = RouterModule.forRoot(appRoutes);

@@ -1,4 +1,14 @@
-import { OnChanges } from '@angular/core';
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { LocationStrategy } from '@angular/common';
+import { OnChanges, OnDestroy } from '@angular/core';
+import { Router } from '../router';
+import { ActivatedRoute } from '../router_state';
 import { UrlTree } from '../url_tree';
 /**
  * The RouterLink directive lets you link to specific parts of your app.
@@ -36,8 +46,21 @@ import { UrlTree } from '../url_tree';
  * <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" fragment="education">link to user
  component</a>
  * ```
- *
  * RouterLink will use these to generate this link: `/user/bob#education?debug=true`.
+ *
+ * You can also tell the directive to preserve the current query params and fragment:
+ *
+ * ```
+ * <a [routerLink]="['/user/bob']" preserveQueryParams preserveFragment>link to user
+ component</a>
+ * ```
+ *
+ * The router link directive always treats the provided input as a delta to the current url.
+ *
+ * For instance, if the current url is `/user/(box//aux:team)`.
+ *
+ * Then the following link `<a [routerLink]="['/user/jim']">Jim</a>` will generate the link
+ * `/user/(jim//aux:team)`. See {@link Router.createUrlTree} for more information.
  *
  * @stable
  */
@@ -50,15 +73,18 @@ export declare class RouterLink {
         [k: string]: any;
     };
     fragment: string;
-    urlTree: UrlTree;
+    preserveQueryParams: boolean;
+    preserveFragment: boolean;
+    constructor(router: Router, route: ActivatedRoute, locationStrategy: LocationStrategy);
     routerLink: any[] | string;
     onClick(button: number, ctrlKey: boolean, metaKey: boolean): boolean;
+    readonly urlTree: UrlTree;
 }
 /**
  * See {@link RouterLink} for more information.
  * @stable
  */
-export declare class RouterLinkWithHref implements OnChanges {
+export declare class RouterLinkWithHref implements OnChanges, OnDestroy {
     private router;
     private route;
     private locationStrategy;
@@ -68,10 +94,19 @@ export declare class RouterLinkWithHref implements OnChanges {
         [k: string]: any;
     };
     fragment: string;
+    routerLinkOptions: {
+        preserveQueryParams: boolean;
+        preserveFragment: boolean;
+    };
+    preserveQueryParams: boolean;
+    preserveFragment: boolean;
+    private subscription;
     href: string;
     urlTree: UrlTree;
+    constructor(router: Router, route: ActivatedRoute, locationStrategy: LocationStrategy);
     routerLink: any[] | string;
     ngOnChanges(changes: {}): any;
+    ngOnDestroy(): any;
     onClick(button: number, ctrlKey: boolean, metaKey: boolean): boolean;
     private updateTargetUrlAndHref();
 }

@@ -6,15 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directive, Inject, Input, Optional, Output, Self, forwardRef } from '@angular/core';
-import { EventEmitter, ObservableWrapper } from '../../facade/async';
+import { EventEmitter } from '../../facade/async';
 import { ListWrapper, StringMapWrapper } from '../../facade/collection';
-import { BaseException } from '../../facade/exceptions';
 import { isBlank } from '../../facade/lang';
 import { NG_ASYNC_VALIDATORS, NG_VALIDATORS, Validators } from '../../validators';
 import { ControlContainer } from '../control_container';
+import { ReactiveErrors } from '../reactive_errors';
 import { composeAsyncValidators, composeValidators, setUpControl, setUpFormContainer } from '../shared';
-export const formDirectiveProvider = 
-/*@ts2dart_const*/ /* @ts2dart_Provider */ {
+export const formDirectiveProvider = {
     provide: ControlContainer,
     useExisting: forwardRef(() => FormGroupDirective)
 };
@@ -44,48 +43,47 @@ export class FormGroupDirective extends ControlContainer {
     get control() { return this.form; }
     get path() { return []; }
     addControl(dir) {
-        const ctrl = this.form.find(dir.path);
+        const ctrl = this.form.get(dir.path);
         setUpControl(ctrl, dir);
         ctrl.updateValueAndValidity({ emitEvent: false });
         this.directives.push(dir);
     }
-    getControl(dir) { return this.form.find(dir.path); }
+    getControl(dir) { return this.form.get(dir.path); }
     removeControl(dir) { ListWrapper.remove(this.directives, dir); }
     addFormGroup(dir) {
-        var ctrl = this.form.find(dir.path);
+        var ctrl = this.form.get(dir.path);
         setUpFormContainer(ctrl, dir);
         ctrl.updateValueAndValidity({ emitEvent: false });
     }
     removeFormGroup(dir) { }
-    getFormGroup(dir) { return this.form.find(dir.path); }
+    getFormGroup(dir) { return this.form.get(dir.path); }
     addFormArray(dir) {
-        var ctrl = this.form.find(dir.path);
+        var ctrl = this.form.get(dir.path);
         setUpFormContainer(ctrl, dir);
         ctrl.updateValueAndValidity({ emitEvent: false });
     }
     removeFormArray(dir) { }
-    getFormArray(dir) { return this.form.find(dir.path); }
+    getFormArray(dir) { return this.form.get(dir.path); }
     updateModel(dir, value) {
-        var ctrl = this.form.find(dir.path);
-        ctrl.updateValue(value);
+        var ctrl = this.form.get(dir.path);
+        ctrl.setValue(value);
     }
     onSubmit() {
         this._submitted = true;
-        ObservableWrapper.callEmit(this.ngSubmit, null);
+        this.ngSubmit.emit(null);
         return false;
     }
+    onReset() { this.form.reset(); }
     /** @internal */
     _updateDomValue() {
         this.directives.forEach(dir => {
-            var ctrl = this.form.find(dir.path);
+            var ctrl = this.form.get(dir.path);
             dir.valueAccessor.writeValue(ctrl.value);
         });
     }
     _checkFormPresent() {
         if (isBlank(this.form)) {
-            throw new BaseException(`formGroup expects a FormGroup instance. Please pass one in.
-           Example: <form [formGroup]="myFormGroup">
-      `);
+            ReactiveErrors.missingFormException();
         }
     }
 }
@@ -94,7 +92,7 @@ FormGroupDirective.decorators = [
     { type: Directive, args: [{
                 selector: '[formGroup]',
                 providers: [formDirectiveProvider],
-                host: { '(submit)': 'onSubmit()' },
+                host: { '(submit)': 'onSubmit()', '(reset)': 'onReset()' },
                 exportAs: 'ngForm'
             },] },
 ];

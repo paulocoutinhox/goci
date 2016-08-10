@@ -9,17 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var app_header_component_1 = require("../app-header/app-header.component");
-var router_1 = require("@angular/router");
-var home_component_1 = require("../home/home.component");
-var app_footer_component_1 = require("../app-footer/app-footer.component");
-var job_list_component_1 = require("../job-list/job-list.component");
-var project_list_component_1 = require("../project-list/project-list.component");
-var not_found_component_1 = require("../not-found/not-found.component");
 var GlobalService_1 = require("../services/GlobalService");
 var JobService_1 = require("../services/JobService");
 var Rx_1 = require("rxjs/Rx");
-var project_view_component_1 = require("../project-view/project-view.component");
 var AppMainComponent = (function () {
     function AppMainComponent(globalService, jobService) {
         this.globalService = globalService;
@@ -47,20 +39,7 @@ var AppMainComponent = (function () {
         core_1.Component({
             selector: 'app-main',
             templateUrl: 'app/app-main/app-main.component.html',
-            directives: [router_1.ROUTER_DIRECTIVES, app_header_component_1.AppHeaderComponent, app_footer_component_1.AppFooterComponent],
-            styleUrls: ['app/app-main/app-main.component.css'],
-            precompile: [
-                home_component_1.HomeComponent,
-                app_header_component_1.AppHeaderComponent,
-                app_footer_component_1.AppFooterComponent,
-                job_list_component_1.JobListComponent,
-                project_list_component_1.ProjectListComponent,
-                project_view_component_1.ProjectViewComponent,
-                not_found_component_1.NotFoundComponent
-            ],
-            providers: [
-                JobService_1.JobService
-            ]
+            styleUrls: ['app/app-main/app-main.component.css']
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService, JobService_1.JobService])
     ], AppMainComponent);

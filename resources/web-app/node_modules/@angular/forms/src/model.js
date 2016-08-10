@@ -11,9 +11,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var PromiseObservable_1 = require('rxjs/observable/PromiseObservable');
 var shared_1 = require('./directives/shared');
 var async_1 = require('./facade/async');
 var collection_1 = require('./facade/collection');
+var exceptions_1 = require('./facade/exceptions');
 var lang_1 = require('./facade/lang');
 /**
  * Indicates that a FormControl is valid, i.e. that no errors exist in the input value.
@@ -32,11 +34,11 @@ function isControl(control) {
     return control instanceof AbstractControl;
 }
 exports.isControl = isControl;
-function _find(control, path) {
+function _find(control, path, delimiter) {
     if (lang_1.isBlank(path))
         return null;
     if (!(path instanceof Array)) {
-        path = path.split('/');
+        path = path.split(delimiter);
     }
     if (path instanceof Array && collection_1.ListWrapper.isEmpty(path))
         return null;
@@ -54,7 +56,7 @@ function _find(control, path) {
     }, control);
 }
 function toObservable(r) {
-    return lang_1.isPromise(r) ? async_1.ObservableWrapper.fromPromise(r) : r;
+    return lang_1.isPromise(r) ? PromiseObservable_1.PromiseObservable.create(r) : r;
 }
 function coerceToValidator(validator) {
     return Array.isArray(validator) ? shared_1.composeValidators(validator) : validator;
@@ -84,6 +86,11 @@ var AbstractControl = (function () {
     });
     Object.defineProperty(AbstractControl.prototype, "valid", {
         get: function () { return this._status === exports.VALID; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AbstractControl.prototype, "invalid", {
+        get: function () { return this._status === exports.INVALID; },
         enumerable: true,
         configurable: true
     });
@@ -138,13 +145,36 @@ var AbstractControl = (function () {
         this.validator = coerceToValidator(newValidator);
     };
     AbstractControl.prototype.clearValidators = function () { this.validator = null; };
-    AbstractControl.prototype.markAsTouched = function () { this._touched = true; };
+    AbstractControl.prototype.markAsTouched = function (_a) {
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        onlySelf = lang_1.normalizeBool(onlySelf);
+        this._touched = true;
+        if (lang_1.isPresent(this._parent) && !onlySelf) {
+            this._parent.markAsTouched({ onlySelf: onlySelf });
+        }
+    };
     AbstractControl.prototype.markAsDirty = function (_a) {
         var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
         onlySelf = lang_1.normalizeBool(onlySelf);
         this._pristine = false;
         if (lang_1.isPresent(this._parent) && !onlySelf) {
             this._parent.markAsDirty({ onlySelf: onlySelf });
+        }
+    };
+    AbstractControl.prototype.markAsPristine = function (_a) {
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        this._pristine = true;
+        this._forEachChild(function (control) { control.markAsPristine({ onlySelf: true }); });
+        if (lang_1.isPresent(this._parent) && !onlySelf) {
+            this._parent._updatePristine({ onlySelf: onlySelf });
+        }
+    };
+    AbstractControl.prototype.markAsUntouched = function (_a) {
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        this._touched = false;
+        this._forEachChild(function (control) { control.markAsUntouched({ onlySelf: true }); });
+        if (lang_1.isPresent(this._parent) && !onlySelf) {
+            this._parent._updateTouched({ onlySelf: onlySelf });
         }
     };
     AbstractControl.prototype.markAsPending = function (_a) {
@@ -167,8 +197,8 @@ var AbstractControl = (function () {
             this._runAsyncValidator(emitEvent);
         }
         if (emitEvent) {
-            async_1.ObservableWrapper.callEmit(this._valueChanges, this._value);
-            async_1.ObservableWrapper.callEmit(this._statusChanges, this._status);
+            this._valueChanges.emit(this._value);
+            this._statusChanges.emit(this._status);
         }
         if (lang_1.isPresent(this._parent) && !onlySelf) {
             this._parent.updateValueAndValidity({ onlySelf: onlySelf, emitEvent: emitEvent });
@@ -183,12 +213,12 @@ var AbstractControl = (function () {
             this._status = exports.PENDING;
             this._cancelExistingSubscription();
             var obs = toObservable(this.asyncValidator(this));
-            this._asyncValidationSubscription = async_1.ObservableWrapper.subscribe(obs, function (res) { return _this.setErrors(res, { emitEvent: emitEvent }); });
+            this._asyncValidationSubscription = obs.subscribe({ next: function (res) { return _this.setErrors(res, { emitEvent: emitEvent }); } });
         }
     };
     AbstractControl.prototype._cancelExistingSubscription = function () {
         if (lang_1.isPresent(this._asyncValidationSubscription)) {
-            async_1.ObservableWrapper.dispose(this._asyncValidationSubscription);
+            this._asyncValidationSubscription.unsubscribe();
         }
     };
     /**
@@ -220,7 +250,11 @@ var AbstractControl = (function () {
         this._errors = errors;
         this._updateControlsErrors(emitEvent);
     };
-    AbstractControl.prototype.find = function (path) { return _find(this, path); };
+    /**
+     * @deprecated - use get() instead
+     */
+    AbstractControl.prototype.find = function (path) { return _find(this, path, '/'); };
+    AbstractControl.prototype.get = function (path) { return _find(this, path, '.'); };
     AbstractControl.prototype.getError = function (errorCode, path) {
         if (path === void 0) { path = null; }
         var control = lang_1.isPresent(path) && !collection_1.ListWrapper.isEmpty(path) ? this.find(path) : this;
@@ -250,7 +284,7 @@ var AbstractControl = (function () {
     AbstractControl.prototype._updateControlsErrors = function (emitEvent) {
         this._status = this._calculateStatus();
         if (emitEvent) {
-            async_1.ObservableWrapper.callEmit(this._statusChanges, this._status);
+            this._statusChanges.emit(this._status);
         }
         if (lang_1.isPresent(this._parent)) {
             this._parent._updateControlsErrors(emitEvent);
@@ -269,6 +303,34 @@ var AbstractControl = (function () {
         if (this._anyControlsHaveStatus(exports.INVALID))
             return exports.INVALID;
         return exports.VALID;
+    };
+    /** @internal */
+    AbstractControl.prototype._anyControlsHaveStatus = function (status) {
+        return this._anyControls(function (control) { return control.status == status; });
+    };
+    /** @internal */
+    AbstractControl.prototype._anyControlsDirty = function () {
+        return this._anyControls(function (control) { return control.dirty; });
+    };
+    /** @internal */
+    AbstractControl.prototype._anyControlsTouched = function () {
+        return this._anyControls(function (control) { return control.touched; });
+    };
+    /** @internal */
+    AbstractControl.prototype._updatePristine = function (_a) {
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        this._pristine = !this._anyControlsDirty();
+        if (lang_1.isPresent(this._parent) && !onlySelf) {
+            this._parent._updatePristine({ onlySelf: onlySelf });
+        }
+    };
+    /** @internal */
+    AbstractControl.prototype._updateTouched = function (_a) {
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        this._touched = this._anyControlsTouched();
+        if (lang_1.isPresent(this._parent) && !onlySelf) {
+            this._parent._updateTouched({ onlySelf: onlySelf });
+        }
     };
     return AbstractControl;
 }());
@@ -315,16 +377,42 @@ var FormControl = (function (_super) {
      * If `emitModelToViewChange` is `true`, the view will be notified about the new value
      * via an `onChange` event. This is the default behavior if `emitModelToViewChange` is not
      * specified.
+     *
+     * If `emitViewToModelChange` is `true`, an ngModelChange event will be fired to update the
+     * model.  This is the default behavior if `emitViewToModelChange` is not specified.
      */
-    FormControl.prototype.updateValue = function (value, _a) {
+    FormControl.prototype.setValue = function (value, _a) {
         var _this = this;
-        var _b = _a === void 0 ? {} : _a, onlySelf = _b.onlySelf, emitEvent = _b.emitEvent, emitModelToViewChange = _b.emitModelToViewChange;
+        var _b = _a === void 0 ? {} : _a, onlySelf = _b.onlySelf, emitEvent = _b.emitEvent, emitModelToViewChange = _b.emitModelToViewChange, emitViewToModelChange = _b.emitViewToModelChange;
         emitModelToViewChange = lang_1.isPresent(emitModelToViewChange) ? emitModelToViewChange : true;
+        emitViewToModelChange = lang_1.isPresent(emitViewToModelChange) ? emitViewToModelChange : true;
         this._value = value;
         if (this._onChange.length && emitModelToViewChange) {
-            this._onChange.forEach(function (changeFn) { return changeFn(_this._value); });
+            this._onChange.forEach(function (changeFn) { return changeFn(_this._value, emitViewToModelChange); });
         }
         this.updateValueAndValidity({ onlySelf: onlySelf, emitEvent: emitEvent });
+    };
+    /**
+     * This function is functionally the same as updateValue() at this level.  It exists for
+     * symmetry with patchValue() on FormGroups and FormArrays, where it does behave differently.
+     */
+    FormControl.prototype.patchValue = function (value, options) {
+        if (options === void 0) { options = {}; }
+        this.setValue(value, options);
+    };
+    /**
+     * @deprecated Please use setValue() instead.
+     */
+    FormControl.prototype.updateValue = function (value, options) {
+        if (options === void 0) { options = {}; }
+        this.setValue(value, options);
+    };
+    FormControl.prototype.reset = function (value, _a) {
+        if (value === void 0) { value = null; }
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        this.markAsPristine({ onlySelf: onlySelf });
+        this.markAsUntouched({ onlySelf: onlySelf });
+        this.setValue(value, { onlySelf: onlySelf });
     };
     /**
      * @internal
@@ -333,11 +421,15 @@ var FormControl = (function (_super) {
     /**
      * @internal
      */
-    FormControl.prototype._anyControlsHaveStatus = function (status) { return false; };
+    FormControl.prototype._anyControls = function (condition) { return false; };
     /**
      * Register a listener for change events.
      */
     FormControl.prototype.registerOnChange = function (fn) { this._onChange.push(fn); };
+    /**
+     * @internal
+     */
+    FormControl.prototype._forEachChild = function (cb) { };
     return FormControl;
 }(AbstractControl));
 exports.FormControl = FormControl;
@@ -415,19 +507,62 @@ var FormGroup = (function (_super) {
         var c = collection_1.StringMapWrapper.contains(this.controls, controlName);
         return c && this._included(controlName);
     };
+    FormGroup.prototype.setValue = function (value, _a) {
+        var _this = this;
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        this._checkAllValuesPresent(value);
+        collection_1.StringMapWrapper.forEach(value, function (newValue, name) {
+            _this._throwIfControlMissing(name);
+            _this.controls[name].setValue(newValue, { onlySelf: true });
+        });
+        this.updateValueAndValidity({ onlySelf: onlySelf });
+    };
+    FormGroup.prototype.patchValue = function (value, _a) {
+        var _this = this;
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        collection_1.StringMapWrapper.forEach(value, function (newValue, name) {
+            if (_this.controls[name]) {
+                _this.controls[name].patchValue(newValue, { onlySelf: true });
+            }
+        });
+        this.updateValueAndValidity({ onlySelf: onlySelf });
+    };
+    FormGroup.prototype.reset = function (value, _a) {
+        if (value === void 0) { value = {}; }
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        this._forEachChild(function (control, name) {
+            control.reset(value[name], { onlySelf: true });
+        });
+        this.updateValueAndValidity({ onlySelf: onlySelf });
+        this._updatePristine({ onlySelf: onlySelf });
+        this._updateTouched({ onlySelf: onlySelf });
+    };
+    /** @internal */
+    FormGroup.prototype._throwIfControlMissing = function (name) {
+        if (!Object.keys(this.controls).length) {
+            throw new exceptions_1.BaseException("\n        There are no form controls registered with this group yet.  If you're using ngModel,\n        you may want to check next tick (e.g. use setTimeout).\n      ");
+        }
+        if (!this.controls[name]) {
+            throw new exceptions_1.BaseException("Cannot find form control with name: " + name + ".");
+        }
+    };
+    /** @internal */
+    FormGroup.prototype._forEachChild = function (cb) {
+        collection_1.StringMapWrapper.forEach(this.controls, cb);
+    };
     /** @internal */
     FormGroup.prototype._setParentForControls = function () {
         var _this = this;
-        collection_1.StringMapWrapper.forEach(this.controls, function (control, name) { control.setParent(_this); });
+        this._forEachChild(function (control, name) { control.setParent(_this); });
     };
     /** @internal */
     FormGroup.prototype._updateValue = function () { this._value = this._reduceValue(); };
     /** @internal */
-    FormGroup.prototype._anyControlsHaveStatus = function (status) {
+    FormGroup.prototype._anyControls = function (condition) {
         var _this = this;
         var res = false;
-        collection_1.StringMapWrapper.forEach(this.controls, function (control, name) {
-            res = res || (_this.contains(name) && control.status == status);
+        this._forEachChild(function (control, name) {
+            res = res || (_this.contains(name) && condition(control));
         });
         return res;
     };
@@ -442,7 +577,7 @@ var FormGroup = (function (_super) {
     FormGroup.prototype._reduceChildren = function (initValue, fn) {
         var _this = this;
         var res = initValue;
-        collection_1.StringMapWrapper.forEach(this.controls, function (control, name) {
+        this._forEachChild(function (control, name) {
             if (_this._included(name)) {
                 res = fn(res, control, name);
             }
@@ -453,6 +588,14 @@ var FormGroup = (function (_super) {
     FormGroup.prototype._included = function (controlName) {
         var isOptional = collection_1.StringMapWrapper.contains(this._optionals, controlName);
         return !isOptional || collection_1.StringMapWrapper.get(this._optionals, controlName);
+    };
+    /** @internal */
+    FormGroup.prototype._checkAllValuesPresent = function (value) {
+        this._forEachChild(function (control, name) {
+            if (value[name] === undefined) {
+                throw new exceptions_1.BaseException("Must supply a value for form control with name: '" + name + "'.");
+            }
+        });
     };
     return FormGroup;
 }(AbstractControl));
@@ -527,16 +670,67 @@ var FormArray = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    FormArray.prototype.setValue = function (value, _a) {
+        var _this = this;
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        this._checkAllValuesPresent(value);
+        value.forEach(function (newValue, index) {
+            _this._throwIfControlMissing(index);
+            _this.at(index).setValue(newValue, { onlySelf: true });
+        });
+        this.updateValueAndValidity({ onlySelf: onlySelf });
+    };
+    FormArray.prototype.patchValue = function (value, _a) {
+        var _this = this;
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        value.forEach(function (newValue, index) {
+            if (_this.at(index)) {
+                _this.at(index).patchValue(newValue, { onlySelf: true });
+            }
+        });
+        this.updateValueAndValidity({ onlySelf: onlySelf });
+    };
+    FormArray.prototype.reset = function (value, _a) {
+        if (value === void 0) { value = []; }
+        var onlySelf = (_a === void 0 ? {} : _a).onlySelf;
+        this._forEachChild(function (control, index) {
+            control.reset(value[index], { onlySelf: true });
+        });
+        this.updateValueAndValidity({ onlySelf: onlySelf });
+        this._updatePristine({ onlySelf: onlySelf });
+        this._updateTouched({ onlySelf: onlySelf });
+    };
+    /** @internal */
+    FormArray.prototype._throwIfControlMissing = function (index) {
+        if (!this.controls.length) {
+            throw new exceptions_1.BaseException("\n        There are no form controls registered with this array yet.  If you're using ngModel,\n        you may want to check next tick (e.g. use setTimeout).\n      ");
+        }
+        if (!this.at(index)) {
+            throw new exceptions_1.BaseException("Cannot find form control at index " + index);
+        }
+    };
+    /** @internal */
+    FormArray.prototype._forEachChild = function (cb) {
+        this.controls.forEach(function (control, index) { cb(control, index); });
+    };
     /** @internal */
     FormArray.prototype._updateValue = function () { this._value = this.controls.map(function (control) { return control.value; }); };
     /** @internal */
-    FormArray.prototype._anyControlsHaveStatus = function (status) {
-        return this.controls.some(function (c) { return c.status == status; });
+    FormArray.prototype._anyControls = function (condition) {
+        return this.controls.some(function (control) { return condition(control); });
     };
     /** @internal */
     FormArray.prototype._setParentForControls = function () {
         var _this = this;
-        this.controls.forEach(function (control) { control.setParent(_this); });
+        this._forEachChild(function (control) { control.setParent(_this); });
+    };
+    /** @internal */
+    FormArray.prototype._checkAllValuesPresent = function (value) {
+        this._forEachChild(function (control, i) {
+            if (value[i] === undefined) {
+                throw new exceptions_1.BaseException("Must supply a value for form control at index: " + i + ".");
+            }
+        });
     };
     return FormArray;
 }(AbstractControl));

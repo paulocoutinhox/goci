@@ -7,9 +7,9 @@
  */
 import { Type } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Data } from './config';
+import { Data, Route } from './config';
 import { Params } from './shared';
-import { UrlPathWithParams, UrlTree } from './url_tree';
+import { UrlSegment, UrlTree } from './url_tree';
 import { Tree } from './utils/tree';
 /**
  * The state of the router.
@@ -29,9 +29,15 @@ import { Tree } from './utils/tree';
  * @stable
  */
 export declare class RouterState extends Tree<ActivatedRoute> {
-    queryParams: Observable<Params>;
-    fragment: Observable<string>;
     snapshot: RouterStateSnapshot;
+    /**
+      * @deprecated (Use root.queryParams)
+      */
+    queryParams: Observable<Params>;
+    /**
+     * @deprecated (Use root.fragment)
+     */
+    fragment: Observable<string>;
     toString(): string;
 }
 export declare function createEmptyState(urlTree: UrlTree, rootComponent: Type): RouterState;
@@ -53,12 +59,20 @@ export declare function createEmptyState(urlTree: UrlTree, rootComponent: Type):
  * @stable
  */
 export declare class ActivatedRoute {
-    url: Observable<UrlPathWithParams[]>;
+    url: Observable<UrlSegment[]>;
     params: Observable<Params>;
+    queryParams: Observable<Params>;
+    fragment: Observable<string>;
     data: Observable<Data>;
     outlet: string;
     component: Type | string;
     snapshot: ActivatedRouteSnapshot;
+    routeConfig: Route;
+    root: ActivatedRoute;
+    parent: ActivatedRoute;
+    firstChild: ActivatedRoute;
+    children: ActivatedRoute[];
+    pathFromRoot: ActivatedRoute[];
     toString(): string;
 }
 /**
@@ -78,11 +92,19 @@ export declare class ActivatedRoute {
  * @stable
  */
 export declare class ActivatedRouteSnapshot {
-    url: UrlPathWithParams[];
+    url: UrlSegment[];
     params: Params;
+    queryParams: Params;
+    fragment: string;
     data: Data;
     outlet: string;
     component: Type | string;
+    routeConfig: Route;
+    root: ActivatedRouteSnapshot;
+    parent: ActivatedRouteSnapshot;
+    firstChild: ActivatedRouteSnapshot;
+    children: ActivatedRouteSnapshot[];
+    pathFromRoot: ActivatedRouteSnapshot[];
     toString(): string;
 }
 /**
@@ -102,7 +124,13 @@ export declare class ActivatedRouteSnapshot {
  */
 export declare class RouterStateSnapshot extends Tree<ActivatedRouteSnapshot> {
     url: string;
+    /**
+     * @deprecated (Use root.queryParams)
+     */
     queryParams: Params;
+    /**
+     * @deprecated (Use root.fragment)
+     */
     fragment: string;
     toString(): string;
 }

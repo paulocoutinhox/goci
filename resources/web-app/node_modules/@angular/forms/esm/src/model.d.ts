@@ -32,6 +32,7 @@ export declare abstract class AbstractControl {
     readonly value: any;
     readonly status: string;
     readonly valid: boolean;
+    readonly invalid: boolean;
     /**
      * Returns the errors of this control.
      */
@@ -49,14 +50,25 @@ export declare abstract class AbstractControl {
     clearAsyncValidators(): void;
     setValidators(newValidator: ValidatorFn | ValidatorFn[]): void;
     clearValidators(): void;
-    markAsTouched(): void;
+    markAsTouched({onlySelf}?: {
+        onlySelf?: boolean;
+    }): void;
     markAsDirty({onlySelf}?: {
+        onlySelf?: boolean;
+    }): void;
+    markAsPristine({onlySelf}?: {
+        onlySelf?: boolean;
+    }): void;
+    markAsUntouched({onlySelf}?: {
         onlySelf?: boolean;
     }): void;
     markAsPending({onlySelf}?: {
         onlySelf?: boolean;
     }): void;
     setParent(parent: FormGroup | FormArray): void;
+    abstract setValue(value: any, options?: Object): void;
+    abstract patchValue(value: any, options?: Object): void;
+    abstract reset(value?: any, options?: Object): void;
     updateValueAndValidity({onlySelf, emitEvent}?: {
         onlySelf?: boolean;
         emitEvent?: boolean;
@@ -92,7 +104,11 @@ export declare abstract class AbstractControl {
     }, {emitEvent}?: {
         emitEvent?: boolean;
     }): void;
+    /**
+     * @deprecated - use get() instead
+     */
     find(path: Array<string | number> | string): AbstractControl;
+    get(path: Array<string | number> | string): AbstractControl;
     getError(errorCode: string, path?: string[]): any;
     hasError(errorCode: string, path?: string[]): boolean;
     readonly root: AbstractControl;
@@ -129,11 +145,37 @@ export declare class FormControl extends AbstractControl {
      * If `emitModelToViewChange` is `true`, the view will be notified about the new value
      * via an `onChange` event. This is the default behavior if `emitModelToViewChange` is not
      * specified.
+     *
+     * If `emitViewToModelChange` is `true`, an ngModelChange event will be fired to update the
+     * model.  This is the default behavior if `emitViewToModelChange` is not specified.
      */
-    updateValue(value: any, {onlySelf, emitEvent, emitModelToViewChange}?: {
+    setValue(value: any, {onlySelf, emitEvent, emitModelToViewChange, emitViewToModelChange}?: {
         onlySelf?: boolean;
         emitEvent?: boolean;
         emitModelToViewChange?: boolean;
+        emitViewToModelChange?: boolean;
+    }): void;
+    /**
+     * This function is functionally the same as updateValue() at this level.  It exists for
+     * symmetry with patchValue() on FormGroups and FormArrays, where it does behave differently.
+     */
+    patchValue(value: any, options?: {
+        onlySelf?: boolean;
+        emitEvent?: boolean;
+        emitModelToViewChange?: boolean;
+        emitViewToModelChange?: boolean;
+    }): void;
+    /**
+     * @deprecated Please use setValue() instead.
+     */
+    updateValue(value: any, options?: {
+        onlySelf?: boolean;
+        emitEvent?: boolean;
+        emitModelToViewChange?: boolean;
+        emitViewToModelChange?: boolean;
+    }): void;
+    reset(value?: any, {onlySelf}?: {
+        onlySelf?: boolean;
     }): void;
     /**
      * Register a listener for change events.
@@ -190,6 +232,19 @@ export declare class FormGroup extends AbstractControl {
      * Check whether there is a control with the given name in the group.
      */
     contains(controlName: string): boolean;
+    setValue(value: {
+        [key: string]: any;
+    }, {onlySelf}?: {
+        onlySelf?: boolean;
+    }): void;
+    patchValue(value: {
+        [key: string]: any;
+    }, {onlySelf}?: {
+        onlySelf?: boolean;
+    }): void;
+    reset(value?: any, {onlySelf}?: {
+        onlySelf?: boolean;
+    }): void;
 }
 /**
  * Defines a part of a form, of variable length, that can contain other controls.
@@ -238,4 +293,13 @@ export declare class FormArray extends AbstractControl {
      * Length of the control array.
      */
     readonly length: number;
+    setValue(value: any[], {onlySelf}?: {
+        onlySelf?: boolean;
+    }): void;
+    patchValue(value: any[], {onlySelf}?: {
+        onlySelf?: boolean;
+    }): void;
+    reset(value?: any, {onlySelf}?: {
+        onlySelf?: boolean;
+    }): void;
 }

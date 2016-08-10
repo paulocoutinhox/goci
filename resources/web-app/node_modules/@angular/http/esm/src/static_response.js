@@ -5,9 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException } from '../src/facade/exceptions';
-import { Json, isString } from '../src/facade/lang';
-import { isJsObject } from './http_utils';
+import { Body } from './body';
 /**
  * Creates `Response` instances from provided values.
  *
@@ -28,8 +26,9 @@ import { isJsObject } from './http_utils';
  *
  * @experimental
  */
-export class Response {
+export class Response extends Body {
     constructor(responseOptions) {
+        super();
         this._body = responseOptions.body;
         this.status = responseOptions.status;
         this.ok = (this.status >= 200 && this.status <= 299);
@@ -37,35 +36,6 @@ export class Response {
         this.headers = responseOptions.headers;
         this.type = responseOptions.type;
         this.url = responseOptions.url;
-    }
-    /**
-     * Not yet implemented
-     */
-    // TODO: Blob return type
-    blob() { throw new BaseException('"blob()" method not implemented on Response superclass'); }
-    /**
-     * Attempts to return body as parsed `JSON` object, or raises an exception.
-     */
-    json() {
-        var jsonResponse;
-        if (isJsObject(this._body)) {
-            jsonResponse = this._body;
-        }
-        else if (isString(this._body)) {
-            jsonResponse = Json.parse(this._body);
-        }
-        return jsonResponse;
-    }
-    /**
-     * Returns the body as a string, presuming `toString()` can be called on the response body.
-     */
-    text() { return this._body.toString(); }
-    /**
-     * Not yet implemented
-     */
-    // TODO: ArrayBuffer return type
-    arrayBuffer() {
-        throw new BaseException('"arrayBuffer()" method not implemented on Response superclass');
     }
     toString() {
         return `Response with status: ${this.status} ${this.statusText} for URL: ${this.url}`;

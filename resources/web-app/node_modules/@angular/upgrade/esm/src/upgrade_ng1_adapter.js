@@ -146,6 +146,9 @@ export class UpgradeNg1ComponentAdapterBuilder {
             return compile(div.childNodes);
         }
     }
+    /**
+     * Upgrade ng1 components into Angular 2.
+     */
     static resolve(exportedComponents, injector) {
         var promises = [];
         var compile = injector.get(NG1_COMPILE);

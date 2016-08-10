@@ -14,12 +14,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 var core_1 = require('@angular/core');
 var async_1 = require('../../facade/async');
 var validators_1 = require('../../validators');
+var abstract_form_group_directive_1 = require('../abstract_form_group_directive');
 var control_container_1 = require('../control_container');
 var control_value_accessor_1 = require('../control_value_accessor');
 var ng_control_1 = require('../ng_control');
+var reactive_errors_1 = require('../reactive_errors');
 var shared_1 = require('../shared');
-exports.controlNameBinding = 
-/*@ts2dart_const*/ /* @ts2dart_Provider */ {
+var form_group_directive_1 = require('./form_group_directive');
+var form_group_name_1 = require('./form_group_name');
+exports.controlNameBinding = {
     provide: ng_control_1.NgControl,
     useExisting: core_1.forwardRef(function () { return FormControlName; })
 };
@@ -36,6 +39,7 @@ var FormControlName = (function (_super) {
     }
     FormControlName.prototype.ngOnChanges = function (changes) {
         if (!this._added) {
+            this._checkParentType();
             this.formDirective.addControl(this);
             this._added = true;
         }
@@ -47,7 +51,7 @@ var FormControlName = (function (_super) {
     FormControlName.prototype.ngOnDestroy = function () { this.formDirective.removeControl(this); };
     FormControlName.prototype.viewToModelUpdate = function (newValue) {
         this.viewModel = newValue;
-        async_1.ObservableWrapper.callEmit(this.update, newValue);
+        this.update.emit(newValue);
     };
     Object.defineProperty(FormControlName.prototype, "path", {
         get: function () { return shared_1.controlPath(this.name, this._parent); },
@@ -76,13 +80,24 @@ var FormControlName = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    FormControlName.prototype._checkParentType = function () {
+        if (!(this._parent instanceof form_group_name_1.FormGroupName) &&
+            this._parent instanceof abstract_form_group_directive_1.AbstractFormGroupDirective) {
+            reactive_errors_1.ReactiveErrors.ngModelGroupException();
+        }
+        else if (!(this._parent instanceof form_group_name_1.FormGroupName) &&
+            !(this._parent instanceof form_group_directive_1.FormGroupDirective) &&
+            !(this._parent instanceof form_group_name_1.FormArrayName)) {
+            reactive_errors_1.ReactiveErrors.controlParentException();
+        }
+    };
     /** @nocollapse */
     FormControlName.decorators = [
         { type: core_1.Directive, args: [{ selector: '[formControlName]', providers: [exports.controlNameBinding] },] },
     ];
     /** @nocollapse */
     FormControlName.ctorParameters = [
-        { type: control_container_1.ControlContainer, decorators: [{ type: core_1.Host }, { type: core_1.SkipSelf },] },
+        { type: control_container_1.ControlContainer, decorators: [{ type: core_1.Optional }, { type: core_1.Host }, { type: core_1.SkipSelf },] },
         { type: Array, decorators: [{ type: core_1.Optional }, { type: core_1.Self }, { type: core_1.Inject, args: [validators_1.NG_VALIDATORS,] },] },
         { type: Array, decorators: [{ type: core_1.Optional }, { type: core_1.Self }, { type: core_1.Inject, args: [validators_1.NG_ASYNC_VALIDATORS,] },] },
         { type: Array, decorators: [{ type: core_1.Optional }, { type: core_1.Self }, { type: core_1.Inject, args: [control_value_accessor_1.NG_VALUE_ACCESSOR,] },] },

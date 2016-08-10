@@ -1,22 +1,15 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ProjectService} from "../services/ProjectService";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {TaskService} from "../services/TaskService";
-import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from "@angular/forms";
-import {TaskOption} from "../domain/TaskOption";
 import {TaskOptionsComponent} from "../task-options/task-options.component";
 
 @Component({
 	selector: 'project-view',
 	templateUrl: 'app/project-view/project-view.component.html',
 	styleUrls: ['app/project-view/project-view.component.css'],
-	providers: [
-		ProjectService,
-		TaskService
-	],
 	directives: [
-		REACTIVE_FORM_DIRECTIVES,
 		TaskOptionsComponent
 	]
 })

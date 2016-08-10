@@ -6,9 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var exceptions_1 = require('../src/facade/exceptions');
-var lang_1 = require('../src/facade/lang');
-var http_utils_1 = require('./http_utils');
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var body_1 = require('./body');
 /**
  * Creates `Response` instances from provided values.
  *
@@ -29,8 +32,10 @@ var http_utils_1 = require('./http_utils');
  *
  * @experimental
  */
-var Response = (function () {
+var Response = (function (_super) {
+    __extends(Response, _super);
     function Response(responseOptions) {
+        _super.call(this);
         this._body = responseOptions.body;
         this.status = responseOptions.status;
         this.ok = (this.status >= 200 && this.status <= 299);
@@ -39,39 +44,10 @@ var Response = (function () {
         this.type = responseOptions.type;
         this.url = responseOptions.url;
     }
-    /**
-     * Not yet implemented
-     */
-    // TODO: Blob return type
-    Response.prototype.blob = function () { throw new exceptions_1.BaseException('"blob()" method not implemented on Response superclass'); };
-    /**
-     * Attempts to return body as parsed `JSON` object, or raises an exception.
-     */
-    Response.prototype.json = function () {
-        var jsonResponse;
-        if (http_utils_1.isJsObject(this._body)) {
-            jsonResponse = this._body;
-        }
-        else if (lang_1.isString(this._body)) {
-            jsonResponse = lang_1.Json.parse(this._body);
-        }
-        return jsonResponse;
-    };
-    /**
-     * Returns the body as a string, presuming `toString()` can be called on the response body.
-     */
-    Response.prototype.text = function () { return this._body.toString(); };
-    /**
-     * Not yet implemented
-     */
-    // TODO: ArrayBuffer return type
-    Response.prototype.arrayBuffer = function () {
-        throw new exceptions_1.BaseException('"arrayBuffer()" method not implemented on Response superclass');
-    };
     Response.prototype.toString = function () {
         return "Response with status: " + this.status + " " + this.statusText + " for URL: " + this.url;
     };
     return Response;
-}());
+}(body_1.Body));
 exports.Response = Response;
 //# sourceMappingURL=static_response.js.map

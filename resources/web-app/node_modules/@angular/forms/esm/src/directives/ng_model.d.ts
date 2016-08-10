@@ -59,6 +59,8 @@ export declare class NgModel extends NgControl implements OnChanges, OnDestroy {
     private _setUpControl();
     private _isStandalone();
     private _setUpStandalone();
+    private _checkForErrors();
+    private _checkParentType();
     private _checkName();
     private _updateValue(value);
 }

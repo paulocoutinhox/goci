@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
 var GlobalService_1 = require("../services/GlobalService");
 var AppHeaderComponent = (function () {
     function AppHeaderComponent(globalService) {
@@ -24,8 +23,7 @@ var AppHeaderComponent = (function () {
         core_1.Component({
             selector: 'app-header',
             templateUrl: 'app/app-header/app-header.component.html',
-            styleUrls: ['app/app-header/app-header.component.css'],
-            directives: [router_1.ROUTER_DIRECTIVES]
+            styleUrls: ['app/app-header/app-header.component.css']
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService])
     ], AppHeaderComponent);

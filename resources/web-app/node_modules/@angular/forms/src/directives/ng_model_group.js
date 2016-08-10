@@ -15,8 +15,9 @@ var core_1 = require('@angular/core');
 var validators_1 = require('../validators');
 var abstract_form_group_directive_1 = require('./abstract_form_group_directive');
 var control_container_1 = require('./control_container');
-exports.modelGroupProvider = 
-/*@ts2dart_const*/ /* @ts2dart_Provider */ {
+var ng_form_1 = require('./ng_form');
+var template_driven_errors_1 = require('./template_driven_errors');
+exports.modelGroupProvider = {
     provide: control_container_1.ControlContainer,
     useExisting: core_1.forwardRef(function () { return NgModelGroup; })
 };
@@ -28,6 +29,12 @@ var NgModelGroup = (function (_super) {
         this._validators = validators;
         this._asyncValidators = asyncValidators;
     }
+    /** @internal */
+    NgModelGroup.prototype._checkParentType = function () {
+        if (!(this._parent instanceof NgModelGroup) && !(this._parent instanceof ng_form_1.NgForm)) {
+            template_driven_errors_1.TemplateDrivenErrors.modelGroupParentException();
+        }
+    };
     /** @nocollapse */
     NgModelGroup.decorators = [
         { type: core_1.Directive, args: [{ selector: '[ngModelGroup]', providers: [exports.modelGroupProvider], exportAs: 'ngModelGroup' },] },

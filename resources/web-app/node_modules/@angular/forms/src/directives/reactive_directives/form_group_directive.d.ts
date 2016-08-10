@@ -11,8 +11,7 @@ import { FormArray, FormControl, FormGroup } from '../../model';
 import { ControlContainer } from '../control_container';
 import { Form } from '../form_interface';
 import { NgControl } from '../ng_control';
-import { FormArrayName } from './form_array_name';
-import { FormGroupName } from './form_group_name';
+import { FormArrayName, FormGroupName } from './form_group_name';
 export declare const formDirectiveProvider: any;
 /**
  * Binds an existing form group to a DOM element.
@@ -112,5 +111,6 @@ export declare class FormGroupDirective extends ControlContainer implements Form
     getFormArray(dir: FormArrayName): FormArray;
     updateModel(dir: NgControl, value: any): void;
     onSubmit(): boolean;
+    onReset(): void;
     private _checkFormPresent();
 }

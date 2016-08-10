@@ -16,14 +16,16 @@ export { NgModel } from './directives/ng_model';
 export { NgModelGroup } from './directives/ng_model_group';
 export { NumberValueAccessor } from './directives/number_value_accessor';
 export { RadioControlValueAccessor } from './directives/radio_control_value_accessor';
-export { FormArrayName } from './directives/reactive_directives/form_array_name';
 export { FormControlDirective } from './directives/reactive_directives/form_control_directive';
 export { FormControlName } from './directives/reactive_directives/form_control_name';
 export { FormGroupDirective } from './directives/reactive_directives/form_group_directive';
-export { FormGroupName } from './directives/reactive_directives/form_group_name';
+export { FormArrayName, FormGroupName } from './directives/reactive_directives/form_group_name';
 export { NgSelectOption, SelectControlValueAccessor } from './directives/select_control_value_accessor';
 export { NgSelectMultipleOption, SelectMultipleControlValueAccessor } from './directives/select_multiple_control_value_accessor';
 export { MaxLengthValidator, MinLengthValidator, PatternValidator, RequiredValidator } from './directives/validators';
+export declare const SHARED_FORM_DIRECTIVES: Type[];
+export declare const TEMPLATE_DRIVEN_DIRECTIVES: Type[];
+export declare const REACTIVE_DRIVEN_DIRECTIVES: Type[];
 /**
  *
  * A list of all the form directives used as part of a `@Component` annotation.
@@ -41,8 +43,13 @@ export { MaxLengthValidator, MinLengthValidator, PatternValidator, RequiredValid
  * ```
  * @experimental
  */
-export declare const FORM_DIRECTIVES: Type[];
+export declare const FORM_DIRECTIVES: Type[][];
 /**
  * @experimental
  */
-export declare const REACTIVE_FORM_DIRECTIVES: Type[];
+export declare const REACTIVE_FORM_DIRECTIVES: Type[][];
+/**
+ * Internal module used for sharing directives between FormsModule and ReactiveFormsModule
+ */
+export declare class InternalFormsSharedModule {
+}

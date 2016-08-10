@@ -6,21 +6,23 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Location } from '@angular/common';
-import { ApplicationRef, ComponentResolver, Injector, OpaqueToken } from '@angular/core';
-import { RouterConfig } from './config';
+import { ApplicationRef, ComponentResolver, Injector, NgModuleFactoryLoader, OpaqueToken } from '@angular/core';
+import { Route, Routes } from './config';
 import { Router } from './router';
 import { RouterOutletMap } from './router_outlet_map';
+import { ActivatedRoute } from './router_state';
 import { UrlSerializer } from './url_tree';
-export declare const ROUTER_CONFIG: OpaqueToken;
-export declare const ROUTER_OPTIONS: OpaqueToken;
+export declare const ROUTER_CONFIGURATION: OpaqueToken;
 /**
  * @experimental
  */
 export interface ExtraOptions {
     enableTracing?: boolean;
+    useHash?: boolean;
 }
-export declare function setupRouter(ref: ApplicationRef, resolver: ComponentResolver, urlSerializer: UrlSerializer, outletMap: RouterOutletMap, location: Location, injector: Injector, config: RouterConfig, opts: ExtraOptions): Router;
-export declare function setupRouterInitializer(injector: Injector): () => any;
+export declare function setupRouter(ref: ApplicationRef, resolver: ComponentResolver, urlSerializer: UrlSerializer, outletMap: RouterOutletMap, location: Location, injector: Injector, loader: NgModuleFactoryLoader, config: Route[][], opts?: ExtraOptions): Router;
+export declare function rootRoute(router: Router): ActivatedRoute;
+export declare function initialRouterNavigation(router: Router): () => void;
 /**
  * An array of {@link Provider}s. To use the router, you must add this to your application.
  *
@@ -39,6 +41,46 @@ export declare function setupRouterInitializer(injector: Injector): () => any;
  * bootstrap(AppCmp, [provideRouter(config)]);
  * ```
  *
- * @stable
+ * @deprecated use RouterModule instead
  */
-export declare function provideRouter(_config: RouterConfig, _opts: ExtraOptions): any[];
+export declare function provideRouter(routes: Routes, config?: ExtraOptions): any[];
+export declare function provideRouterInitializer(): {
+    provide: OpaqueToken;
+    multi: boolean;
+    useFactory: (router: Router) => () => void;
+    deps: typeof Router[];
+};
+/**
+ * Router configuration.
+ *
+ * ### Example
+ *
+ * ```
+ * @NgModule({providers: [
+ *   provideRoutes([{path: 'home', component: Home}])
+ * ]})
+ * class LazyLoadedModule {
+ *   // ...
+ * }
+ * ```
+ *
+ * @deprecated
+ */
+export declare function provideRoutes(routes: Routes): any;
+/**
+ * Router configuration.
+ *
+ * ### Example
+ *
+ * ```
+ * @NgModule({providers: [
+ *   provideRouterOptions({enableTracing: true})
+ * ]})
+ * class LazyLoadedModule {
+ *   // ...
+ * }
+ * ```
+ *
+ * @deprecated
+ */
+export declare function provideRouterConfig(config: ExtraOptions): any;

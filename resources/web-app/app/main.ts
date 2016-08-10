@@ -1,19 +1,4 @@
-import {bootstrap} from "@angular/platform-browser-dynamic";
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
-//import {enableProdMode} from '@angular/core';
+import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
+import {AppModule} from "./modules/app.module";
 
-import {AppMainComponent} from "./app-main/app-main.component";
-import {appRouterProviders} from "./app-routes/app.routes";
-import {HTTP_PROVIDERS} from "@angular/http";
-import {GlobalService} from "./services/GlobalService";
-import {JobService} from "./services/JobService";
-
-//enableProdMode();
-bootstrap(AppMainComponent, [
-	appRouterProviders,
-	HTTP_PROVIDERS,
-	GlobalService,
-	JobService,
-	disableDeprecatedForms(),
-	provideForms()
-]);
+platformBrowserDynamic().bootstrapModule(AppModule);

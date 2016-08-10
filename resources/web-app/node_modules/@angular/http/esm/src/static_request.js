@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { StringWrapper, isPresent } from '../src/facade/lang';
+import { Body } from './body';
 import { ContentType } from './enums';
 import { Headers } from './headers';
 import { normalizeMethodName } from './http_utils';
@@ -50,8 +51,9 @@ import { URLSearchParams } from './url_search_params';
  *
  * @experimental
  */
-export class Request {
+export class Request extends Body {
     constructor(requestOptions) {
+        super();
         // TODO: assert that url is present
         let url = requestOptions.url;
         this.url = requestOptions.url;
@@ -67,52 +69,39 @@ export class Request {
             }
         }
         this._body = requestOptions.body;
-        this.contentType = this.detectContentType();
         this.method = normalizeMethodName(requestOptions.method);
         // TODO(jeffbcross): implement behavior
         // Defaults to 'omit', consistent with browser
         // TODO(jeffbcross): implement behavior
         this.headers = new Headers(requestOptions.headers);
+        this.contentType = this.detectContentType();
         this.withCredentials = requestOptions.withCredentials;
+        this.responseType = requestOptions.responseType;
     }
     /**
-     * Returns the request's body as string, assuming that body exists. If body is undefined, return
-     * empty
-     * string.
+     * Returns the content type enum based on header options.
      */
-    text() { return isPresent(this._body) ? this._body.toString() : ''; }
-    /**
-     * Returns the request's body as JSON string, assuming that body exists. If body is undefined,
-     * return
-     * empty
-     * string.
-     */
-    json() { return isPresent(this._body) ? JSON.stringify(this._body) : ''; }
-    /**
-     * Returns the request's body as array buffer, assuming that body exists. If body is undefined,
-     * return
-     * null.
-     */
-    arrayBuffer() {
-        if (this._body instanceof ArrayBuffer)
-            return this._body;
-        throw 'The request body isn\'t an array buffer';
-    }
-    /**
-     * Returns the request's body as blob, assuming that body exists. If body is undefined, return
-     * null.
-     */
-    blob() {
-        if (this._body instanceof Blob)
-            return this._body;
-        if (this._body instanceof ArrayBuffer)
-            return new Blob([this._body]);
-        throw 'The request body isn\'t either a blob or an array buffer';
+    detectContentType() {
+        switch (this.headers.get('content-type')) {
+            case 'application/json':
+                return ContentType.JSON;
+            case 'application/x-www-form-urlencoded':
+                return ContentType.FORM;
+            case 'multipart/form-data':
+                return ContentType.FORM_DATA;
+            case 'text/plain':
+            case 'text/html':
+                return ContentType.TEXT;
+            case 'application/octet-stream':
+                return ContentType.BLOB;
+            default:
+                return this.detectContentTypeFromBody();
+        }
     }
     /**
      * Returns the content type of request's body based on its type.
      */
-    detectContentType() {
+    detectContentTypeFromBody() {
         if (this._body == null) {
             return ContentType.NONE;
         }
@@ -142,7 +131,7 @@ export class Request {
     getBody() {
         switch (this.contentType) {
             case ContentType.JSON:
-                return this.json();
+                return this.text();
             case ContentType.FORM:
                 return this.text();
             case ContentType.FORM_DATA:

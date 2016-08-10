@@ -98,6 +98,10 @@ export declare class Http {
      * Performs a request with `head` http method.
      */
     head(url: string, options?: RequestOptionsArgs): Observable<Response>;
+    /**
+     * Performs a request with `options` http method.
+     */
+    options(url: string, options?: RequestOptionsArgs): Observable<Response>;
 }
 /**
  * @experimental

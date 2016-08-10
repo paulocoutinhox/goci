@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { NgModule } from '@angular/core';
 import { BrowserJsonp } from './src/backends/browser_jsonp';
 import { BrowserXhr } from './src/backends/browser_xhr';
 import { JSONPBackend, JSONPBackend_ } from './src/backends/jsonp_backend';
@@ -18,7 +19,7 @@ export { JSONPBackend, JSONPConnection } from './src/backends/jsonp_backend';
 export { CookieXSRFStrategy, XHRBackend, XHRConnection } from './src/backends/xhr_backend';
 export { BaseRequestOptions, RequestOptions } from './src/base_request_options';
 export { BaseResponseOptions, ResponseOptions } from './src/base_response_options';
-export { ReadyState, RequestMethod, ResponseType } from './src/enums';
+export { ReadyState, RequestMethod, ResponseContentType, ResponseType } from './src/enums';
 export { Headers } from './src/headers';
 export { Http, Jsonp } from './src/http';
 export { Connection, ConnectionBackend, XSRFStrategy } from './src/interfaces';
@@ -168,7 +169,7 @@ export { QueryEncoder, URLSearchParams } from './src/url_search_params';
  *   .catch(err => console.error(err));
  * ```
  *
- * @experimental
+ * @deprecated
  */
 export const HTTP_PROVIDERS = [
     // TODO(pascal): use factory type annotations once supported in DI
@@ -178,8 +179,14 @@ export const HTTP_PROVIDERS = [
     { provide: RequestOptions, useClass: BaseRequestOptions },
     { provide: ResponseOptions, useClass: BaseResponseOptions },
     XHRBackend,
-    { provide: XSRFStrategy, useValue: new CookieXSRFStrategy() },
+    { provide: XSRFStrategy, useFactory: _createDefaultCookieXSRFStrategy },
 ];
+/**
+ * @experimental
+ */
+export function _createDefaultCookieXSRFStrategy() {
+    return new CookieXSRFStrategy();
+}
 /**
  * @experimental
  */
@@ -319,4 +326,16 @@ function jsonpFactory(jsonpBackend, requestOptions) {
  * @deprecated
  */
 export const JSON_BINDINGS = JSONP_PROVIDERS;
+export class HttpModule {
+}
+/** @nocollapse */
+HttpModule.decorators = [
+    { type: NgModule, args: [{ providers: HTTP_PROVIDERS },] },
+];
+export class JsonpModule {
+}
+/** @nocollapse */
+JsonpModule.decorators = [
+    { type: NgModule, args: [{ providers: JSONP_PROVIDERS },] },
+];
 //# sourceMappingURL=http.js.map

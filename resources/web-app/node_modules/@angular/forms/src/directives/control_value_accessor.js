@@ -13,6 +13,5 @@ var core_1 = require('@angular/core');
  * See {@link DefaultValueAccessor} for how to implement one.
  * @experimental
  */
-exports.NG_VALUE_ACCESSOR = 
-/*@ts2dart_const*/ new core_1.OpaqueToken('NgValueAccessor');
+exports.NG_VALUE_ACCESSOR = new core_1.OpaqueToken('NgValueAccessor');
 //# sourceMappingURL=control_value_accessor.js.map

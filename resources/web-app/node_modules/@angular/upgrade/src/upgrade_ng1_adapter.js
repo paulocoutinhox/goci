@@ -148,6 +148,9 @@ var UpgradeNg1ComponentAdapterBuilder = (function () {
             return compile(div.childNodes);
         }
     };
+    /**
+     * Upgrade ng1 components into Angular 2.
+     */
     UpgradeNg1ComponentAdapterBuilder.resolve = function (exportedComponents, injector) {
         var promises = [];
         var compile = injector.get(constants_1.NG1_COMPILE);

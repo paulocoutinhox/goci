@@ -1,19 +1,13 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {TaskService} from "../services/TaskService";
-import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import {TaskOption} from "../domain/TaskOption";
 import {Utils} from "../domain/Utils";
 
 @Component({
 	selector: 'task-options',
 	templateUrl: 'app/task-options/task-options.component.html',
-	styleUrls: ['app/task-options/task-options.component.css'],
-	providers: [
-		TaskService
-	],
-	directives: [
-		REACTIVE_FORM_DIRECTIVES
-	]
+	styleUrls: ['app/task-options/task-options.component.css']
 })
 
 export class TaskOptionsComponent implements OnInit {

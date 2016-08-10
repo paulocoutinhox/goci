@@ -16,7 +16,7 @@ function getComponentInfo(type) {
     if (!selector.match(COMPONENT_SELECTOR)) {
         throw new Error('Only selectors matching element names are supported, got: ' + selector);
     }
-    var selector = selector.replace(SKEWER_CASE, function (all /** TODO #9100 */, letter) { return letter.toUpperCase(); });
+    selector = selector.replace(SKEWER_CASE, function (all /** TODO #9100 */, letter) { return letter.toUpperCase(); });
     return {
         type: type,
         selector: selector,

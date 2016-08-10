@@ -32,6 +32,14 @@ function getResponseURL(xhr) {
     return;
 }
 exports.getResponseURL = getResponseURL;
+function stringToArrayBuffer(input) {
+    var view = new Uint16Array(input.length);
+    for (var i = 0, strLen = input.length; i < strLen; i++) {
+        view[i] = input.charCodeAt(i);
+    }
+    return view.buffer;
+}
+exports.stringToArrayBuffer = stringToArrayBuffer;
 var lang_2 = require('../src/facade/lang');
 exports.isJsObject = lang_2.isJsObject;
 //# sourceMappingURL=http_utils.js.map

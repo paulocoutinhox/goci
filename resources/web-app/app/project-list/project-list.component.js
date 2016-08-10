@@ -71,10 +71,7 @@ var ProjectListComponent = (function () {
         core_1.Component({
             selector: 'project-list',
             templateUrl: 'app/project-list/project-list.component.html',
-            styleUrls: ['app/project-list/project-list.component.css'],
-            providers: [
-                ProjectService_1.ProjectService
-            ]
+            styleUrls: ['app/project-list/project-list.component.css']
         }), 
         __metadata('design:paramtypes', [ProjectService_1.ProjectService, router_1.Router])
     ], ProjectListComponent);

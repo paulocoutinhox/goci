@@ -6,58 +6,61 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var common_1 = require('@angular/common');
-var compiler_1 = require('@angular/compiler');
 var core_1 = require('@angular/core');
 var directives_1 = require('./directives');
 var radio_control_value_accessor_1 = require('./directives/radio_control_value_accessor');
-var collection_1 = require('./facade/collection');
 var form_builder_1 = require('./form_builder');
 /**
  * Shorthand set of providers used for building Angular forms.
- *
- * ### Example
- *
- * ```typescript
- * bootstrap(MyApp, [FORM_PROVIDERS]);
- * ```
- *
  * @experimental
  */
-exports.FORM_PROVIDERS = [form_builder_1.FormBuilder, radio_control_value_accessor_1.RadioControlRegistry];
-function flatten(platformDirectives) {
-    var flattenedDirectives = [];
-    platformDirectives.forEach(function (directives) {
-        if (Array.isArray(directives)) {
-            flattenedDirectives = flattenedDirectives.concat(directives);
-        }
-        else {
-            flattenedDirectives.push(directives);
-        }
-    });
-    return flattenedDirectives;
-}
+exports.FORM_PROVIDERS = [radio_control_value_accessor_1.RadioControlRegistry];
 /**
+ * Shorthand set of providers used for building reactive Angular forms.
  * @experimental
+ */
+exports.REACTIVE_FORM_PROVIDERS = [form_builder_1.FormBuilder, radio_control_value_accessor_1.RadioControlRegistry];
+var FormsModule = (function () {
+    function FormsModule() {
+    }
+    /** @nocollapse */
+    FormsModule.decorators = [
+        { type: core_1.NgModule, args: [{
+                    declarations: directives_1.TEMPLATE_DRIVEN_DIRECTIVES,
+                    providers: [exports.FORM_PROVIDERS],
+                    exports: [directives_1.InternalFormsSharedModule, directives_1.TEMPLATE_DRIVEN_DIRECTIVES]
+                },] },
+    ];
+    return FormsModule;
+}());
+exports.FormsModule = FormsModule;
+var ReactiveFormsModule = (function () {
+    function ReactiveFormsModule() {
+    }
+    /** @nocollapse */
+    ReactiveFormsModule.decorators = [
+        { type: core_1.NgModule, args: [{
+                    declarations: [directives_1.REACTIVE_DRIVEN_DIRECTIVES],
+                    providers: [exports.REACTIVE_FORM_PROVIDERS],
+                    exports: [directives_1.InternalFormsSharedModule, directives_1.REACTIVE_DRIVEN_DIRECTIVES]
+                },] },
+    ];
+    return ReactiveFormsModule;
+}());
+exports.ReactiveFormsModule = ReactiveFormsModule;
+/**
+ * @deprecated
  */
 function disableDeprecatedForms() {
-    return [{
-            provide: compiler_1.CompilerConfig,
-            useFactory: function (platformDirectives, platformPipes) {
-                var flattenedDirectives = flatten(platformDirectives);
-                collection_1.ListWrapper.remove(flattenedDirectives, common_1.FORM_DIRECTIVES);
-                return new compiler_1.CompilerConfig({ platformDirectives: flattenedDirectives, platformPipes: platformPipes });
-            },
-            deps: [core_1.PLATFORM_DIRECTIVES, core_1.PLATFORM_PIPES]
-        }];
+    return [];
 }
 exports.disableDeprecatedForms = disableDeprecatedForms;
 /**
- * @experimental
+ * @deprecated
  */
 function provideForms() {
     return [
-        { provide: core_1.PLATFORM_DIRECTIVES, useValue: directives_1.FORM_DIRECTIVES, multi: true }, exports.FORM_PROVIDERS
+        { provide: core_1.PLATFORM_DIRECTIVES, useValue: directives_1.FORM_DIRECTIVES, multi: true }, exports.REACTIVE_FORM_PROVIDERS
     ];
 }
 exports.provideForms = provideForms;

@@ -1,12 +1,10 @@
 import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router";
 import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'app-header',
 	templateUrl: 'app/app-header/app-header.component.html',
-	styleUrls: ['app/app-header/app-header.component.css'],
-	directives: [ROUTER_DIRECTIVES]
+	styleUrls: ['app/app-header/app-header.component.css']
 })
 
 export class AppHeaderComponent {

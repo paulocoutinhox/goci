@@ -26,8 +26,11 @@ export declare class UpgradeNg1ComponentAdapterBuilder {
     extractDirective(injector: angular.IInjectorService): angular.IDirective;
     private notSupported(feature);
     extractBindings(): void;
-    compileTemplate(compile: angular.ICompileService, templateCache: angular.ITemplateCacheService, httpBackend: angular.IHttpBackendService): Promise<any>;
+    compileTemplate(compile: angular.ICompileService, templateCache: angular.ITemplateCacheService, httpBackend: angular.IHttpBackendService): Promise<angular.ILinkFn>;
+    /**
+     * Upgrade ng1 components into Angular 2.
+     */
     static resolve(exportedComponents: {
         [name: string]: UpgradeNg1ComponentAdapterBuilder;
-    }, injector: angular.IInjectorService): Promise<any>;
+    }, injector: angular.IInjectorService): Promise<angular.ILinkFn[]>;
 }

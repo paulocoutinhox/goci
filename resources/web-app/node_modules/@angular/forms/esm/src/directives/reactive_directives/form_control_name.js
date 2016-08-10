@@ -6,14 +6,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directive, Host, Inject, Input, Optional, Output, Self, SkipSelf, forwardRef } from '@angular/core';
-import { EventEmitter, ObservableWrapper } from '../../facade/async';
+import { EventEmitter } from '../../facade/async';
 import { NG_ASYNC_VALIDATORS, NG_VALIDATORS } from '../../validators';
+import { AbstractFormGroupDirective } from '../abstract_form_group_directive';
 import { ControlContainer } from '../control_container';
 import { NG_VALUE_ACCESSOR } from '../control_value_accessor';
 import { NgControl } from '../ng_control';
+import { ReactiveErrors } from '../reactive_errors';
 import { composeAsyncValidators, composeValidators, controlPath, isPropertyUpdated, selectValueAccessor } from '../shared';
-export const controlNameBinding = 
-/*@ts2dart_const*/ /* @ts2dart_Provider */ {
+import { FormGroupDirective } from './form_group_directive';
+import { FormArrayName, FormGroupName } from './form_group_name';
+export const controlNameBinding = {
     provide: NgControl,
     useExisting: forwardRef(() => FormControlName)
 };
@@ -29,6 +32,7 @@ export class FormControlName extends NgControl {
     }
     ngOnChanges(changes) {
         if (!this._added) {
+            this._checkParentType();
             this.formDirective.addControl(this);
             this._added = true;
         }
@@ -40,7 +44,7 @@ export class FormControlName extends NgControl {
     ngOnDestroy() { this.formDirective.removeControl(this); }
     viewToModelUpdate(newValue) {
         this.viewModel = newValue;
-        ObservableWrapper.callEmit(this.update, newValue);
+        this.update.emit(newValue);
     }
     get path() { return controlPath(this.name, this._parent); }
     get formDirective() { return this._parent.formDirective; }
@@ -49,6 +53,17 @@ export class FormControlName extends NgControl {
         return composeAsyncValidators(this._asyncValidators);
     }
     get control() { return this.formDirective.getControl(this); }
+    _checkParentType() {
+        if (!(this._parent instanceof FormGroupName) &&
+            this._parent instanceof AbstractFormGroupDirective) {
+            ReactiveErrors.ngModelGroupException();
+        }
+        else if (!(this._parent instanceof FormGroupName) &&
+            !(this._parent instanceof FormGroupDirective) &&
+            !(this._parent instanceof FormArrayName)) {
+            ReactiveErrors.controlParentException();
+        }
+    }
 }
 /** @nocollapse */
 FormControlName.decorators = [
@@ -56,7 +71,7 @@ FormControlName.decorators = [
 ];
 /** @nocollapse */
 FormControlName.ctorParameters = [
-    { type: ControlContainer, decorators: [{ type: Host }, { type: SkipSelf },] },
+    { type: ControlContainer, decorators: [{ type: Optional }, { type: Host }, { type: SkipSelf },] },
     { type: Array, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [NG_VALIDATORS,] },] },
     { type: Array, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [NG_ASYNC_VALIDATORS,] },] },
     { type: Array, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [NG_VALUE_ACCESSOR,] },] },

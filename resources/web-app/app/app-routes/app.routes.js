@@ -5,11 +5,11 @@ var job_list_component_1 = require("../job-list/job-list.component");
 var project_list_component_1 = require("../project-list/project-list.component");
 var not_found_component_1 = require("../not-found/not-found.component");
 var project_view_component_1 = require("../project-view/project-view.component");
-var routes = [
+var appRoutes = [
     //{ path: '**', component: PageNotFoundComponent },
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: '/home',
         pathMatch: 'full'
     },
     {
@@ -29,7 +29,5 @@ var routes = [
         component: not_found_component_1.NotFoundComponent
     }
 ];
-exports.appRouterProviders = [
-    router_1.provideRouter(routes)
-];
+exports.routing = router_1.RouterModule.forRoot(appRoutes);
 //# sourceMappingURL=app.routes.js.map

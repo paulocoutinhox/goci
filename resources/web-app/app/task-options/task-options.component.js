@@ -78,13 +78,7 @@ var TaskOptionsComponent = (function () {
         core_1.Component({
             selector: 'task-options',
             templateUrl: 'app/task-options/task-options.component.html',
-            styleUrls: ['app/task-options/task-options.component.css'],
-            providers: [
-                TaskService_1.TaskService
-            ],
-            directives: [
-                forms_1.REACTIVE_FORM_DIRECTIVES
-            ]
+            styleUrls: ['app/task-options/task-options.component.css']
         }), 
         __metadata('design:paramtypes', [TaskService_1.TaskService])
     ], TaskOptionsComponent);

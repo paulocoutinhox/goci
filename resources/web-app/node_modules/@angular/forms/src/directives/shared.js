@@ -25,34 +25,48 @@ function controlPath(name, parent) {
 exports.controlPath = controlPath;
 function setUpControl(control, dir) {
     if (lang_1.isBlank(control))
-        _throwError(dir, 'Cannot find control');
+        _throwError(dir, 'Cannot find control with');
     if (lang_1.isBlank(dir.valueAccessor))
-        _throwError(dir, 'No value accessor for');
+        _throwError(dir, 'No value accessor for form control with');
     control.validator = validators_1.Validators.compose([control.validator, dir.validator]);
     control.asyncValidator = validators_1.Validators.composeAsync([control.asyncValidator, dir.asyncValidator]);
     dir.valueAccessor.writeValue(control.value);
     // view -> model
     dir.valueAccessor.registerOnChange(function (newValue) {
         dir.viewToModelUpdate(newValue);
-        control.updateValue(newValue, { emitModelToViewChange: false });
         control.markAsDirty();
+        control.setValue(newValue, { emitModelToViewChange: false });
     });
-    // model -> view
-    control.registerOnChange(function (newValue) { return dir.valueAccessor.writeValue(newValue); });
+    control.registerOnChange(function (newValue, emitModelEvent) {
+        // control -> view
+        dir.valueAccessor.writeValue(newValue);
+        // control -> ngModel
+        if (emitModelEvent)
+            dir.viewToModelUpdate(newValue);
+    });
     // touched
     dir.valueAccessor.registerOnTouched(function () { return control.markAsTouched(); });
 }
 exports.setUpControl = setUpControl;
 function setUpFormContainer(control, dir) {
     if (lang_1.isBlank(control))
-        _throwError(dir, 'Cannot find control');
+        _throwError(dir, 'Cannot find control with');
     control.validator = validators_1.Validators.compose([control.validator, dir.validator]);
     control.asyncValidator = validators_1.Validators.composeAsync([control.asyncValidator, dir.asyncValidator]);
 }
 exports.setUpFormContainer = setUpFormContainer;
 function _throwError(dir, message) {
-    var path = dir.path.join(' -> ');
-    throw new exceptions_1.BaseException(message + " '" + path + "'");
+    var messageEnd;
+    if (dir.path.length > 1) {
+        messageEnd = "path: '" + dir.path.join(' -> ') + "'";
+    }
+    else if (dir.path[0]) {
+        messageEnd = "name: '" + dir.path + "'";
+    }
+    else {
+        messageEnd = 'unspecified name attribute';
+    }
+    throw new exceptions_1.BaseException(message + " " + messageEnd);
 }
 function composeValidators(validators) {
     return lang_1.isPresent(validators) ? validators_1.Validators.compose(validators.map(normalize_validator_1.normalizeValidator)) : null;
@@ -88,12 +102,12 @@ function selectValueAccessor(dir, valueAccessors) {
             lang_1.hasConstructor(v, select_multiple_control_value_accessor_1.SelectMultipleControlValueAccessor) ||
             lang_1.hasConstructor(v, radio_control_value_accessor_1.RadioControlValueAccessor)) {
             if (lang_1.isPresent(builtinAccessor))
-                _throwError(dir, 'More than one built-in value accessor matches');
+                _throwError(dir, 'More than one built-in value accessor matches form control with');
             builtinAccessor = v;
         }
         else {
             if (lang_1.isPresent(customAccessor))
-                _throwError(dir, 'More than one custom value accessor matches');
+                _throwError(dir, 'More than one custom value accessor matches form control with');
             customAccessor = v;
         }
     });
@@ -103,7 +117,7 @@ function selectValueAccessor(dir, valueAccessors) {
         return builtinAccessor;
     if (lang_1.isPresent(defaultAccessor))
         return defaultAccessor;
-    _throwError(dir, 'No valid value accessor for');
+    _throwError(dir, 'No valid value accessor for form control with');
     return null;
 }
 exports.selectValueAccessor = selectValueAccessor;

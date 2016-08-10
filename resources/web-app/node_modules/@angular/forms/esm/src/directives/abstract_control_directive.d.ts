@@ -18,6 +18,8 @@ export declare abstract class AbstractControlDirective {
     readonly control: AbstractControl;
     readonly value: any;
     readonly valid: boolean;
+    readonly invalid: boolean;
+    readonly pending: boolean;
     readonly errors: {
         [key: string]: any;
     };
@@ -28,4 +30,5 @@ export declare abstract class AbstractControlDirective {
     readonly statusChanges: Observable<any>;
     readonly valueChanges: Observable<any>;
     readonly path: string[];
+    reset(value?: any): void;
 }

@@ -1,4 +1,4 @@
-import { RequestMethod } from './enums';
+import { RequestMethod, ResponseContentType } from './enums';
 import { Headers } from './headers';
 import { RequestOptionsArgs } from './interfaces';
 import { URLSearchParams } from './url_search_params';
@@ -54,7 +54,8 @@ export declare class RequestOptions {
      * Enable use credentials for a {@link Request}.
      */
     withCredentials: boolean;
-    constructor({method, headers, body, url, search, withCredentials}?: RequestOptionsArgs);
+    responseType: ResponseContentType;
+    constructor({method, headers, body, url, search, withCredentials, responseType}?: RequestOptionsArgs);
     /**
      * Creates a copy of the `RequestOptions` instance, using the optional input as values to override
      * existing values. This method will not change the values of the instance on which it is being

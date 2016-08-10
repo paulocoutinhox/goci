@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ReadyState, RequestMethod, ResponseType } from './enums';
+import { ReadyState, RequestMethod, ResponseContentType, ResponseType } from './enums';
 import { Headers } from './headers';
 import { Request } from './static_request';
 import { URLSearchParams } from './url_search_params';
@@ -51,6 +51,7 @@ export interface RequestOptionsArgs {
     headers?: Headers;
     body?: any;
     withCredentials?: boolean;
+    responseType?: ResponseContentType;
 }
 /**
  * Required structure when constructing new Request();
@@ -65,7 +66,7 @@ export interface RequestArgs extends RequestOptionsArgs {
  * @experimental
  */
 export declare type ResponseOptionsArgs = {
-    body?: string | Object | FormData;
+    body?: string | Object | FormData | ArrayBuffer | Blob;
     status?: number;
     statusText?: string;
     headers?: Headers;

@@ -29,5 +29,12 @@ export function getResponseURL(xhr) {
     }
     return;
 }
+export function stringToArrayBuffer(input) {
+    let view = new Uint16Array(input.length);
+    for (var i = 0, strLen = input.length; i < strLen; i++) {
+        view[i] = input.charCodeAt(i);
+    }
+    return view.buffer;
+}
 export { isJsObject } from '../src/facade/lang';
 //# sourceMappingURL=http_utils.js.map

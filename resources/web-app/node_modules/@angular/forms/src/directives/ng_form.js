@@ -19,8 +19,11 @@ var model_1 = require('../model');
 var validators_1 = require('../validators');
 var control_container_1 = require('./control_container');
 var shared_1 = require('./shared');
-exports.formDirectiveProvider = 
-/*@ts2dart_const*/ { provide: control_container_1.ControlContainer, useExisting: core_1.forwardRef(function () { return NgForm; }) };
+exports.formDirectiveProvider = {
+    provide: control_container_1.ControlContainer,
+    useExisting: core_1.forwardRef(function () { return NgForm; })
+};
+var resolvedPromise = Promise.resolve(null);
 var NgForm = (function (_super) {
     __extends(NgForm, _super);
     function NgForm(validators, asyncValidators) {
@@ -56,17 +59,17 @@ var NgForm = (function (_super) {
     });
     NgForm.prototype.addControl = function (dir) {
         var _this = this;
-        async_1.PromiseWrapper.scheduleMicrotask(function () {
+        resolvedPromise.then(function () {
             var container = _this._findContainer(dir.path);
             dir._control = container.registerControl(dir.name, dir.control);
             shared_1.setUpControl(dir.control, dir);
             dir.control.updateValueAndValidity({ emitEvent: false });
         });
     };
-    NgForm.prototype.getControl = function (dir) { return this.form.find(dir.path); };
+    NgForm.prototype.getControl = function (dir) { return this.form.get(dir.path); };
     NgForm.prototype.removeControl = function (dir) {
         var _this = this;
-        async_1.PromiseWrapper.scheduleMicrotask(function () {
+        resolvedPromise.then(function () {
             var container = _this._findContainer(dir.path);
             if (lang_1.isPresent(container)) {
                 container.removeControl(dir.name);
@@ -75,7 +78,7 @@ var NgForm = (function (_super) {
     };
     NgForm.prototype.addFormGroup = function (dir) {
         var _this = this;
-        async_1.PromiseWrapper.scheduleMicrotask(function () {
+        resolvedPromise.then(function () {
             var container = _this._findContainer(dir.path);
             var group = new model_1.FormGroup({});
             shared_1.setUpFormContainer(group, dir);
@@ -85,39 +88,39 @@ var NgForm = (function (_super) {
     };
     NgForm.prototype.removeFormGroup = function (dir) {
         var _this = this;
-        async_1.PromiseWrapper.scheduleMicrotask(function () {
+        resolvedPromise.then(function () {
             var container = _this._findContainer(dir.path);
             if (lang_1.isPresent(container)) {
                 container.removeControl(dir.name);
             }
         });
     };
-    NgForm.prototype.getFormGroup = function (dir) { return this.form.find(dir.path); };
+    NgForm.prototype.getFormGroup = function (dir) { return this.form.get(dir.path); };
     NgForm.prototype.updateModel = function (dir, value) {
         var _this = this;
-        async_1.PromiseWrapper.scheduleMicrotask(function () {
-            var ctrl = _this.form.find(dir.path);
-            ctrl.updateValue(value);
+        resolvedPromise.then(function () {
+            var ctrl = _this.form.get(dir.path);
+            ctrl.setValue(value);
         });
     };
+    NgForm.prototype.setValue = function (value) { this.control.setValue(value); };
     NgForm.prototype.onSubmit = function () {
         this._submitted = true;
-        async_1.ObservableWrapper.callEmit(this.ngSubmit, null);
+        this.ngSubmit.emit(null);
         return false;
     };
+    NgForm.prototype.onReset = function () { this.form.reset(); };
     /** @internal */
     NgForm.prototype._findContainer = function (path) {
         path.pop();
-        return collection_1.ListWrapper.isEmpty(path) ? this.form : this.form.find(path);
+        return collection_1.ListWrapper.isEmpty(path) ? this.form : this.form.get(path);
     };
     /** @nocollapse */
     NgForm.decorators = [
         { type: core_1.Directive, args: [{
                     selector: 'form:not([ngNoForm]):not([formGroup]),ngForm,[ngForm]',
                     providers: [exports.formDirectiveProvider],
-                    host: {
-                        '(submit)': 'onSubmit()',
-                    },
+                    host: { '(submit)': 'onSubmit()', '(reset)': 'onReset()' },
                     outputs: ['ngSubmit'],
                     exportAs: 'ngForm'
                 },] },

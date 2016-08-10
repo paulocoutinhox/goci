@@ -18,6 +18,8 @@ export declare abstract class AbstractControlDirective {
     control: AbstractControl;
     value: any;
     valid: boolean;
+    invalid: boolean;
+    pending: boolean;
     errors: {
         [key: string]: any;
     };
@@ -28,4 +30,5 @@ export declare abstract class AbstractControlDirective {
     statusChanges: Observable<any>;
     valueChanges: Observable<any>;
     path: string[];
+    reset(value?: any): void;
 }

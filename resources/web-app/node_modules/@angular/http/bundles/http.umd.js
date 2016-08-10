@@ -1,5 +1,5 @@
 /**
- * @license Angular 2.0.0-rc.4
+ * @license Angular v2.0.0-rc.5
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -274,6 +274,17 @@ var __extends = (this && this.__extends) || function (d, b) {
         ContentType[ContentType["BLOB"] = 5] = "BLOB";
         ContentType[ContentType["ARRAY_BUFFER"] = 6] = "ARRAY_BUFFER";
     })(ContentType || (ContentType = {}));
+    /**
+     * Define which buffer to use to store the response
+     * @experimental
+     */
+    exports.ResponseContentType;
+    (function (ResponseContentType) {
+        ResponseContentType[ResponseContentType["Text"] = 0] = "Text";
+        ResponseContentType[ResponseContentType["Json"] = 1] = "Json";
+        ResponseContentType[ResponseContentType["ArrayBuffer"] = 2] = "ArrayBuffer";
+        ResponseContentType[ResponseContentType["Blob"] = 3] = "Blob";
+    })(exports.ResponseContentType || (exports.ResponseContentType = {}));
     var Map$1 = global$1.Map;
     var Set = global$1.Set;
     // Safari and Internet Explorer do not support the iterable parameter to the
@@ -390,10 +401,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         StringMapWrapper.set = function (map, key, value) { map[key] = value; };
         StringMapWrapper.keys = function (map) { return Object.keys(map); };
         StringMapWrapper.values = function (map) {
-            return Object.keys(map).reduce(function (r, a) {
-                r.push(map[a]);
-                return r;
-            }, []);
+            return Object.keys(map).map(function (k) { return map[k]; });
         };
         StringMapWrapper.isEmpty = function (map) {
             for (var prop in map) {
@@ -403,23 +411,20 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         StringMapWrapper.delete = function (map, key) { delete map[key]; };
         StringMapWrapper.forEach = function (map, callback) {
-            for (var prop in map) {
-                if (map.hasOwnProperty(prop)) {
-                    callback(map[prop], prop);
-                }
+            for (var _i = 0, _a = Object.keys(map); _i < _a.length; _i++) {
+                var k = _a[_i];
+                callback(map[k], k);
             }
         };
         StringMapWrapper.merge = function (m1, m2) {
             var m = {};
-            for (var attr in m1) {
-                if (m1.hasOwnProperty(attr)) {
-                    m[attr] = m1[attr];
-                }
+            for (var _i = 0, _a = Object.keys(m1); _i < _a.length; _i++) {
+                var k = _a[_i];
+                m[k] = m1[k];
             }
-            for (var attr in m2) {
-                if (m2.hasOwnProperty(attr)) {
-                    m[attr] = m2[attr];
-                }
+            for (var _b = 0, _c = Object.keys(m2); _b < _c.length; _b++) {
+                var k = _c[_b];
+                m[k] = m2[k];
             }
             return m;
         };
@@ -668,29 +673,29 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
             // headers instanceof StringMap
             StringMapWrapper.forEach(headers, function (v, k) {
-                _this._headersMap.set(k, isListLikeIterable(v) ? v : [v]);
+                _this._headersMap.set(normalize(k), isListLikeIterable(v) ? v : [v]);
             });
         }
         /**
          * Returns a new Headers instance from the given DOMString of Response Headers
          */
         Headers.fromResponseHeaderString = function (headersString) {
-            return headersString.trim()
-                .split('\n')
-                .map(function (val) { return val.split(':'); })
-                .map(function (_a) {
-                var key = _a[0], parts = _a.slice(1);
-                return ([key.trim(), parts.join(':').trim()]);
-            })
-                .reduce(function (headers, _a) {
-                var key = _a[0], value = _a[1];
-                return !headers.set(key, value) && headers;
-            }, new Headers());
+            var headers = new Headers();
+            headersString.split('\n').forEach(function (line) {
+                var index = line.indexOf(':');
+                if (index > 0) {
+                    var key = line.substring(0, index);
+                    var value = line.substring(index + 1).trim();
+                    headers.set(key, value);
+                }
+            });
+            return headers;
         };
         /**
          * Appends a header to existing list of header values for a given header name.
          */
         Headers.prototype.append = function (name, value) {
+            name = normalize(name);
             var mapName = this._headersMap.get(name);
             var list = isListLikeIterable(mapName) ? mapName : [];
             list.push(value);
@@ -699,18 +704,18 @@ var __extends = (this && this.__extends) || function (d, b) {
         /**
          * Deletes all header values for the given name.
          */
-        Headers.prototype.delete = function (name) { this._headersMap.delete(name); };
+        Headers.prototype.delete = function (name) { this._headersMap.delete(normalize(name)); };
         Headers.prototype.forEach = function (fn) {
             this._headersMap.forEach(fn);
         };
         /**
          * Returns first header that matches given name.
          */
-        Headers.prototype.get = function (header) { return ListWrapper.first(this._headersMap.get(header)); };
+        Headers.prototype.get = function (header) { return ListWrapper.first(this._headersMap.get(normalize(header))); };
         /**
          * Check for existence of header by given name.
          */
-        Headers.prototype.has = function (header) { return this._headersMap.has(header); };
+        Headers.prototype.has = function (header) { return this._headersMap.has(normalize(header)); };
         /**
          * Provides names of set headers
          */
@@ -727,7 +732,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             else {
                 list.push(value);
             }
-            this._headersMap.set(header, list);
+            this._headersMap.set(normalize(header), list);
         };
         /**
          * Returns values of all headers.
@@ -741,7 +746,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._headersMap.forEach(function (values, name) {
                 var list = [];
                 iterateListLike(values, function (val /** TODO #9100 */) { return list = ListWrapper.concat(list, val.split(',')); });
-                serializableHeaders[name] = list;
+                serializableHeaders[normalize(name)] = list;
             });
             return serializableHeaders;
         };
@@ -749,7 +754,7 @@ var __extends = (this && this.__extends) || function (d, b) {
          * Returns list of header values for a given name.
          */
         Headers.prototype.getAll = function (header) {
-            var headers = this._headersMap.get(header);
+            var headers = this._headersMap.get(normalize(header));
             return isListLikeIterable(headers) ? headers : [];
         };
         /**
@@ -758,6 +763,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         Headers.prototype.entries = function () { throw new BaseException('"entries" method is not implemented on Headers class'); };
         return Headers;
     }());
+    // "HTTP character sets are identified by case-insensitive tokens"
+    // Spec at https://tools.ietf.org/html/rfc2616
+    // This implementation is same as NodeJS.
+    // see https://nodejs.org/dist/latest-v6.x/docs/api/http.html#http_message_headers
+    function normalize(name) {
+        return name.toLowerCase();
+    }
     /**
      * Creates a response options object to be optionally provided when instantiating a
      * {@link Response}.
@@ -908,6 +920,246 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return;
     }
+    function stringToArrayBuffer(input) {
+        var view = new Uint16Array(input.length);
+        for (var i = 0, strLen = input.length; i < strLen; i++) {
+            view[i] = input.charCodeAt(i);
+        }
+        return view.buffer;
+    }
+    function paramParser(rawParams) {
+        if (rawParams === void 0) { rawParams = ''; }
+        var map = new Map$1();
+        if (rawParams.length > 0) {
+            var params = rawParams.split('&');
+            params.forEach(function (param) {
+                var eqIdx = param.indexOf('=');
+                var _a = eqIdx == -1 ? [param, ''] : [param.slice(0, eqIdx), param.slice(eqIdx + 1)], key = _a[0], val = _a[1];
+                var list = map.get(key) || [];
+                list.push(val);
+                map.set(key, list);
+            });
+        }
+        return map;
+    }
+    /**
+     * @experimental
+     **/
+    var QueryEncoder = (function () {
+        function QueryEncoder() {
+        }
+        QueryEncoder.prototype.encodeKey = function (k) { return standardEncoding(k); };
+        QueryEncoder.prototype.encodeValue = function (v) { return standardEncoding(v); };
+        return QueryEncoder;
+    }());
+    function standardEncoding(v) {
+        return encodeURIComponent(v)
+            .replace(/%40/gi, '@')
+            .replace(/%3A/gi, ':')
+            .replace(/%24/gi, '$')
+            .replace(/%2C/gi, ',')
+            .replace(/%3B/gi, ';')
+            .replace(/%2B/gi, '+')
+            .replace(/%3D/gi, ';')
+            .replace(/%3F/gi, '?')
+            .replace(/%2F/gi, '/');
+    }
+    /**
+     * Map-like representation of url search parameters, based on
+     * [URLSearchParams](https://url.spec.whatwg.org/#urlsearchparams) in the url living standard,
+     * with several extensions for merging URLSearchParams objects:
+     *   - setAll()
+     *   - appendAll()
+     *   - replaceAll()
+     *
+     * This class accepts an optional second parameter of ${@link QueryEncoder},
+     * which is used to serialize parameters before making a request. By default,
+     * `QueryEncoder` encodes keys and values of parameters using `encodeURIComponent`,
+     * and then un-encodes certain characters that are allowed to be part of the query
+     * according to IETF RFC 3986: https://tools.ietf.org/html/rfc3986.
+     *
+     * These are the characters that are not encoded: `! $ \' ( ) * + , ; A 9 - . _ ~ ? /`
+     *
+     * If the set of allowed query characters is not acceptable for a particular backend,
+     * `QueryEncoder` can be subclassed and provided as the 2nd argument to URLSearchParams.
+     *
+     * ```
+     * import {URLSearchParams, QueryEncoder} from '@angular/http';
+     * class MyQueryEncoder extends QueryEncoder {
+     *   encodeKey(k: string): string {
+     *     return myEncodingFunction(k);
+     *   }
+     *
+     *   encodeValue(v: string): string {
+     *     return myEncodingFunction(v);
+     *   }
+     * }
+     *
+     * let params = new URLSearchParams('', new MyQueryEncoder());
+     * ```
+     * @experimental
+     */
+    var URLSearchParams = (function () {
+        function URLSearchParams(rawParams, queryEncoder) {
+            if (rawParams === void 0) { rawParams = ''; }
+            if (queryEncoder === void 0) { queryEncoder = new QueryEncoder(); }
+            this.rawParams = rawParams;
+            this.queryEncoder = queryEncoder;
+            this.paramsMap = paramParser(rawParams);
+        }
+        URLSearchParams.prototype.clone = function () {
+            var clone = new URLSearchParams('', this.queryEncoder);
+            clone.appendAll(this);
+            return clone;
+        };
+        URLSearchParams.prototype.has = function (param) { return this.paramsMap.has(param); };
+        URLSearchParams.prototype.get = function (param) {
+            var storedParam = this.paramsMap.get(param);
+            if (isListLikeIterable(storedParam)) {
+                return ListWrapper.first(storedParam);
+            }
+            else {
+                return null;
+            }
+        };
+        URLSearchParams.prototype.getAll = function (param) {
+            var mapParam = this.paramsMap.get(param);
+            return isPresent(mapParam) ? mapParam : [];
+        };
+        URLSearchParams.prototype.set = function (param, val) {
+            var mapParam = this.paramsMap.get(param);
+            var list = isPresent(mapParam) ? mapParam : [];
+            ListWrapper.clear(list);
+            list.push(val);
+            this.paramsMap.set(param, list);
+        };
+        // A merge operation
+        // For each name-values pair in `searchParams`, perform `set(name, values[0])`
+        //
+        // E.g: "a=[1,2,3], c=[8]" + "a=[4,5,6], b=[7]" = "a=[4], c=[8], b=[7]"
+        //
+        // TODO(@caitp): document this better
+        URLSearchParams.prototype.setAll = function (searchParams) {
+            var _this = this;
+            searchParams.paramsMap.forEach(function (value, param) {
+                var mapParam = _this.paramsMap.get(param);
+                var list = isPresent(mapParam) ? mapParam : [];
+                ListWrapper.clear(list);
+                list.push(value[0]);
+                _this.paramsMap.set(param, list);
+            });
+        };
+        URLSearchParams.prototype.append = function (param, val) {
+            var mapParam = this.paramsMap.get(param);
+            var list = isPresent(mapParam) ? mapParam : [];
+            list.push(val);
+            this.paramsMap.set(param, list);
+        };
+        // A merge operation
+        // For each name-values pair in `searchParams`, perform `append(name, value)`
+        // for each value in `values`.
+        //
+        // E.g: "a=[1,2], c=[8]" + "a=[3,4], b=[7]" = "a=[1,2,3,4], c=[8], b=[7]"
+        //
+        // TODO(@caitp): document this better
+        URLSearchParams.prototype.appendAll = function (searchParams) {
+            var _this = this;
+            searchParams.paramsMap.forEach(function (value, param) {
+                var mapParam = _this.paramsMap.get(param);
+                var list = isPresent(mapParam) ? mapParam : [];
+                for (var i = 0; i < value.length; ++i) {
+                    list.push(value[i]);
+                }
+                _this.paramsMap.set(param, list);
+            });
+        };
+        // A merge operation
+        // For each name-values pair in `searchParams`, perform `delete(name)`,
+        // followed by `set(name, values)`
+        //
+        // E.g: "a=[1,2,3], c=[8]" + "a=[4,5,6], b=[7]" = "a=[4,5,6], c=[8], b=[7]"
+        //
+        // TODO(@caitp): document this better
+        URLSearchParams.prototype.replaceAll = function (searchParams) {
+            var _this = this;
+            searchParams.paramsMap.forEach(function (value, param) {
+                var mapParam = _this.paramsMap.get(param);
+                var list = isPresent(mapParam) ? mapParam : [];
+                ListWrapper.clear(list);
+                for (var i = 0; i < value.length; ++i) {
+                    list.push(value[i]);
+                }
+                _this.paramsMap.set(param, list);
+            });
+        };
+        URLSearchParams.prototype.toString = function () {
+            var _this = this;
+            var paramsList = [];
+            this.paramsMap.forEach(function (values, k) {
+                values.forEach(function (v) { return paramsList.push(_this.queryEncoder.encodeKey(k) + '=' + _this.queryEncoder.encodeValue(v)); });
+            });
+            return paramsList.join('&');
+        };
+        URLSearchParams.prototype.delete = function (param) { this.paramsMap.delete(param); };
+        return URLSearchParams;
+    }());
+    /**
+     * HTTP request body used by both {@link Request} and {@link Response}
+     * https://fetch.spec.whatwg.org/#body
+     */
+    var Body = (function () {
+        function Body() {
+        }
+        /**
+         * Attempts to return body as parsed `JSON` object, or raises an exception.
+         */
+        Body.prototype.json = function () {
+            if (isString(this._body)) {
+                return Json.parse(this._body);
+            }
+            if (this._body instanceof ArrayBuffer) {
+                return Json.parse(this.text());
+            }
+            return this._body;
+        };
+        /**
+         * Returns the body as a string, presuming `toString()` can be called on the response body.
+         */
+        Body.prototype.text = function () {
+            if (this._body instanceof URLSearchParams) {
+                return this._body.toString();
+            }
+            if (this._body instanceof ArrayBuffer) {
+                return String.fromCharCode.apply(null, new Uint16Array(this._body));
+            }
+            if (isJsObject(this._body)) {
+                return Json.stringify(this._body);
+            }
+            return this._body.toString();
+        };
+        /**
+         * Return the body as an ArrayBuffer
+         */
+        Body.prototype.arrayBuffer = function () {
+            if (this._body instanceof ArrayBuffer) {
+                return this._body;
+            }
+            return stringToArrayBuffer(this.text());
+        };
+        /**
+          * Returns the request's body as a Blob, assuming that body exists.
+          */
+        Body.prototype.blob = function () {
+            if (this._body instanceof Blob) {
+                return this._body;
+            }
+            if (this._body instanceof ArrayBuffer) {
+                return new Blob([this._body]);
+            }
+            throw new Error('The request body isn\'t either a blob or an array buffer');
+        };
+        return Body;
+    }());
     /**
      * Creates `Response` instances from provided values.
      *
@@ -928,8 +1180,10 @@ var __extends = (this && this.__extends) || function (d, b) {
      *
      * @experimental
      */
-    var Response = (function () {
+    var Response = (function (_super) {
+        __extends(Response, _super);
         function Response(responseOptions) {
+            _super.call(this);
             this._body = responseOptions.body;
             this.status = responseOptions.status;
             this.ok = (this.status >= 200 && this.status <= 299);
@@ -938,40 +1192,11 @@ var __extends = (this && this.__extends) || function (d, b) {
             this.type = responseOptions.type;
             this.url = responseOptions.url;
         }
-        /**
-         * Not yet implemented
-         */
-        // TODO: Blob return type
-        Response.prototype.blob = function () { throw new BaseException('"blob()" method not implemented on Response superclass'); };
-        /**
-         * Attempts to return body as parsed `JSON` object, or raises an exception.
-         */
-        Response.prototype.json = function () {
-            var jsonResponse;
-            if (isJsObject(this._body)) {
-                jsonResponse = this._body;
-            }
-            else if (isString(this._body)) {
-                jsonResponse = Json.parse(this._body);
-            }
-            return jsonResponse;
-        };
-        /**
-         * Returns the body as a string, presuming `toString()` can be called on the response body.
-         */
-        Response.prototype.text = function () { return this._body.toString(); };
-        /**
-         * Not yet implemented
-         */
-        // TODO: ArrayBuffer return type
-        Response.prototype.arrayBuffer = function () {
-            throw new BaseException('"arrayBuffer()" method not implemented on Response superclass');
-        };
         Response.prototype.toString = function () {
             return "Response with status: " + this.status + " " + this.statusText + " for URL: " + this.url;
         };
         return Response;
-    }());
+    }(Body));
     var JSONP_ERR_NO_CALLBACK = 'JSONP injected script did not invoke callback.';
     var JSONP_ERR_WRONG_METHOD = 'JSONP requests must use GET request method.';
     /**
@@ -1170,6 +1395,25 @@ var __extends = (this && this.__extends) || function (d, b) {
                 if (isPresent(req.headers)) {
                     req.headers.forEach(function (values, name) { return _xhr.setRequestHeader(name, values.join(',')); });
                 }
+                // Select the correct buffer type to store the response
+                if (isPresent(req.responseType) && isPresent(_xhr.responseType)) {
+                    switch (req.responseType) {
+                        case exports.ResponseContentType.ArrayBuffer:
+                            _xhr.responseType = 'arraybuffer';
+                            break;
+                        case exports.ResponseContentType.Json:
+                            _xhr.responseType = 'json';
+                            break;
+                        case exports.ResponseContentType.Text:
+                            _xhr.responseType = 'text';
+                            break;
+                        case exports.ResponseContentType.Blob:
+                            _xhr.responseType = 'blob';
+                            break;
+                        default:
+                            throw new Error('The selected responseType is not supported');
+                    }
+                }
                 _xhr.addEventListener('load', onLoad);
                 _xhr.addEventListener('error', onError);
                 _xhr.send(_this.request.getBody());
@@ -1190,18 +1434,18 @@ var __extends = (this && this.__extends) || function (d, b) {
                 case ContentType.NONE:
                     break;
                 case ContentType.JSON:
-                    _xhr.setRequestHeader('Content-Type', 'application/json');
+                    _xhr.setRequestHeader('content-type', 'application/json');
                     break;
                 case ContentType.FORM:
-                    _xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                    _xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                     break;
                 case ContentType.TEXT:
-                    _xhr.setRequestHeader('Content-Type', 'text/plain');
+                    _xhr.setRequestHeader('content-type', 'text/plain');
                     break;
                 case ContentType.BLOB:
                     var blob = req.blob();
                     if (blob.type) {
-                        _xhr.setRequestHeader('Content-Type', blob.type);
+                        _xhr.setRequestHeader('content-type', blob.type);
                     }
                     break;
             }
@@ -1210,8 +1454,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     /**
      * `XSRFConfiguration` sets up Cross Site Request Forgery (XSRF) protection for the application
-     * using a cookie. See https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF) for more
-     * information on XSRF.
+     * using a cookie. See {@link https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)}
+     * for more information on XSRF.
      *
      * Applications can configure custom cookie and header names by binding an instance of this class
      * with different `cookieName` and `headerName` values. See the main HTTP documentation for more
@@ -1256,183 +1500,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         { type: ResponseOptions, },
         { type: XSRFStrategy, },
     ];
-    function paramParser(rawParams) {
-        if (rawParams === void 0) { rawParams = ''; }
-        var map = new Map$1();
-        if (rawParams.length > 0) {
-            var params = rawParams.split('&');
-            params.forEach(function (param) {
-                var split = param.split('=', 2);
-                var key = split[0];
-                var val = split[1];
-                var list = isPresent(map.get(key)) ? map.get(key) : [];
-                list.push(val);
-                map.set(key, list);
-            });
-        }
-        return map;
-    }
-    /**
-     * @experimental
-     **/
-    var QueryEncoder = (function () {
-        function QueryEncoder() {
-        }
-        QueryEncoder.prototype.encodeKey = function (k) { return standardEncoding(k); };
-        QueryEncoder.prototype.encodeValue = function (v) { return standardEncoding(v); };
-        return QueryEncoder;
-    }());
-    function standardEncoding(v) {
-        return encodeURIComponent(v)
-            .replace(/%40/gi, '@')
-            .replace(/%3A/gi, ':')
-            .replace(/%24/gi, '$')
-            .replace(/%2C/gi, ',')
-            .replace(/%3B/gi, ';')
-            .replace(/%2B/gi, '+')
-            .replace(/%3D/gi, ';')
-            .replace(/%3F/gi, '?')
-            .replace(/%2F/gi, '/');
-    }
-    /**
-     * Map-like representation of url search parameters, based on
-     * [URLSearchParams](https://url.spec.whatwg.org/#urlsearchparams) in the url living standard,
-     * with several extensions for merging URLSearchParams objects:
-     *   - setAll()
-     *   - appendAll()
-     *   - replaceAll()
-     *
-     * This class accepts an optional second parameter of ${@link QueryEncoder},
-     * which is used to serialize parameters before making a request. By default,
-     * `QueryEncoder` encodes keys and values of parameters using `encodeURIComponent`,
-     * and then un-encodes certain characters that are allowed to be part of the query
-     * according to IETF RFC 3986: https://tools.ietf.org/html/rfc3986.
-     *
-     * These are the characters that are not encoded: `! $ \' ( ) * + , ; A 9 - . _ ~ ? /`
-     *
-     * If the set of allowed query characters is not acceptable for a particular backend,
-     * `QueryEncoder` can be subclassed and provided as the 2nd argument to URLSearchParams.
-     *
-     * ```
-     * import {URLSearchParams, QueryEncoder} from '@angular/http';
-     * class MyQueryEncoder extends QueryEncoder {
-     *   encodeKey(k: string): string {
-     *     return myEncodingFunction(k);
-     *   }
-     *
-     *   encodeValue(v: string): string {
-     *     return myEncodingFunction(v);
-     *   }
-     * }
-     *
-     * let params = new URLSearchParams('', new MyQueryEncoder());
-     * ```
-     * @experimental
-     */
-    var URLSearchParams = (function () {
-        function URLSearchParams(rawParams, queryEncoder) {
-            if (rawParams === void 0) { rawParams = ''; }
-            if (queryEncoder === void 0) { queryEncoder = new QueryEncoder(); }
-            this.rawParams = rawParams;
-            this.queryEncoder = queryEncoder;
-            this.paramsMap = paramParser(rawParams);
-        }
-        URLSearchParams.prototype.clone = function () {
-            var clone = new URLSearchParams();
-            clone.appendAll(this);
-            return clone;
-        };
-        URLSearchParams.prototype.has = function (param) { return this.paramsMap.has(param); };
-        URLSearchParams.prototype.get = function (param) {
-            var storedParam = this.paramsMap.get(param);
-            if (isListLikeIterable(storedParam)) {
-                return ListWrapper.first(storedParam);
-            }
-            else {
-                return null;
-            }
-        };
-        URLSearchParams.prototype.getAll = function (param) {
-            var mapParam = this.paramsMap.get(param);
-            return isPresent(mapParam) ? mapParam : [];
-        };
-        URLSearchParams.prototype.set = function (param, val) {
-            var mapParam = this.paramsMap.get(param);
-            var list = isPresent(mapParam) ? mapParam : [];
-            ListWrapper.clear(list);
-            list.push(val);
-            this.paramsMap.set(param, list);
-        };
-        // A merge operation
-        // For each name-values pair in `searchParams`, perform `set(name, values[0])`
-        //
-        // E.g: "a=[1,2,3], c=[8]" + "a=[4,5,6], b=[7]" = "a=[4], c=[8], b=[7]"
-        //
-        // TODO(@caitp): document this better
-        URLSearchParams.prototype.setAll = function (searchParams) {
-            var _this = this;
-            searchParams.paramsMap.forEach(function (value, param) {
-                var mapParam = _this.paramsMap.get(param);
-                var list = isPresent(mapParam) ? mapParam : [];
-                ListWrapper.clear(list);
-                list.push(value[0]);
-                _this.paramsMap.set(param, list);
-            });
-        };
-        URLSearchParams.prototype.append = function (param, val) {
-            var mapParam = this.paramsMap.get(param);
-            var list = isPresent(mapParam) ? mapParam : [];
-            list.push(val);
-            this.paramsMap.set(param, list);
-        };
-        // A merge operation
-        // For each name-values pair in `searchParams`, perform `append(name, value)`
-        // for each value in `values`.
-        //
-        // E.g: "a=[1,2], c=[8]" + "a=[3,4], b=[7]" = "a=[1,2,3,4], c=[8], b=[7]"
-        //
-        // TODO(@caitp): document this better
-        URLSearchParams.prototype.appendAll = function (searchParams) {
-            var _this = this;
-            searchParams.paramsMap.forEach(function (value, param) {
-                var mapParam = _this.paramsMap.get(param);
-                var list = isPresent(mapParam) ? mapParam : [];
-                for (var i = 0; i < value.length; ++i) {
-                    list.push(value[i]);
-                }
-                _this.paramsMap.set(param, list);
-            });
-        };
-        // A merge operation
-        // For each name-values pair in `searchParams`, perform `delete(name)`,
-        // followed by `set(name, values)`
-        //
-        // E.g: "a=[1,2,3], c=[8]" + "a=[4,5,6], b=[7]" = "a=[4,5,6], c=[8], b=[7]"
-        //
-        // TODO(@caitp): document this better
-        URLSearchParams.prototype.replaceAll = function (searchParams) {
-            var _this = this;
-            searchParams.paramsMap.forEach(function (value, param) {
-                var mapParam = _this.paramsMap.get(param);
-                var list = isPresent(mapParam) ? mapParam : [];
-                ListWrapper.clear(list);
-                for (var i = 0; i < value.length; ++i) {
-                    list.push(value[i]);
-                }
-                _this.paramsMap.set(param, list);
-            });
-        };
-        URLSearchParams.prototype.toString = function () {
-            var _this = this;
-            var paramsList = [];
-            this.paramsMap.forEach(function (values, k) {
-                values.forEach(function (v) { return paramsList.push(_this.queryEncoder.encodeKey(k) + '=' + _this.queryEncoder.encodeValue(v)); });
-            });
-            return paramsList.join('&');
-        };
-        URLSearchParams.prototype.delete = function (param) { this.paramsMap.delete(param); };
-        return URLSearchParams;
-    }());
     /**
      * Creates a request options object to be optionally provided when instantiating a
      * {@link Request}.
@@ -1461,7 +1528,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     var RequestOptions = (function () {
         function RequestOptions(_a) {
-            var _b = _a === void 0 ? {} : _a, method = _b.method, headers = _b.headers, body = _b.body, url = _b.url, search = _b.search, withCredentials = _b.withCredentials;
+            var _b = _a === void 0 ? {} : _a, method = _b.method, headers = _b.headers, body = _b.body, url = _b.url, search = _b.search, withCredentials = _b.withCredentials, responseType = _b.responseType;
             this.method = isPresent(method) ? normalizeMethodName(method) : null;
             this.headers = isPresent(headers) ? headers : null;
             this.body = isPresent(body) ? body : null;
@@ -1470,6 +1537,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 (isString(search) ? new URLSearchParams((search)) : (search)) :
                 null;
             this.withCredentials = isPresent(withCredentials) ? withCredentials : null;
+            this.responseType = isPresent(responseType) ? responseType : null;
         }
         /**
          * Creates a copy of the `RequestOptions` instance, using the optional input as values to override
@@ -1508,7 +1576,9 @@ var __extends = (this && this.__extends) || function (d, b) {
                     this.search,
                 withCredentials: isPresent(options) && isPresent(options.withCredentials) ?
                     options.withCredentials :
-                    this.withCredentials
+                    this.withCredentials,
+                responseType: isPresent(options) && isPresent(options.responseType) ? options.responseType :
+                    this.responseType
             });
         };
         return RequestOptions;
@@ -1566,8 +1636,10 @@ var __extends = (this && this.__extends) || function (d, b) {
      *
      * @experimental
      */
-    var Request = (function () {
+    var Request = (function (_super) {
+        __extends(Request, _super);
         function Request(requestOptions) {
+            _super.call(this);
             // TODO: assert that url is present
             var url = requestOptions.url;
             this.url = requestOptions.url;
@@ -1583,52 +1655,39 @@ var __extends = (this && this.__extends) || function (d, b) {
                 }
             }
             this._body = requestOptions.body;
-            this.contentType = this.detectContentType();
             this.method = normalizeMethodName(requestOptions.method);
             // TODO(jeffbcross): implement behavior
             // Defaults to 'omit', consistent with browser
             // TODO(jeffbcross): implement behavior
             this.headers = new Headers(requestOptions.headers);
+            this.contentType = this.detectContentType();
             this.withCredentials = requestOptions.withCredentials;
+            this.responseType = requestOptions.responseType;
         }
         /**
-         * Returns the request's body as string, assuming that body exists. If body is undefined, return
-         * empty
-         * string.
+         * Returns the content type enum based on header options.
          */
-        Request.prototype.text = function () { return isPresent(this._body) ? this._body.toString() : ''; };
-        /**
-         * Returns the request's body as JSON string, assuming that body exists. If body is undefined,
-         * return
-         * empty
-         * string.
-         */
-        Request.prototype.json = function () { return isPresent(this._body) ? JSON.stringify(this._body) : ''; };
-        /**
-         * Returns the request's body as array buffer, assuming that body exists. If body is undefined,
-         * return
-         * null.
-         */
-        Request.prototype.arrayBuffer = function () {
-            if (this._body instanceof ArrayBuffer)
-                return this._body;
-            throw 'The request body isn\'t an array buffer';
-        };
-        /**
-         * Returns the request's body as blob, assuming that body exists. If body is undefined, return
-         * null.
-         */
-        Request.prototype.blob = function () {
-            if (this._body instanceof Blob)
-                return this._body;
-            if (this._body instanceof ArrayBuffer)
-                return new Blob([this._body]);
-            throw 'The request body isn\'t either a blob or an array buffer';
+        Request.prototype.detectContentType = function () {
+            switch (this.headers.get('content-type')) {
+                case 'application/json':
+                    return ContentType.JSON;
+                case 'application/x-www-form-urlencoded':
+                    return ContentType.FORM;
+                case 'multipart/form-data':
+                    return ContentType.FORM_DATA;
+                case 'text/plain':
+                case 'text/html':
+                    return ContentType.TEXT;
+                case 'application/octet-stream':
+                    return ContentType.BLOB;
+                default:
+                    return this.detectContentTypeFromBody();
+            }
         };
         /**
          * Returns the content type of request's body based on its type.
          */
-        Request.prototype.detectContentType = function () {
+        Request.prototype.detectContentTypeFromBody = function () {
             if (this._body == null) {
                 return ContentType.NONE;
             }
@@ -1638,10 +1697,10 @@ var __extends = (this && this.__extends) || function (d, b) {
             else if (this._body instanceof FormData) {
                 return ContentType.FORM_DATA;
             }
-            else if (this._body instanceof Blob) {
+            else if (this._body instanceof Blob$1) {
                 return ContentType.BLOB;
             }
-            else if (this._body instanceof ArrayBuffer) {
+            else if (this._body instanceof ArrayBuffer$1) {
                 return ContentType.ARRAY_BUFFER;
             }
             else if (this._body && typeof this._body == 'object') {
@@ -1658,7 +1717,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         Request.prototype.getBody = function () {
             switch (this.contentType) {
                 case ContentType.JSON:
-                    return this.json();
+                    return this.text();
                 case ContentType.FORM:
                     return this.text();
                 case ContentType.FORM_DATA:
@@ -1674,12 +1733,12 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
         };
         return Request;
-    }());
+    }(Body));
     var noop$1 = function () { };
     var w = typeof window == 'object' ? window : noop$1;
     var FormData = w['FormData'] || noop$1;
-    var Blob = w['Blob'] || noop$1;
-    var ArrayBuffer = w['ArrayBuffer'] || noop$1;
+    var Blob$1 = w['Blob'] || noop$1;
+    var ArrayBuffer$1 = w['ArrayBuffer'] || noop$1;
     function httpRequest(backend, request) {
         return backend.createConnection(request).response;
     }
@@ -1693,7 +1752,8 @@ var __extends = (this && this.__extends) || function (d, b) {
                 search: providedOpts.search,
                 headers: providedOpts.headers,
                 body: providedOpts.body,
-                withCredentials: providedOpts.withCredentials
+                withCredentials: providedOpts.withCredentials,
+                responseType: providedOpts.responseType
             }));
         }
         if (isPresent(method)) {
@@ -1762,6 +1822,12 @@ var __extends = (this && this.__extends) || function (d, b) {
          */
         Http.prototype.head = function (url, options) {
             return httpRequest(this._backend, new Request(mergeOptions(this._defaultOptions, options, exports.RequestMethod.Head, url)));
+        };
+        /**
+         * Performs a request with `options` http method.
+         */
+        Http.prototype.options = function (url, options) {
+            return httpRequest(this._backend, new Request(mergeOptions(this._defaultOptions, options, exports.RequestMethod.Options, url)));
         };
         return Http;
     }());
@@ -1964,7 +2030,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      *   .catch(err => console.error(err));
      * ```
      *
-     * @experimental
+     * @deprecated
      */
     var HTTP_PROVIDERS = [
         // TODO(pascal): use factory type annotations once supported in DI
@@ -1974,8 +2040,14 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: RequestOptions, useClass: BaseRequestOptions },
         { provide: ResponseOptions, useClass: BaseResponseOptions },
         XHRBackend,
-        { provide: XSRFStrategy, useValue: new CookieXSRFStrategy() },
+        { provide: XSRFStrategy, useFactory: _createDefaultCookieXSRFStrategy },
     ];
+    /**
+     * @experimental
+     */
+    function _createDefaultCookieXSRFStrategy() {
+        return new CookieXSRFStrategy();
+    }
     /**
      * @experimental
      */
@@ -2115,11 +2187,32 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @deprecated
      */
     var JSON_BINDINGS = JSONP_PROVIDERS;
+    var HttpModule = (function () {
+        function HttpModule() {
+        }
+        return HttpModule;
+    }());
+    /** @nocollapse */
+    HttpModule.decorators = [
+        { type: _angular_core.NgModule, args: [{ providers: HTTP_PROVIDERS },] },
+    ];
+    var JsonpModule = (function () {
+        function JsonpModule() {
+        }
+        return JsonpModule;
+    }());
+    /** @nocollapse */
+    JsonpModule.decorators = [
+        { type: _angular_core.NgModule, args: [{ providers: JSONP_PROVIDERS },] },
+    ];
     exports.HTTP_PROVIDERS = HTTP_PROVIDERS;
+    exports._createDefaultCookieXSRFStrategy = _createDefaultCookieXSRFStrategy;
     exports.httpFactory = httpFactory;
     exports.HTTP_BINDINGS = HTTP_BINDINGS;
     exports.JSONP_PROVIDERS = JSONP_PROVIDERS;
     exports.JSON_BINDINGS = JSON_BINDINGS;
+    exports.HttpModule = HttpModule;
+    exports.JsonpModule = JsonpModule;
     exports.BrowserXhr = BrowserXhr;
     exports.JSONPBackend = JSONPBackend;
     exports.JSONPConnection = JSONPConnection;

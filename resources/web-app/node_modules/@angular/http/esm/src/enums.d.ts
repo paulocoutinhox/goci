@@ -57,3 +57,13 @@ export declare enum ContentType {
     BLOB = 5,
     ARRAY_BUFFER = 6,
 }
+/**
+ * Define which buffer to use to store the response
+ * @experimental
+ */
+export declare enum ResponseContentType {
+    Text = 0,
+    Json = 1,
+    ArrayBuffer = 2,
+    Blob = 3,
+}

@@ -13,7 +13,6 @@ var ProjectService_1 = require("../services/ProjectService");
 var router_1 = require("@angular/router");
 var Rx_1 = require("rxjs/Rx");
 var TaskService_1 = require("../services/TaskService");
-var forms_1 = require("@angular/forms");
 var task_options_component_1 = require("../task-options/task-options.component");
 var ProjectViewComponent = (function () {
     function ProjectViewComponent(projectService, taskService, router, route) {
@@ -101,12 +100,7 @@ var ProjectViewComponent = (function () {
             selector: 'project-view',
             templateUrl: 'app/project-view/project-view.component.html',
             styleUrls: ['app/project-view/project-view.component.css'],
-            providers: [
-                ProjectService_1.ProjectService,
-                TaskService_1.TaskService
-            ],
             directives: [
-                forms_1.REACTIVE_FORM_DIRECTIVES,
                 task_options_component_1.TaskOptionsComponent
             ]
         }), 

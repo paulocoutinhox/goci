@@ -12,6 +12,5 @@ import { OpaqueToken } from '@angular/core';
  * See {@link DefaultValueAccessor} for how to implement one.
  * @experimental
  */
-export const NG_VALUE_ACCESSOR = 
-/*@ts2dart_const*/ new OpaqueToken('NgValueAccessor');
+export const NG_VALUE_ACCESSOR = new OpaqueToken('NgValueAccessor');
 //# sourceMappingURL=control_value_accessor.js.map
