@@ -90,22 +90,52 @@
 						<strong>Job: </strong> {{lastJob.id}}
 					</div>
 					<div>
-						<strong>Created at:</strong> {{lastJob.createdAt}}
+						<strong>Created at:</strong> {{lastJob.createdAt | timestampFormat}}
 					</div>
 					<div>
-						<strong>Started at:</strong> {{lastJob.startedAt}}
+						<strong>Started at:</strong> {{lastJob.startedAt | timestampFormat}}
 					</div>
 					<div>
-						<strong>Finished at:</strong> {{lastJob.finishedAt}}
+						<strong>Finished at:</strong> {{lastJob.finishedAt | timestampFormat}}
 					</div>
 					<div>
 						<strong>Duration:</strong> {{lastJob.duration}}s
 					</div>
 					<div>
-						<strong>Status:</strong> {{lastJob.status}}
+						<strong>Status:</strong>
+						<span [ngSwitch]="lastJob.status">
+							<span *ngSwitchCase="'onqueue'" class="label label-primary">{{lastJob.status}}</span>
+							<span *ngSwitchCase="'running'" class="label label-warning">{{lastJob.status}}</span>
+							<span *ngSwitchCase="'success'" class="label label-success">{{lastJob.status}}</span>
+							<span *ngSwitchCase="'error'" class="label label-danger">{{lastJob.status}}</span>
+							<span *ngSwitchDefault class="label label-success">{{lastJob.status}}</span>
+						</span>
 					</div>
 					<div>
-						<strong>Progress:</strong> {{lastJob.progress}}%
+						<strong>Progress:</strong>
+						<div class="progress">
+							<span [ngSwitch]="lastJob.status">
+								<div *ngSwitchCase="'onqueue'" class="active progress-bar progress-bar-info" role="progressbar" [attr.aria-valuenow]="lastJob.progress" aria-valuemin="0" aria-valuemax="100" [style.width]="lastJob.progress + '%'" style="min-width: 2em">
+									{{lastJob.progress}}%
+								</div>
+
+								<div *ngSwitchCase="'success'" class="active progress-bar progress-bar-success" role="progressbar" [attr.aria-valuenow]="lastJob.progress" aria-valuemin="0" aria-valuemax="100" [style.width]="lastJob.progress + '%'" style="min-width: 2em">
+									{{lastJob.progress}}%
+								</div>
+
+								<div *ngSwitchCase="'running'" class="active progress-bar progress-bar-striped progress-bar-warning" role="progressbar" [attr.aria-valuenow]="lastJob.progress" aria-valuemin="0" aria-valuemax="100" [style.width]="lastJob.progress + '%'" style="min-width: 2em">
+									{{lastJob.progress}}%
+								</div>
+
+								<div *ngSwitchCase="'error'" class="active progress-bar progress-bar-danger" role="progressbar" [attr.aria-valuenow]="lastJob.progress" aria-valuemin="0" aria-valuemax="100" [style.width]="lastJob.progress + '%'" style="min-width: 2em">
+									{{lastJob.progress}}%
+								</div>
+
+								<div *ngSwitchDefault class="active progress-bar progress-bar-success" role="progressbar" [attr.aria-valuenow]="lastJob.progress" aria-valuemin="0" aria-valuemax="100" [style.width]="lastJob.progress + '%'" style="min-width: 2em">
+									{{lastJob.progress}}%
+								</div>
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -129,7 +159,7 @@
 			<div class="panel-body">
 				<h3>Problem while loading last job data</h3>
 				<p id="ph-project-task-last-job-error-data-message"></p>
-				<button type="button" class="btn btn-primary" (click)="getLastJobData(projectId, taskId)">Try again</button>
+				<button type="button" class="btn btn-primary" (click)="getLastJobData()">Try again</button>
 			</div>
 		</div>
 	</div>

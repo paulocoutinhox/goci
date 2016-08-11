@@ -3,11 +3,15 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {TaskService} from "../services/TaskService";
 import {JobService} from "../services/JobService";
+import {TimestampFormat} from "../pipes/timestampFormat";
 
 @Component({
 	selector: 'task-view',
 	templateUrl: 'app/task-view/task-view.component.html',
-	styleUrls: ['app/task-view/task-view.component.css']
+	styleUrls: ['app/task-view/task-view.component.css'],
+	pipes: [
+		TimestampFormat
+	]
 })
 
 export class TaskViewComponent implements OnInit {
@@ -49,7 +53,7 @@ export class TaskViewComponent implements OnInit {
 		this.load();
 
 		let lastJobTimer = Observable.timer(1000, 1000);
-		lastJobTimer.subscribe(() => this.getLastJobData(this.projectId, this.taskId));
+		lastJobTimer.subscribe(() => this.getLastJobData());
 	}
 
 	load() {
