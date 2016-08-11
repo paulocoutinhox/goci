@@ -26,6 +26,7 @@ var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var TaskService_1 = require("../services/TaskService");
 var ProjectService_1 = require("../services/ProjectService");
+var task_view_component_1 = require("../task-view/task-view.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -39,7 +40,8 @@ var AppModule = (function () {
                 job_list_component_1.JobListComponent,
                 project_list_component_1.ProjectListComponent,
                 project_view_component_1.ProjectViewComponent,
-                not_found_component_1.NotFoundComponent
+                not_found_component_1.NotFoundComponent,
+                task_view_component_1.TaskViewComponent
             ],
             imports: [
                 app_routes_1.routing,

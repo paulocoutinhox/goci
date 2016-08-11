@@ -5,6 +5,7 @@ var job_list_component_1 = require("../job-list/job-list.component");
 var project_list_component_1 = require("../project-list/project-list.component");
 var not_found_component_1 = require("../not-found/not-found.component");
 var project_view_component_1 = require("../project-view/project-view.component");
+var task_view_component_1 = require("../task-view/task-view.component");
 var appRoutes = [
     //{ path: '**', component: PageNotFoundComponent },
     {
@@ -23,6 +24,9 @@ var appRoutes = [
     },
     {
         path: 'project/view/:project', component: project_view_component_1.ProjectViewComponent
+    },
+    {
+        path: 'task/view/:project/:task', component: task_view_component_1.TaskViewComponent
     },
     {
         path: '**',

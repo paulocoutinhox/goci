@@ -1,0 +1,143 @@
+<div class="task-view">
+
+	<!-- OPTIONS -->
+	<div id="options-container" class="panel panel-default">
+		<div class="panel-body">
+			<h3 class="options-container-title">Task {{task?.name}}</h3>
+			<button type="button" class="btn btn-success" (click)="showTaskOptions(project.id, task.id, task.name, task.description)">Run</button>
+			<button type="button" class="btn btn-primary" (click)="load()">Refresh</button>
+			<button type="button" class="btn btn-default" (click)="back()">Back</button>
+		</div>
+	</div>
+
+	<!-- DATA -->
+	<div id="data" *ngIf="showData">
+		<h5>Details</h5>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div><strong>Project:</strong> {{project.name}}</div>
+				<div><strong>Task:</strong> {{task.name}}</div>
+				<div><strong>Description:</strong> {{task.description}}</div>
+				<div><strong>Steps:</strong> {{task.steps?.length}}</div>
+			</div>
+		</div>
+
+		<h5 *ngIf="project.tasks?.length > 0">Tasks</h5>
+
+		<div id="project-task-list" class="list-group" *ngIf="project.tasks?.length > 0">
+			<div *ngFor="let task of project.tasks" class="project-task-row list-group-item">
+				<h4 class="list-group-item-heading">{{task.name}}</h4>
+				<div class="list-group-item-text">
+					<p>
+						<strong>Description:</strong>{{task.description}}
+						<br/>
+						<strong>Steps:</strong>{{task.steps?.length}}
+					</p>
+					<div>
+						<button type="button" class="btn btn-success" (click)="showTaskOptions(project.id, task.id, task.name, task.description)">Run</button>
+						<button type="button" class="btn btn-default" (click)="view(project.id, task.id)">View</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="no-data" *ngIf="showEmptyData">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div>Project not found</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="error-data" *ngIf="showError">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h3>Problem while loading project</h3>
+				<p id="error-data-message"></p>
+				<button type="button" class="btn btn-primary" onclick="back()">Back</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="loading-data" *ngIf="showLoading">
+		<div class="panel panel-default">
+			<div class="panel-body">Loading...</div>
+		</div>
+	</div>
+
+	<div *ngIf="showTaskOptionsForm">
+		<h5>Task options</h5>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div><strong>Name:</strong> {{runTaskName}}</div>
+				<div><strong>Description:</strong> {{runTaskDescription}}</div>
+			</div>
+		</div>
+
+		<task-options [projectId]="runProjectId" [taskId]="runTaskId" [options]="runTaskOptions" (taskRunWithSuccess)="taskRunWithSuccess($event)" (taskRunWithError)="taskRunWithError($event)" (taskRunCancel)="taskRunCancel($event)"></task-options>
+	</div>
+
+	<div id="ph-project-task-last-job-data" *ngIf="showLastJobData">
+		<h5>Last job data</h5>
+
+		<div class="ph-project-task-last-job-details">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>
+						<strong>Job: </strong> {{lastJob.id}}
+					</div>
+					<div>
+						<strong>Created at:</strong> {{lastJob.createdAt}}
+					</div>
+					<div>
+						<strong>Started at:</strong> {{lastJob.startedAt}}
+					</div>
+					<div>
+						<strong>Finished at:</strong> {{lastJob.finishedAt}}
+					</div>
+					<div>
+						<strong>Duration:</strong> {{lastJob.duration}}s
+					</div>
+					<div>
+						<strong>Status:</strong> {{lastJob.status}}
+					</div>
+					<div>
+						<strong>Progress:</strong> {{lastJob.progress}}%
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<ul class="ph-project-task-last-job-tabs nav nav-tabs" role="tablist"></ul>
+			<div class="tab-content ph-project-task-last-job-tab-contents"></div>
+		</div>
+	</div>
+
+	<div id="ph-project-task-last-job-no-data" *ngIf="showLastJobEmptyData">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div>Last job not found</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="ph-project-task-last-job-error-data" *ngIf="showLastJobError">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h3>Problem while loading last job data</h3>
+				<p id="ph-project-task-last-job-error-data-message"></p>
+				<button type="button" class="btn btn-primary" (click)="getLastJobData(projectId, taskId)">Try again</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="ph-project-task-last-job-loading-data" *ngIf="showLastJobLoading">
+		<div class="panel panel-default">
+			<div class="panel-body">Loading last job data...</div>
+		</div>
+	</div>
+
+</div>

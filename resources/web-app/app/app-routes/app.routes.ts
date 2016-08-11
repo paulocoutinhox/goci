@@ -4,6 +4,7 @@ import {JobListComponent} from "../job-list/job-list.component";
 import {ProjectListComponent} from "../project-list/project-list.component";
 import {NotFoundComponent} from "../not-found/not-found.component";
 import {ProjectViewComponent} from "../project-view/project-view.component";
+import {TaskViewComponent} from "../task-view/task-view.component";
 
 const appRoutes: Routes = [
 	//{ path: '**', component: PageNotFoundComponent },
@@ -23,6 +24,9 @@ const appRoutes: Routes = [
 	},
 	{
 		path: 'project/view/:project', component: ProjectViewComponent
+	},
+	{
+		path: 'task/view/:project/:task', component: TaskViewComponent
 	},
 	{
 		path: '**',

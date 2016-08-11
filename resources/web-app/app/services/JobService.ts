@@ -16,6 +16,13 @@ export class JobService {
 			.catch(this.handleError);
 	}
 
+	last(projectId: String, taskId: String) {
+		return this.http.get('/api/job/last?project=' + projectId + '&task=' + taskId)
+			.toPromise()
+			.then(response => response.json())
+			.catch(this.handleError);
+	}
+
 	private handleError(error: any) {
 		return Promise.reject(error.message || error);
 	}

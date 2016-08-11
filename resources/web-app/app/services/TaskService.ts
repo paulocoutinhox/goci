@@ -16,6 +16,13 @@ export class TaskService {
 			.catch(this.handleError);
 	}
 
+	view(projectId: String, taskId: String) {
+		return this.http.get('/api/task/view?project=' + projectId + '&task=' + taskId)
+			.toPromise()
+			.then(response => response.json())
+			.catch(this.handleError);
+	}
+
 	run(projectId: String, taskId: String, options: any) {
 		console.log(options);
 

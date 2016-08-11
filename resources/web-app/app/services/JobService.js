@@ -21,6 +21,12 @@ var JobService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    JobService.prototype.last = function (projectId, taskId) {
+        return this.http.get('/api/job/last?project=' + projectId + '&task=' + taskId)
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
     JobService.prototype.handleError = function (error) {
         return Promise.reject(error.message || error);
     };
