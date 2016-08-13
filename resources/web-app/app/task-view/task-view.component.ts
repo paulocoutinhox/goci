@@ -4,6 +4,8 @@ import {Observable} from "rxjs/Rx";
 import {TaskService} from "../services/TaskService";
 import {JobService} from "../services/JobService";
 import {TimestampFormat} from "../pipes/timestampFormat";
+import {OutputGroup} from "../domain/OutputGroup";
+import {Utils} from "../domain/Utils";
 
 @Component({
 	selector: 'task-view',
@@ -39,6 +41,9 @@ export class TaskViewComponent implements OnInit {
 	private runTaskId: String;
 	private runTaskName: String;
 	private runTaskDescription: String;
+
+	private outputGroupList: Array<OutputGroup>;
+	private lastJobId: String;
 
 	constructor(private taskService: TaskService, private jobService: JobService, private router: Router, private route: ActivatedRoute) {
 
@@ -163,20 +168,72 @@ export class TaskViewComponent implements OnInit {
 	getLastJobData() {
 		this.jobService.last(this.projectId, this.taskId)
 			.then(response => {
-				if (response != null && response.success == true) {
-					this.lastJob = response.data.job;
+					if (response != null && response.success == true) {
+						this.lastJob = response.data.job;
 
-					this.hideAllForLastJob();
+						if (this.lastJob["id"] != this.lastJobId) {
+							this.lastJobId = this.lastJob["id"];
+							this.outputGroupList = [];
+						}
 
-					if (this.lastJob != null) {
-						this.showLastJobData = true;
+						let newOutputGroupList: any[] = this.lastJob.outputGroup;
+						let activeTabId = "console";
+
+						// add new tabs
+						if (newOutputGroupList) {
+							for (let newOutputGroupKey in newOutputGroupList) {
+								let newOutputGroup = newOutputGroupList[newOutputGroupKey];
+								let hasOutputGroup = false;
+
+								for (let outputGroupKey in this.outputGroupList) {
+									let outputGroup = this.outputGroupList[outputGroupKey];
+
+									if (outputGroup.name == newOutputGroup["name"]) {
+										hasOutputGroup = true;
+
+										if (outputGroup.updatedAt != newOutputGroup["updatedAt"]) {
+											outputGroup.updatedAt = newOutputGroup["updatedAt"];
+											outputGroup.output = newOutputGroup["output"];
+										}
+									}
+								}
+
+								if (!hasOutputGroup) {
+									let outputGroup = new OutputGroup();
+
+									outputGroup.id = Utils.slugify(newOutputGroup["name"]);
+									outputGroup.name = newOutputGroup["name"];
+									outputGroup.output = newOutputGroup["output"];
+									outputGroup.updatedAt = newOutputGroup["updatedAt"];
+
+									this.outputGroupList.push(outputGroup);
+								}
+							}
+						}
+
+						// select tab
+						for (let outputGroupKey in this.outputGroupList) {
+							let outputGroup = this.outputGroupList[outputGroupKey];
+
+							if (outputGroup.id == activeTabId) {
+								outputGroup.active = true;
+							} else {
+								outputGroup.active = false;
+							}
+						}
+
+						this.hideAllForLastJob();
+
+						if (this.lastJob != null) {
+							this.showLastJobData = true;
+						} else {
+							this.showLastJobEmptyData = true;
+						}
 					} else {
-						this.showLastJobEmptyData = true;
+						this.onErrorForLastJob();
 					}
-				} else {
-					this.onErrorForLastJob();
 				}
-			})
+			)
 			.catch(() => {
 				this.onErrorForLastJob();
 			});

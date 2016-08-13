@@ -3,6 +3,7 @@ package integration
 import (
 	"github.com/prsolucoes/goci/models/response"
 	"github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
 type IntegrationSendGrid struct {
@@ -56,21 +57,26 @@ func (This *IntegrationSendGrid) Call(options map[string]interface{}) *response.
 		}
 	}
 
-	sg := sendgrid.NewSendGridClientWithApiKey(optSendGridKey)
+	// create the message
+	message := mail.NewV3Mail()
+	message.From = mail.NewEmail(optMailFromName, optMailFromEmail)
+	message.Subject = optMailSubject
 
-	message := sendgrid.NewMail()
+	content := []*mail.Content{}
+	content = append(content, mail.NewContent("text/html", optMailBody))
+	message.Content = content
 
 	for _, mailTo := range optMailToList {
-		message.AddTo(mailTo)
+		p := mail.NewPersonalization()
+		p.AddTos(mail.NewEmail("", mailTo))
+		message.AddPersonalizations(p)
 	}
 
-	message.SetFrom(optMailFromEmail)
-	message.SetFromName(optMailFromName)
-
-	message.SetSubject(optMailSubject)
-	message.SetHTML(optMailBody)
-
-	err := sg.Send(message)
+	// create the request to API
+	request := sendgrid.GetRequest(optSendGridKey, "/v3/mail/send", "https://api.sendgrid.com")
+	request.Method = "POST"
+	request.Body = mail.GetRequestBody(message)
+	_, err := sendgrid.API(request)
 
 	if err == nil {
 		response.Success = true

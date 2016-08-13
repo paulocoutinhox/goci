@@ -89,3 +89,32 @@ h3 {
 	-moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
+.ph-project-task-job-last-result-progress .progress {
+	margin-bottom: 0;
+}
+
+.output-content-line-error {
+	color: #ff0017;
+}
+
+.output-content-line-warning {
+	color: #f2b902;
+}
+
+.output-content-line-info {
+	color: #127fff;
+}
+
+.output-content-line-success {
+	color: #00BB08;
+}
+
+.tab-pane-output-group .panel {
+	border-top:0 none;
+	border-radius: 0;
+}
+
+.tab-pane-output-group .panel .panel-body {
+	word-wrap: break-word;
+}

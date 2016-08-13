@@ -14,6 +14,8 @@ var Rx_1 = require("rxjs/Rx");
 var TaskService_1 = require("../services/TaskService");
 var JobService_1 = require("../services/JobService");
 var timestampFormat_1 = require("../pipes/timestampFormat");
+var OutputGroup_1 = require("../domain/OutputGroup");
+var Utils_1 = require("../domain/Utils");
 var TaskViewComponent = (function () {
     function TaskViewComponent(taskService, jobService, router, route) {
         this.taskService = taskService;
@@ -130,6 +132,47 @@ var TaskViewComponent = (function () {
             .then(function (response) {
             if (response != null && response.success == true) {
                 _this.lastJob = response.data.job;
+                if (_this.lastJob["id"] != _this.lastJobId) {
+                    _this.lastJobId = _this.lastJob["id"];
+                    _this.outputGroupList = [];
+                }
+                var newOutputGroupList = _this.lastJob.outputGroup;
+                var activeTabId = "console";
+                // add new tabs
+                if (newOutputGroupList) {
+                    for (var newOutputGroupKey in newOutputGroupList) {
+                        var newOutputGroup = newOutputGroupList[newOutputGroupKey];
+                        var hasOutputGroup = false;
+                        for (var outputGroupKey in _this.outputGroupList) {
+                            var outputGroup = _this.outputGroupList[outputGroupKey];
+                            if (outputGroup.name == newOutputGroup["name"]) {
+                                hasOutputGroup = true;
+                                if (outputGroup.updatedAt != newOutputGroup["updatedAt"]) {
+                                    outputGroup.updatedAt = newOutputGroup["updatedAt"];
+                                    outputGroup.output = newOutputGroup["output"];
+                                }
+                            }
+                        }
+                        if (!hasOutputGroup) {
+                            var outputGroup = new OutputGroup_1.OutputGroup();
+                            outputGroup.id = Utils_1.Utils.slugify(newOutputGroup["name"]);
+                            outputGroup.name = newOutputGroup["name"];
+                            outputGroup.output = newOutputGroup["output"];
+                            outputGroup.updatedAt = newOutputGroup["updatedAt"];
+                            _this.outputGroupList.push(outputGroup);
+                        }
+                    }
+                }
+                // select tab
+                for (var outputGroupKey in _this.outputGroupList) {
+                    var outputGroup = _this.outputGroupList[outputGroupKey];
+                    if (outputGroup.id == activeTabId) {
+                        outputGroup.active = true;
+                    }
+                    else {
+                        outputGroup.active = false;
+                    }
+                }
                 _this.hideAllForLastJob();
                 if (_this.lastJob != null) {
                     _this.showLastJobData = true;
