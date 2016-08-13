@@ -119,7 +119,7 @@ export class TaskViewComponent implements OnInit {
 	}
 
 	onErrorForLastJob() {
-		this.hideAll();
+		this.hideAllForLastJob();
 		this.showLastJobError = true;
 		this.lastJob = null;
 	}

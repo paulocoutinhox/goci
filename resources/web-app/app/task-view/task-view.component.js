@@ -86,7 +86,7 @@ var TaskViewComponent = (function () {
         this.project = null;
     };
     TaskViewComponent.prototype.onErrorForLastJob = function () {
-        this.hideAll();
+        this.hideAllForLastJob();
         this.showLastJobError = true;
         this.lastJob = null;
     };

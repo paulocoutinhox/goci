@@ -103,7 +103,7 @@
 					</div>
 					<div>
 						<strong>Status:</strong>
-						<span [ngSwitch]="lastJob.status">
+						<span [ngSwitch]="lastJob?.status">
 							<span *ngSwitchCase="'onqueue'" class="label label-primary">{{lastJob.status}}</span>
 							<span *ngSwitchCase="'running'" class="label label-warning">{{lastJob.status}}</span>
 							<span *ngSwitchCase="'success'" class="label label-success">{{lastJob.status}}</span>
