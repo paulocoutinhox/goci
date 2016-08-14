@@ -86,7 +86,7 @@ export class TaskOptionsComponent implements OnInit {
 	}
 
 	cancel() {
-		this.taskRunWithSuccess.emit();
+		this.taskRunCancel.emit();
 	}
 
 }

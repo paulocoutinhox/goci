@@ -64,7 +64,7 @@ var TaskOptionsComponent = (function () {
         });
     };
     TaskOptionsComponent.prototype.cancel = function () {
-        this.taskRunWithSuccess.emit();
+        this.taskRunCancel.emit();
     };
     __decorate([
         core_1.Input(), 
