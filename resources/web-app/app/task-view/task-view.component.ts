@@ -3,17 +3,13 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {TaskService} from "../services/TaskService";
 import {JobService} from "../services/JobService";
-import {TimestampFormat} from "../pipes/timestampFormat";
 import {OutputGroup} from "../domain/OutputGroup";
 import {Utils} from "../domain/Utils";
 
 @Component({
 	selector: 'task-view',
 	templateUrl: 'app/task-view/task-view.component.html',
-	styleUrls: ['app/task-view/task-view.component.css'],
-	pipes: [
-		TimestampFormat
-	]
+	styleUrls: ['app/task-view/task-view.component.css']
 })
 
 export class TaskViewComponent implements OnInit {

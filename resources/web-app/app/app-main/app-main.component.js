@@ -31,8 +31,11 @@ var AppMainComponent = (function () {
             _this.globalService.emitJobsCount();
             _this.globalService.emitJobList();
         })
-            .catch(function (error) {
-            //
+            .catch(function () {
+            _this.globalService.jobsCount = 0;
+            _this.globalService.jobList = null;
+            _this.globalService.emitJobsCount();
+            _this.globalService.emitJobList();
         });
     };
     AppMainComponent = __decorate([

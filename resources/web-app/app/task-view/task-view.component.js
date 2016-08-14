@@ -13,7 +13,6 @@ var router_1 = require("@angular/router");
 var Rx_1 = require("rxjs/Rx");
 var TaskService_1 = require("../services/TaskService");
 var JobService_1 = require("../services/JobService");
-var timestampFormat_1 = require("../pipes/timestampFormat");
 var OutputGroup_1 = require("../domain/OutputGroup");
 var Utils_1 = require("../domain/Utils");
 var TaskViewComponent = (function () {
@@ -193,10 +192,7 @@ var TaskViewComponent = (function () {
         core_1.Component({
             selector: 'task-view',
             templateUrl: 'app/task-view/task-view.component.html',
-            styleUrls: ['app/task-view/task-view.component.css'],
-            pipes: [
-                timestampFormat_1.TimestampFormat
-            ]
+            styleUrls: ['app/task-view/task-view.component.css']
         }), 
         __metadata('design:paramtypes', [TaskService_1.TaskService, JobService_1.JobService, router_1.Router, router_1.ActivatedRoute])
     ], TaskViewComponent);

@@ -17,6 +17,7 @@ import {HttpModule} from "@angular/http";
 import {TaskService} from "../services/TaskService";
 import {ProjectService} from "../services/ProjectService";
 import {TaskViewComponent} from "../task-view/task-view.component";
+import {TimestampFormat} from "../pipes/timestampFormat";
 
 @NgModule({
 	declarations: [
@@ -28,7 +29,8 @@ import {TaskViewComponent} from "../task-view/task-view.component";
 		ProjectListComponent,
 		ProjectViewComponent,
 		NotFoundComponent,
-		TaskViewComponent
+		TaskViewComponent,
+		TimestampFormat
 	],
 	imports: [
 		routing,

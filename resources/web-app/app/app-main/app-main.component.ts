@@ -28,8 +28,11 @@ export class AppMainComponent implements OnInit {
 				this.globalService.emitJobsCount();
 				this.globalService.emitJobList();
 			})
-			.catch(error => {
-				//
+			.catch(() => {
+				this.globalService.jobsCount = 0;
+				this.globalService.jobList = null;
+				this.globalService.emitJobsCount();
+				this.globalService.emitJobList();
 			});
 	}
 

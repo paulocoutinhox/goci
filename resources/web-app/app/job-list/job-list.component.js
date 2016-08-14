@@ -15,12 +15,35 @@ var JobListComponent = (function () {
     function JobListComponent(globalService, router) {
         this.globalService = globalService;
         this.router = router;
+        this.hideAll();
+        this.showLoading = true;
     }
     JobListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.globalService.jobListEmitter.subscribe(function (value) {
             _this.jobList = value;
+            if (_this.jobList == null) {
+                _this.hideAll();
+                _this.showError = true;
+            }
+            else if (_this.jobList.length == 0) {
+                _this.hideAll();
+                _this.showEmptyData = true;
+            }
+            else {
+                _this.hideAll();
+                _this.showData = true;
+            }
         });
+    };
+    JobListComponent.prototype.hideAll = function () {
+        this.showData = false;
+        this.showEmptyData = false;
+        this.showLoading = false;
+        this.showError = false;
+    };
+    JobListComponent.prototype.view = function (projectId, taskId) {
+        this.router.navigate(['/task/view', projectId, taskId]);
     };
     JobListComponent.prototype.back = function () {
         this.router.navigate(['/']);
