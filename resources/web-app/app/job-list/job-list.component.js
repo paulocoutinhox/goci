@@ -15,6 +15,9 @@ var JobListComponent = (function () {
     function JobListComponent(globalService, router) {
         this.globalService = globalService;
         this.router = router;
+        this.chartDataLabels = [];
+        this.chartDataOptions = {};
+        this.chartDataColors = [];
         this.hideAll();
         this.showLoading = true;
     }
@@ -31,8 +34,84 @@ var JobListComponent = (function () {
                 _this.showEmptyData = true;
             }
             else {
+                // job list data
                 _this.hideAll();
                 _this.showData = true;
+                // chart data
+                var chartLabels = [];
+                var chartColors = [];
+                var chartDataset = [];
+                var chartOptions = {
+                    animation: false
+                };
+                var chartDataForOnQueue = 0;
+                var chartDataForRunning = 0;
+                var chartDataForError = 0;
+                var chartDataForSuccess = 0;
+                for (var jobIndex in _this.jobList) {
+                    var job = _this.jobList[jobIndex];
+                    var jobStatus = job["status"];
+                    switch (jobStatus) {
+                        case 'onqueue':
+                            chartDataForOnQueue += 1;
+                            break;
+                        case 'running':
+                            chartDataForRunning += 1;
+                            break;
+                        case 'error':
+                            chartDataForError += 1;
+                            break;
+                        case 'success':
+                            chartDataForSuccess += 1;
+                            break;
+                    }
+                }
+                if (chartDataForOnQueue > 0) {
+                    chartLabels.push("On Queue");
+                    chartColors.push("#08b4fa");
+                    chartDataset.push(chartDataForOnQueue);
+                }
+                if (chartDataForSuccess > 0) {
+                    chartLabels.push("Success");
+                    chartColors.push("#39c558");
+                    chartDataset.push(chartDataForSuccess);
+                }
+                if (chartDataForError > 0) {
+                    chartLabels.push("Error");
+                    chartColors.push("#ff3e43");
+                    chartDataset.push(chartDataForError);
+                }
+                if (chartDataForRunning > 0) {
+                    chartLabels.push("Running");
+                    chartColors.push("#ffbe41");
+                    chartDataset.push(chartDataForRunning);
+                }
+                _this.chartData = {
+                    type: 'doughnut',
+                    animation: {
+                        animateScale: false,
+                        animateRotate: false
+                    },
+                    labels: chartLabels,
+                    datasets: [
+                        {
+                            data: chartDataset,
+                            backgroundColor: chartColors,
+                            hoverBackgroundColor: chartColors
+                        }
+                    ],
+                    graphOptions: {
+                        animation: false
+                    }
+                };
+                _this.chartDataDatasets = [{
+                        data: chartDataset,
+                        backgroundColor: chartColors,
+                        hoverBackgroundColor: chartColors
+                    }];
+                _this.chartDataLabels = chartLabels;
+                _this.chartDataOptions = chartOptions;
+                _this.chartDataColors = chartColors;
             }
         });
     };

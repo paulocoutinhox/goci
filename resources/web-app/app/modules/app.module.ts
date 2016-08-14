@@ -18,6 +18,7 @@ import {TaskService} from "../services/TaskService";
 import {ProjectService} from "../services/ProjectService";
 import {TaskViewComponent} from "../task-view/task-view.component";
 import {TimestampFormat} from "../pipes/timestampFormat";
+import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 
 @NgModule({
 	declarations: [
@@ -30,7 +31,8 @@ import {TimestampFormat} from "../pipes/timestampFormat";
 		ProjectViewComponent,
 		NotFoundComponent,
 		TaskViewComponent,
-		TimestampFormat
+		TimestampFormat,
+		CHART_DIRECTIVES
 	],
 	imports: [
 		routing,

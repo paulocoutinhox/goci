@@ -1,0 +1,145 @@
+{
+  "name": "ng2-charts",
+  "version": "1.1.0",
+  "description": "Reactive, responsive, beautiful charts for Angular2 based on Chart.js",
+  "scripts": {
+    "flow.install:typings": "typings install",
+    "flow.compile": "npm run flow.install:typings && npm run flow.compile:common && npm run flow.compile:system ",
+    "flow.compile:common": "tsc",
+    "flow.compile:system": "./.config/bundle-system.js",
+    "flow.copy:src": "cpy ng2-charts.ts \"components/**/*.ts\" ts --parents",
+    "flow.clean": "del bundles coverage demo-build typings \"components/**/*.+(js|d.ts|js.map)\" dist \"ng2-charts.+(js|d.ts|js.map)\"",
+    "flow.deploy:gh-pages": "npm run flow.build:prod && ./node_modules/.bin/gh-pages -d demo-build",
+    "flow.eslint": "eslint --ignore-path .gitignore  --ext js --fix . .config",
+    "flow.tslint": "gulp lint",
+    "flow.lint": "npm run flow.eslint && npm run flow.tslint",
+    "flow.changelog": "conventional-changelog -i CHANGELOG.md -s -p angular -v",
+    "flow.github-release": "conventional-github-releaser -p angular",
+    "flow.build:prod": "NODE_ENV=production ./node_modules/.bin/webpack --progress --color",
+    "flow.build:dev": "webpack --progress --color",
+    "flow.serve:dev": "webpack-dev-server --hot --inline --colors --display-error-details --display-cached",
+    "flow.serve:prod": "NODE_ENV=production ./node_modules/.bin/webpack-dev-server --hot --inline --colors --display-error-details --display-cached",
+    "prepublish": "npm run flow.clean && npm run flow.compile && npm run flow.copy:src",
+    "postpublish": "npm run flow.deploy:gh-pages",
+    "start": "npm run flow.serve:dev",
+    "test": "npm run flow.lint",
+    "karma-test": "NODE_ENV=test ./node_modules/.bin/karma start",
+    "preversion": "npm test",
+    "version": "npm run flow.changelog && git add -A",
+    "postversion": "git push origin development && git push --tags"
+  },
+  "main": "ng2-charts.js",
+  "typings": "ng2-charts.d.ts",
+  "keywords": [
+    "angular2",
+    "angularjs",
+    "charts"
+  ],
+  "author": {
+    "name": "Dmitriy Shekhovtsov",
+    "email": "valorkin@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/valor-software/ng2-charts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/valor-software/ng2-charts/issues"
+  },
+  "homepage": "https://github.com/valor-software/ng2-charts#readme",
+  "peerDependencies": {
+    "@angular/core": "^2.0.0-rc.1",
+    "@angular/common": "^2.0.0-rc.1"
+  },
+  "dependencies": {
+    "chart.js": "2.1.3"
+  },
+  "devDependencies": {
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
+    "@angular/core": "2.0.0-rc.1",
+    "@angular/platform-browser": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
+    "async": "2.0.0-rc.3",
+    "bootstrap": "3.3.6",
+    "clean-webpack-plugin": "0.1.9",
+    "compression-webpack-plugin": "0.3.1",
+    "conventional-changelog-cli": "1.2.0",
+    "conventional-github-releaser": "1.1.2",
+    "copy-webpack-plugin": "3.0.0",
+    "cpy-cli": "1.0.0",
+    "del-cli": "0.2.0",
+    "es6-promise": "3.2.1",
+    "es6-shim": "0.35.1",
+    "eslint-config-valorsoft": "0.0.11",
+    "exports-loader": "0.6.3",
+    "gh-pages": "0.11.0",
+    "gitignore-to-glob": "0.2.1",
+    "gulp": "3.9.1",
+    "gulp-clean": "0.3.2",
+    "gulp-eslint": "2.0.0",
+    "gulp-size": "2.1.0",
+    "gulp-tsc": "1.1.5",
+    "gulp-tslint": "5.0.0",
+    "html-loader": "0.4.3",
+    "html-webpack-plugin": "2.17.0",
+    "markdown-loader": "0.1.7",
+    "marked": "0.3.5",
+    "ng2-bootstrap": "1.0.16",
+    "pre-commit": "1.1.3",
+    "prismjs": "1.5.0",
+    "prismjs-loader": "0.0.3",
+    "raw-loader": "0.5.1",
+    "reflect-metadata": "0.1.2",
+    "require-dir": "0.3.0",
+    "rxjs": "5.0.0-beta.6",
+    "systemjs-builder": "0.15.16",
+    "transfer-webpack-plugin": "0.1.4",
+    "ts-loader": "0.8.2",
+    "tslint-config-valorsoft": "1.0.3",
+    "typescript": "1.8.10",
+    "typings": "0.8.1",
+    "webpack": "1.13.0",
+    "webpack-dev-server": "1.14.1",
+    "zone.js": "0.6.12"
+  },
+  "contributors": [
+    {
+      "name": "Dmitriy Shekhovtsov",
+      "email": "valorkin@gmail.com",
+      "url": "https://github.com/valorkin"
+    },
+    {
+      "name": "Soloviova Nataliya",
+      "email": "nataliya.soloviova@valor-software.com",
+      "url": "https://github.com/natali-abyss"
+    }
+  ],
+  "gitHead": "96baee91d1152e7f598c6a1507cc1a0f006cb6a5",
+  "_id": "ng2-charts@1.1.0",
+  "_shasum": "7c502c6150fdab45bac4585eb2c3892fae0f1bb3",
+  "_from": "ng2-charts@latest",
+  "_npmVersion": "3.8.6",
+  "_nodeVersion": "6.1.0",
+  "_npmUser": {
+    "name": "valorkin",
+    "email": "valorkin@gmail.com"
+  },
+  "dist": {
+    "shasum": "7c502c6150fdab45bac4585eb2c3892fae0f1bb3",
+    "tarball": "https://registry.npmjs.org/ng2-charts/-/ng2-charts-1.1.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "valorkin",
+      "email": "valorkin@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/ng2-charts-1.1.0.tgz_1463492528238_0.9077266661915928"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/ng2-charts/-/ng2-charts-1.1.0.tgz"
+}

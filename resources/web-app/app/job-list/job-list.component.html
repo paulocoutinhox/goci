@@ -99,7 +99,14 @@
 				<div class="panel-body">
 					<h3>Job graph</h3>
 					<br/>
-					<canvas id="graph"></canvas>
+					<base-chart
+						class="chart"
+						[datasets]="chartDataDatasets"
+						[labels]="chartDataLabels"
+						[options]="chartDataOptions"
+						[colors]="chartDataColors"
+						[chartType]="'doughnut'">
+					</base-chart>
 				</div>
 			</div>
 		</div>
