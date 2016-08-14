@@ -24,8 +24,6 @@ export class TaskService {
 	}
 
 	run(projectId: String, taskId: String, options: any) {
-		console.log(options);
-
 		let headers:Headers = new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded'
 		});

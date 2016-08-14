@@ -28,7 +28,6 @@ var TaskService = (function () {
             .catch(this.handleError);
     };
     TaskService.prototype.run = function (projectId, taskId, options) {
-        console.log(options);
         var headers = new http_1.Headers({
             'Content-Type': 'application/x-www-form-urlencoded'
         });
