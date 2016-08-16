@@ -12,17 +12,17 @@ function loadJobRunningList() {
             if (count == 1) {
                 $(".ph-job-running-list-text").html("job");
             } else {
-                $(".ph-job-running-list-text").html("jobsCount");
+                $(".ph-job-running-list-text").html("jobs");
             }
         } else {
             $(".ph-job-running-list-count").html('0');
-            $(".ph-job-running-list-text").html("jobsCount");
+            $(".ph-job-running-list-text").html("jobs");
         }
 
         autoLoadJobRunningList();
     }, function (error) {
         $(".ph-job-running-list-count").html('0');
-        $(".ph-job-running-list-text").html("jobsCount");
+        $(".ph-job-running-list-text").html("jobs");
         autoLoadJobRunningList();
     });
 }
