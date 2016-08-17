@@ -15,8 +15,10 @@ var TaskService_1 = require("../services/TaskService");
 var JobService_1 = require("../services/JobService");
 var OutputGroup_1 = require("../domain/OutputGroup");
 var Utils_1 = require("../domain/Utils");
+var GlobalService_1 = require("../services/GlobalService");
 var TaskViewComponent = (function () {
-    function TaskViewComponent(taskService, jobService, router, route) {
+    function TaskViewComponent(globalService, taskService, jobService, router, route) {
+        this.globalService = globalService;
         this.taskService = taskService;
         this.jobService = jobService;
         this.router = router;
@@ -35,8 +37,10 @@ var TaskViewComponent = (function () {
     TaskViewComponent.prototype.load = function () {
         var _this = this;
         this.hideAll();
-        this.showLoading = true;
-        Rx_1.Observable.empty().delay(1000).subscribe(null, null, function () {
+        if (this.globalService.loadingDelayTime > 0) {
+            this.showLoading = true;
+        }
+        Rx_1.Observable.empty().delay(this.globalService.loadingDelayTime).subscribe(null, null, function () {
             _this.getData();
         });
     };
@@ -92,10 +96,11 @@ var TaskViewComponent = (function () {
     TaskViewComponent.prototype.view = function (projectId, taskId) {
         this.router.navigate(['/task/view', projectId, taskId]);
     };
-    TaskViewComponent.prototype.showTaskOptions = function (projectId, taskId, taskName, taskDescription) {
+    TaskViewComponent.prototype.showTaskOptions = function (projectId, projectName, taskId, taskName, taskDescription) {
         var _this = this;
         this.showTaskOptionsForm = false;
         this.runProjectId = projectId;
+        this.runProjectName = projectName;
         this.runTaskId = taskId;
         this.runTaskName = taskName;
         this.runTaskDescription = taskDescription;
@@ -194,7 +199,7 @@ var TaskViewComponent = (function () {
             templateUrl: 'app/task-view/task-view.component.html',
             styleUrls: ['app/task-view/task-view.component.css']
         }), 
-        __metadata('design:paramtypes', [TaskService_1.TaskService, JobService_1.JobService, router_1.Router, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [GlobalService_1.GlobalService, TaskService_1.TaskService, JobService_1.JobService, router_1.Router, router_1.ActivatedRoute])
     ], TaskViewComponent);
     return TaskViewComponent;
 }());

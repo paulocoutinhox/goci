@@ -16,7 +16,16 @@ export class TaskOptionsComponent implements OnInit {
 	private projectId: String;
 
 	@Input()
+	private projectName: String;
+
+	@Input()
 	private taskId: String;
+
+	@Input()
+	private taskName: String;
+
+	@Input()
+	private taskDescription: String;
 
 	@Input()
 	private options: any;
@@ -34,6 +43,8 @@ export class TaskOptionsComponent implements OnInit {
 
 	@Input()
 	private taskOptions: Array<TaskOption>;
+
+	private showEmptyMessage: boolean;
 
 	constructor(private taskService: TaskService) {
 
@@ -59,6 +70,8 @@ export class TaskOptionsComponent implements OnInit {
 					values: option['values']
 				}));
 			});
+		} else {
+			this.showEmptyMessage = true;
 		}
 
 		this.form = new FormGroup(controlList);

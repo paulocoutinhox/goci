@@ -8,6 +8,8 @@ export class GlobalService {
 	public jobsCountEmitter = new EventEmitter<number>();
 	public jobListEmitter = new EventEmitter<any>();
 
+	public loadingDelayTime: number = 0;
+
 	constructor() {
 
 	}

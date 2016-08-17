@@ -14,6 +14,7 @@ var GlobalService = (function () {
         this.jobsCount = 0;
         this.jobsCountEmitter = new core_1.EventEmitter();
         this.jobListEmitter = new core_1.EventEmitter();
+        this.loadingDelayTime = 0;
     }
     GlobalService.prototype.emitJobsCount = function () {
         this.jobsCountEmitter.emit(this.jobsCount);

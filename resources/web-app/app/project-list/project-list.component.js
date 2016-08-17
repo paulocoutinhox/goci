@@ -12,8 +12,10 @@ var core_1 = require("@angular/core");
 var ProjectService_1 = require("../services/ProjectService");
 var router_1 = require("@angular/router");
 var Rx_1 = require("rxjs/Rx");
+var GlobalService_1 = require("../services/GlobalService");
 var ProjectListComponent = (function () {
-    function ProjectListComponent(projectService, router) {
+    function ProjectListComponent(globalService, projectService, router) {
+        this.globalService = globalService;
         this.projectService = projectService;
         this.router = router;
     }
@@ -23,8 +25,10 @@ var ProjectListComponent = (function () {
     ProjectListComponent.prototype.load = function () {
         var _this = this;
         this.hideAll();
-        this.showLoading = true;
-        Rx_1.Observable.empty().delay(1000).subscribe(null, null, function () {
+        if (this.globalService.loadingDelayTime > 0) {
+            this.showLoading = true;
+        }
+        Rx_1.Observable.empty().delay(this.globalService.loadingDelayTime).subscribe(null, null, function () {
             _this.getData();
         });
     };
@@ -73,7 +77,7 @@ var ProjectListComponent = (function () {
             templateUrl: 'app/project-list/project-list.component.html',
             styleUrls: ['app/project-list/project-list.component.css']
         }), 
-        __metadata('design:paramtypes', [ProjectService_1.ProjectService, router_1.Router])
+        __metadata('design:paramtypes', [GlobalService_1.GlobalService, ProjectService_1.ProjectService, router_1.Router])
     ], ProjectListComponent);
     return ProjectListComponent;
 }());

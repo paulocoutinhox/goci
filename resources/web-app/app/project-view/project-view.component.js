@@ -14,8 +14,10 @@ var router_1 = require("@angular/router");
 var Rx_1 = require("rxjs/Rx");
 var TaskService_1 = require("../services/TaskService");
 var task_options_component_1 = require("../task-options/task-options.component");
+var GlobalService_1 = require("../services/GlobalService");
 var ProjectViewComponent = (function () {
-    function ProjectViewComponent(projectService, taskService, router, route) {
+    function ProjectViewComponent(globalService, projectService, taskService, router, route) {
+        this.globalService = globalService;
         this.projectService = projectService;
         this.taskService = taskService;
         this.router = router;
@@ -31,8 +33,10 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent.prototype.load = function () {
         var _this = this;
         this.hideAll();
-        this.showLoading = true;
-        Rx_1.Observable.empty().delay(1000).subscribe(null, null, function () {
+        if (this.globalService.loadingDelayTime > 0) {
+            this.showLoading = true;
+        }
+        Rx_1.Observable.empty().delay(this.globalService.loadingDelayTime).subscribe(null, null, function () {
             _this.getData();
         });
     };
@@ -76,10 +80,11 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent.prototype.view = function (projectId, taskId) {
         this.router.navigate(['/task/view', projectId, taskId]);
     };
-    ProjectViewComponent.prototype.showTaskOptions = function (projectId, taskId, taskName, taskDescription) {
+    ProjectViewComponent.prototype.showTaskOptions = function (projectId, projectName, taskId, taskName, taskDescription) {
         var _this = this;
         this.showTaskOptionsForm = false;
         this.runProjectId = projectId;
+        this.runProjectName = projectName;
         this.runTaskId = taskId;
         this.runTaskName = taskName;
         this.runTaskDescription = taskDescription;
@@ -118,7 +123,7 @@ var ProjectViewComponent = (function () {
                 task_options_component_1.TaskOptionsComponent
             ]
         }), 
-        __metadata('design:paramtypes', [ProjectService_1.ProjectService, TaskService_1.TaskService, router_1.Router, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [GlobalService_1.GlobalService, ProjectService_1.ProjectService, TaskService_1.TaskService, router_1.Router, router_1.ActivatedRoute])
     ], ProjectViewComponent);
     return ProjectViewComponent;
 }());

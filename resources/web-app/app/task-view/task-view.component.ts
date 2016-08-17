@@ -5,6 +5,7 @@ import {TaskService} from "../services/TaskService";
 import {JobService} from "../services/JobService";
 import {OutputGroup} from "../domain/OutputGroup";
 import {Utils} from "../domain/Utils";
+import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'task-view',
@@ -34,6 +35,7 @@ export class TaskViewComponent implements OnInit {
 
 	private runTaskOptions: any;
 	private runProjectId: String;
+	private runProjectName: String;
 	private runTaskId: String;
 	private runTaskName: String;
 	private runTaskDescription: String;
@@ -41,7 +43,7 @@ export class TaskViewComponent implements OnInit {
 	private outputGroupList: Array<OutputGroup>;
 	private lastJobId: String;
 
-	constructor(private taskService: TaskService, private jobService: JobService, private router: Router, private route: ActivatedRoute) {
+	constructor(private globalService: GlobalService, private taskService: TaskService, private jobService: JobService, private router: Router, private route: ActivatedRoute) {
 
 	}
 
@@ -59,9 +61,12 @@ export class TaskViewComponent implements OnInit {
 
 	load() {
 		this.hideAll();
-		this.showLoading = true;
 
-		Observable.empty().delay(1000).subscribe(null, null, () => {
+		if (this.globalService.loadingDelayTime > 0) {
+			this.showLoading = true;
+		}
+
+		Observable.empty().delay(this.globalService.loadingDelayTime).subscribe(null, null, () => {
 			this.getData();
 		});
 	}
@@ -124,9 +129,10 @@ export class TaskViewComponent implements OnInit {
 		this.router.navigate(['/task/view', projectId, taskId]);
 	}
 
-	showTaskOptions(projectId, taskId, taskName, taskDescription) {
+	showTaskOptions(projectId, projectName, taskId, taskName, taskDescription) {
 		this.showTaskOptionsForm = false;
 		this.runProjectId = projectId;
+		this.runProjectName = projectName;
 		this.runTaskId = taskId;
 		this.runTaskName = taskName;
 		this.runTaskDescription = taskDescription;

@@ -40,6 +40,9 @@ var TaskOptionsComponent = (function () {
                 }));
             });
         }
+        else {
+            this.showEmptyMessage = true;
+        }
         this.form = new forms_1.FormGroup(controlList);
     };
     TaskOptionsComponent.prototype.run = function () {
@@ -73,7 +76,19 @@ var TaskOptionsComponent = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
+    ], TaskOptionsComponent.prototype, "projectName", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
     ], TaskOptionsComponent.prototype, "taskId", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], TaskOptionsComponent.prototype, "taskName", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], TaskOptionsComponent.prototype, "taskDescription", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)

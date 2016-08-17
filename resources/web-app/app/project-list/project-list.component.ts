@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ProjectService} from "../services/ProjectService";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs/Rx";
+import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'project-list',
@@ -18,7 +19,7 @@ export class ProjectListComponent implements OnInit {
 	private showError: boolean;
 	private showLoading: boolean;
 
-	constructor(private projectService: ProjectService, private router: Router) {
+	constructor(private globalService: GlobalService, private projectService: ProjectService, private router: Router) {
 
 	}
 
@@ -28,9 +29,12 @@ export class ProjectListComponent implements OnInit {
 
 	load() {
 		this.hideAll();
-		this.showLoading = true;
 
-		Observable.empty().delay(1000).subscribe(null, null, () => {
+		if (this.globalService.loadingDelayTime > 0) {
+			this.showLoading = true;
+		}
+
+		Observable.empty().delay(this.globalService.loadingDelayTime).subscribe(null, null, () => {
 			this.getData();
 		});
 	}

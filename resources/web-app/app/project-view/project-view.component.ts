@@ -4,6 +4,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {TaskService} from "../services/TaskService";
 import {TaskOptionsComponent} from "../task-options/task-options.component";
+import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'project-view',
@@ -26,12 +27,13 @@ export class ProjectViewComponent implements OnInit {
 
 	private runTaskOptions: any;
 	private runProjectId: String;
+	private runProjectName: String;
 	private runTaskId: String;
 	private runTaskName: String;
 	private runTaskDescription: String;
 	private showTaskOptionsForm: boolean;
 
-	constructor(private projectService: ProjectService, private taskService: TaskService, private router: Router, private route: ActivatedRoute) {
+	constructor(private globalService: GlobalService, private projectService: ProjectService, private taskService: TaskService, private router: Router, private route: ActivatedRoute) {
 
 	}
 
@@ -45,9 +47,12 @@ export class ProjectViewComponent implements OnInit {
 
 	load() {
 		this.hideAll();
-		this.showLoading = true;
 
-		Observable.empty().delay(1000).subscribe(null, null, () => {
+		if (this.globalService.loadingDelayTime > 0) {
+			this.showLoading = true;
+		}
+
+		Observable.empty().delay(this.globalService.loadingDelayTime).subscribe(null, null, () => {
 			this.getData();
 		});
 	}
@@ -96,9 +101,10 @@ export class ProjectViewComponent implements OnInit {
 		this.router.navigate(['/task/view', projectId, taskId]);
 	}
 
-	showTaskOptions(projectId, taskId, taskName, taskDescription) {
+	showTaskOptions(projectId, projectName, taskId, taskName, taskDescription) {
 		this.showTaskOptionsForm = false;
 		this.runProjectId = projectId;
+		this.runProjectName = projectName;
 		this.runTaskId = taskId;
 		this.runTaskName = taskName;
 		this.runTaskDescription = taskDescription;
