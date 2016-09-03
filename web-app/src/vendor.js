@@ -8,6 +8,14 @@ require('@angular/http');
 require('@angular/router');
 // RxJS
 require('rxjs');
-// Other vendors for example jQuery, Lodash or Bootstrap
-// You can import js, ts, css, sass, ... 
+// jQuery
+require('jquery');
+// Bootstrap 3
+require('bootstrap/dist/js/bootstrap');
+require('bootstrap/dist/css/bootstrap.css');
+// Toastr
+require('toastr');
+require('toastr/build/toastr.css');
+// Project
+require('../src/static/css/styles.css');
 //# sourceMappingURL=vendor.js.map

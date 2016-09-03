@@ -9,5 +9,16 @@ import '@angular/router';
 // RxJS
 import 'rxjs';
 
-// Other vendors for example jQuery, Lodash or Bootstrap
-// You can import js, ts, css, sass, ...
+// jQuery
+import 'jquery';
+
+// Bootstrap 3
+import 'bootstrap/dist/js/bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+
+// Toastr
+import 'toastr';
+import 'toastr/build/toastr.css';
+
+// Project
+import '../src/static/css/styles.css';

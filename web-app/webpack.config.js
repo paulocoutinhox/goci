@@ -10,7 +10,14 @@ module.exports = {
 	debug: true,
 	devServer: {
 		contentBase: path.resolve(rootDir, 'dist'),
-		port: 9000
+		port: 9000,
+		proxy: {
+			'/api': {
+				target: 'http://localhost:8282',
+				secure: false
+			}
+		},
+		historyApiFallback: true
 	},
 	devtool: 'source-map',
 	entry: {
@@ -33,8 +40,22 @@ module.exports = {
 				exclude: /node_modules/
 			},
 			{
-				loader: 'raw',
-				test: /\.(css|html)$/
+				test: /\.html$/,
+				loader: 'html'
+			},
+			{
+				test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+				loader: 'file?name=assets/[name].[hash].[ext]'
+			},
+			{
+				test: /\.css$/,
+				exclude: path.resolve(rootDir, 'src', 'app'),
+				loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
+			},
+			{
+				test: /\.css$/,
+				include: path.resolve(rootDir, 'src', 'app'),
+				loader: 'raw'
 			}
 		]
 	},
@@ -44,9 +65,18 @@ module.exports = {
 			inject: 'body',
 			template: path.resolve(rootDir, 'src', 'index.html')
 		}),
-		new ExtractTextPlugin('[name].css')
+		new ExtractTextPlugin('[name].css'),
+		new webpack.ProvidePlugin({
+			jQuery: 'jquery',
+			$: 'jquery',
+			jquery: 'jquery',
+			toastr: 'toastr'
+		})
 	],
 	htmlLoader: {
-		minimize: false // workaround for ng2
-	},
+		minimize: false, // workaround for ng2
+		ignoreCustomFragments: [/\{\{.*?}}/],
+		root: path.resolve(rootDir),
+		attrs: ['img:src', 'link:href']
+	}
 };
