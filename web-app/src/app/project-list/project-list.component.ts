@@ -6,8 +6,7 @@ import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'project-list',
-	templateUrl: 'project-list.component.html',
-	styleUrls: ['project-list.component.css']
+	templateUrl: 'project-list.component.html'
 })
 
 export class ProjectListComponent implements OnInit {

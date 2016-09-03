@@ -196,8 +196,7 @@ var TaskViewComponent = (function () {
     TaskViewComponent = __decorate([
         core_1.Component({
             selector: 'task-view',
-            templateUrl: 'task-view.component.html',
-            styleUrls: ['task-view.component.css']
+            templateUrl: 'task-view.component.html'
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService, TaskService_1.TaskService, JobService_1.JobService, router_1.Router, router_1.ActivatedRoute])
     ], TaskViewComponent);

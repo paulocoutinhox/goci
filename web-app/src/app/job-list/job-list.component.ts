@@ -4,8 +4,7 @@ import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'job-list',
-	templateUrl: 'job-list.component.html',
-	styleUrls: ['job-list.component.css']
+	templateUrl: 'job-list.component.html'
 })
 
 export class JobListComponent implements OnInit {
@@ -147,7 +146,7 @@ export class JobListComponent implements OnInit {
 	}
 
 	back() {
-		this.router.navigate(['/']);
+		this.router.navigate(['/project/list']);
 	}
 
 }

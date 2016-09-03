@@ -40,15 +40,7 @@ func NewWebServer() *WebServer {
 
 func (This *WebServer) CreateBasicRoutes() {
 	This.Router.NoRoute(This.RouteGeneral)
-	//This.Router.Static("/node_modules", This.ResourcesDir + "/web-app/node_modules")
-	//This.Router.Static("/app", This.ResourcesDir + "/web-app/app")
-	This.Router.StaticFile("/inline.js", This.ResourcesDir + "/web-app/inline.js")
-	This.Router.StaticFile("/inline.map", This.ResourcesDir + "/web-app/inline.map")
-	This.Router.StaticFile("/main.bundle.js", This.ResourcesDir + "/web-app/main.bundle.js")
-	This.Router.StaticFile("/main.map", This.ResourcesDir + "/web-app/main.map")
-	This.Router.StaticFile("/polyfills.bundle.js", This.ResourcesDir + "/web-app/polyfills.bundle.js")
-	This.Router.StaticFile("/polyfills.map", This.ResourcesDir + "/web-app/polyfills.map")
-
+	This.Router.Static("/web-app", This.ResourcesDir + "/web-app")
 	log.Println("Router creation : OK")
 }
 

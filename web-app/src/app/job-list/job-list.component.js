@@ -125,13 +125,12 @@ var JobListComponent = (function () {
         this.router.navigate(['/task/view', projectId, taskId]);
     };
     JobListComponent.prototype.back = function () {
-        this.router.navigate(['/']);
+        this.router.navigate(['/project/list']);
     };
     JobListComponent = __decorate([
         core_1.Component({
             selector: 'job-list',
-            templateUrl: 'job-list.component.html',
-            styleUrls: ['job-list.component.css']
+            templateUrl: 'job-list.component.html'
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService, router_1.Router])
     ], JobListComponent);

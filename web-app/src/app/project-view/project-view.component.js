@@ -116,8 +116,7 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent = __decorate([
         core_1.Component({
             selector: 'project-view',
-            templateUrl: 'project-view.component.html',
-            styleUrls: ['project-view.component.css']
+            templateUrl: 'project-view.component.html'
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService, ProjectService_1.ProjectService, TaskService_1.TaskService, router_1.Router, router_1.ActivatedRoute])
     ], ProjectViewComponent);

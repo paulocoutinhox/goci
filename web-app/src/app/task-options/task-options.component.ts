@@ -6,8 +6,7 @@ import {Utils} from "../domain/Utils";
 
 @Component({
 	selector: 'task-options',
-	templateUrl: 'task-options.component.html',
-	styleUrls: ['task-options.component.css']
+	templateUrl: 'task-options.component.html'
 })
 
 export class TaskOptionsComponent implements OnInit {

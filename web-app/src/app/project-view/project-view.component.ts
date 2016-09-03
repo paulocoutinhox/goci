@@ -7,8 +7,7 @@ import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'project-view',
-	templateUrl: 'project-view.component.html',
-	styleUrls: ['project-view.component.css']
+	templateUrl: 'project-view.component.html'
 })
 
 export class ProjectViewComponent implements OnInit {

@@ -3,16 +3,16 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"scripts": {
-		"start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-		"lite": "lite-server",
+		"start": "webpack-dev-server --config webpack.dev.config.js --progress --colors --watch --port 9000",
 		"postinstall": "typings install",
 		"tsc": "tsc",
 		"tsc:w": "tsc -w",
 		"typings": "typings",
-		"webpack": "webpack --progress --colors",
-		"webpack-dev-server": "webpack-dev-server",
-		"webpack-watch": "webpack --progress --colors --watch",
-		"webpack-watch-dev": "webpack-dev-server --progress --colors --watch"
+		"webpack": "webpack --config webpack.dev.config.js --progress --colors",
+		"webpack-dev-server": "webpack-dev-server --config webpack.dev.config.js --progress --colors",
+		"webpack-watch": "webpack --config webpack.dev.config.js --progress --colors --watch",
+		"webpack-watch-dev": "webpack-dev-server --config webpack.dev.config.js --progress --colors --watch",
+		"build": "webpack --config webpack.prod.config.js --progress --profile --bail && rm -rf ../resources/web-app && cp -r dist ../resources/web-app"
 	},
 	"private": true,
 	"dependencies": {

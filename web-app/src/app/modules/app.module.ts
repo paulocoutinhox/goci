@@ -21,6 +21,8 @@ import {TimestampFormat} from "../pipes/timestampFormat";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 import {TaskOptionsComponent} from "../task-options/task-options.component";
 
+toastr.options = {timeOut: 5000, progressBar: true, hideDuration: 300};
+
 @NgModule({
 	declarations: [
 		AppMainComponent,

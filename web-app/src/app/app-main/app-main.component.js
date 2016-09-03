@@ -41,8 +41,7 @@ var AppMainComponent = (function () {
     AppMainComponent = __decorate([
         core_1.Component({
             selector: 'app-main',
-            templateUrl: 'app-main.component.html',
-            styleUrls: ['app-main.component.css']
+            templateUrl: 'app-main.component.html'
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService, JobService_1.JobService])
     ], AppMainComponent);

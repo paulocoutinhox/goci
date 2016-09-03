@@ -9,8 +9,7 @@ import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'task-view',
-	templateUrl: 'task-view.component.html',
-	styleUrls: ['task-view.component.css']
+	templateUrl: 'task-view.component.html'
 })
 
 export class TaskViewComponent implements OnInit {

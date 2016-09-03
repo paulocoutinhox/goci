@@ -15,8 +15,7 @@ var NotFoundComponent = (function () {
     NotFoundComponent = __decorate([
         core_1.Component({
             selector: 'not-found',
-            templateUrl: 'not-found.component.html',
-            styleUrls: ['not-found.component.css']
+            templateUrl: 'not-found.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], NotFoundComponent);
