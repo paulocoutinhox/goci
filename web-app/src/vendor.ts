@@ -20,5 +20,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'toastr';
 import 'toastr/build/toastr.css';
 
+// ChartJS
+import 'chart.js/dist/Chart.bundle';
+
 // Project
 import '../src/static/css/styles.css';

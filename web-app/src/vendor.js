@@ -16,6 +16,8 @@ require('bootstrap/dist/css/bootstrap.css');
 // Toastr
 require('toastr');
 require('toastr/build/toastr.css');
+// ChartJS
+require('chart.js/dist/Chart.bundle');
 // Project
 require('../src/static/css/styles.css');
 //# sourceMappingURL=vendor.js.map

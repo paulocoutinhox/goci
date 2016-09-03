@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const rootDir = path.resolve(__dirname);
 
 module.exports = {
@@ -13,7 +14,7 @@ module.exports = {
 		port: 9000,
 		proxy: {
 			'/api': {
-				target: 'http://localhost:8282',
+				target: 'http://localhost:8081',
 				secure: false
 			}
 		},
@@ -27,7 +28,8 @@ module.exports = {
 	},
 	output: {
 		filename: '[name].bundle.js',
-		path: path.resolve(rootDir, 'dist')
+		path: path.resolve(rootDir, 'dist'),
+		chunkFilename: '[id].chunk.js'
 	},
 	resolve: {
 		extensions: ['', '.ts', '.js']
@@ -60,6 +62,9 @@ module.exports = {
 		]
 	},
 	plugins: [
+		new webpack.optimize.CommonsChunkPlugin({
+			name: ['app', 'vendor', 'polyfills']
+		}),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			inject: 'body',
@@ -71,7 +76,8 @@ module.exports = {
 			$: 'jquery',
 			jquery: 'jquery',
 			toastr: 'toastr'
-		})
+		}),
+		new FaviconsWebpackPlugin('../extras/icons/512x512.png')
 	],
 	htmlLoader: {
 		minimize: false, // workaround for ng2
