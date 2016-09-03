@@ -60,6 +60,8 @@ deps:
 	${GODEPS} github.com/mitsuse/pushbullet-go/requests
 	${GODEPS} github.com/sendgrid/sendgrid-go
 	${GODEPS} github.com/bluele/slack
+	${GODEPS} github.com/gin-gonic/contrib/static
+	${GODEPS} github.com/elazarl/go-bindata-assetfs
 
 stop:
 	pkill -f ${EXECUTABLE}
