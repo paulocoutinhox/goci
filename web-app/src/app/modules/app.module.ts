@@ -19,38 +19,40 @@ import {ProjectService} from "../services/ProjectService";
 import {TaskViewComponent} from "../task-view/task-view.component";
 import {TimestampFormat} from "../pipes/timestampFormat";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
+import {TaskOptionsComponent} from "../task-options/task-options.component";
 
 @NgModule({
-    declarations: [
-        AppMainComponent,
-        HomeComponent,
-        AppHeaderComponent,
-        AppFooterComponent,
-        JobListComponent,
-        ProjectListComponent,
-        ProjectViewComponent,
-        NotFoundComponent,
-        TaskViewComponent,
-        TimestampFormat,
-        CHART_DIRECTIVES
-    ],
-    imports: [
-        routing,
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpModule,
-        RouterModule
-    ],
-    bootstrap: [
-        AppMainComponent
-    ],
-    providers: [
-        GlobalService,
-        JobService,
-        TaskService,
-        ProjectService
-    ]
+	declarations: [
+		AppMainComponent,
+		HomeComponent,
+		AppHeaderComponent,
+		AppFooterComponent,
+		JobListComponent,
+		ProjectListComponent,
+		ProjectViewComponent,
+		NotFoundComponent,
+		TaskViewComponent,
+		TaskOptionsComponent,
+		TimestampFormat,
+		CHART_DIRECTIVES
+	],
+	imports: [
+		routing,
+		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule,
+		HttpModule,
+		RouterModule
+	],
+	bootstrap: [
+		AppMainComponent
+	],
+	providers: [
+		GlobalService,
+		JobService,
+		TaskService,
+		ProjectService
+	]
 })
 
 export class AppModule {

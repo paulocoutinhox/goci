@@ -74,8 +74,8 @@ var ProjectListComponent = (function () {
     ProjectListComponent = __decorate([
         core_1.Component({
             selector: 'project-list',
-            templateUrl: 'app/project-list/project-list.component.html',
-            styleUrls: ['app/project-list/project-list.component.css']
+            templateUrl: 'project-list.component.html',
+            styleUrls: ['project-list.component.css']
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService, ProjectService_1.ProjectService, router_1.Router])
     ], ProjectListComponent);

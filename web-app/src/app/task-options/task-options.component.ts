@@ -13,19 +13,19 @@ import {Utils} from "../domain/Utils";
 export class TaskOptionsComponent implements OnInit {
 
 	@Input()
-	private projectId: String;
+	private projectId: string;
 
 	@Input()
-	private projectName: String;
+	private projectName: string;
 
 	@Input()
-	private taskId: String;
+	private taskId: string;
 
 	@Input()
-	private taskName: String;
+	private taskName: string;
 
 	@Input()
-	private taskDescription: String;
+	private taskDescription: string;
 
 	@Input()
 	private options: any;
@@ -59,7 +59,7 @@ export class TaskOptionsComponent implements OnInit {
 		this.taskOptions = [];
 
 		if (this.options != null) {
-			this.options.forEach(option => {
+			this.options.forEach((option: any) => {
 				controlList[option["id"]] = new FormControl(option["value"]);
 
 				this.taskOptions.push(new TaskOption({

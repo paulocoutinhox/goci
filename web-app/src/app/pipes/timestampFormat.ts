@@ -13,7 +13,7 @@ export class TimestampFormat implements PipeTransform {
 		}
 	}
 
-	strPad(pad, str, padLeft) {
+	strPad(pad: string, str: string, padLeft: boolean) {
 		if (typeof str === 'undefined') {
 			return pad;
 		}

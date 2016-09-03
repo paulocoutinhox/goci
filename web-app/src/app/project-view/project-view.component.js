@@ -13,7 +13,6 @@ var ProjectService_1 = require("../services/ProjectService");
 var router_1 = require("@angular/router");
 var Rx_1 = require("rxjs/Rx");
 var TaskService_1 = require("../services/TaskService");
-var task_options_component_1 = require("../task-options/task-options.component");
 var GlobalService_1 = require("../services/GlobalService");
 var ProjectViewComponent = (function () {
     function ProjectViewComponent(globalService, projectService, taskService, router, route) {
@@ -117,11 +116,8 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent = __decorate([
         core_1.Component({
             selector: 'project-view',
-            templateUrl: 'app/project-view/project-view.component.html',
-            styleUrls: ['app/project-view/project-view.component.css'],
-            directives: [
-                task_options_component_1.TaskOptionsComponent
-            ]
+            templateUrl: 'project-view.component.html',
+            styleUrls: ['project-view.component.css']
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService, ProjectService_1.ProjectService, TaskService_1.TaskService, router_1.Router, router_1.ActivatedRoute])
     ], ProjectViewComponent);

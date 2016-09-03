@@ -1,9 +1,9 @@
 export class TaskOption {
 
-	public id: String;
-	public type: String;
-	public description: String;
-	public value: String;
+	public id: string;
+	public type: string;
+	public description: string;
+	public value: string;
 	public values: any;
 
 	constructor(options: {} = {}) {

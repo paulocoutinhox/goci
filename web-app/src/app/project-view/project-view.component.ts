@@ -3,21 +3,17 @@ import {ProjectService} from "../services/ProjectService";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {TaskService} from "../services/TaskService";
-import {TaskOptionsComponent} from "../task-options/task-options.component";
 import {GlobalService} from "../services/GlobalService";
 
 @Component({
 	selector: 'project-view',
 	templateUrl: 'project-view.component.html',
-	styleUrls: ['project-view.component.css'],
-	directives: [
-		TaskOptionsComponent
-	]
+	styleUrls: ['project-view.component.css']
 })
 
 export class ProjectViewComponent implements OnInit {
 
-	private projectId: String;
+	private projectId: string;
 	private project: any;
 
 	private showData: boolean;
@@ -26,11 +22,11 @@ export class ProjectViewComponent implements OnInit {
 	private showLoading: boolean;
 
 	private runTaskOptions: any;
-	private runProjectId: String;
-	private runProjectName: String;
-	private runTaskId: String;
-	private runTaskName: String;
-	private runTaskDescription: String;
+	private runProjectId: string;
+	private runProjectName: string;
+	private runTaskId: string;
+	private runTaskName: string;
+	private runTaskDescription: string;
 	private showTaskOptionsForm: boolean;
 
 	constructor(private globalService: GlobalService, private projectService: ProjectService, private taskService: TaskService, private router: Router, private route: ActivatedRoute) {
@@ -97,11 +93,11 @@ export class ProjectViewComponent implements OnInit {
 		this.project = null;
 	}
 
-	view(projectId, taskId) {
+	view(projectId: string, taskId: string) {
 		this.router.navigate(['/task/view', projectId, taskId]);
 	}
 
-	showTaskOptions(projectId, projectName, taskId, taskName, taskDescription) {
+	showTaskOptions(projectId: string, projectName: string, taskId: string, taskName: string, taskDescription: string) {
 		this.showTaskOptionsForm = false;
 		this.runProjectId = projectId;
 		this.runProjectName = projectName;
@@ -125,16 +121,16 @@ export class ProjectViewComponent implements OnInit {
 			});
 	}
 
-	taskRunWithSuccess($event) {
+	taskRunWithSuccess($event: any) {
 		this.hideAll();
 		this.showData = true;
 	}
 
-	taskRunWithError($event) {
+	taskRunWithError($event: any) {
 
 	}
 
-	taskRunCancel($event) {
+	taskRunCancel($event: any) {
 		this.hideAll();
 		this.showData = true;
 	}

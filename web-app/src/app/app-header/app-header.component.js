@@ -22,8 +22,8 @@ var AppHeaderComponent = (function () {
     AppHeaderComponent = __decorate([
         core_1.Component({
             selector: 'app-header',
-            templateUrl: 'app/app-header/app-header.component.html',
-            styleUrls: ['app/app-header/app-header.component.css']
+            templateUrl: 'app-header.component.html',
+            styleUrls: ['app-header.component.css']
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService])
     ], AppHeaderComponent);

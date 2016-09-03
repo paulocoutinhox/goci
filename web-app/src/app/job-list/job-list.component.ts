@@ -29,7 +29,7 @@ export class JobListComponent implements OnInit {
 	}
 
 	ngOnInit(): any {
-		this.globalService.jobListEmitter.subscribe(value => {
+		this.globalService.jobListEmitter.subscribe((value: any) => {
 			this.jobList = value;
 
 			if (this.jobList == null) {
@@ -142,7 +142,7 @@ export class JobListComponent implements OnInit {
 		this.showError = false;
 	}
 
-	view(projectId, taskId) {
+	view(projectId: string, taskId: string) {
 		this.router.navigate(['/task/view', projectId, taskId]);
 	}
 

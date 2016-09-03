@@ -9,21 +9,21 @@ export class TaskService {
 
 	}
 
-	options(projectId: String, taskId: String) {
+	options(projectId: string, taskId: string) {
 		return this.http.get('/api/task/options?project=' + projectId + '&task=' + taskId)
 			.toPromise()
 			.then(response => response.json())
 			.catch(this.handleError);
 	}
 
-	view(projectId: String, taskId: String) {
+	view(projectId: string, taskId: string) {
 		return this.http.get('/api/task/view?project=' + projectId + '&task=' + taskId)
 			.toPromise()
 			.then(response => response.json())
 			.catch(this.handleError);
 	}
 
-	run(projectId: String, taskId: String, options: any) {
+	run(projectId: string, taskId: string, options: any) {
 		let headers:Headers = new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded'
 		});

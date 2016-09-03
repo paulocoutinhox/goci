@@ -112,8 +112,8 @@ var TaskOptionsComponent = (function () {
     TaskOptionsComponent = __decorate([
         core_1.Component({
             selector: 'task-options',
-            templateUrl: 'app/task-options/task-options.component.html',
-            styleUrls: ['app/task-options/task-options.component.css']
+            templateUrl: 'task-options.component.html',
+            styleUrls: ['task-options.component.css']
         }), 
         __metadata('design:paramtypes', [TaskService_1.TaskService])
     ], TaskOptionsComponent);

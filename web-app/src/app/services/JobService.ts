@@ -16,7 +16,7 @@ export class JobService {
 			.catch(this.handleError);
 	}
 
-	last(projectId: String, taskId: String) {
+	last(projectId: string, taskId: string) {
 		return this.http.get('/api/job/last?project=' + projectId + '&task=' + taskId)
 			.toPromise()
 			.then(response => response.json())

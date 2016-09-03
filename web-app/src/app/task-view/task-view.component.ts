@@ -15,8 +15,8 @@ import {GlobalService} from "../services/GlobalService";
 
 export class TaskViewComponent implements OnInit {
 
-	private projectId: String;
-	private taskId: String;
+	private projectId: string;
+	private taskId: string;
 	private project: any;
 	private task: any;
 	private lastJob: any;
@@ -34,14 +34,14 @@ export class TaskViewComponent implements OnInit {
 	private showTaskOptionsForm: boolean;
 
 	private runTaskOptions: any;
-	private runProjectId: String;
-	private runProjectName: String;
-	private runTaskId: String;
-	private runTaskName: String;
-	private runTaskDescription: String;
+	private runProjectId: string;
+	private runProjectName: string;
+	private runTaskId: string;
+	private runTaskName: string;
+	private runTaskDescription: string;
 
 	private outputGroupList: Array<OutputGroup>;
-	private lastJobId: String;
+	private lastJobId: string;
 
 	constructor(private globalService: GlobalService, private taskService: TaskService, private jobService: JobService, private router: Router, private route: ActivatedRoute) {
 
@@ -125,11 +125,11 @@ export class TaskViewComponent implements OnInit {
 		this.lastJob = null;
 	}
 
-	view(projectId, taskId) {
+	view(projectId: string, taskId: string) {
 		this.router.navigate(['/task/view', projectId, taskId]);
 	}
 
-	showTaskOptions(projectId, projectName, taskId, taskName, taskDescription) {
+	showTaskOptions(projectId: string, projectName: string, taskId: string, taskName: string, taskDescription: string) {
 		this.showTaskOptionsForm = false;
 		this.runProjectId = projectId;
 		this.runProjectName = projectName;
@@ -153,16 +153,16 @@ export class TaskViewComponent implements OnInit {
 			});
 	}
 
-	taskRunWithSuccess($event) {
+	taskRunWithSuccess($event: any) {
 		this.hideAll();
 		this.showData = true;
 	}
 
-	taskRunWithError($event) {
+	taskRunWithError($event: any) {
 
 	}
 
-	taskRunCancel($event) {
+	taskRunCancel($event: any) {
 		this.hideAll();
 		this.showData = true;
 	}

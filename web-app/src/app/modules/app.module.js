@@ -29,6 +29,7 @@ var ProjectService_1 = require("../services/ProjectService");
 var task_view_component_1 = require("../task-view/task-view.component");
 var timestampFormat_1 = require("../pipes/timestampFormat");
 var ng2_charts_1 = require("ng2-charts/ng2-charts");
+var task_options_component_1 = require("../task-options/task-options.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -44,6 +45,7 @@ var AppModule = (function () {
                 project_view_component_1.ProjectViewComponent,
                 not_found_component_1.NotFoundComponent,
                 task_view_component_1.TaskViewComponent,
+                task_options_component_1.TaskOptionsComponent,
                 timestampFormat_1.TimestampFormat,
                 ng2_charts_1.CHART_DIRECTIVES
             ],

@@ -130,8 +130,8 @@ var JobListComponent = (function () {
     JobListComponent = __decorate([
         core_1.Component({
             selector: 'job-list',
-            templateUrl: 'app/job-list/job-list.component.html',
-            styleUrls: ['app/job-list/job-list.component.css']
+            templateUrl: 'job-list.component.html',
+            styleUrls: ['job-list.component.css']
         }), 
         __metadata('design:paramtypes', [GlobalService_1.GlobalService, router_1.Router])
     ], JobListComponent);
