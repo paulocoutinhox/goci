@@ -284,7 +284,17 @@ func (This *APIController) APIJobRunningList(c *gin.Context) {
 		}
 	}
 
-	jobs, err := jobs.JobGetAllByProjectIdAndTaskId(projectId, taskId, domain.JOB_STATUS_RUNNING)
+	runningJobs, err := jobs.JobGetAllByProjectIdAndTaskId(projectId, taskId, domain.JOB_STATUS_RUNNING)
+
+	if err != nil {
+		response.Success = false
+		response.Message = "error"
+		response.AddDataError("error", err.Error())
+		c.JSON(200, response)
+		return
+	}
+
+	allJobs, err := jobs.JobGetAllByProjectIdAndTaskId(projectId, taskId, "")
 
 	if err != nil {
 		response.Success = false
@@ -296,8 +306,8 @@ func (This *APIController) APIJobRunningList(c *gin.Context) {
 
 	response.Success = true
 	response.Message = ""
-	response.AddData("jobs", jobs)
-	response.AddData("count", len(jobs))
+	response.AddData("jobs", allJobs)
+	response.AddData("count", len(runningJobs))
 
 	c.JSON(200, response)
 }

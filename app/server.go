@@ -6,8 +6,10 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/contrib/static"
 	"github.com/go-ini/ini"
 	"github.com/prsolucoes/goci/models/integration"
+	"github.com/prsolucoes/goci/assets"
 )
 
 type WebServer struct {
@@ -39,8 +41,29 @@ func NewWebServer() *WebServer {
 }
 
 func (This *WebServer) CreateBasicRoutes() {
-	This.Router.Static("/static", This.ResourcesDir+"/static")
+	This.Router.NoRoute(This.RouteGeneral)
+
+	if This.UseInMemoryResources {
+		This.Router.Use(static.Serve("/web-app", BinaryFileSystem("resources/web-app")))
+	} else {
+		This.Router.Static("/web-app", This.ResourcesDir + "/web-app")
+	}
+
 	log.Println("Router creation : OK")
+}
+
+func (This *WebServer) RouteGeneral(c *gin.Context) {
+	if This.UseInMemoryResources {
+		data, err := assets.Asset("resources/web-app/index.html")
+
+		if err != nil {
+			// asset was not found.
+		}
+
+		c.Data(200, "text/html", data)
+	} else {
+		c.File(This.ResourcesDir + "/web-app/index.html")
+	}
 }
 
 func (This *WebServer) LoadConfiguration() {
