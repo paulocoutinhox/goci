@@ -10,6 +10,7 @@ import (
 	"github.com/go-ini/ini"
 	"github.com/prsolucoes/goci/models/integration"
 	"github.com/prsolucoes/goci/assets"
+	"github.com/gin-gonic/contrib/gzip"
 )
 
 type WebServer struct {
@@ -32,6 +33,8 @@ func NewWebServer() *WebServer {
 	gin.SetMode(gin.ReleaseMode)
 	server.Router = gin.New()
 	server.Router.Use(gin.Recovery())
+	server.Router.Use(gzip.Gzip(gzip.DefaultCompression))
+
 
 	server.UseInMemoryResources = true
 

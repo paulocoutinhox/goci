@@ -62,6 +62,7 @@ deps:
 	${GODEPS} github.com/bluele/slack
 	${GODEPS} github.com/gin-gonic/contrib/static
 	${GODEPS} github.com/elazarl/go-bindata-assetfs
+	${GODEPS} github.com/gin-gonic/contrib/gzip
 
 stop:
 	pkill -f ${EXECUTABLE}
