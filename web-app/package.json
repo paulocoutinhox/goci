@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"scripts": {
-		"start": "webpack-dev-server --config webpack.dev.config.js --progress --colors --watch --port 9000",
+		"start": "webpack-dev-server --config webpack.dev.config.js --progress --colors --hot --inline --port 9000",
 		"postinstall": "typings install",
 		"tsc": "tsc",
 		"tsc:w": "tsc -w",
