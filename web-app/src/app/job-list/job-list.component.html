@@ -13,7 +13,9 @@
 		<div id="data" *ngIf="showData">
 			<div id="job-list" class="list-group">
 				<div *ngFor="let job of jobList" id="job-row-{{job.id}}" class="job-row list-group-item">
-					<h4 class="list-group-item-heading">{{job.task.name}}</h4>
+					<h4 class="list-group-item-heading">
+						<a href="javascript:void(0);" (click)="view(job.projectId, job.taskId)">{{job.task.name}}</a>
+					</h4>
 					<div class="list-group-item-text">
 						<div>
 							<strong>Job: </strong> {{job.id}}
@@ -81,7 +83,7 @@
 				<div class="panel-body">
 					<h3>Problem while loading job list</h3>
 					<p id="error-data-message"></p>
-					<button type="button" class="btn btn-primary" onclick="load();">Try again</button>
+					<button type="button" class="btn btn-primary" (click)="load()">Try again</button>
 				</div>
 			</div>
 		</div>

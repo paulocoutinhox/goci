@@ -30,7 +30,7 @@ var task_view_component_1 = require("../task-view/task-view.component");
 var timestampFormat_1 = require("../pipes/timestampFormat");
 var ng2_charts_1 = require("ng2-charts/ng2-charts");
 var task_options_component_1 = require("../task-options/task-options.component");
-toastr.options = { timeOut: 5000, progressBar: true, hideDuration: 300 };
+toastr.options = { timeOut: 5000, progressBar: true, hideDuration: 300, positionClass: 'toast-top-center' };
 var AppModule = (function () {
     function AppModule() {
     }

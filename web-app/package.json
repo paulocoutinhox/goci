@@ -3,15 +3,15 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"scripts": {
-		"start": "webpack-dev-server --config webpack.dev.config.js --progress --colors --hot --inline --port 9000",
+		"start": "webpack-dev-server --config webpack.dev.config.js --progress --colors --hot --inline --host 0.0.0.0 --port 9000",
 		"postinstall": "typings install",
 		"tsc": "tsc",
 		"tsc:w": "tsc -w",
 		"typings": "typings",
 		"webpack": "webpack --config webpack.dev.config.js --progress --colors",
-		"webpack-dev-server": "webpack-dev-server --config webpack.dev.config.js --progress --colors",
+		"webpack-dev-server": "webpack-dev-server --config webpack.dev.config.js --progress --colors --host 0.0.0.0",
 		"webpack-watch": "webpack --config webpack.dev.config.js --progress --colors --watch",
-		"webpack-watch-dev": "webpack-dev-server --config webpack.dev.config.js --progress --colors --watch",
+		"webpack-watch-dev": "webpack-dev-server --config webpack.dev.config.js --progress --colors --watch --host 0.0.0.0",
 		"build": "webpack --config webpack.prod.config.js --progress --profile --bail && rm -rf ../resources/web-app && cp -r dist ../resources/web-app"
 	},
 	"private": true,
