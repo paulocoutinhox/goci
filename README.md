@@ -32,7 +32,7 @@ GoCI uses a simple plugin system that let you use some different ways to execute
 
 Before start:
   
-- Workspace in GoCI is any directory and is inside workspace directory that your projects and logs will be store. When start GoCI it will create inside our workspace some other folders automatically.  
+- Workspace in GoCI is any directory and is inside workspace directory that your projects and logs will be store. When start GoCI it will create inside our workspace some other folders automatically. Replace YOUR-WORKSPACE-DIRECTORY with your workspace directory.  
 - You need only a project file (JSON) and a configuration file (INI).
 
 Start now:
