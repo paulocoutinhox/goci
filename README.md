@@ -1,6 +1,3 @@
-# Support with donation
-[![Support with donation](http://donation.pcoutinho.com/images/donate-button.png)](http://donation.pcoutinho.com/)
-
 # GoCI
 
 GoCI was made to be a simple and generic continuous integration system made with Go (Golang).
@@ -119,6 +116,9 @@ Today, only some functions are implemented in javascript integration. If you nee
 # Author WebSite
 
 > http://www.pcoutinho.com
+
+# Support with donation
+[![Support with donation](http://donation.pcoutinho.com/images/donate-button.png)](http://donation.pcoutinho.com/)
 
 # License
 
