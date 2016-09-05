@@ -88,8 +88,8 @@ workspaceDir = YOUR-WORKSPACE-DIRECTORY
 }
 ```
 
-3 - Execute from terminal: goci -f config.ini
-4 - Open in your browser: http://localhost:8080
+3 - Execute from terminal: goci -f config.ini  
+4 - Open in your browser: http://localhost:8080  
 
 # More samples
 
