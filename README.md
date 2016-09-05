@@ -11,7 +11,7 @@ GoCI uses a simple plugin system that let you use some different ways to execute
   
 # Project Architecture
   
-![Architecture](https://github.com/prsolucoes/goci/raw/master/extras/images/architecture.png "Architecture")
+![Architecture](https://github.com/prsolucoes/goci/raw/master/extras/images/architecture.png?rnd=20160905 "Architecture")
   
 # Why GoCI? Why a new tool?
 - Small memory usage, only 10MB
