@@ -30,11 +30,14 @@ GoCI uses a simple plugin system that let you use some different ways to execute
 
 # Get started
 
-Before start:  
+Before start:
+  
 - Workspace in GoCI is any directory and is inside workspace directory that your projects and logs will be store. When start GoCI it will create inside our workspace some other folders automatically.  
 - You need only a project file (JSON) and a configuration file (INI).
 
-1. Configuration file:
+Start now:
+
+1 - Create a configuration file (config.ini):
 
 ```
 [server]
@@ -42,7 +45,7 @@ host = localhost:8080
 workspaceDir = YOUR-WORKSPACE-DIRECTORY
 ```
 
-2. Project file (YOUR-WORKSPACE-DIRECTORY/projects/sample.json):
+2 - Create project file (YOUR-WORKSPACE-DIRECTORY/projects/sample.json):
 
 ```json
 {
@@ -85,8 +88,8 @@ workspaceDir = YOUR-WORKSPACE-DIRECTORY
 }
 ```
 
-3. Execute from terminal: goci -f config.ini
-4. Open in your browser: http://localhost:8080
+3 - Execute from terminal: goci -f config.ini
+4 - Open in your browser: http://localhost:8080
 
 # More samples
 
