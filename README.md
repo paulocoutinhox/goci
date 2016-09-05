@@ -3,57 +3,107 @@
 
 # GoCI
 
-GoCI was made to be a simple continuous integration system made with Go (Golang).
+GoCI was made to be a simple and generic continuous integration system made with Go (Golang).
 
-It use a simple plugin mechanism that let you use some different plugins to execute tasks. Today we have two main plugins:  
-- CLI = Execute anything from command line  
-- JS = Execute a javascript file
+GoCI uses a simple plugin system that let you use some different ways to execute tasks. Today we have two plugins:  
+- CLI = Execute anything from command line interface (CLI).
+- JS = Execute a javascript file that can have any logic, CLI execution, etc.
   
-Some project advantages:
-- With javascript you can create scripts that have own logic inside and use bultin function like: http request, regexp, command line execution, json parser and more - dont need use bash script for it
-- Everything is a simples JSON file - yes, you dont need a database!
-- From project to result log - you can versioning everything if you want
-- You dont need reload the server for nothing - unless a crash or bug :)
-- GoCI use a workspace directory, so you can have a lot of workspaces or one for all projects
-- The web interface if nice - made with bootstrap - all results need send HTML
-- Each job execution has progress, html ouput compatible with bootstrap, status, etc
-- Everything work with API and you can consume using external tools
-- You can define task options to be selected in a modal dialog when you RUN (see the screenshot or sample JS task to see it in action)
-- Native integrations to be called from your JS task file (SendGrid, Slack, PushBullet and more), check sample task file "task-integration-test.js"
-- It is open-source - you can collaborate
+# Project Architecture
+  
+![Architecture](extras/images/architecture.png "Architecture")
+  
+# Why GoCI? Why a new tool?
+- Small memory usage, only 10MB
+- You can call your existing CLI script (bash file, sh file, BAT file) using CLI plugin
+- You can call a javascript file with your own logic, calling external programs and updating web interface in real time
+- The GoCI project is a simple JSON file - you dont need a database and you can put on Git
+- All execution log are a json file too, you can put all in Git or ignore it
+- You dont need reload the server to create new projects or tasks, when change the project file, click on Refresh button from GoCI web interface
+- The web interface is clean, perfect and mobile ready, you can use desktop, smartphone or tablet to use GoCI
+- All tasks uses HTML to show the results on web interface (GoCI uses bootstrap)
+- GoCI expose all in API model, so you can consume using your own external tools if need
+- Your tasks can have options to be typed/selected in a modal dialog when you run it
+- Built-in native integrations to be called from your javascript file (SendGrid, Slack, PushBullet and more), check sample task file "task-integration-test.js"
+- It is open-source, so you can collaborate too
 - You can DONATE!
 
-# Configuration
+# Get started
 
-GoCI configuration is a simple INI file called "config.ini".
+Before start:  
+- Workspace in GoCI is any directory and is inside workspace directory that your projects and logs will be store. When start GoCI it will create inside our workspace some other folders automatically.  
+- You need only a project file (JSON) and a configuration file (INI).
 
-Example of:
+1. Configuration file:
 
 ```
 [server]
-host = :8080
+host = localhost:8080
 workspaceDir = YOUR-WORKSPACE-DIRECTORY
-useInMemoryResources = 1
-resourcesDir = YOUR-GOPATH-DIRECTORY + /src/github.com/prsolucoes/goci
 ```
 
-* You dont need "resourcesDir" if you are using "useInMemoryResources", because all resources files is loaded from memory and not from disk. 
+2. Project file (YOUR-WORKSPACE-DIRECTORY/projects/sample.json):
 
-# Sample files
+```json
+{
+	"id": "my-project",
+	"name": "My Project",
+	"description": "My awesome project",
+	"tasks": [
+		{
+			"id": "task-test-cli",
+			"name": "Get IFCONFIG data",
+			"description": "Get IFCONFIG data from command line",
+			"steps": [
+				{
+					"description": "Test of CLI call",
+					"plugin": "cli",
+					"options": [
+						{
+							"id": "working-dir",
+							"description": "The project root directory",
+							"type": "text",
+							"value": "/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci"
+						},
+						{
+							"id": "command",
+							"description": "The main command",
+							"type": "text",
+							"value": "ifconfig"
+						},
+						{
+							"id": "param",
+							"description": "The params of process getter",
+							"type": "text",
+							"value": "-a"
+						}
+					]
+				}
+			]
+		}
+	]
+}
+```
 
-I have created a sample project file, a sample config file and a sample javascript file. Check it on **extras/sample** directory.
+3. Execute from terminal: goci -f config.ini
+4. Open in your browser: http://localhost:8080
 
-# Starting
+# More samples
+
+GoCI come with all functions, project options, integrations and capabilities inside "**extras/samples**" directory. Check it for more information and javscript task.
+
+# Downloading and installing
+
+If you dont want install Go (golang), you can get GoCI compiled directory from this repository inside folder "build".  
+
+If you have Go (golang) installed, follow this steps:  
 
 1. Execute: go get -u github.com/prsolucoes/goci  
 2. Execute: cd $GOPATH/src/github.com/prsolucoes/goci  
 3. Execute: make deps  
 4. Execute: make install  
-5. Create config file (config.ini) based on some above example  
-6. Execute: goci -f=config.ini
-7. Open in your browser: http://localhost:8080  
 
-** dont use character / on any configuration path **
+** Dont use the character **/** on end of any configuration path **
 
 # API
 
@@ -70,14 +120,16 @@ You can use some make commands to control GoCI service, like start, stop and upd
 4. make format = format all files (use it before make a pull-request)
 5. make generate-assets = generate all assets from resources folder to load in-memory resources assets (js, css, images, ...)
 
-So if you want start your server for example, you only need call "make start".
-
 # Alternative method to Build and Start project
 
 1. go build
-2. ./goci -f=config.ini
+2. ./goci -f extras/sample/config.ini
 
-# Task options
+or
+
+1. go run -f extras/sample/config.ini
+
+# Task options for web interface
 
 Today we support this types of fields for task option:  
   
@@ -97,9 +149,9 @@ Today we support this integrations:
 3. HttpGet (call any URL using GET method)
 4. SlackWebHook (send message using web hook to Slack)
 
-# Sugestion
+# Sugestions
 
-Today, only some functions are implemented. If you need one, you can make a pull-request or send a message in Github Issue.
+Today, only some functions are implemented in javascript integration. If you need one, you can make a pull-request or send a message in Github Issue.
 
 # Supported By Jetbrains IntelliJ IDEA
 
