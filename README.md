@@ -66,7 +66,7 @@ workspaceDir = YOUR-WORKSPACE-DIRECTORY
 							"id": "working-dir",
 							"description": "The project root directory",
 							"type": "text",
-							"value": "/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci"
+							"value": "YOUR-WORKSPACE-DIRECTORY"
 						},
 						{
 							"id": "command",
