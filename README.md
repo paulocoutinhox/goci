@@ -117,12 +117,12 @@ Today, only some functions are implemented in javascript integration. If you nee
 
 > http://www.pcoutinho.com
 
-# Support with donation
-[![Support with donation](http://donation.pcoutinho.com/images/donate-button.png)](http://donation.pcoutinho.com/)
-
 # License
 
 MIT
+
+# Support with donation
+[![Support with donation](http://donation.pcoutinho.com/images/donate-button.png)](http://donation.pcoutinho.com/)
 
 # Screenshots
 
