@@ -32,8 +32,7 @@ GoCI uses a simple plugin system that let you use some different ways to execute
 
 Before start:
   
-- Workspace in GoCI is any directory and is inside workspace directory that your projects and logs will be store. When start GoCI it will create inside our workspace some other folders automatically. Replace YOUR-WORKSPACE-DIRECTORY with your workspace directory.  
-- You need only a project file (JSON) and a configuration file (INI).
+- Workspace in GoCI is any directory and is inside workspace directory that your projects and logs will be store. When start GoCI it will create inside our workspace some other folders automatically.  
 
 Start now:
 
@@ -42,50 +41,7 @@ Start now:
 ```
 [server]
 host = localhost:8080
-workspaceDir = YOUR-WORKSPACE-DIRECTORY
-```
-
-2 - Create project file (YOUR-WORKSPACE-DIRECTORY/projects/sample.json):
-
-```json
-{
-	"id": "my-project",
-	"name": "My Project",
-	"description": "My awesome project",
-	"tasks": [
-		{
-			"id": "task-test-cli",
-			"name": "Get IFCONFIG data",
-			"description": "Get IFCONFIG data from command line",
-			"steps": [
-				{
-					"description": "Test of CLI call",
-					"plugin": "cli",
-					"options": [
-						{
-							"id": "working-dir",
-							"description": "The project root directory",
-							"type": "text",
-							"value": "YOUR-WORKSPACE-DIRECTORY"
-						},
-						{
-							"id": "command",
-							"description": "The main command",
-							"type": "text",
-							"value": "ifconfig"
-						},
-						{
-							"id": "param",
-							"description": "The params of process getter",
-							"type": "text",
-							"value": "-a"
-						}
-					]
-				}
-			]
-		}
-	]
-}
+workspaceDir = YOUR-GOPATH-DIRECTORY/src/github.com/prsolucoes/goci/extras/sample
 ```
 
 3 - Execute from terminal: goci -f config.ini  
