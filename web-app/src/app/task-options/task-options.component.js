@@ -54,13 +54,13 @@ var TaskOptionsComponent = (function () {
         var formData = Utils_1.Utils.formValuesEncoded(formValues);
         formData += "&project=" + this.projectId + "&task=" + this.taskId;
         this.taskService.run(formData)
-            .then(function (response) {
-            if (response != null && response.success == true) {
+            .then(function (wr) {
+            if (wr.success) {
                 toastr.success("Your task was added to queue with success!");
                 _this.taskRunWithSuccess.emit();
             }
             else {
-                toastr.error(response.data.errors[0][1]);
+                toastr.error(Utils_1.Utils.getFirstErrorMessage(wr));
                 _this.taskRunWithError.emit();
             }
         })

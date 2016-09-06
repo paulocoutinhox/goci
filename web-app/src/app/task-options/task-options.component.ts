@@ -3,6 +3,7 @@ import {TaskService} from "../services/TaskService";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Utils} from "../models/Utils";
 import {ProjectTaskOption} from "../models/ProjectTaskOption";
+import {WebResponse} from "../models/WebResponse";
 
 @Component({
 	selector: 'task-options',
@@ -89,12 +90,12 @@ export class TaskOptionsComponent implements OnInit, AfterViewInit {
 		formData += `&project=${this.projectId}&task=${this.taskId}`;
 
 		this.taskService.run(formData)
-			.then((response: any) => {
-				if (response != null && response.success == true) {
+			.then((wr: WebResponse) => {
+				if (wr.success) {
 					toastr.success("Your task was added to queue with success!");
 					this.taskRunWithSuccess.emit();
 				} else {
-					toastr.error(response.data.errors[0][1]);
+					toastr.error(Utils.getFirstErrorMessage(wr));
 					this.taskRunWithError.emit();
 				}
 			})

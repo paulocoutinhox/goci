@@ -5,12 +5,12 @@ import {TaskService} from "../services/TaskService";
 import {JobService} from "../services/JobService";
 import {Utils} from "../models/Utils";
 import {GlobalService} from "../services/GlobalService";
-import {TaskViewResult} from "../models/TaskViewResult";
 import {ProjectTaskOption} from "../models/ProjectTaskOption";
 import {Job} from "../models/Job";
 import {Project} from "../models/Project";
 import {ProjectTask} from "../models/ProjectTask";
 import {JobOutputGroup} from "../models/JobOutputGroup";
+import {WebResponse} from "../models/WebResponse";
 
 @Component({
 	selector: 'task-view',
@@ -77,10 +77,10 @@ export class TaskViewComponent implements OnInit {
 
 	getData() {
 		this.taskService.view(this.projectId, this.taskId)
-			.then((result: TaskViewResult) => {
-				if (result) {
-					this.project = result.project
-					this.task = result.task;
+			.then((wr: WebResponse) => {
+				if (wr.success) {
+					this.project = wr.data['project'];
+					this.task = wr.data['task'];
 
 					this.hideAll();
 
@@ -143,10 +143,9 @@ export class TaskViewComponent implements OnInit {
 		this.runTaskOptions = null;
 
 		this.taskService.options(projectId, taskId)
-			.then((options: ProjectTaskOption[]) => {
-				if (options != null) {
-					this.hideAll();
-					this.runTaskOptions = options;
+			.then((wr: WebResponse) => {
+				if (wr.success != null) {
+					this.runTaskOptions = wr.data['options'];
 					this.showTaskOptionsForm = true;
 				} else {
 					toastr.error('Error when get task options, try again');
@@ -163,7 +162,8 @@ export class TaskViewComponent implements OnInit {
 	}
 
 	taskRunWithError($event: any) {
-
+		this.hideAll();
+		this.showData = true;
 	}
 
 	taskRunCancel($event: any) {
@@ -173,73 +173,74 @@ export class TaskViewComponent implements OnInit {
 
 	getLastJobData() {
 		this.jobService.last(this.projectId, this.taskId)
-			.then((job: Job) => {
-					if (job) {
-						this.lastJob = job;
+			.then((wr: WebResponse) => {
+				var job: Job = wr.data['job'];
 
-						if (this.lastJob.id != this.lastJobId) {
-							this.lastJobId = this.lastJob.id;
-							this.jobOutputGroupList = [];
-						}
+				if (job) {
+					this.lastJob = job;
 
-						let newOutputGroupList: JobOutputGroup[] = this.lastJob.outputGroup;
-						let activeTabId = "console";
+					if (this.lastJob.id != this.lastJobId) {
+						this.lastJobId = this.lastJob.id;
+						this.jobOutputGroupList = [];
+					}
 
-						// add new tabs
-						if (newOutputGroupList) {
-							for (let newOutputGroupKey in newOutputGroupList) {
-								let newOutputGroup = newOutputGroupList[newOutputGroupKey];
-								let hasOutputGroup = false;
+					let newOutputGroupList: JobOutputGroup[] = this.lastJob.outputGroup;
+					let activeTabId = "console";
 
-								for (let outputGroupKey in this.jobOutputGroupList) {
-									let outputGroup = this.jobOutputGroupList[outputGroupKey];
+					// add new tabs
+					if (newOutputGroupList) {
+						for (let newOutputGroupKey in newOutputGroupList) {
+							let newOutputGroup = newOutputGroupList[newOutputGroupKey];
+							let hasOutputGroup = false;
 
-									if (outputGroup.name == newOutputGroup.name) {
-										hasOutputGroup = true;
+							for (let outputGroupKey in this.jobOutputGroupList) {
+								let outputGroup = this.jobOutputGroupList[outputGroupKey];
 
-										if (outputGroup.updatedAt != newOutputGroup.updatedAt) {
-											outputGroup.updatedAt = newOutputGroup.updatedAt;
-											outputGroup.output = newOutputGroup.output;
-										}
+								if (outputGroup.name == newOutputGroup.name) {
+									hasOutputGroup = true;
+
+									if (outputGroup.updatedAt != newOutputGroup.updatedAt) {
+										outputGroup.updatedAt = newOutputGroup.updatedAt;
+										outputGroup.output = newOutputGroup.output;
 									}
 								}
+							}
 
-								if (!hasOutputGroup) {
-									let jobOutputGroup = new JobOutputGroup();
+							if (!hasOutputGroup) {
+								let jobOutputGroup = new JobOutputGroup();
 
-									jobOutputGroup.id = Utils.slugify(newOutputGroup.name);
-									jobOutputGroup.name = newOutputGroup.name;
-									jobOutputGroup.output = newOutputGroup.output;
-									jobOutputGroup.updatedAt = newOutputGroup.updatedAt;
+								jobOutputGroup.id = Utils.slugify(newOutputGroup.name);
+								jobOutputGroup.name = newOutputGroup.name;
+								jobOutputGroup.output = newOutputGroup.output;
+								jobOutputGroup.updatedAt = newOutputGroup.updatedAt;
 
-									this.jobOutputGroupList.push(jobOutputGroup);
-								}
+								this.jobOutputGroupList.push(jobOutputGroup);
 							}
 						}
-
-						// select tab
-						for (let outputGroupKey in this.jobOutputGroupList) {
-							let outputGroup = this.jobOutputGroupList[outputGroupKey];
-
-							if (outputGroup.id == activeTabId) {
-								outputGroup.active = true;
-							} else {
-								outputGroup.active = false;
-							}
-						}
-
-						this.hideAllForLastJob();
-
-						if (this.lastJob != null) {
-							this.showLastJobData = true;
-						} else {
-							this.showLastJobEmptyData = true;
-						}
-					} else {
-						this.onErrorForLastJob();
 					}
+
+					// select tab
+					for (let outputGroupKey in this.jobOutputGroupList) {
+						let outputGroup = this.jobOutputGroupList[outputGroupKey];
+
+						if (outputGroup.id == activeTabId) {
+							outputGroup.active = true;
+						} else {
+							outputGroup.active = false;
+						}
+					}
+
+					this.hideAllForLastJob();
+
+					if (this.lastJob != null) {
+						this.showLastJobData = true;
+					} else {
+						this.showLastJobEmptyData = true;
+					}
+				} else {
+					this.onErrorForLastJob();
 				}
-			)
+			})
 			.catch(() => {
 				this.onErrorForLastJob();
 			});

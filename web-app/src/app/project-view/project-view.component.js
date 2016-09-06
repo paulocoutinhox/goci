@@ -45,7 +45,8 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent.prototype.getData = function () {
         var _this = this;
         this.projectService.view(this.projectId)
-            .then(function (project) {
+            .then(function (wr) {
+            var project = wr.data['project'];
             if (project) {
                 _this.project = project;
                 _this.hideAll();
@@ -89,9 +90,14 @@ var ProjectViewComponent = (function () {
         this.runTaskDescription = task.description;
         this.runTaskOptions = null;
         this.taskService.options(this.project.id, task.id)
-            .then(function (options) {
-            _this.runTaskOptions = options;
-            _this.showTaskOptionsForm = true;
+            .then(function (wr) {
+            if (wr.success != null) {
+                _this.runTaskOptions = wr.data['options'];
+                _this.showTaskOptionsForm = true;
+            }
+            else {
+                toastr.error('Error when get task options, try again');
+            }
         })
             .catch(function (error) {
             toastr.error(error);
@@ -102,6 +108,8 @@ var ProjectViewComponent = (function () {
         this.showData = true;
     };
     ProjectViewComponent.prototype.taskRunWithError = function ($event) {
+        this.hideAll();
+        this.showData = true;
     };
     ProjectViewComponent.prototype.taskRunCancel = function ($event) {
         this.hideAll();

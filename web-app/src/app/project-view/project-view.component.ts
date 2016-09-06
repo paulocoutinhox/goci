@@ -7,6 +7,7 @@ import {GlobalService} from "../services/GlobalService";
 import {Project} from "../models/Project";
 import {Job} from "../models/Job";
 import {ProjectTask} from "../models/ProjectTask";
+import {WebResponse} from "../models/WebResponse";
 import {ProjectTaskOption} from "../models/ProjectTaskOption";
 
 @Component({
@@ -64,7 +65,9 @@ export class ProjectViewComponent implements OnInit {
 
 	getData() {
 		this.projectService.view(this.projectId)
-			.then((project: Project) => {
+			.then((wr: WebResponse) => {
+				var project: Project = wr.data['project'];
+
 				if (project) {
 					this.project = project;
 
@@ -112,9 +115,13 @@ export class ProjectViewComponent implements OnInit {
 		this.runTaskOptions = null;
 
 		this.taskService.options(this.project.id, task.id)
-			.then((options: ProjectTaskOption[]) => {
-				this.runTaskOptions = options;
-				this.showTaskOptionsForm = true;
+			.then((wr: WebResponse) => {
+				if (wr.success != null) {
+					this.runTaskOptions = wr.data['options'];
+					this.showTaskOptionsForm = true;
+				} else {
+					toastr.error('Error when get task options, try again');
+				}
 			})
 			.catch(error => {
 				toastr.error(error);
@@ -127,7 +134,8 @@ export class ProjectViewComponent implements OnInit {
 	}
 
 	taskRunWithError($event: any) {
-
+		this.hideAll();
+		this.showData = true;
 	}
 
 	taskRunCancel($event: any) {

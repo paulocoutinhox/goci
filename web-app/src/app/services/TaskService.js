@@ -18,13 +18,22 @@ var TaskService = (function () {
     TaskService.prototype.options = function (projectId, taskId) {
         return this.http.get('/api/task/options?project=' + projectId + '&task=' + taskId)
             .toPromise()
-            .then(function (response) { return response.json().data.options; })
+            .then(function (response) {
+            var wr = response.json();
+            wr.data['options'] = wr.data['options'];
+            return wr;
+        })
             .catch(this.handleError);
     };
     TaskService.prototype.view = function (projectId, taskId) {
         return this.http.get('/api/task/view?project=' + projectId + '&task=' + taskId)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) {
+            var wr = response.json();
+            wr.data['project'] = wr.data['project'];
+            wr.data['task'] = wr.data['task'];
+            return wr;
+        })
             .catch(this.handleError);
     };
     TaskService.prototype.run = function (formData) {
@@ -33,7 +42,9 @@ var TaskService = (function () {
         });
         return this.http.post('/api/task/run', formData, { headers: headers })
             .toPromise()
-            .then(function (response) { return response.json(); })
+            .then(function (response) {
+            return response.json();
+        })
             .catch(this.handleError);
     };
     TaskService.prototype.handleError = function (error) {

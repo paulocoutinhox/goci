@@ -35,7 +35,8 @@ var ProjectListComponent = (function () {
     ProjectListComponent.prototype.getData = function () {
         var _this = this;
         this.projectService.list()
-            .then(function (projectList) {
+            .then(function (wr) {
+            var projectList = wr.data['list'];
             if (projectList) {
                 _this.projectList = projectList;
                 _this.hideAll();

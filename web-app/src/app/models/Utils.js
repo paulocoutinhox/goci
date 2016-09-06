@@ -25,6 +25,12 @@ var Utils = (function () {
             .replace(/^-+/, '') // Trim - from start of text
             .replace(/-+$/, ''); // Trim - from end of text
     };
+    Utils.getFirstErrorMessage = function (wr) {
+        if (wr != null && wr.data != null && wr.data['errors'] != null && wr.data['errors'].length > 0) {
+            return wr.data['errors'][0][1];
+        }
+        return null;
+    };
     return Utils;
 }());
 exports.Utils = Utils;

@@ -47,10 +47,10 @@ var TaskViewComponent = (function () {
     TaskViewComponent.prototype.getData = function () {
         var _this = this;
         this.taskService.view(this.projectId, this.taskId)
-            .then(function (result) {
-            if (result) {
-                _this.project = result.project;
-                _this.task = result.task;
+            .then(function (wr) {
+            if (wr.success) {
+                _this.project = wr.data['project'];
+                _this.task = wr.data['task'];
                 _this.hideAll();
                 if (_this.project != null && _this.task != null) {
                     _this.showData = true;
@@ -106,10 +106,9 @@ var TaskViewComponent = (function () {
         this.runTaskDescription = taskDescription;
         this.runTaskOptions = null;
         this.taskService.options(projectId, taskId)
-            .then(function (options) {
-            if (options != null) {
-                _this.hideAll();
-                _this.runTaskOptions = options;
+            .then(function (wr) {
+            if (wr.success != null) {
+                _this.runTaskOptions = wr.data['options'];
                 _this.showTaskOptionsForm = true;
             }
             else {
@@ -125,6 +124,8 @@ var TaskViewComponent = (function () {
         this.showData = true;
     };
     TaskViewComponent.prototype.taskRunWithError = function ($event) {
+        this.hideAll();
+        this.showData = true;
     };
     TaskViewComponent.prototype.taskRunCancel = function ($event) {
         this.hideAll();
@@ -133,7 +134,8 @@ var TaskViewComponent = (function () {
     TaskViewComponent.prototype.getLastJobData = function () {
         var _this = this;
         this.jobService.last(this.projectId, this.taskId)
-            .then(function (job) {
+            .then(function (wr) {
+            var job = wr.data['job'];
             if (job) {
                 _this.lastJob = job;
                 if (_this.lastJob.id != _this.lastJobId) {

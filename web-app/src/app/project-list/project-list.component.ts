@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {GlobalService} from "../services/GlobalService";
 import {Project} from "../models/Project";
+import {WebResponse} from "../models/WebResponse";
 
 @Component({
 	selector: 'project-list',
@@ -41,7 +42,9 @@ export class ProjectListComponent implements OnInit {
 
 	getData() {
 		this.projectService.list()
-			.then((projectList: Project[]) => {
+			.then((wr: WebResponse) => {
+				var projectList: Project[] = wr.data['list'];
+
 				if (projectList) {
 					this.projectList = projectList;
 

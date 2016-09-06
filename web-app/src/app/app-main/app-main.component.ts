@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {GlobalService} from "../services/GlobalService";
 import {JobService} from "../services/JobService";
 import {Observable} from "rxjs/Rx";
-import {RunningListResult} from "../models/RunningListResult";
+import {WebResponse} from "../models/WebResponse";
 
 @Component({
 	selector: 'app-main',
@@ -22,9 +22,9 @@ export class AppMainComponent implements OnInit {
 
 	setJobCount() {
 		this.jobService.getRunningList()
-			.then((runningList: RunningListResult) => {
-				this.globalService.jobsCount = runningList.count;
-				this.globalService.jobList = runningList.jobs;
+			.then((wr: WebResponse) => {
+				this.globalService.jobsCount = wr.data['count'];
+				this.globalService.jobList = wr.data['jobs'];
 				this.globalService.emitJobsCount();
 				this.globalService.emitJobList();
 			})

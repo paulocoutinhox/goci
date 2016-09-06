@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, Response} from "@angular/http";
 import "rxjs/add/operator/toPromise";
 import {Job} from "../models/Job";
-import {RunningListResult} from "../models/RunningListResult";
+import {WebResponse} from "../models/WebResponse";
 
 @Injectable()
 export class JobService {
@@ -11,17 +11,26 @@ export class JobService {
 
 	}
 
-	getRunningList(): Promise<RunningListResult> {
+	getRunningList(): Promise<WebResponse> {
 		return this.http.get('/api/job/runningList')
 			.toPromise()
-			.then(response => response.json().data as RunningListResult)
+			.then((response: Response) => {
+				let wr = response.json() as WebResponse;
+				wr.data['jobs'] = wr.data['jobs'] as Job[];
+				wr.data['count'] = wr.data['count'] as number;
+				return wr;
+			})
 			.catch(this.handleError);
 	}
 
-	last(projectId: string, taskId: string): Promise<Job> {
+	last(projectId: string, taskId: string): Promise<WebResponse> {
 		return this.http.get('/api/job/last?project=' + projectId + '&task=' + taskId)
 			.toPromise()
-			.then(response => response.json().data.job as Job)
+			.then((response: Response) => {
+				let wr = response.json() as WebResponse;
+				wr.data['job'] = wr.data['job'] as Job;
+				return wr;
+			})
 			.catch(this.handleError);
 	}
 
