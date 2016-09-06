@@ -16,26 +16,6 @@ func main() {
 	domain.PluginManagerLoadPlugins()
 
 	{
-		controller := controllers.HomeController{}
-		controller.Register()
-	}
-
-	{
-		controller := controllers.ProjectController{}
-		controller.Register()
-	}
-
-	{
-		controller := controllers.JobController{}
-		controller.Register()
-	}
-
-	{
-		controller := controllers.TaskController{}
-		controller.Register()
-	}
-
-	{
 		controller := controllers.APIController{}
 		controller.Register()
 	}
