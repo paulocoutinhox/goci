@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit} from "@angular/core";
 import {TaskService} from "../services/TaskService";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Utils} from "../models/Utils";
@@ -9,7 +9,7 @@ import {ProjectTaskOption} from "../models/ProjectTaskOption";
 	templateUrl: 'task-options.component.html'
 })
 
-export class TaskOptionsComponent implements OnInit {
+export class TaskOptionsComponent implements OnInit, AfterViewInit {
 
 	@Input()
 	private projectId: string;
