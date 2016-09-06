@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from "@angular/core";
 import {TaskService} from "../services/TaskService";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Utils} from "../models/Utils";
@@ -45,12 +45,19 @@ export class TaskOptionsComponent implements OnInit {
 
 	private showEmptyMessage: boolean;
 
+	@ViewChild('btRun')
+	btRun: any;
+
 	constructor(private taskService: TaskService) {
 
 	}
 
 	ngOnInit(): any {
 		this.load();
+	}
+
+	ngAfterViewInit() {
+		this.btRun.nativeElement.focus();
 	}
 
 	load() {

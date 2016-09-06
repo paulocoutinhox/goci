@@ -24,6 +24,9 @@ var TaskOptionsComponent = (function () {
     TaskOptionsComponent.prototype.ngOnInit = function () {
         this.load();
     };
+    TaskOptionsComponent.prototype.ngAfterViewInit = function () {
+        this.btRun.nativeElement.focus();
+    };
     TaskOptionsComponent.prototype.load = function () {
         var _this = this;
         var controlList = {};
@@ -109,6 +112,10 @@ var TaskOptionsComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Array)
     ], TaskOptionsComponent.prototype, "taskOptions", void 0);
+    __decorate([
+        core_1.ViewChild('btRun'), 
+        __metadata('design:type', Object)
+    ], TaskOptionsComponent.prototype, "btRun", void 0);
     TaskOptionsComponent = __decorate([
         core_1.Component({
             selector: 'task-options',
