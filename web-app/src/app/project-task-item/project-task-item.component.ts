@@ -33,20 +33,22 @@ export class ProjectTaskItemComponent implements OnInit {
 		});
 	}
 
-	getLastJobByProjectAndTask(jobList: Array<any>, projectId: string, taskId: string) {
+	getLastJobByProjectAndTask(jobList: Job[], projectId: string, taskId: string): Job {
 		if (jobList == null) {
 			return null;
 		}
 
+		var lastJob: Job = null;
+
 		for (var jobIndex in jobList) {
 			var job = jobList[jobIndex];
 
-			if (job['projectId'] == projectId && job['taskId'] == taskId) {
-				return job;
+			if (job.projectId == projectId && job.taskId == taskId) {
+				lastJob = job;
 			}
 		}
 
-		return null;
+		return lastJob;
 	}
 
 	sendShowTaskOptionsEvent() {

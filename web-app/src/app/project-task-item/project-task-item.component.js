@@ -29,13 +29,14 @@ var ProjectTaskItemComponent = (function () {
         if (jobList == null) {
             return null;
         }
+        var lastJob = null;
         for (var jobIndex in jobList) {
             var job = jobList[jobIndex];
-            if (job['projectId'] == projectId && job['taskId'] == taskId) {
-                return job;
+            if (job.projectId == projectId && job.taskId == taskId) {
+                lastJob = job;
             }
         }
-        return null;
+        return lastJob;
     };
     ProjectTaskItemComponent.prototype.sendShowTaskOptionsEvent = function () {
         this.showTaskOptions.emit(this.task);

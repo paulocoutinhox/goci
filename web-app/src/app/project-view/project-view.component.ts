@@ -113,7 +113,6 @@ export class ProjectViewComponent implements OnInit {
 
 		this.taskService.options(this.project.id, task.id)
 			.then((options: ProjectTaskOption[]) => {
-				this.hideAll();
 				this.runTaskOptions = options;
 				this.showTaskOptionsForm = true;
 			})
@@ -134,22 +133,6 @@ export class ProjectViewComponent implements OnInit {
 	taskRunCancel($event: any) {
 		this.hideAll();
 		this.showData = true;
-	}
-
-	getLastJobByProjectAndTask(projectId: string, taskId: string): Job {
-		if (this.jobList == null) {
-			return null;
-		}
-
-		for (var jobIndex in this.jobList) {
-			var job = this.jobList[jobIndex];
-
-			if (job.projectId == projectId && job.taskId == taskId) {
-				return job;
-			}
-		}
-
-		return null;
 	}
 
 }

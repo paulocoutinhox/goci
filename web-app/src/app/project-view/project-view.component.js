@@ -90,7 +90,6 @@ var ProjectViewComponent = (function () {
         this.runTaskOptions = null;
         this.taskService.options(this.project.id, task.id)
             .then(function (options) {
-            _this.hideAll();
             _this.runTaskOptions = options;
             _this.showTaskOptionsForm = true;
         })
@@ -107,18 +106,6 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent.prototype.taskRunCancel = function ($event) {
         this.hideAll();
         this.showData = true;
-    };
-    ProjectViewComponent.prototype.getLastJobByProjectAndTask = function (projectId, taskId) {
-        if (this.jobList == null) {
-            return null;
-        }
-        for (var jobIndex in this.jobList) {
-            var job = this.jobList[jobIndex];
-            if (job.projectId == projectId && job.taskId == taskId) {
-                return job;
-            }
-        }
-        return null;
     };
     ProjectViewComponent = __decorate([
         core_1.Component({
