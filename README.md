@@ -109,18 +109,6 @@ Today we support this integrations:
 
 Today, only some functions are implemented in javascript integration. If you need one, you can make a pull-request or send a message in Github Issue.
 
-# Supported By Jetbrains IntelliJ IDEA
-
-![alt text](https://github.com/prsolucoes/goci/raw/master/extras/jetbrains/logo.png "Supported By Jetbrains IntelliJ IDEA")
-
-# Author WebSite
-
-> http://www.pcoutinho.com
-
-# License
-
-MIT
-
 # Support with donation
 [![Support with donation](http://donation.pcoutinho.com/images/donate-button.png)](http://donation.pcoutinho.com/)
 
@@ -149,3 +137,15 @@ MIT
 **# TASK PARAMS WHEN RUN**
 
 ![SS5](https://github.com/prsolucoes/goci/raw/master/extras/screenshots/screenshot6.png "Screenshot 6")
+
+# Supported By Jetbrains IntelliJ IDEA
+
+![alt text](https://github.com/prsolucoes/goci/raw/master/extras/jetbrains/logo.png "Supported By Jetbrains IntelliJ IDEA")
+
+# Author WebSite
+
+> http://www.pcoutinho.com
+
+# License
+
+MIT
