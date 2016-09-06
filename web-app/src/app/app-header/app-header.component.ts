@@ -12,8 +12,8 @@ export class AppHeaderComponent {
 	private jobs: number = 0;
 
 	constructor(private globalService: GlobalService) {
-		globalService.jobsCountEmitter.subscribe((value: any) => {
-			this.jobs = value;
+		globalService.jobsCountEmitter.subscribe((count: number) => {
+			this.jobs = count;
 		});
 	}
 

@@ -15,8 +15,8 @@ var AppHeaderComponent = (function () {
         var _this = this;
         this.globalService = globalService;
         this.jobs = 0;
-        globalService.jobsCountEmitter.subscribe(function (value) {
-            _this.jobs = value;
+        globalService.jobsCountEmitter.subscribe(function (count) {
+            _this.jobs = count;
         });
     }
     AppHeaderComponent = __decorate([

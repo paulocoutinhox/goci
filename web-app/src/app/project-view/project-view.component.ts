@@ -4,6 +4,10 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {TaskService} from "../services/TaskService";
 import {GlobalService} from "../services/GlobalService";
+import {Project} from "../models/Project";
+import {Job} from "../models/Job";
+import {ProjectTask} from "../models/ProjectTask";
+import {ProjectTaskOption} from "../models/ProjectTaskOption";
 
 @Component({
 	selector: 'project-view',
@@ -13,12 +17,14 @@ import {GlobalService} from "../services/GlobalService";
 export class ProjectViewComponent implements OnInit {
 
 	private projectId: string;
-	private project: any;
+	private project: Project;
 
 	private showData: boolean;
 	private showEmptyData: boolean;
 	private showError: boolean;
 	private showLoading: boolean;
+
+	private jobList: Job[];
 
 	private runTaskOptions: any;
 	private runProjectId: string;
@@ -35,6 +41,10 @@ export class ProjectViewComponent implements OnInit {
 	ngOnInit(): any {
 		this.route.params.subscribe(params => {
 			this.projectId = params['project'];
+		});
+
+		this.globalService.jobListEmitter.subscribe((jobList: Job[]) => {
+			this.jobList = jobList;
 		});
 
 		this.load();
@@ -54,9 +64,9 @@ export class ProjectViewComponent implements OnInit {
 
 	getData() {
 		this.projectService.view(this.projectId)
-			.then(response => {
-				if (response != null && response.success == true) {
-					this.project = response.data.project;
+			.then((project: Project) => {
+				if (project) {
+					this.project = project;
 
 					this.hideAll();
 
@@ -92,28 +102,20 @@ export class ProjectViewComponent implements OnInit {
 		this.project = null;
 	}
 
-	view(projectId: string, taskId: string) {
-		this.router.navigate(['/task/view', projectId, taskId]);
-	}
-
-	showTaskOptions(projectId: string, projectName: string, taskId: string, taskName: string, taskDescription: string) {
+	showTaskOptions(task: ProjectTask) {
 		this.showTaskOptionsForm = false;
-		this.runProjectId = projectId;
-		this.runProjectName = projectName;
-		this.runTaskId = taskId;
-		this.runTaskName = taskName;
-		this.runTaskDescription = taskDescription;
+		this.runProjectId = this.project.id;
+		this.runProjectName = this.project.name;
+		this.runTaskId = task.id;
+		this.runTaskName = task.name;
+		this.runTaskDescription = task.description;
 		this.runTaskOptions = null;
 
-		this.taskService.options(projectId, taskId)
-			.then(response => {
-				if (response != null && response.success == true) {
-					this.hideAll();
-					this.runTaskOptions = response.data.options;
-					this.showTaskOptionsForm = true;
-				} else {
-					toastr.error('Error when get task options, try again');
-				}
+		this.taskService.options(this.project.id, task.id)
+			.then((options: ProjectTaskOption[]) => {
+				this.hideAll();
+				this.runTaskOptions = options;
+				this.showTaskOptionsForm = true;
 			})
 			.catch(error => {
 				toastr.error(error);
@@ -132,6 +134,22 @@ export class ProjectViewComponent implements OnInit {
 	taskRunCancel($event: any) {
 		this.hideAll();
 		this.showData = true;
+	}
+
+	getLastJobByProjectAndTask(projectId: string, taskId: string): Job {
+		if (this.jobList == null) {
+			return null;
+		}
+
+		for (var jobIndex in this.jobList) {
+			var job = this.jobList[jobIndex];
+
+			if (job.projectId == projectId && job.taskId == taskId) {
+				return job;
+			}
+		}
+
+		return null;
 	}
 
 }

@@ -13,9 +13,9 @@ var router_1 = require("@angular/router");
 var Rx_1 = require("rxjs/Rx");
 var TaskService_1 = require("../services/TaskService");
 var JobService_1 = require("../services/JobService");
-var OutputGroup_1 = require("../domain/OutputGroup");
-var Utils_1 = require("../domain/Utils");
+var Utils_1 = require("../models/Utils");
 var GlobalService_1 = require("../services/GlobalService");
+var JobOutputGroup_1 = require("../models/JobOutputGroup");
 var TaskViewComponent = (function () {
     function TaskViewComponent(globalService, taskService, jobService, router, route) {
         this.globalService = globalService;
@@ -47,10 +47,10 @@ var TaskViewComponent = (function () {
     TaskViewComponent.prototype.getData = function () {
         var _this = this;
         this.taskService.view(this.projectId, this.taskId)
-            .then(function (response) {
-            if (response != null && response.success == true) {
-                _this.project = response.data.project;
-                _this.task = response.data.task;
+            .then(function (result) {
+            if (result) {
+                _this.project = result.project;
+                _this.task = result.task;
                 _this.hideAll();
                 if (_this.project != null && _this.task != null) {
                     _this.showData = true;
@@ -106,10 +106,10 @@ var TaskViewComponent = (function () {
         this.runTaskDescription = taskDescription;
         this.runTaskOptions = null;
         this.taskService.options(projectId, taskId)
-            .then(function (response) {
-            if (response != null && response.success == true) {
+            .then(function (options) {
+            if (options != null) {
                 _this.hideAll();
-                _this.runTaskOptions = response.data.options;
+                _this.runTaskOptions = options;
                 _this.showTaskOptionsForm = true;
             }
             else {
@@ -133,12 +133,12 @@ var TaskViewComponent = (function () {
     TaskViewComponent.prototype.getLastJobData = function () {
         var _this = this;
         this.jobService.last(this.projectId, this.taskId)
-            .then(function (response) {
-            if (response != null && response.success == true) {
-                _this.lastJob = response.data.job;
-                if (_this.lastJob["id"] != _this.lastJobId) {
-                    _this.lastJobId = _this.lastJob["id"];
-                    _this.outputGroupList = [];
+            .then(function (job) {
+            if (job) {
+                _this.lastJob = job;
+                if (_this.lastJob.id != _this.lastJobId) {
+                    _this.lastJobId = _this.lastJob.id;
+                    _this.jobOutputGroupList = [];
                 }
                 var newOutputGroupList = _this.lastJob.outputGroup;
                 var activeTabId = "console";
@@ -147,29 +147,29 @@ var TaskViewComponent = (function () {
                     for (var newOutputGroupKey in newOutputGroupList) {
                         var newOutputGroup = newOutputGroupList[newOutputGroupKey];
                         var hasOutputGroup = false;
-                        for (var outputGroupKey in _this.outputGroupList) {
-                            var outputGroup = _this.outputGroupList[outputGroupKey];
-                            if (outputGroup.name == newOutputGroup["name"]) {
+                        for (var outputGroupKey in _this.jobOutputGroupList) {
+                            var outputGroup = _this.jobOutputGroupList[outputGroupKey];
+                            if (outputGroup.name == newOutputGroup.name) {
                                 hasOutputGroup = true;
-                                if (outputGroup.updatedAt != newOutputGroup["updatedAt"]) {
-                                    outputGroup.updatedAt = newOutputGroup["updatedAt"];
-                                    outputGroup.output = newOutputGroup["output"];
+                                if (outputGroup.updatedAt != newOutputGroup.updatedAt) {
+                                    outputGroup.updatedAt = newOutputGroup.updatedAt;
+                                    outputGroup.output = newOutputGroup.output;
                                 }
                             }
                         }
                         if (!hasOutputGroup) {
-                            var outputGroup = new OutputGroup_1.OutputGroup();
-                            outputGroup.id = Utils_1.Utils.slugify(newOutputGroup["name"]);
-                            outputGroup.name = newOutputGroup["name"];
-                            outputGroup.output = newOutputGroup["output"];
-                            outputGroup.updatedAt = newOutputGroup["updatedAt"];
-                            _this.outputGroupList.push(outputGroup);
+                            var jobOutputGroup = new JobOutputGroup_1.JobOutputGroup();
+                            jobOutputGroup.id = Utils_1.Utils.slugify(newOutputGroup.name);
+                            jobOutputGroup.name = newOutputGroup.name;
+                            jobOutputGroup.output = newOutputGroup.output;
+                            jobOutputGroup.updatedAt = newOutputGroup.updatedAt;
+                            _this.jobOutputGroupList.push(jobOutputGroup);
                         }
                     }
                 }
                 // select tab
-                for (var outputGroupKey in _this.outputGroupList) {
-                    var outputGroup = _this.outputGroupList[outputGroupKey];
+                for (var outputGroupKey in _this.jobOutputGroupList) {
+                    var outputGroup = _this.jobOutputGroupList[outputGroupKey];
                     if (outputGroup.id == activeTabId) {
                         outputGroup.active = true;
                     }

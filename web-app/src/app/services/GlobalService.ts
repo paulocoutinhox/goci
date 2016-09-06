@@ -1,12 +1,13 @@
 import {Injectable, EventEmitter} from "@angular/core";
+import {Job} from "../models/Job";
 
 @Injectable()
 export class GlobalService {
 
 	public jobsCount: number = 0;
-	public jobList: any;
+	public jobList: Job[];
 	public jobsCountEmitter = new EventEmitter<number>();
-	public jobListEmitter = new EventEmitter<any>();
+	public jobListEmitter = new EventEmitter<Job[]>();
 
 	public loadingDelayTime: number = 0;
 

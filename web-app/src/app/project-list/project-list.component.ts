@@ -3,6 +3,7 @@ import {ProjectService} from "../services/ProjectService";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {GlobalService} from "../services/GlobalService";
+import {Project} from "../models/Project";
 
 @Component({
 	selector: 'project-list',
@@ -11,7 +12,7 @@ import {GlobalService} from "../services/GlobalService";
 
 export class ProjectListComponent implements OnInit {
 
-	private list: Array<any>;
+	private projectList: Project[];
 
 	private showList: boolean;
 	private showEmptyList: boolean;
@@ -40,13 +41,13 @@ export class ProjectListComponent implements OnInit {
 
 	getData() {
 		this.projectService.list()
-			.then(response => {
-				if (response != null && response.success == true) {
-					this.list = response.data.list;
+			.then((projectList: Project[]) => {
+				if (projectList) {
+					this.projectList = projectList;
 
 					this.hideAll();
 
-					if (this.list.length > 0) {
+					if (this.projectList.length > 0) {
 						this.showList = true;
 					} else {
 						this.showEmptyList = true;
@@ -74,7 +75,7 @@ export class ProjectListComponent implements OnInit {
 	onError() {
 		this.hideAll();
 		this.showError = true;
-		this.list = [];
+		this.projectList = [];
 	}
 
 	view(projectId: string) {

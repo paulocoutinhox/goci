@@ -3,9 +3,14 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Rx";
 import {TaskService} from "../services/TaskService";
 import {JobService} from "../services/JobService";
-import {OutputGroup} from "../domain/OutputGroup";
-import {Utils} from "../domain/Utils";
+import {Utils} from "../models/Utils";
 import {GlobalService} from "../services/GlobalService";
+import {TaskViewResult} from "../models/TaskViewResult";
+import {ProjectTaskOption} from "../models/ProjectTaskOption";
+import {Job} from "../models/Job";
+import {Project} from "../models/Project";
+import {ProjectTask} from "../models/ProjectTask";
+import {JobOutputGroup} from "../models/JobOutputGroup";
 
 @Component({
 	selector: 'task-view',
@@ -16,9 +21,9 @@ export class TaskViewComponent implements OnInit {
 
 	private projectId: string;
 	private taskId: string;
-	private project: any;
-	private task: any;
-	private lastJob: any;
+	private project: Project;
+	private task: ProjectTask;
+	private lastJob: Job;
 
 	private showData: boolean;
 	private showEmptyData: boolean;
@@ -32,14 +37,14 @@ export class TaskViewComponent implements OnInit {
 
 	private showTaskOptionsForm: boolean;
 
-	private runTaskOptions: any;
+	private runTaskOptions: ProjectTaskOption[];
 	private runProjectId: string;
 	private runProjectName: string;
 	private runTaskId: string;
 	private runTaskName: string;
 	private runTaskDescription: string;
 
-	private outputGroupList: Array<OutputGroup>;
+	private jobOutputGroupList: JobOutputGroup[];
 	private lastJobId: string;
 
 	constructor(private globalService: GlobalService, private taskService: TaskService, private jobService: JobService, private router: Router, private route: ActivatedRoute) {
@@ -72,10 +77,10 @@ export class TaskViewComponent implements OnInit {
 
 	getData() {
 		this.taskService.view(this.projectId, this.taskId)
-			.then(response => {
-				if (response != null && response.success == true) {
-					this.project = response.data.project;
-					this.task = response.data.task;
+			.then((result: TaskViewResult) => {
+				if (result) {
+					this.project = result.project
+					this.task = result.task;
 
 					this.hideAll();
 
@@ -138,10 +143,10 @@ export class TaskViewComponent implements OnInit {
 		this.runTaskOptions = null;
 
 		this.taskService.options(projectId, taskId)
-			.then(response => {
-				if (response != null && response.success == true) {
+			.then((options: ProjectTaskOption[]) => {
+				if (options != null) {
 					this.hideAll();
-					this.runTaskOptions = response.data.options;
+					this.runTaskOptions = options;
 					this.showTaskOptionsForm = true;
 				} else {
 					toastr.error('Error when get task options, try again');
@@ -168,16 +173,16 @@ export class TaskViewComponent implements OnInit {
 
 	getLastJobData() {
 		this.jobService.last(this.projectId, this.taskId)
-			.then(response => {
-					if (response != null && response.success == true) {
-						this.lastJob = response.data.job;
+			.then((job: Job) => {
+					if (job) {
+						this.lastJob = job;
 
-						if (this.lastJob["id"] != this.lastJobId) {
-							this.lastJobId = this.lastJob["id"];
-							this.outputGroupList = [];
+						if (this.lastJob.id != this.lastJobId) {
+							this.lastJobId = this.lastJob.id;
+							this.jobOutputGroupList = [];
 						}
 
-						let newOutputGroupList: any[] = this.lastJob.outputGroup;
+						let newOutputGroupList: JobOutputGroup[] = this.lastJob.outputGroup;
 						let activeTabId = "console";
 
 						// add new tabs
@@ -186,35 +191,35 @@ export class TaskViewComponent implements OnInit {
 								let newOutputGroup = newOutputGroupList[newOutputGroupKey];
 								let hasOutputGroup = false;
 
-								for (let outputGroupKey in this.outputGroupList) {
-									let outputGroup = this.outputGroupList[outputGroupKey];
+								for (let outputGroupKey in this.jobOutputGroupList) {
+									let outputGroup = this.jobOutputGroupList[outputGroupKey];
 
-									if (outputGroup.name == newOutputGroup["name"]) {
+									if (outputGroup.name == newOutputGroup.name) {
 										hasOutputGroup = true;
 
-										if (outputGroup.updatedAt != newOutputGroup["updatedAt"]) {
-											outputGroup.updatedAt = newOutputGroup["updatedAt"];
-											outputGroup.output = newOutputGroup["output"];
+										if (outputGroup.updatedAt != newOutputGroup.updatedAt) {
+											outputGroup.updatedAt = newOutputGroup.updatedAt;
+											outputGroup.output = newOutputGroup.output;
 										}
 									}
 								}
 
 								if (!hasOutputGroup) {
-									let outputGroup = new OutputGroup();
+									let jobOutputGroup = new JobOutputGroup();
 
-									outputGroup.id = Utils.slugify(newOutputGroup["name"]);
-									outputGroup.name = newOutputGroup["name"];
-									outputGroup.output = newOutputGroup["output"];
-									outputGroup.updatedAt = newOutputGroup["updatedAt"];
+									jobOutputGroup.id = Utils.slugify(newOutputGroup.name);
+									jobOutputGroup.name = newOutputGroup.name;
+									jobOutputGroup.output = newOutputGroup.output;
+									jobOutputGroup.updatedAt = newOutputGroup.updatedAt;
 
-									this.outputGroupList.push(outputGroup);
+									this.jobOutputGroupList.push(jobOutputGroup);
 								}
 							}
 						}
 
 						// select tab
-						for (let outputGroupKey in this.outputGroupList) {
-							let outputGroup = this.outputGroupList[outputGroupKey];
+						for (let outputGroupKey in this.jobOutputGroupList) {
+							let outputGroup = this.jobOutputGroupList[outputGroupKey];
 
 							if (outputGroup.id == activeTabId) {
 								outputGroup.active = true;

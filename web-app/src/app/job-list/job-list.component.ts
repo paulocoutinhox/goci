@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {GlobalService} from "../services/GlobalService";
+import {Job} from "../models/Job";
 
 @Component({
 	selector: 'job-list',
@@ -29,8 +30,8 @@ export class JobListComponent implements OnInit {
 	}
 
 	ngOnInit(): any {
-		this.globalService.jobListEmitter.subscribe((value: any) => {
-			this.jobList = value;
+		this.globalService.jobListEmitter.subscribe((jobList: Job[]) => {
+			this.jobList = jobList;
 
 			if (this.jobList == null) {
 				this.hideAll();

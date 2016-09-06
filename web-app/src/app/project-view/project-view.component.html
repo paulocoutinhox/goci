@@ -25,18 +25,7 @@
 
 		<div id="project-task-list" class="list-group" *ngIf="project.tasks?.length > 0">
 			<div *ngFor="let task of project.tasks" class="project-task-row list-group-item">
-				<h4 class="list-group-item-heading">{{task.name}}</h4>
-				<div class="list-group-item-text">
-					<p>
-						<strong>Description:</strong>{{task.description}}
-						<br/>
-						<strong>Steps:</strong>{{task.steps?.length}}
-					</p>
-					<div>
-						<button type="button" class="btn btn-success" (click)="showTaskOptions(project.id, project.name, task.id, task.name, task.description)">Run</button>
-						<button type="button" class="btn btn-default" (click)="view(project.id, task.id)">View</button>
-					</div>
-				</div>
+				<project-task-item [task]="task" [project]="project" (showTaskOptions)="showTaskOptions($event)"></project-task-item>
 			</div>
 		</div>
 	</div>

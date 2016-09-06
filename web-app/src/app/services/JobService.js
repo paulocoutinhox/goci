@@ -18,13 +18,13 @@ var JobService = (function () {
     JobService.prototype.getRunningList = function () {
         return this.http.get('/api/job/runningList')
             .toPromise()
-            .then(function (response) { return response.json(); })
+            .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
     JobService.prototype.last = function (projectId, taskId) {
         return this.http.get('/api/job/last?project=' + projectId + '&task=' + taskId)
             .toPromise()
-            .then(function (response) { return response.json(); })
+            .then(function (response) { return response.json().data.job; })
             .catch(this.handleError);
     };
     JobService.prototype.handleError = function (error) {

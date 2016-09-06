@@ -23,8 +23,8 @@ var JobListComponent = (function () {
     }
     JobListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.globalService.jobListEmitter.subscribe(function (value) {
-            _this.jobList = value;
+        this.globalService.jobListEmitter.subscribe(function (jobList) {
+            _this.jobList = jobList;
             if (_this.jobList == null) {
                 _this.hideAll();
                 _this.showError = true;

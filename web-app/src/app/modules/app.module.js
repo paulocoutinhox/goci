@@ -30,6 +30,7 @@ var task_view_component_1 = require("../task-view/task-view.component");
 var timestampFormat_1 = require("../pipes/timestampFormat");
 var ng2_charts_1 = require("ng2-charts/ng2-charts");
 var task_options_component_1 = require("../task-options/task-options.component");
+var project_task_item_component_1 = require("../project-task-item/project-task-item.component");
 toastr.options = { timeOut: 5000, progressBar: true, hideDuration: 300, positionClass: 'toast-top-center' };
 var AppModule = (function () {
     function AppModule() {
@@ -47,6 +48,7 @@ var AppModule = (function () {
                 not_found_component_1.NotFoundComponent,
                 task_view_component_1.TaskViewComponent,
                 task_options_component_1.TaskOptionsComponent,
+                project_task_item_component_1.ProjectTaskItemComponent,
                 timestampFormat_1.TimestampFormat,
                 ng2_charts_1.CHART_DIRECTIVES
             ],

@@ -25,9 +25,9 @@ var AppMainComponent = (function () {
     AppMainComponent.prototype.setJobCount = function () {
         var _this = this;
         this.jobService.getRunningList()
-            .then(function (res) {
-            _this.globalService.jobsCount = res.data.count;
-            _this.globalService.jobList = res.data.jobs;
+            .then(function (runningList) {
+            _this.globalService.jobsCount = runningList.count;
+            _this.globalService.jobList = runningList.jobs;
             _this.globalService.emitJobsCount();
             _this.globalService.emitJobList();
         })

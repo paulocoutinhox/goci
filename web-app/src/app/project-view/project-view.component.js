@@ -27,6 +27,9 @@ var ProjectViewComponent = (function () {
         this.route.params.subscribe(function (params) {
             _this.projectId = params['project'];
         });
+        this.globalService.jobListEmitter.subscribe(function (jobList) {
+            _this.jobList = jobList;
+        });
         this.load();
     };
     ProjectViewComponent.prototype.load = function () {
@@ -42,9 +45,9 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent.prototype.getData = function () {
         var _this = this;
         this.projectService.view(this.projectId)
-            .then(function (response) {
-            if (response != null && response.success == true) {
-                _this.project = response.data.project;
+            .then(function (project) {
+            if (project) {
+                _this.project = project;
                 _this.hideAll();
                 if (_this.project != null) {
                     _this.showData = true;
@@ -76,28 +79,20 @@ var ProjectViewComponent = (function () {
         this.showError = true;
         this.project = null;
     };
-    ProjectViewComponent.prototype.view = function (projectId, taskId) {
-        this.router.navigate(['/task/view', projectId, taskId]);
-    };
-    ProjectViewComponent.prototype.showTaskOptions = function (projectId, projectName, taskId, taskName, taskDescription) {
+    ProjectViewComponent.prototype.showTaskOptions = function (task) {
         var _this = this;
         this.showTaskOptionsForm = false;
-        this.runProjectId = projectId;
-        this.runProjectName = projectName;
-        this.runTaskId = taskId;
-        this.runTaskName = taskName;
-        this.runTaskDescription = taskDescription;
+        this.runProjectId = this.project.id;
+        this.runProjectName = this.project.name;
+        this.runTaskId = task.id;
+        this.runTaskName = task.name;
+        this.runTaskDescription = task.description;
         this.runTaskOptions = null;
-        this.taskService.options(projectId, taskId)
-            .then(function (response) {
-            if (response != null && response.success == true) {
-                _this.hideAll();
-                _this.runTaskOptions = response.data.options;
-                _this.showTaskOptionsForm = true;
-            }
-            else {
-                toastr.error('Error when get task options, try again');
-            }
+        this.taskService.options(this.project.id, task.id)
+            .then(function (options) {
+            _this.hideAll();
+            _this.runTaskOptions = options;
+            _this.showTaskOptionsForm = true;
         })
             .catch(function (error) {
             toastr.error(error);
@@ -112,6 +107,18 @@ var ProjectViewComponent = (function () {
     ProjectViewComponent.prototype.taskRunCancel = function ($event) {
         this.hideAll();
         this.showData = true;
+    };
+    ProjectViewComponent.prototype.getLastJobByProjectAndTask = function (projectId, taskId) {
+        if (this.jobList == null) {
+            return null;
+        }
+        for (var jobIndex in this.jobList) {
+            var job = this.jobList[jobIndex];
+            if (job.projectId == projectId && job.taskId == taskId) {
+                return job;
+            }
+        }
+        return null;
     };
     ProjectViewComponent = __decorate([
         core_1.Component({

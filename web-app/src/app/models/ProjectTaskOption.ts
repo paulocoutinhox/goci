@@ -1,10 +1,12 @@
-export class TaskOption {
+import {ProjectTaskOptionValuesItem} from "./ProjectTaskOptionValuesItem";
 
-	public id: string;
-	public type: string;
-	public description: string;
-	public value: string;
-	public values: any;
+export class ProjectTaskOption {
+
+	id: string;
+	type: string;
+	description: string;
+	value: string;
+	values: [ProjectTaskOptionValuesItem];
 
 	constructor(options: {} = {}) {
 		this.id = options["id"] || '';

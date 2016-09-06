@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {TaskService} from "../services/TaskService";
 import {FormControl, FormGroup} from "@angular/forms";
-import {TaskOption} from "../domain/TaskOption";
-import {Utils} from "../domain/Utils";
+import {Utils} from "../models/Utils";
+import {ProjectTaskOption} from "../models/ProjectTaskOption";
 
 @Component({
 	selector: 'task-options',
@@ -41,7 +41,7 @@ export class TaskOptionsComponent implements OnInit {
 	private taskRunCancel = new EventEmitter();
 
 	@Input()
-	private taskOptions: Array<TaskOption>;
+	private taskOptions: ProjectTaskOption[];
 
 	private showEmptyMessage: boolean;
 
@@ -61,7 +61,7 @@ export class TaskOptionsComponent implements OnInit {
 			this.options.forEach((option: any) => {
 				controlList[option["id"]] = new FormControl(option["value"]);
 
-				this.taskOptions.push(new TaskOption({
+				this.taskOptions.push(new ProjectTaskOption({
 					id: option['id'],
 					type: option['type'],
 					description: option['description'],
@@ -81,8 +81,8 @@ export class TaskOptionsComponent implements OnInit {
 		let formData = Utils.formValuesEncoded(formValues);
 		formData += `&project=${this.projectId}&task=${this.taskId}`;
 
-		this.taskService.run(this.projectId, this.taskId, formData)
-			.then(response => {
+		this.taskService.run(formData)
+			.then((response: any) => {
 				if (response != null && response.success == true) {
 					toastr.success("Your task was added to queue with success!");
 					this.taskRunWithSuccess.emit();

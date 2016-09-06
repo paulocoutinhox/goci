@@ -35,11 +35,11 @@ var ProjectListComponent = (function () {
     ProjectListComponent.prototype.getData = function () {
         var _this = this;
         this.projectService.list()
-            .then(function (response) {
-            if (response != null && response.success == true) {
-                _this.list = response.data.list;
+            .then(function (projectList) {
+            if (projectList) {
+                _this.projectList = projectList;
                 _this.hideAll();
-                if (_this.list.length > 0) {
+                if (_this.projectList.length > 0) {
                     _this.showList = true;
                 }
                 else {
@@ -66,7 +66,7 @@ var ProjectListComponent = (function () {
     ProjectListComponent.prototype.onError = function () {
         this.hideAll();
         this.showError = true;
-        this.list = [];
+        this.projectList = [];
     };
     ProjectListComponent.prototype.view = function (projectId) {
         this.router.navigate(['/project/view', projectId]);

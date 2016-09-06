@@ -129,12 +129,12 @@
 		</div>
 		<div>
 			<ul class="ph-project-task-last-job-tabs nav nav-tabs" role="tablist">
-				<li role="presentation" *ngFor="let outputGroup of outputGroupList" [class.active]="outputGroup.active">
+				<li role="presentation" *ngFor="let outputGroup of jobOutputGroupList" [class.active]="outputGroup.active">
 					<a id="tab-{{outputGroup.id}}" href="#tab-content-{{outputGroup.id}}" [attr.aria-controls]="'tab-content-'+ outputGroup.id" role="tab" data-toggle="tab">{{outputGroup.name}}</a>
 				</li>
 			</ul>
 			<div class="tab-content ph-project-task-last-job-tab-contents">
-				<div role="tabpanel" class="tab-pane tab-pane-output-group" id="tab-content-{{outputGroup.id}}" *ngFor="let outputGroup of outputGroupList" [class.active]="outputGroup.active">
+				<div role="tabpanel" class="tab-pane tab-pane-output-group" id="tab-content-{{outputGroup.id}}" *ngFor="let outputGroup of jobOutputGroupList" [class.active]="outputGroup.active">
 					<div class="panel panel-default">
 						<div id="tab-content-body-{{outputGroup.id}}" class="panel-body" [innerHTML]="outputGroup.output"></div>
 					</div>

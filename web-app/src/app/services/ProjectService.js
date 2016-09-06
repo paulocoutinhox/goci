@@ -18,13 +18,13 @@ var ProjectService = (function () {
     ProjectService.prototype.list = function () {
         return this.http.get('/api/project/list')
             .toPromise()
-            .then(function (response) { return response.json(); })
+            .then(function (response) { return response.json().data.list; })
             .catch(this.handleError);
     };
     ProjectService.prototype.view = function (projectId) {
         return this.http.get('/api/project/view?project=' + projectId)
             .toPromise()
-            .then(function (response) { return response.json(); })
+            .then(function (response) { return response.json().data.project; })
             .catch(this.handleError);
     };
     ProjectService.prototype.handleError = function (error) {

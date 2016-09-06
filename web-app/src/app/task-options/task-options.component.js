@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var TaskService_1 = require("../services/TaskService");
 var forms_1 = require("@angular/forms");
-var TaskOption_1 = require("../domain/TaskOption");
-var Utils_1 = require("../domain/Utils");
+var Utils_1 = require("../models/Utils");
+var ProjectTaskOption_1 = require("../models/ProjectTaskOption");
 var TaskOptionsComponent = (function () {
     function TaskOptionsComponent(taskService) {
         this.taskService = taskService;
@@ -31,7 +31,7 @@ var TaskOptionsComponent = (function () {
         if (this.options != null) {
             this.options.forEach(function (option) {
                 controlList[option["id"]] = new forms_1.FormControl(option["value"]);
-                _this.taskOptions.push(new TaskOption_1.TaskOption({
+                _this.taskOptions.push(new ProjectTaskOption_1.ProjectTaskOption({
                     id: option['id'],
                     type: option['type'],
                     description: option['description'],
@@ -50,7 +50,7 @@ var TaskOptionsComponent = (function () {
         var formValues = this.form.value;
         var formData = Utils_1.Utils.formValuesEncoded(formValues);
         formData += "&project=" + this.projectId + "&task=" + this.taskId;
-        this.taskService.run(this.projectId, this.taskId, formData)
+        this.taskService.run(formData)
             .then(function (response) {
             if (response != null && response.success == true) {
                 toastr.success("Your task was added to queue with success!");
