@@ -28,9 +28,9 @@ var TaskService_1 = require("../services/TaskService");
 var ProjectService_1 = require("../services/ProjectService");
 var task_view_component_1 = require("../task-view/task-view.component");
 var timestampFormat_1 = require("../pipes/timestampFormat");
-var ng2_charts_1 = require("ng2-charts/ng2-charts");
 var task_options_component_1 = require("../task-options/task-options.component");
 var project_task_item_component_1 = require("../project-task-item/project-task-item.component");
+var ng2_charts_1 = require('ng2-charts/ng2-charts');
 toastr.options = { timeOut: 5000, progressBar: true, hideDuration: 300, positionClass: 'toast-top-center' };
 var AppModule = (function () {
     function AppModule() {
@@ -49,8 +49,7 @@ var AppModule = (function () {
                 task_view_component_1.TaskViewComponent,
                 task_options_component_1.TaskOptionsComponent,
                 project_task_item_component_1.ProjectTaskItemComponent,
-                timestampFormat_1.TimestampFormat,
-                ng2_charts_1.CHART_DIRECTIVES
+                timestampFormat_1.TimestampFormat
             ],
             imports: [
                 app_routes_1.routing,
@@ -58,7 +57,8 @@ var AppModule = (function () {
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
-                router_1.RouterModule
+                router_1.RouterModule,
+                ng2_charts_1.ChartsModule
             ],
             bootstrap: [
                 app_main_component_1.AppMainComponent

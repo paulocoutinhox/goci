@@ -18,9 +18,9 @@ import {TaskService} from "../services/TaskService";
 import {ProjectService} from "../services/ProjectService";
 import {TaskViewComponent} from "../task-view/task-view.component";
 import {TimestampFormat} from "../pipes/timestampFormat";
-import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 import {TaskOptionsComponent} from "../task-options/task-options.component";
 import {ProjectTaskItemComponent} from "../project-task-item/project-task-item.component";
+import {ChartsModule} from 'ng2-charts/ng2-charts';
 
 toastr.options = {timeOut: 5000, progressBar: true, hideDuration: 300, positionClass: 'toast-top-center'};
 
@@ -37,8 +37,7 @@ toastr.options = {timeOut: 5000, progressBar: true, hideDuration: 300, positionC
 		TaskViewComponent,
 		TaskOptionsComponent,
 		ProjectTaskItemComponent,
-		TimestampFormat,
-		CHART_DIRECTIVES
+		TimestampFormat
 	],
 	imports: [
 		routing,
@@ -46,7 +45,8 @@ toastr.options = {timeOut: 5000, progressBar: true, hideDuration: 300, positionC
 		FormsModule,
 		ReactiveFormsModule,
 		HttpModule,
-		RouterModule
+		RouterModule,
+		ChartsModule
 	],
 	bootstrap: [
 		AppMainComponent
