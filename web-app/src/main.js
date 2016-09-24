@@ -1,9 +1,9 @@
 "use strict";
 var platform_browser_dynamic_1 = require("@angular/platform-browser-dynamic");
-var app_module_1 = require("./app/modules/app.module");
 var core_1 = require("@angular/core");
+var app_module_ngfactory_1 = require("../ngfactory/src/app/modules/app.module.ngfactory");
 if (process.env.ENV === 'production') {
     core_1.enableProdMode();
 }
-platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
+platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModuleFactory(app_module_ngfactory_1.AppModuleNgFactory);
 //# sourceMappingURL=main.js.map

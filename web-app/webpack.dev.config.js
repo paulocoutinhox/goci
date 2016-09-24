@@ -11,6 +11,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 
 module.exports = {
 	debug: true,
+	devtool: false,
 	devServer: {
 		contentBase: path.resolve(rootDir, 'dist'),
 		port: 9000,
@@ -22,7 +23,6 @@ module.exports = {
 		},
 		historyApiFallback: true
 	},
-	devtool: 'source-map',
 	entry: {
 		polyfills: [path.resolve(rootDir, 'src', 'polyfills')],
 		vendor: [path.resolve(rootDir, 'src', 'vendor')],

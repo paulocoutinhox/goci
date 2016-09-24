@@ -13,38 +13,38 @@ import {WebResponse} from "../models/WebResponse";
 export class TaskOptionsComponent implements OnInit, AfterViewInit {
 
 	@Input()
-	private projectId: string;
+	projectId: string;
 
 	@Input()
-	private projectName: string;
+	projectName: string;
 
 	@Input()
-	private taskId: string;
+	taskId: string;
 
 	@Input()
-	private taskName: string;
+	taskName: string;
 
 	@Input()
-	private taskDescription: string;
+	taskDescription: string;
 
 	@Input()
-	private options: any;
+	options: any;
 
-	private form: FormGroup = new FormGroup({});
+	form: FormGroup = new FormGroup({});
 
 	@Output()
-	private taskRunWithSuccess = new EventEmitter();
+	taskRunWithSuccess = new EventEmitter();
 
 	@Output()
-	private taskRunWithError = new EventEmitter();
+	taskRunWithError = new EventEmitter();
 
 	@Output()
-	private taskRunCancel = new EventEmitter();
+	taskRunCancel = new EventEmitter();
 
 	@Input()
-	private taskOptions: ProjectTaskOption[];
+	taskOptions: ProjectTaskOption[];
 
-	private showEmptyMessage: boolean;
+	showEmptyMessage: boolean;
 
 	@ViewChild('btRun')
 	btRun: any;

@@ -9,7 +9,7 @@ import {GlobalService} from "../services/GlobalService";
 
 export class AppHeaderComponent {
 
-	private jobs: number = 0;
+	jobs: number = 0;
 
 	constructor(private globalService: GlobalService) {
 		globalService.jobsCountEmitter.subscribe((count: number) => {

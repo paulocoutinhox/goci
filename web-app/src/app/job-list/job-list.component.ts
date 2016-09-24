@@ -11,18 +11,18 @@ import {Job} from "../models/Job";
 
 export class JobListComponent implements OnInit {
 
-	private showData: boolean;
-	private showEmptyData: boolean;
-	private showError: boolean;
-	private showLoading: boolean;
+	showData: boolean;
+	showEmptyData: boolean;
+	showError: boolean;
+	showLoading: boolean;
 
-	private jobList: Array<any>;
+	jobList: Array<any>;
 
-	private chartData: any;
-	private chartDataDatasets: any[];
-	private chartDataLabels: string[] = [];
-	private chartDataOptions: any = {};
-	private chartDataColors: string[] = [];
+	chartData: any;
+	chartDataDatasets: any[];
+	chartDataLabels: string[] = [];
+	chartDataOptions: any = {};
+	chartDataColors: string[] = [];
 
 	constructor(private globalService: GlobalService, private router: Router) {
 		this.hideAll();

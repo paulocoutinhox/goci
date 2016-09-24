@@ -13,15 +13,15 @@ import {ProjectTask} from "../models/ProjectTask";
 export class ProjectTaskItemComponent implements OnInit {
 
 	@Input()
-	private project: Project;
+	project: Project;
 
 	@Input()
-	private task: ProjectTask;
+	task: ProjectTask;
 
-	private lastJob: Job;
+	lastJob: Job;
 
 	@Output()
-	private showTaskOptions = new EventEmitter<ProjectTask>();
+	showTaskOptions = new EventEmitter<ProjectTask>();
 
 	constructor(private globalService: GlobalService, private router: Router) {
 

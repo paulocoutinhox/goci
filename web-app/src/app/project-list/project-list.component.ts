@@ -13,12 +13,12 @@ import {WebResponse} from "../models/WebResponse";
 
 export class ProjectListComponent implements OnInit {
 
-	private projectList: Project[];
+	projectList: Project[];
 
-	private showList: boolean;
-	private showEmptyList: boolean;
-	private showError: boolean;
-	private showLoading: boolean;
+	showList: boolean;
+	showEmptyList: boolean;
+	showError: boolean;
+	showLoading: boolean;
 
 	constructor(private globalService: GlobalService, private projectService: ProjectService, private router: Router) {
 

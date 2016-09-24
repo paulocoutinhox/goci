@@ -11,7 +11,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 module.exports = {
 	debug: false,
-	devtool: 'source-map',
+	devtool: false,
 	entry: {
 		polyfills: [path.resolve(rootDir, 'src', 'polyfills')],
 		vendor: [path.resolve(rootDir, 'src', 'vendor')],
@@ -67,7 +67,14 @@ module.exports = {
 		new webpack.optimize.UglifyJsPlugin({
 			mangle: {
 				keep_fnames: true
-			}
+			},
+			compress: {
+				warnings: false
+			},
+			output: {
+				comments: false
+			},
+			sourceMap: false
 		}),
 		new ExtractTextPlugin('[name].[hash].css'),
 		new webpack.ProvidePlugin({

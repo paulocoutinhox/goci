@@ -19,33 +19,33 @@ import {WebResponse} from "../models/WebResponse";
 
 export class TaskViewComponent implements OnInit {
 
-	private projectId: string;
-	private taskId: string;
-	private project: Project;
-	private task: ProjectTask;
-	private lastJob: Job;
+	projectId: string;
+	taskId: string;
+	project: Project;
+	task: ProjectTask;
+	lastJob: Job;
 
-	private showData: boolean;
-	private showEmptyData: boolean;
-	private showError: boolean;
-	private showLoading: boolean;
+	showData: boolean;
+	showEmptyData: boolean;
+	showError: boolean;
+	showLoading: boolean;
 
-	private showLastJobData: boolean;
-	private showLastJobEmptyData: boolean;
-	private showLastJobError: boolean;
-	private showLastJobLoading: boolean;
+	showLastJobData: boolean;
+	showLastJobEmptyData: boolean;
+	showLastJobError: boolean;
+	showLastJobLoading: boolean;
 
-	private showTaskOptionsForm: boolean;
+	showTaskOptionsForm: boolean;
 
-	private runTaskOptions: ProjectTaskOption[];
-	private runProjectId: string;
-	private runProjectName: string;
-	private runTaskId: string;
-	private runTaskName: string;
-	private runTaskDescription: string;
+	runTaskOptions: ProjectTaskOption[];
+	runProjectId: string;
+	runProjectName: string;
+	runTaskId: string;
+	runTaskName: string;
+	runTaskDescription: string;
 
-	private jobOutputGroupList: JobOutputGroup[];
-	private lastJobId: string;
+	jobOutputGroupList: JobOutputGroup[];
+	lastJobId: string;
 
 	constructor(private globalService: GlobalService, private taskService: TaskService, private jobService: JobService, private router: Router, private route: ActivatedRoute) {
 

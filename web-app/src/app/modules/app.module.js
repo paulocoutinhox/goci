@@ -1,13 +1,4 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var app_main_component_1 = require("../app-main/app-main.component");
@@ -30,48 +21,49 @@ var task_view_component_1 = require("../task-view/task-view.component");
 var timestampFormat_1 = require("../pipes/timestampFormat");
 var task_options_component_1 = require("../task-options/task-options.component");
 var project_task_item_component_1 = require("../project-task-item/project-task-item.component");
-var ng2_charts_1 = require('ng2-charts/ng2-charts');
+var ng2_charts_1 = require("ng2-charts/ng2-charts");
 toastr.options = { timeOut: 5000, progressBar: true, hideDuration: 300, positionClass: 'toast-top-center' };
 var AppModule = (function () {
     function AppModule() {
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            declarations: [
-                app_main_component_1.AppMainComponent,
-                home_component_1.HomeComponent,
-                app_header_component_1.AppHeaderComponent,
-                app_footer_component_1.AppFooterComponent,
-                job_list_component_1.JobListComponent,
-                project_list_component_1.ProjectListComponent,
-                project_view_component_1.ProjectViewComponent,
-                not_found_component_1.NotFoundComponent,
-                task_view_component_1.TaskViewComponent,
-                task_options_component_1.TaskOptionsComponent,
-                project_task_item_component_1.ProjectTaskItemComponent,
-                timestampFormat_1.TimestampFormat
-            ],
-            imports: [
-                app_routes_1.routing,
-                platform_browser_1.BrowserModule,
-                forms_1.FormsModule,
-                forms_1.ReactiveFormsModule,
-                http_1.HttpModule,
-                router_1.RouterModule,
-                ng2_charts_1.ChartsModule
-            ],
-            bootstrap: [
-                app_main_component_1.AppMainComponent
-            ],
-            providers: [
-                GlobalService_1.GlobalService,
-                JobService_1.JobService,
-                TaskService_1.TaskService,
-                ProjectService_1.ProjectService
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppModule);
+    AppModule.decorators = [
+        { type: core_1.NgModule, args: [{
+                    declarations: [
+                        app_main_component_1.AppMainComponent,
+                        home_component_1.HomeComponent,
+                        app_header_component_1.AppHeaderComponent,
+                        app_footer_component_1.AppFooterComponent,
+                        job_list_component_1.JobListComponent,
+                        project_list_component_1.ProjectListComponent,
+                        project_view_component_1.ProjectViewComponent,
+                        not_found_component_1.NotFoundComponent,
+                        task_view_component_1.TaskViewComponent,
+                        task_options_component_1.TaskOptionsComponent,
+                        project_task_item_component_1.ProjectTaskItemComponent,
+                        timestampFormat_1.TimestampFormat
+                    ],
+                    imports: [
+                        app_routes_1.routing,
+                        platform_browser_1.BrowserModule,
+                        forms_1.FormsModule,
+                        forms_1.ReactiveFormsModule,
+                        http_1.HttpModule,
+                        router_1.RouterModule,
+                        ng2_charts_1.ChartsModule
+                    ],
+                    bootstrap: [
+                        app_main_component_1.AppMainComponent
+                    ],
+                    providers: [
+                        GlobalService_1.GlobalService,
+                        JobService_1.JobService,
+                        TaskService_1.TaskService,
+                        ProjectService_1.ProjectService
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    AppModule.ctorParameters = [];
     return AppModule;
 }());
 exports.AppModule = AppModule;

@@ -17,23 +17,23 @@ import {ProjectTaskOption} from "../models/ProjectTaskOption";
 
 export class ProjectViewComponent implements OnInit {
 
-	private projectId: string;
-	private project: Project;
+	projectId: string;
+	project: Project;
 
-	private showData: boolean;
-	private showEmptyData: boolean;
-	private showError: boolean;
-	private showLoading: boolean;
+	showData: boolean;
+	showEmptyData: boolean;
+	showError: boolean;
+	showLoading: boolean;
 
-	private jobList: Job[];
+	jobList: Job[];
 
-	private runTaskOptions: any;
-	private runProjectId: string;
-	private runProjectName: string;
-	private runTaskId: string;
-	private runTaskName: string;
-	private runTaskDescription: string;
-	private showTaskOptionsForm: boolean;
+	runTaskOptions: any;
+	runProjectId: string;
+	runProjectName: string;
+	runTaskId: string;
+	runTaskName: string;
+	runTaskDescription: string;
+	showTaskOptionsForm: boolean;
 
 	constructor(private globalService: GlobalService, private projectService: ProjectService, private taskService: TaskService, private router: Router, private route: ActivatedRoute) {
 
