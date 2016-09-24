@@ -18,10 +18,10 @@ module.exports = {
 		app: [path.resolve(rootDir, 'src', 'main')]
 	},
 	output: {
-		filename: '[name].bundle.js',
+		filename: '[name].[hash].bundle.js',
 		publicPath: '/web-app/',
 		path: path.resolve(rootDir, 'dist'),
-		chunkFilename: '[id].chunk.js'
+		chunkFilename: '[id].[hash].chunk.js'
 	},
 	resolve: {
 		extensions: ['', '.ts', '.js']
@@ -29,7 +29,7 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				loaders: ['ts', 'angular2-template-loader'],
+				loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
 				test: /\.ts$/,
 				exclude: /node_modules/
 			},

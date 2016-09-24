@@ -11,7 +11,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 
 module.exports = {
 	debug: true,
-	devtool: false,
+	devtool: 'source-map',
 	devServer: {
 		contentBase: path.resolve(rootDir, 'dist'),
 		port: 9000,
@@ -40,7 +40,7 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				loaders: ['ts', 'angular2-template-loader'],
+				loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
 				test: /\.ts$/,
 				exclude: /node_modules/
 			},
