@@ -304,7 +304,7 @@ var _View_JobListComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_JobListComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_JobListComponent === null)) {
-        (renderType_JobListComponent = viewUtils.createRenderComponentType('/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/job-list/job-list.component.html', 0, import10.ViewEncapsulation.Emulated, styles_JobListComponent, {}));
+        (renderType_JobListComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/job-list/job-list.component.html', 0, import10.ViewEncapsulation.Emulated, styles_JobListComponent, {}));
     }
     return new _View_JobListComponent0(viewUtils, parentInjector, declarationEl);
 }

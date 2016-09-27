@@ -235,7 +235,7 @@ var _View_TaskOptionsComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_TaskOptionsComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_TaskOptionsComponent === null)) {
-        (renderType_TaskOptionsComponent = viewUtils.createRenderComponentType('/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/task-options/task-options.component.html', 0, import9.ViewEncapsulation.None, styles_TaskOptionsComponent, {}));
+        (renderType_TaskOptionsComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/task-options/task-options.component.html', 0, import9.ViewEncapsulation.None, styles_TaskOptionsComponent, {}));
     }
     return new _View_TaskOptionsComponent0(viewUtils, parentInjector, declarationEl);
 }

@@ -17,6 +17,7 @@
 		"typings/index.d.ts"
 	],
 	"angularCompilerOptions": {
-		"genDir": "./ngfactory"
+		"genDir": "./ngfactory",
+		"skipMetadataEmit": false
 	}
 }

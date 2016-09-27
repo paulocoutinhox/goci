@@ -88,7 +88,7 @@ var _View_NotFoundComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_NotFoundComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_NotFoundComponent === null)) {
-        (renderType_NotFoundComponent = viewUtils.createRenderComponentType('/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/not-found/not-found.component.html', 0, import8.ViewEncapsulation.None, styles_NotFoundComponent, {}));
+        (renderType_NotFoundComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/not-found/not-found.component.html', 0, import8.ViewEncapsulation.None, styles_NotFoundComponent, {}));
     }
     return new _View_NotFoundComponent0(viewUtils, parentInjector, declarationEl);
 }

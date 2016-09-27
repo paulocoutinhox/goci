@@ -281,6 +281,6 @@ class _View_HomeComponent0 extends import1.AppView<import3.HomeComponent> {
   }
 }
 export function viewFactory_HomeComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.HomeComponent> {
-  if ((renderType_HomeComponent === (null as any))) { (renderType_HomeComponent = viewUtils.createRenderComponentType('/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/home/home.component.html',0,import8.ViewEncapsulation.Emulated,styles_HomeComponent,{})); }
+  if ((renderType_HomeComponent === (null as any))) { (renderType_HomeComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/home/home.component.html',0,import8.ViewEncapsulation.Emulated,styles_HomeComponent,{})); }
   return new _View_HomeComponent0(viewUtils,parentInjector,declarationEl);
 }

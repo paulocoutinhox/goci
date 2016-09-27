@@ -131,7 +131,7 @@ var _View_AppMainComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_AppMainComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_AppMainComponent === null)) {
-        (renderType_AppMainComponent = viewUtils.createRenderComponentType('/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/app-main/app-main.component.html', 0, import10.ViewEncapsulation.None, styles_AppMainComponent, {}));
+        (renderType_AppMainComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/app-main/app-main.component.html', 0, import10.ViewEncapsulation.None, styles_AppMainComponent, {}));
     }
     return new _View_AppMainComponent0(viewUtils, parentInjector, declarationEl);
 }

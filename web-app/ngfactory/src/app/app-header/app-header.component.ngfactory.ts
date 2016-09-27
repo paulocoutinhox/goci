@@ -346,6 +346,6 @@ class _View_AppHeaderComponent0 extends import1.AppView<import3.AppHeaderCompone
   }
 }
 export function viewFactory_AppHeaderComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.AppHeaderComponent> {
-  if ((renderType_AppHeaderComponent === (null as any))) { (renderType_AppHeaderComponent = viewUtils.createRenderComponentType('/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/app-header/app-header.component.html',0,import9.ViewEncapsulation.Emulated,styles_AppHeaderComponent,{})); }
+  if ((renderType_AppHeaderComponent === (null as any))) { (renderType_AppHeaderComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/app-header/app-header.component.html',0,import9.ViewEncapsulation.Emulated,styles_AppHeaderComponent,{})); }
   return new _View_AppHeaderComponent0(viewUtils,parentInjector,declarationEl);
 }

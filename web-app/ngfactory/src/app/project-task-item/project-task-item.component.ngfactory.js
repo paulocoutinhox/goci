@@ -340,7 +340,7 @@ var _View_ProjectTaskItemComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_ProjectTaskItemComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_ProjectTaskItemComponent === null)) {
-        (renderType_ProjectTaskItemComponent = viewUtils.createRenderComponentType('/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/project-task-item/project-task-item.component.html', 0, import10.ViewEncapsulation.None, styles_ProjectTaskItemComponent, {}));
+        (renderType_ProjectTaskItemComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/project-task-item/project-task-item.component.html', 0, import10.ViewEncapsulation.None, styles_ProjectTaskItemComponent, {}));
     }
     return new _View_ProjectTaskItemComponent0(viewUtils, parentInjector, declarationEl);
 }

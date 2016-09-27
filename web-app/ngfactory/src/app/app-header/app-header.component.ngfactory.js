@@ -312,7 +312,7 @@ var _View_AppHeaderComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_AppHeaderComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_AppHeaderComponent === null)) {
-        (renderType_AppHeaderComponent = viewUtils.createRenderComponentType('/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/app-header/app-header.component.html', 0, import9.ViewEncapsulation.Emulated, styles_AppHeaderComponent, {}));
+        (renderType_AppHeaderComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/app-header/app-header.component.html', 0, import9.ViewEncapsulation.Emulated, styles_AppHeaderComponent, {}));
     }
     return new _View_AppHeaderComponent0(viewUtils, parentInjector, declarationEl);
 }
