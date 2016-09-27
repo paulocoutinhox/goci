@@ -52,17 +52,18 @@ format:
 test:
 
 deps:
-	${GODEPS} github.com/prsolucoes/gowebresponse
-	${GODEPS} github.com/gin-gonic/gin
-	${GODEPS} github.com/go-ini/ini
-	${GODEPS} github.com/robertkrimen/otto
-	${GODEPS} github.com/mitsuse/pushbullet-go
-	${GODEPS} github.com/mitsuse/pushbullet-go/requests
-	${GODEPS} github.com/sendgrid/sendgrid-go
-	${GODEPS} github.com/bluele/slack
-	${GODEPS} github.com/gin-gonic/contrib/static
-	${GODEPS} github.com/elazarl/go-bindata-assetfs
-	${GODEPS} github.com/gin-gonic/contrib/gzip
+	${GODEPS} -u github.com/prsolucoes/gowebresponse
+	${GODEPS} -u github.com/gin-gonic/gin
+	${GODEPS} -u github.com/go-ini/ini
+	${GODEPS} -u github.com/robertkrimen/otto
+	${GODEPS} -u github.com/mitsuse/pushbullet-go
+	${GODEPS} -u github.com/mitsuse/pushbullet-go/requests
+	${GODEPS} -u github.com/sendgrid/sendgrid-go
+	${GODEPS} -u github.com/bluele/slack
+	${GODEPS} -u github.com/gin-gonic/contrib/static
+	${GODEPS} -u github.com/elazarl/go-bindata-assetfs
+	${GODEPS} -u github.com/gin-gonic/contrib/gzip
+	${GODEPS} -u github.com/pborman/uuid
 
 stop:
 	pkill -f ${EXECUTABLE}
