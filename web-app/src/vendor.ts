@@ -21,7 +21,7 @@ import 'toastr';
 import 'toastr/build/toastr.css';
 
 // ChartJS
-import 'chart.js';
+//import 'chart.js';
 
 // Project
 import '../src/static/css/styles.css';

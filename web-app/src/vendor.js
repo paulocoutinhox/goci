@@ -17,7 +17,7 @@ require('bootstrap/dist/css/bootstrap.css');
 require('toastr');
 require('toastr/build/toastr.css');
 // ChartJS
-require('chart.js');
+//import 'chart.js';
 // Project
 require('../src/static/css/styles.css');
 //# sourceMappingURL=vendor.js.map
