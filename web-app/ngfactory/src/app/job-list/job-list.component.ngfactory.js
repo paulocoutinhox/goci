@@ -27,9 +27,6 @@ var import16 = require('@angular/common/src/directives/ng_for');
 var import17 = require('@angular/core/src/change_detection/differs/iterable_differs');
 var import18 = require('@angular/common/src/directives/ng_switch');
 var import19 = require('@angular/core/src/security');
-var import20 = require('ng2-charts/components/charts/charts');
-var import21 = require('../../../node_modules/ng2-charts/components/charts/charts.ngfactory');
-var import22 = require('@angular/core/src/linker/element_ref');
 var renderType_JobListComponent_Host = null;
 var _View_JobListComponent_Host0 = (function (_super) {
     __extends(_View_JobListComponent_Host0, _super);
@@ -1292,22 +1289,9 @@ var _View_JobListComponent16 = (function (_super) {
         this._text_8 = this.renderer.createText(this._el_4, '\n					', null);
         this._el_9 = this.renderer.createElement(this._el_4, 'br', null);
         this._text_10 = this.renderer.createText(this._el_4, '\n					', null);
-        this._el_11 = this.renderer.createElement(this._el_4, 'base-chart', null);
-        this.renderer.setElementAttribute(this._el_11, 'class', 'chart');
-        this._appEl_11 = new import2.AppElement(11, 4, this, this._el_11);
-        var compView_11 = import21.viewFactory_BaseChartComponent0(this.viewUtils, this.injector(11), this._appEl_11);
-        this._BaseChartComponent_11_4 = new import20.BaseChartComponent(new import22.ElementRef(this._el_11));
-        this._appEl_11.initComponent(this._BaseChartComponent_11_4, [], compView_11);
-        this._text_12 = this.renderer.createText(null, '\n					', null);
-        compView_11.create(this._BaseChartComponent_11_4, [], null);
-        this._text_13 = this.renderer.createText(this._el_4, '\n				', null);
-        this._text_14 = this.renderer.createText(this._el_2, '\n			', null);
-        this._text_15 = this.renderer.createText(this._el_0, '\n		', null);
-        this._expr_0 = import7.UNINITIALIZED;
-        this._expr_1 = import7.UNINITIALIZED;
-        this._expr_2 = import7.UNINITIALIZED;
-        this._expr_3 = import7.UNINITIALIZED;
-        this._expr_4 = import7.UNINITIALIZED;
+        this._text_11 = this.renderer.createText(this._el_4, '\n				', null);
+        this._text_12 = this.renderer.createText(this._el_2, '\n			', null);
+        this._text_13 = this.renderer.createText(this._el_0, '\n		', null);
         this.init([].concat([this._el_0]), [
             this._el_0,
             this._text_1,
@@ -1320,79 +1304,11 @@ var _View_JobListComponent16 = (function (_super) {
             this._text_8,
             this._el_9,
             this._text_10,
-            this._el_11,
+            this._text_11,
             this._text_12,
-            this._text_13,
-            this._text_14,
-            this._text_15
+            this._text_13
         ], [], []);
         return null;
-    };
-    _View_JobListComponent16.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
-        if (((token === import20.BaseChartComponent) && ((11 <= requestNodeIndex) && (requestNodeIndex <= 12)))) {
-            return this._BaseChartComponent_11_4;
-        }
-        return notFoundResult;
-    };
-    _View_JobListComponent16.prototype.detectChangesInternal = function (throwOnChange) {
-        var changes = null;
-        changes = null;
-        var currVal_0 = this.parent.context.chartDataDatasets;
-        if (import4.checkBinding(throwOnChange, this._expr_0, currVal_0)) {
-            this._BaseChartComponent_11_4.datasets = currVal_0;
-            if ((changes === null)) {
-                (changes = {});
-            }
-            changes['datasets'] = new import7.SimpleChange(this._expr_0, currVal_0);
-            this._expr_0 = currVal_0;
-        }
-        var currVal_1 = this.parent.context.chartDataLabels;
-        if (import4.checkBinding(throwOnChange, this._expr_1, currVal_1)) {
-            this._BaseChartComponent_11_4.labels = currVal_1;
-            if ((changes === null)) {
-                (changes = {});
-            }
-            changes['labels'] = new import7.SimpleChange(this._expr_1, currVal_1);
-            this._expr_1 = currVal_1;
-        }
-        var currVal_2 = this.parent.context.chartDataOptions;
-        if (import4.checkBinding(throwOnChange, this._expr_2, currVal_2)) {
-            this._BaseChartComponent_11_4.options = currVal_2;
-            if ((changes === null)) {
-                (changes = {});
-            }
-            changes['options'] = new import7.SimpleChange(this._expr_2, currVal_2);
-            this._expr_2 = currVal_2;
-        }
-        var currVal_3 = 'doughnut';
-        if (import4.checkBinding(throwOnChange, this._expr_3, currVal_3)) {
-            this._BaseChartComponent_11_4.chartType = currVal_3;
-            if ((changes === null)) {
-                (changes = {});
-            }
-            changes['chartType'] = new import7.SimpleChange(this._expr_3, currVal_3);
-            this._expr_3 = currVal_3;
-        }
-        var currVal_4 = this.parent.context.chartDataColors;
-        if (import4.checkBinding(throwOnChange, this._expr_4, currVal_4)) {
-            this._BaseChartComponent_11_4.colors = currVal_4;
-            if ((changes === null)) {
-                (changes = {});
-            }
-            changes['colors'] = new import7.SimpleChange(this._expr_4, currVal_4);
-            this._expr_4 = currVal_4;
-        }
-        if ((changes !== null)) {
-            this._BaseChartComponent_11_4.ngOnChanges(changes);
-        }
-        if (((this.numberOfChecks === 0) && !throwOnChange)) {
-            this._BaseChartComponent_11_4.ngOnInit();
-        }
-        this.detectContentChildrenChanges(throwOnChange);
-        this.detectViewChildrenChanges(throwOnChange);
-    };
-    _View_JobListComponent16.prototype.destroyInternal = function () {
-        this._BaseChartComponent_11_4.ngOnDestroy();
     };
     return _View_JobListComponent16;
 }(import1.AppView));

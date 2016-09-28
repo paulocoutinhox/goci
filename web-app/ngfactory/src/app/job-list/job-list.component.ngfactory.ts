@@ -24,9 +24,6 @@ import * as import16 from '@angular/common/src/directives/ng_for';
 import * as import17 from '@angular/core/src/change_detection/differs/iterable_differs';
 import * as import18 from '@angular/common/src/directives/ng_switch';
 import * as import19 from '@angular/core/src/security';
-import * as import20 from 'ng2-charts/components/charts/charts';
-import * as import21 from '../../../node_modules/ng2-charts/components/charts/charts.ngfactory';
-import * as import22 from '@angular/core/src/linker/element_ref';
 var renderType_JobListComponent_Host:import0.RenderComponentType = (null as any);
 class _View_JobListComponent_Host0 extends import1.AppView<any> {
   _el_0:any;
@@ -1454,18 +1451,9 @@ class _View_JobListComponent16 extends import1.AppView<any> {
   _text_8:any;
   _el_9:any;
   _text_10:any;
-  _el_11:any;
-  /*private*/ _appEl_11:import2.AppElement;
-  _BaseChartComponent_11_4:import20.BaseChartComponent;
+  _text_11:any;
   _text_12:any;
   _text_13:any;
-  _text_14:any;
-  _text_15:any;
-  /*private*/ _expr_0:any;
-  /*private*/ _expr_1:any;
-  /*private*/ _expr_2:any;
-  /*private*/ _expr_3:any;
-  /*private*/ _expr_4:any;
   constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
     super(_View_JobListComponent16,renderType_JobListComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
   }
@@ -1484,22 +1472,9 @@ class _View_JobListComponent16 extends import1.AppView<any> {
     this._text_8 = this.renderer.createText(this._el_4,'\n					',(null as any));
     this._el_9 = this.renderer.createElement(this._el_4,'br',(null as any));
     this._text_10 = this.renderer.createText(this._el_4,'\n					',(null as any));
-    this._el_11 = this.renderer.createElement(this._el_4,'base-chart',(null as any));
-    this.renderer.setElementAttribute(this._el_11,'class','chart');
-    this._appEl_11 = new import2.AppElement(11,4,this,this._el_11);
-    var compView_11:any = import21.viewFactory_BaseChartComponent0(this.viewUtils,this.injector(11),this._appEl_11);
-    this._BaseChartComponent_11_4 = new import20.BaseChartComponent(new import22.ElementRef(this._el_11));
-    this._appEl_11.initComponent(this._BaseChartComponent_11_4,[],compView_11);
-    this._text_12 = this.renderer.createText((null as any),'\n					',(null as any));
-    compView_11.create(this._BaseChartComponent_11_4,[],(null as any));
-    this._text_13 = this.renderer.createText(this._el_4,'\n				',(null as any));
-    this._text_14 = this.renderer.createText(this._el_2,'\n			',(null as any));
-    this._text_15 = this.renderer.createText(this._el_0,'\n		',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this._expr_1 = import7.UNINITIALIZED;
-    this._expr_2 = import7.UNINITIALIZED;
-    this._expr_3 = import7.UNINITIALIZED;
-    this._expr_4 = import7.UNINITIALIZED;
+    this._text_11 = this.renderer.createText(this._el_4,'\n				',(null as any));
+    this._text_12 = this.renderer.createText(this._el_2,'\n			',(null as any));
+    this._text_13 = this.renderer.createText(this._el_0,'\n		',(null as any));
     this.init([].concat([this._el_0]),[
       this._el_0,
       this._text_1,
@@ -1512,64 +1487,12 @@ class _View_JobListComponent16 extends import1.AppView<any> {
       this._text_8,
       this._el_9,
       this._text_10,
-      this._el_11,
+      this._text_11,
       this._text_12,
-      this._text_13,
-      this._text_14,
-      this._text_15
+      this._text_13
     ]
     ,[],[]);
     return (null as any);
-  }
-  injectorGetInternal(token:any,requestNodeIndex:number,notFoundResult:any):any {
-    if (((token === import20.BaseChartComponent) && ((11 <= requestNodeIndex) && (requestNodeIndex <= 12)))) { return this._BaseChartComponent_11_4; }
-    return notFoundResult;
-  }
-  detectChangesInternal(throwOnChange:boolean):void {
-    var changes:{[key: string]:import7.SimpleChange} = (null as any);
-    changes = (null as any);
-    const currVal_0:any = this.parent.context.chartDataDatasets;
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this._BaseChartComponent_11_4.datasets = currVal_0;
-      if ((changes === (null as any))) { (changes = {}); }
-      changes['datasets'] = new import7.SimpleChange(this._expr_0,currVal_0);
-      this._expr_0 = currVal_0;
-    }
-    const currVal_1:any = this.parent.context.chartDataLabels;
-    if (import4.checkBinding(throwOnChange,this._expr_1,currVal_1)) {
-      this._BaseChartComponent_11_4.labels = currVal_1;
-      if ((changes === (null as any))) { (changes = {}); }
-      changes['labels'] = new import7.SimpleChange(this._expr_1,currVal_1);
-      this._expr_1 = currVal_1;
-    }
-    const currVal_2:any = this.parent.context.chartDataOptions;
-    if (import4.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
-      this._BaseChartComponent_11_4.options = currVal_2;
-      if ((changes === (null as any))) { (changes = {}); }
-      changes['options'] = new import7.SimpleChange(this._expr_2,currVal_2);
-      this._expr_2 = currVal_2;
-    }
-    const currVal_3:any = 'doughnut';
-    if (import4.checkBinding(throwOnChange,this._expr_3,currVal_3)) {
-      this._BaseChartComponent_11_4.chartType = currVal_3;
-      if ((changes === (null as any))) { (changes = {}); }
-      changes['chartType'] = new import7.SimpleChange(this._expr_3,currVal_3);
-      this._expr_3 = currVal_3;
-    }
-    const currVal_4:any = this.parent.context.chartDataColors;
-    if (import4.checkBinding(throwOnChange,this._expr_4,currVal_4)) {
-      this._BaseChartComponent_11_4.colors = currVal_4;
-      if ((changes === (null as any))) { (changes = {}); }
-      changes['colors'] = new import7.SimpleChange(this._expr_4,currVal_4);
-      this._expr_4 = currVal_4;
-    }
-    if ((changes !== (null as any))) { this._BaseChartComponent_11_4.ngOnChanges(changes); }
-    if (((this.numberOfChecks === 0) && !throwOnChange)) { this._BaseChartComponent_11_4.ngOnInit(); }
-    this.detectContentChildrenChanges(throwOnChange);
-    this.detectViewChildrenChanges(throwOnChange);
-  }
-  destroyInternal():void {
-    this._BaseChartComponent_11_4.ngOnDestroy();
   }
 }
 function viewFactory_JobListComponent16(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {

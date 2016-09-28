@@ -18,10 +18,9 @@ module.exports = {
 		app: [path.resolve(rootDir, 'src', 'main')]
 	},
 	output: {
-		filename: '[name].[hash].bundle.js',
+		filename: '[name].bundle.js',
 		publicPath: '/web-app/',
-		path: path.resolve(rootDir, 'dist'),
-		chunkFilename: '[id].[hash].chunk.js'
+		path: path.resolve(rootDir, 'dist')
 	},
 	resolve: {
 		extensions: ['', '.ts', '.js', '.json'],
@@ -45,7 +44,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				exclude: path.resolve(rootDir, 'src', 'app'),
-				loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
+				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
 			},
 			{
 				test: /\.css$/,
@@ -56,7 +55,8 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({
-			name: ['app', 'vendor', 'polyfills']
+			name: ['app', 'vendor', 'polyfills'],
+			minChunks: Infinity
 		}),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',

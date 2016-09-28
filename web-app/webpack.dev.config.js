@@ -1,11 +1,14 @@
 'use strict';
 
 const path = require('path');
+const rootDir = path.resolve(__dirname);
+
 const webpack = require('webpack');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const rootDir = path.resolve(__dirname);
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 
@@ -66,7 +69,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new webpack.optimize.CommonsChunkPlugin({
+		new CommonsChunkPlugin({
 			name: ['app', 'vendor', 'polyfills'],
 			minChunks: Infinity
 		}),
