@@ -12,9 +12,7 @@
 	},
 	"exclude": [
 		"node_modules",
-		"dist",
-		"typings/index",
-		"typings/index.d.ts"
+		"dist"
 	],
 	"angularCompilerOptions": {
 		"genDir": "./ngfactory",
