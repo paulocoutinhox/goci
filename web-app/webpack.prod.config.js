@@ -24,12 +24,13 @@ module.exports = {
 		chunkFilename: '[id].[hash].chunk.js'
 	},
 	resolve: {
-		extensions: ['', '.ts', '.js']
+		extensions: ['', '.ts', '.js'],
+		modules: [path.resolve(rootDir, 'src'), 'node_modules']
 	},
 	module: {
 		loaders: [
 			{
-				loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
+				loaders: ['awesome-typescript-loader?tsconfig=tsconfig.json', 'angular2-template-loader'],
 				test: /\.ts$/,
 				exclude: /node_modules/
 			},
