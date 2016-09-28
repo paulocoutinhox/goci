@@ -24,7 +24,7 @@ module.exports = {
 		chunkFilename: '[id].[hash].chunk.js'
 	},
 	resolve: {
-		extensions: ['', '.ts', '.js'],
+		extensions: ['', '.ts', '.js', '.json'],
 		modules: [path.resolve(rootDir, 'src'), 'node_modules']
 	},
 	module: {
