@@ -11,7 +11,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 module.exports = {
 	debug: false,
-	devtool: false,
+	devtool: 'source-map',
 	entry: {
 		polyfills: [path.resolve(rootDir, 'src', 'polyfills')],
 		vendor: [path.resolve(rootDir, 'src', 'vendor')],
