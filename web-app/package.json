@@ -49,7 +49,7 @@
     "@types/toastr": "2.1.30",
     "angular2-template-loader": "0.5.0",
     "awesome-typescript-loader": "2.2.4",
-    "concurrently": "2.2.0",
+    "concurrently": "3.0.0",
     "css-loader": "0.25.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "favicons-webpack-plugin": "0.0.7",
