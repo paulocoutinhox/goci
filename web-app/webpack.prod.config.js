@@ -10,7 +10,6 @@ const rootDir = path.resolve(__dirname);
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 module.exports = {
-	debug: false,
 	devtool: 'source-map',
 	entry: {
 		polyfills: [path.resolve(rootDir, 'src', 'polyfills')],
@@ -23,7 +22,7 @@ module.exports = {
 		path: path.resolve(rootDir, 'dist')
 	},
 	resolve: {
-		extensions: ['', '.ts', '.js', '.json'],
+		extensions: ['.ts', '.js', '.json'],
 		modules: [path.resolve(rootDir, 'src'), 'node_modules']
 	},
 	module: {
@@ -89,12 +88,17 @@ module.exports = {
 			'process.env': {
 				'ENV': JSON.stringify(ENV)
 			}
+		}),
+		new webpack.LoaderOptionsPlugin({
+			debug: false,
+			options: {
+				htmlLoader: {
+					minimize: false, // workaround for ng2
+					ignoreCustomFragments: [/\{\{.*?}}/],
+					root: path.resolve(rootDir),
+					attrs: ['img:src', 'link:href']
+				}
+			}
 		})
-	],
-	htmlLoader: {
-		minimize: false, // workaround for ng2
-		ignoreCustomFragments: [/\{\{.*?}}/],
-		root: path.resolve(rootDir),
-		attrs: ['img:src', 'link:href']
-	}
+	]
 };

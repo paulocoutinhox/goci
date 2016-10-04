@@ -11,7 +11,7 @@
     "email": "paulo@prsolucoes.com"
   },
   "scripts": {
-    "start": "npm run ngc && webpack-dev-server --config webpack.dev.config.js --progress --hot --inline --host 0.0.0.0 --port 9000",
+    "start": "npm run ngc && webpack-dev-server --config webpack.dev.config.js --progress --hot --inline --host 0.0.0.0 --port 9001",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "webpack": "npm run ngc && webpack --config webpack.dev.config.js --progress --color",
@@ -63,7 +63,7 @@
     "style-loader": "0.13.1",
     "typescript": "2.0.3",
     "url-loader": "0.5.7",
-    "webpack": "2.1.0-beta.22",
+    "webpack": "2.1.0-beta.25",
     "webpack-dev-server": "2.1.0-beta.7"
   }
 }

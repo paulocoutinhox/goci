@@ -13,7 +13,6 @@ const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 
 module.exports = {
-	debug: true,
 	devtool: 'source-map',
 	devServer: {
 		contentBase: path.resolve(rootDir, 'dist'),
@@ -33,12 +32,11 @@ module.exports = {
 	},
 	output: {
 		filename: '[name].bundle.js',
-		publicPath: '/',
-		path: path.resolve(rootDir, 'dist'),
-		chunkFilename: '[id].chunk.js'
+		publicPath: '/web-app/',
+		path: path.resolve(rootDir, 'dist')
 	},
-	resolve: {
-		extensions: ['', '.ts', '.js', '.json'],
+	resolve: {		
+		extensions: ['.ts', '.js', '.json'],
 		modules: [path.resolve(rootDir, 'src'), 'node_modules']
 	},
 	module: {
@@ -53,8 +51,8 @@ module.exports = {
 				loader: 'html'
 			},
 			{
-				test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-				loader: 'file?name=assets/[name].[hash].[ext]'
+				test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/i,
+				loader: 'file?name=dist/[name].[ext]'
 			},
 			{
 				test: /\.css$/,
@@ -90,12 +88,17 @@ module.exports = {
 			'process.env': {
 				'ENV': JSON.stringify(ENV)
 			}
+		}),
+		new webpack.LoaderOptionsPlugin({
+			debug: true,
+			options: {
+				htmlLoader: {
+					minimize: false, // workaround for ng2
+					ignoreCustomFragments: [/\{\{.*?}}/],
+					root: path.resolve(rootDir),
+					attrs: ['img:src', 'link:href']
+				}
+			}
 		})
-	],
-	htmlLoader: {
-		minimize: false, // workaround for ng2
-		ignoreCustomFragments: [/\{\{.*?}}/],
-		root: path.resolve(rootDir),
-		attrs: ['img:src', 'link:href']
-	}
+	]
 };
