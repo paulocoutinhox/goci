@@ -397,7 +397,7 @@ class _View_ProjectTaskItemComponent0 extends import1.AppView<import3.ProjectTas
   }
 }
 export function viewFactory_ProjectTaskItemComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.ProjectTaskItemComponent> {
-  if ((renderType_ProjectTaskItemComponent === (null as any))) { (renderType_ProjectTaskItemComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/project-task-item/project-task-item.component.html',0,import10.ViewEncapsulation.None,styles_ProjectTaskItemComponent,{})); }
+  if ((renderType_ProjectTaskItemComponent === (null as any))) { (renderType_ProjectTaskItemComponent = viewUtils.createRenderComponentType('',0,import10.ViewEncapsulation.None,styles_ProjectTaskItemComponent,{})); }
   return new _View_ProjectTaskItemComponent0(viewUtils,parentInjector,declarationEl);
 }
 class _View_ProjectTaskItemComponent1 extends import1.AppView<any> {

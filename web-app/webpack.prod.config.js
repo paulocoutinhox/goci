@@ -1,16 +1,18 @@
 'use strict';
 
 const path = require('path');
+const rootDir = path.resolve(__dirname);
+
 const webpack = require('webpack');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const rootDir = path.resolve(__dirname);
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 module.exports = {
-	devtool: 'source-map',
+	devtool: false,
 	entry: {
 		polyfills: [path.resolve(rootDir, 'src', 'polyfills')],
 		vendor: [path.resolve(rootDir, 'src', 'vendor')],
@@ -23,7 +25,10 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.ts', '.js', '.json'],
-		modules: [path.resolve(rootDir, 'src'), 'node_modules']
+		modules: [
+			'node_modules',
+			path.resolve(rootDir, 'src')
+		]
 	},
 	module: {
 		loaders: [
@@ -38,7 +43,7 @@ module.exports = {
 			},
 			{
 				test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-				loader: 'file?name=assets/[name].[hash].[ext]'
+				loader: 'file?name=assets/[name].[ext]'
 			},
 			{
 				test: /\.css$/,
@@ -53,6 +58,10 @@ module.exports = {
 		]
 	},
 	plugins: [
+		new webpack.ContextReplacementPlugin(
+			/angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+			path.join(process.cwd(), 'src')
+		),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: ['app', 'vendor', 'polyfills'],
 			minChunks: Infinity
@@ -63,7 +72,6 @@ module.exports = {
 			template: path.resolve(rootDir, 'src', 'index.html')
 		}),
 		new webpack.NoErrorsPlugin(),
-		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
 			mangle: {
 				keep_fnames: true
@@ -93,9 +101,9 @@ module.exports = {
 			debug: false,
 			options: {
 				htmlLoader: {
-					minimize: false, // workaround for ng2
+					minimize: false,
 					ignoreCustomFragments: [/\{\{.*?}}/],
-					root: path.resolve(rootDir),
+					root: path.resolve(rootDir, 'src'),
 					attrs: ['img:src', 'link:href']
 				}
 			}

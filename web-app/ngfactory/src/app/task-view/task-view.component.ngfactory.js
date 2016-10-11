@@ -350,7 +350,7 @@ var _View_TaskViewComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_TaskViewComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_TaskViewComponent === null)) {
-        (renderType_TaskViewComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/task-view/task-view.component.html', 0, import13.ViewEncapsulation.None, styles_TaskViewComponent, {}));
+        (renderType_TaskViewComponent = viewUtils.createRenderComponentType('', 0, import13.ViewEncapsulation.None, styles_TaskViewComponent, {}));
     }
     return new _View_TaskViewComponent0(viewUtils, parentInjector, declarationEl);
 }

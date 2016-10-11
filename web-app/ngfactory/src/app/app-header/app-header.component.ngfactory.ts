@@ -157,7 +157,7 @@ class _View_AppHeaderComponent0 extends import1.AppView<import3.AppHeaderCompone
     this.renderer.setElementAttribute(this._el_20,'alt','');
     this.renderer.setElementAttribute(this._el_20,'border','0');
     this.renderer.setElementAttribute(this._el_20,'class','logo pull-left');
-    this.renderer.setElementAttribute(this._el_20,'src','/src/static/images/logo-header.png');
+    this.renderer.setElementAttribute(this._el_20,'src','../../static/images/logo-header.png');
     this._text_21 = this.renderer.createText(this._el_18,'\n				GoCI\n			',(null as any));
     this._text_22 = this.renderer.createText(this._el_4,'\n		',(null as any));
     this._text_23 = this.renderer.createText(this._el_2,'\n		',(null as any));
@@ -346,6 +346,6 @@ class _View_AppHeaderComponent0 extends import1.AppView<import3.AppHeaderCompone
   }
 }
 export function viewFactory_AppHeaderComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.AppHeaderComponent> {
-  if ((renderType_AppHeaderComponent === (null as any))) { (renderType_AppHeaderComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/app-header/app-header.component.html',0,import9.ViewEncapsulation.Emulated,styles_AppHeaderComponent,{})); }
+  if ((renderType_AppHeaderComponent === (null as any))) { (renderType_AppHeaderComponent = viewUtils.createRenderComponentType('',0,import9.ViewEncapsulation.Emulated,styles_AppHeaderComponent,{})); }
   return new _View_AppHeaderComponent0(viewUtils,parentInjector,declarationEl);
 }

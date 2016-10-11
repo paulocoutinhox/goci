@@ -130,7 +130,7 @@ class _View_HomeComponent0 extends import1.AppView<import3.HomeComponent> {
     this.renderer.setElementAttribute(this._el_9,'alt','');
     this.renderer.setElementAttribute(this._el_9,'border','0');
     this.renderer.setElementAttribute(this._el_9,'class','logo');
-    this.renderer.setElementAttribute(this._el_9,'src','/src/static/images/logo.png');
+    this.renderer.setElementAttribute(this._el_9,'src','../../static/images/logo.png');
     this._text_10 = this.renderer.createText(this._el_7,'\n		',(null as any));
     this._text_11 = this.renderer.createText(this._el_2,'\n\n		',(null as any));
     this._el_12 = this.renderer.createElement(this._el_2,'p',(null as any));
@@ -281,6 +281,6 @@ class _View_HomeComponent0 extends import1.AppView<import3.HomeComponent> {
   }
 }
 export function viewFactory_HomeComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.HomeComponent> {
-  if ((renderType_HomeComponent === (null as any))) { (renderType_HomeComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/home/home.component.html',0,import8.ViewEncapsulation.Emulated,styles_HomeComponent,{})); }
+  if ((renderType_HomeComponent === (null as any))) { (renderType_HomeComponent = viewUtils.createRenderComponentType('',0,import8.ViewEncapsulation.Emulated,styles_HomeComponent,{})); }
   return new _View_HomeComponent0(viewUtils,parentInjector,declarationEl);
 }

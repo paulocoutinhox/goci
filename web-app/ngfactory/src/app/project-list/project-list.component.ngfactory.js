@@ -224,7 +224,7 @@ var _View_ProjectListComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_ProjectListComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_ProjectListComponent === null)) {
-        (renderType_ProjectListComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/project-list/project-list.component.html', 0, import11.ViewEncapsulation.None, styles_ProjectListComponent, {}));
+        (renderType_ProjectListComponent = viewUtils.createRenderComponentType('', 0, import11.ViewEncapsulation.None, styles_ProjectListComponent, {}));
     }
     return new _View_ProjectListComponent0(viewUtils, parentInjector, declarationEl);
 }

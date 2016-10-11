@@ -92,6 +92,6 @@ class _View_NotFoundComponent0 extends import1.AppView<import3.NotFoundComponent
   }
 }
 export function viewFactory_NotFoundComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.NotFoundComponent> {
-  if ((renderType_NotFoundComponent === (null as any))) { (renderType_NotFoundComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/not-found/not-found.component.html',0,import8.ViewEncapsulation.None,styles_NotFoundComponent,{})); }
+  if ((renderType_NotFoundComponent === (null as any))) { (renderType_NotFoundComponent = viewUtils.createRenderComponentType('',0,import8.ViewEncapsulation.None,styles_NotFoundComponent,{})); }
   return new _View_NotFoundComponent0(viewUtils,parentInjector,declarationEl);
 }

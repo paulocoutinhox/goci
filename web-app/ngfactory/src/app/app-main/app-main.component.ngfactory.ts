@@ -133,6 +133,6 @@ class _View_AppMainComponent0 extends import1.AppView<import3.AppMainComponent> 
   }
 }
 export function viewFactory_AppMainComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.AppMainComponent> {
-  if ((renderType_AppMainComponent === (null as any))) { (renderType_AppMainComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/app-main/app-main.component.html',0,import10.ViewEncapsulation.None,styles_AppMainComponent,{})); }
+  if ((renderType_AppMainComponent === (null as any))) { (renderType_AppMainComponent = viewUtils.createRenderComponentType('',0,import10.ViewEncapsulation.None,styles_AppMainComponent,{})); }
   return new _View_AppMainComponent0(viewUtils,parentInjector,declarationEl);
 }

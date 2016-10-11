@@ -79,7 +79,7 @@ var _View_HomeComponent0 = (function (_super) {
         this.renderer.setElementAttribute(this._el_9, 'alt', '');
         this.renderer.setElementAttribute(this._el_9, 'border', '0');
         this.renderer.setElementAttribute(this._el_9, 'class', 'logo');
-        this.renderer.setElementAttribute(this._el_9, 'src', '/src/static/images/logo.png');
+        this.renderer.setElementAttribute(this._el_9, 'src', '../../static/images/logo.png');
         this._text_10 = this.renderer.createText(this._el_7, '\n		', null);
         this._text_11 = this.renderer.createText(this._el_2, '\n\n		', null);
         this._el_12 = this.renderer.createElement(this._el_2, 'p', null);
@@ -237,7 +237,7 @@ var _View_HomeComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_HomeComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_HomeComponent === null)) {
-        (renderType_HomeComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/home/home.component.html', 0, import8.ViewEncapsulation.Emulated, styles_HomeComponent, {}));
+        (renderType_HomeComponent = viewUtils.createRenderComponentType('', 0, import8.ViewEncapsulation.Emulated, styles_HomeComponent, {}));
     }
     return new _View_HomeComponent0(viewUtils, parentInjector, declarationEl);
 }

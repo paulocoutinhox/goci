@@ -279,7 +279,7 @@ class _View_ProjectViewComponent0 extends import1.AppView<import3.ProjectViewCom
   }
 }
 export function viewFactory_ProjectViewComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.ProjectViewComponent> {
-  if ((renderType_ProjectViewComponent === (null as any))) { (renderType_ProjectViewComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/project-view/project-view.component.html',0,import13.ViewEncapsulation.None,styles_ProjectViewComponent,{})); }
+  if ((renderType_ProjectViewComponent === (null as any))) { (renderType_ProjectViewComponent = viewUtils.createRenderComponentType('',0,import13.ViewEncapsulation.None,styles_ProjectViewComponent,{})); }
   return new _View_ProjectViewComponent0(viewUtils,parentInjector,declarationEl);
 }
 class _View_ProjectViewComponent1 extends import1.AppView<any> {

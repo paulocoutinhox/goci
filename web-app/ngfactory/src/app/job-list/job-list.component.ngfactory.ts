@@ -24,6 +24,8 @@ import * as import16 from '@angular/common/src/directives/ng_for';
 import * as import17 from '@angular/core/src/change_detection/differs/iterable_differs';
 import * as import18 from '@angular/common/src/directives/ng_switch';
 import * as import19 from '@angular/core/src/security';
+import * as import20 from 'ng2-charts/components/charts/charts';
+import * as import21 from '@angular/core/src/linker/element_ref';
 var renderType_JobListComponent_Host:import0.RenderComponentType = (null as any);
 class _View_JobListComponent_Host0 extends import1.AppView<any> {
   _el_0:any;
@@ -138,74 +140,74 @@ class _View_JobListComponent0 extends import1.AppView<import3.JobListComponent> 
     const parentRenderNode:any = this.renderer.createViewRoot(this.declarationAppElement.nativeElement);
     this._el_0 = this.renderer.createElement(parentRenderNode,'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'class','job-list');
-    this._text_1 = this.renderer.createText(this._el_0,'\n\n	',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n\n    ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','col-md-8 col-lg-8');
-    this._text_3 = this.renderer.createText(this._el_2,'\n		',(null as any));
-    this._text_4 = this.renderer.createText(this._el_2,'\n		',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n        ',(null as any));
+    this._text_4 = this.renderer.createText(this._el_2,'\n        ',(null as any));
     this._el_5 = this.renderer.createElement(this._el_2,'div',(null as any));
     this.renderer.setElementAttribute(this._el_5,'class','panel panel-default');
     this.renderer.setElementAttribute(this._el_5,'id','options-container');
-    this._text_6 = this.renderer.createText(this._el_5,'\n			',(null as any));
+    this._text_6 = this.renderer.createText(this._el_5,'\n            ',(null as any));
     this._el_7 = this.renderer.createElement(this._el_5,'div',(null as any));
     this.renderer.setElementAttribute(this._el_7,'class','panel-body');
-    this._text_8 = this.renderer.createText(this._el_7,'\n				',(null as any));
+    this._text_8 = this.renderer.createText(this._el_7,'\n                ',(null as any));
     this._el_9 = this.renderer.createElement(this._el_7,'h3',(null as any));
     this.renderer.setElementAttribute(this._el_9,'class','options-container-title');
     this._text_10 = this.renderer.createText(this._el_9,'Job List',(null as any));
-    this._text_11 = this.renderer.createText(this._el_7,'\n				',(null as any));
+    this._text_11 = this.renderer.createText(this._el_7,'\n                ',(null as any));
     this._el_12 = this.renderer.createElement(this._el_7,'button',(null as any));
     this.renderer.setElementAttribute(this._el_12,'class','btn btn-default');
     this.renderer.setElementAttribute(this._el_12,'type','button');
     this._text_13 = this.renderer.createText(this._el_12,'Back',(null as any));
-    this._text_14 = this.renderer.createText(this._el_7,'\n			',(null as any));
-    this._text_15 = this.renderer.createText(this._el_5,'\n		',(null as any));
-    this._text_16 = this.renderer.createText(this._el_2,'\n\n		',(null as any));
-    this._text_17 = this.renderer.createText(this._el_2,'\n		',(null as any));
+    this._text_14 = this.renderer.createText(this._el_7,'\n            ',(null as any));
+    this._text_15 = this.renderer.createText(this._el_5,'\n        ',(null as any));
+    this._text_16 = this.renderer.createText(this._el_2,'\n\n        ',(null as any));
+    this._text_17 = this.renderer.createText(this._el_2,'\n        ',(null as any));
     this._anchor_18 = this.renderer.createTemplateAnchor(this._el_2,(null as any));
     this._appEl_18 = new import2.AppElement(18,2,this,this._anchor_18);
     this._TemplateRef_18_5 = new import15.TemplateRef_(this._appEl_18,viewFactory_JobListComponent1);
     this._NgIf_18_6 = new import13.NgIf(this._appEl_18.vcRef,this._TemplateRef_18_5);
-    this._text_19 = this.renderer.createText(this._el_2,'\n\n		',(null as any));
+    this._text_19 = this.renderer.createText(this._el_2,'\n\n        ',(null as any));
     this._anchor_20 = this.renderer.createTemplateAnchor(this._el_2,(null as any));
     this._appEl_20 = new import2.AppElement(20,2,this,this._anchor_20);
     this._TemplateRef_20_5 = new import15.TemplateRef_(this._appEl_20,viewFactory_JobListComponent13);
     this._NgIf_20_6 = new import13.NgIf(this._appEl_20.vcRef,this._TemplateRef_20_5);
-    this._text_21 = this.renderer.createText(this._el_2,'\n\n		',(null as any));
+    this._text_21 = this.renderer.createText(this._el_2,'\n\n        ',(null as any));
     this._anchor_22 = this.renderer.createTemplateAnchor(this._el_2,(null as any));
     this._appEl_22 = new import2.AppElement(22,2,this,this._anchor_22);
     this._TemplateRef_22_5 = new import15.TemplateRef_(this._appEl_22,viewFactory_JobListComponent14);
     this._NgIf_22_6 = new import13.NgIf(this._appEl_22.vcRef,this._TemplateRef_22_5);
-    this._text_23 = this.renderer.createText(this._el_2,'\n\n		',(null as any));
+    this._text_23 = this.renderer.createText(this._el_2,'\n\n        ',(null as any));
     this._anchor_24 = this.renderer.createTemplateAnchor(this._el_2,(null as any));
     this._appEl_24 = new import2.AppElement(24,2,this,this._anchor_24);
     this._TemplateRef_24_5 = new import15.TemplateRef_(this._appEl_24,viewFactory_JobListComponent15);
     this._NgIf_24_6 = new import13.NgIf(this._appEl_24.vcRef,this._TemplateRef_24_5);
-    this._text_25 = this.renderer.createText(this._el_2,'\n	',(null as any));
-    this._text_26 = this.renderer.createText(this._el_0,'\n\n	',(null as any));
+    this._text_25 = this.renderer.createText(this._el_2,'\n    ',(null as any));
+    this._text_26 = this.renderer.createText(this._el_0,'\n\n    ',(null as any));
     this._el_27 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_27,'class','col-md-4 col-lg-4');
-    this._text_28 = this.renderer.createText(this._el_27,'\n		',(null as any));
+    this._text_28 = this.renderer.createText(this._el_27,'\n        ',(null as any));
     this._anchor_29 = this.renderer.createTemplateAnchor(this._el_27,(null as any));
     this._appEl_29 = new import2.AppElement(29,27,this,this._anchor_29);
     this._TemplateRef_29_5 = new import15.TemplateRef_(this._appEl_29,viewFactory_JobListComponent16);
     this._NgIf_29_6 = new import13.NgIf(this._appEl_29.vcRef,this._TemplateRef_29_5);
-    this._text_30 = this.renderer.createText(this._el_27,'\n\n		',(null as any));
+    this._text_30 = this.renderer.createText(this._el_27,'\n\n        ',(null as any));
     this._anchor_31 = this.renderer.createTemplateAnchor(this._el_27,(null as any));
     this._appEl_31 = new import2.AppElement(31,27,this,this._anchor_31);
     this._TemplateRef_31_5 = new import15.TemplateRef_(this._appEl_31,viewFactory_JobListComponent17);
     this._NgIf_31_6 = new import13.NgIf(this._appEl_31.vcRef,this._TemplateRef_31_5);
-    this._text_32 = this.renderer.createText(this._el_27,'\n\n		',(null as any));
+    this._text_32 = this.renderer.createText(this._el_27,'\n\n        ',(null as any));
     this._anchor_33 = this.renderer.createTemplateAnchor(this._el_27,(null as any));
     this._appEl_33 = new import2.AppElement(33,27,this,this._anchor_33);
     this._TemplateRef_33_5 = new import15.TemplateRef_(this._appEl_33,viewFactory_JobListComponent18);
     this._NgIf_33_6 = new import13.NgIf(this._appEl_33.vcRef,this._TemplateRef_33_5);
-    this._text_34 = this.renderer.createText(this._el_27,'\n\n		',(null as any));
+    this._text_34 = this.renderer.createText(this._el_27,'\n\n        ',(null as any));
     this._anchor_35 = this.renderer.createTemplateAnchor(this._el_27,(null as any));
     this._appEl_35 = new import2.AppElement(35,27,this,this._anchor_35);
     this._TemplateRef_35_5 = new import15.TemplateRef_(this._appEl_35,viewFactory_JobListComponent19);
     this._NgIf_35_6 = new import13.NgIf(this._appEl_35.vcRef,this._TemplateRef_35_5);
-    this._text_36 = this.renderer.createText(this._el_27,'\n	',(null as any));
+    this._text_36 = this.renderer.createText(this._el_27,'\n    ',(null as any));
     this._text_37 = this.renderer.createText(this._el_0,'\n\n',(null as any));
     var disposable_0:Function = this.renderer.listen(this._el_12,'click',this.eventHandler(this._handle_click_12_0.bind(this)));
     this._expr_1 = import7.UNINITIALIZED;
@@ -330,7 +332,7 @@ class _View_JobListComponent0 extends import1.AppView<import3.JobListComponent> 
   }
 }
 export function viewFactory_JobListComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.JobListComponent> {
-  if ((renderType_JobListComponent === (null as any))) { (renderType_JobListComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/job-list/job-list.component.html',0,import10.ViewEncapsulation.Emulated,styles_JobListComponent,{})); }
+  if ((renderType_JobListComponent === (null as any))) { (renderType_JobListComponent = viewUtils.createRenderComponentType('',0,import10.ViewEncapsulation.Emulated,styles_JobListComponent,{})); }
   return new _View_JobListComponent0(viewUtils,parentInjector,declarationEl);
 }
 class _View_JobListComponent1 extends import1.AppView<any> {
@@ -351,17 +353,17 @@ class _View_JobListComponent1 extends import1.AppView<any> {
   createInternal(rootSelector:string):import2.AppElement {
     this._el_0 = this.renderer.createElement((null as any),'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'id','data');
-    this._text_1 = this.renderer.createText(this._el_0,'\n			',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','list-group');
     this.renderer.setElementAttribute(this._el_2,'id','job-list');
-    this._text_3 = this.renderer.createText(this._el_2,'\n				',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n                ',(null as any));
     this._anchor_4 = this.renderer.createTemplateAnchor(this._el_2,(null as any));
     this._appEl_4 = new import2.AppElement(4,2,this,this._anchor_4);
     this._TemplateRef_4_5 = new import15.TemplateRef_(this._appEl_4,viewFactory_JobListComponent2);
     this._NgFor_4_6 = new import16.NgFor(this._appEl_4.vcRef,this._TemplateRef_4_5,this.parent.parentInjector.get(import17.IterableDiffers),this.parent.ref);
-    this._text_5 = this.renderer.createText(this._el_2,'\n			',(null as any));
-    this._text_6 = this.renderer.createText(this._el_0,'\n		',(null as any));
+    this._text_5 = this.renderer.createText(this._el_2,'\n            ',(null as any));
+    this._text_6 = this.renderer.createText(this._el_0,'\n        ',(null as any));
     this._expr_0 = import7.UNINITIALIZED;
     this.init([].concat([this._el_0]),[
       this._el_0,
@@ -532,47 +534,47 @@ class _View_JobListComponent2 extends import1.AppView<any> {
   createInternal(rootSelector:string):import2.AppElement {
     this._el_0 = this.renderer.createElement((null as any),'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'class','job-row list-group-item');
-    this._text_1 = this.renderer.createText(this._el_0,'\n					',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n                    ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'h4',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','list-group-item-heading');
-    this._text_3 = this.renderer.createText(this._el_2,'\n						',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n                        ',(null as any));
     this._el_4 = this.renderer.createElement(this._el_2,'a',(null as any));
     this.renderer.setElementAttribute(this._el_4,'href','javascript:void(0);');
     this._text_5 = this.renderer.createText(this._el_4,'',(null as any));
-    this._text_6 = this.renderer.createText(this._el_2,'\n					',(null as any));
-    this._text_7 = this.renderer.createText(this._el_0,'\n					',(null as any));
+    this._text_6 = this.renderer.createText(this._el_2,'\n                    ',(null as any));
+    this._text_7 = this.renderer.createText(this._el_0,'\n                    ',(null as any));
     this._el_8 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_8,'class','list-group-item-text');
-    this._text_9 = this.renderer.createText(this._el_8,'\n						',(null as any));
+    this._text_9 = this.renderer.createText(this._el_8,'\n                        ',(null as any));
     this._el_10 = this.renderer.createElement(this._el_8,'div',(null as any));
-    this._text_11 = this.renderer.createText(this._el_10,'\n							',(null as any));
+    this._text_11 = this.renderer.createText(this._el_10,'\n                            ',(null as any));
     this._el_12 = this.renderer.createElement(this._el_10,'strong',(null as any));
     this._text_13 = this.renderer.createText(this._el_12,'Job: ',(null as any));
     this._text_14 = this.renderer.createText(this._el_10,'',(null as any));
-    this._text_15 = this.renderer.createText(this._el_8,'\n						',(null as any));
+    this._text_15 = this.renderer.createText(this._el_8,'\n                        ',(null as any));
     this._el_16 = this.renderer.createElement(this._el_8,'div',(null as any));
-    this._text_17 = this.renderer.createText(this._el_16,'\n							',(null as any));
+    this._text_17 = this.renderer.createText(this._el_16,'\n                            ',(null as any));
     this._el_18 = this.renderer.createElement(this._el_16,'strong',(null as any));
     this._text_19 = this.renderer.createText(this._el_18,'Created at:',(null as any));
     this._text_20 = this.renderer.createText(this._el_16,'',(null as any));
-    this._text_21 = this.renderer.createText(this._el_8,'\n						',(null as any));
+    this._text_21 = this.renderer.createText(this._el_8,'\n                        ',(null as any));
     this._el_22 = this.renderer.createElement(this._el_8,'div',(null as any));
-    this._text_23 = this.renderer.createText(this._el_22,'\n							',(null as any));
+    this._text_23 = this.renderer.createText(this._el_22,'\n                            ',(null as any));
     this._el_24 = this.renderer.createElement(this._el_22,'strong',(null as any));
     this._text_25 = this.renderer.createText(this._el_24,'Started at:',(null as any));
     this._text_26 = this.renderer.createText(this._el_22,'',(null as any));
-    this._text_27 = this.renderer.createText(this._el_8,'\n						',(null as any));
+    this._text_27 = this.renderer.createText(this._el_8,'\n                        ',(null as any));
     this._el_28 = this.renderer.createElement(this._el_8,'div',(null as any));
-    this._text_29 = this.renderer.createText(this._el_28,'\n							',(null as any));
+    this._text_29 = this.renderer.createText(this._el_28,'\n                            ',(null as any));
     this._el_30 = this.renderer.createElement(this._el_28,'strong',(null as any));
     this._text_31 = this.renderer.createText(this._el_30,'Duration:',(null as any));
     this._text_32 = this.renderer.createText(this._el_28,'',(null as any));
-    this._text_33 = this.renderer.createText(this._el_8,'\n						',(null as any));
+    this._text_33 = this.renderer.createText(this._el_8,'\n                        ',(null as any));
     this._el_34 = this.renderer.createElement(this._el_8,'div',(null as any));
-    this._text_35 = this.renderer.createText(this._el_34,'\n							',(null as any));
+    this._text_35 = this.renderer.createText(this._el_34,'\n                            ',(null as any));
     this._el_36 = this.renderer.createElement(this._el_34,'strong',(null as any));
     this._text_37 = this.renderer.createText(this._el_36,'Status:',(null as any));
-    this._text_38 = this.renderer.createText(this._el_34,'\n							',(null as any));
+    this._text_38 = this.renderer.createText(this._el_34,'\n                            ',(null as any));
     this._el_39 = this.renderer.createElement(this._el_34,'span',(null as any));
     this._NgSwitch_39_3 = new import18.NgSwitch();
     this._text_40 = this.renderer.createText(this._el_39,'\n							',(null as any));
@@ -601,13 +603,13 @@ class _View_JobListComponent2 extends import1.AppView<any> {
     this._TemplateRef_49_5 = new import15.TemplateRef_(this._appEl_49,viewFactory_JobListComponent7);
     this._NgSwitchDefault_49_6 = new import18.NgSwitchDefault(this._appEl_49.vcRef,this._TemplateRef_49_5,this._NgSwitch_39_3);
     this._text_50 = this.renderer.createText(this._el_39,'\n						',(null as any));
-    this._text_51 = this.renderer.createText(this._el_34,'\n						',(null as any));
-    this._text_52 = this.renderer.createText(this._el_8,'\n						',(null as any));
+    this._text_51 = this.renderer.createText(this._el_34,'\n                        ',(null as any));
+    this._text_52 = this.renderer.createText(this._el_8,'\n                        ',(null as any));
     this._el_53 = this.renderer.createElement(this._el_8,'div',(null as any));
-    this._text_54 = this.renderer.createText(this._el_53,'\n							',(null as any));
+    this._text_54 = this.renderer.createText(this._el_53,'\n                            ',(null as any));
     this._el_55 = this.renderer.createElement(this._el_53,'strong',(null as any));
     this._text_56 = this.renderer.createText(this._el_55,'Progress:',(null as any));
-    this._text_57 = this.renderer.createText(this._el_53,'\n							',(null as any));
+    this._text_57 = this.renderer.createText(this._el_53,'\n                            ',(null as any));
     this._el_58 = this.renderer.createElement(this._el_53,'div',(null as any));
     this.renderer.setElementAttribute(this._el_58,'class','progress');
     this._text_59 = this.renderer.createText(this._el_58,'\n							',(null as any));
@@ -639,10 +641,10 @@ class _View_JobListComponent2 extends import1.AppView<any> {
     this._TemplateRef_70_5 = new import15.TemplateRef_(this._appEl_70,viewFactory_JobListComponent12);
     this._NgSwitchDefault_70_6 = new import18.NgSwitchDefault(this._appEl_70.vcRef,this._TemplateRef_70_5,this._NgSwitch_60_3);
     this._text_71 = this.renderer.createText(this._el_60,'\n							',(null as any));
-    this._text_72 = this.renderer.createText(this._el_58,'\n							',(null as any));
-    this._text_73 = this.renderer.createText(this._el_53,'\n						',(null as any));
-    this._text_74 = this.renderer.createText(this._el_8,'\n					',(null as any));
-    this._text_75 = this.renderer.createText(this._el_0,'\n				',(null as any));
+    this._text_72 = this.renderer.createText(this._el_58,'\n                            ',(null as any));
+    this._text_73 = this.renderer.createText(this._el_53,'\n                        ',(null as any));
+    this._text_74 = this.renderer.createText(this._el_8,'\n                    ',(null as any));
+    this._text_75 = this.renderer.createText(this._el_0,'\n                ',(null as any));
     this._expr_0 = import7.UNINITIALIZED;
     var disposable_0:Function = this.renderer.listen(this._el_4,'click',this.eventHandler(this._handle_click_4_0.bind(this)));
     this._expr_2 = import7.UNINITIALIZED;
@@ -831,24 +833,24 @@ class _View_JobListComponent2 extends import1.AppView<any> {
       this.renderer.setText(this._text_5,currVal_2);
       this._expr_2 = currVal_2;
     }
-    const currVal_3:any = import4.interpolate(1,' ',this.context.$implicit.id,'\n						');
+    const currVal_3:any = import4.interpolate(1,' ',this.context.$implicit.id,'\n                        ');
     if (import4.checkBinding(throwOnChange,this._expr_3,currVal_3)) {
       this.renderer.setText(this._text_14,currVal_3);
       this._expr_3 = currVal_3;
     }
     valUnwrapper.reset();
-    const currVal_4:any = import4.interpolate(1,' ',valUnwrapper.unwrap(import4.castByValue(this._pipe_timestampFormat_0_0,(<_View_JobListComponent0>this.parent.parent)._pipe_timestampFormat_0.transform)(this.context.$implicit.createdAt)),'\n						');
+    const currVal_4:any = import4.interpolate(1,' ',valUnwrapper.unwrap(import4.castByValue(this._pipe_timestampFormat_0_0,(<_View_JobListComponent0>this.parent.parent)._pipe_timestampFormat_0.transform)(this.context.$implicit.createdAt)),'\n                        ');
     if ((valUnwrapper.hasWrappedValue || import4.checkBinding(throwOnChange,this._expr_4,currVal_4))) {
       this.renderer.setText(this._text_20,currVal_4);
       this._expr_4 = currVal_4;
     }
     valUnwrapper.reset();
-    const currVal_5:any = import4.interpolate(1,' ',valUnwrapper.unwrap(import4.castByValue(this._pipe_timestampFormat_0_1,(<_View_JobListComponent0>this.parent.parent)._pipe_timestampFormat_0.transform)(this.context.$implicit.startedAt)),'\n						');
+    const currVal_5:any = import4.interpolate(1,' ',valUnwrapper.unwrap(import4.castByValue(this._pipe_timestampFormat_0_1,(<_View_JobListComponent0>this.parent.parent)._pipe_timestampFormat_0.transform)(this.context.$implicit.startedAt)),'\n                        ');
     if ((valUnwrapper.hasWrappedValue || import4.checkBinding(throwOnChange,this._expr_5,currVal_5))) {
       this.renderer.setText(this._text_26,currVal_5);
       this._expr_5 = currVal_5;
     }
-    const currVal_6:any = import4.interpolate(1,' ',this.context.$implicit.duration,'s\n						');
+    const currVal_6:any = import4.interpolate(1,' ',this.context.$implicit.duration,'s\n                        ');
     if (import4.checkBinding(throwOnChange,this._expr_6,currVal_6)) {
       this.renderer.setText(this._text_32,currVal_6);
       this._expr_6 = currVal_6;
@@ -1292,18 +1294,18 @@ class _View_JobListComponent13 extends import1.AppView<any> {
   createInternal(rootSelector:string):import2.AppElement {
     this._el_0 = this.renderer.createElement((null as any),'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'id','no-data');
-    this._text_1 = this.renderer.createText(this._el_0,'\n			',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','panel panel-default');
-    this._text_3 = this.renderer.createText(this._el_2,'\n				',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n                ',(null as any));
     this._el_4 = this.renderer.createElement(this._el_2,'div',(null as any));
     this.renderer.setElementAttribute(this._el_4,'class','panel-body');
-    this._text_5 = this.renderer.createText(this._el_4,'\n					',(null as any));
+    this._text_5 = this.renderer.createText(this._el_4,'\n                    ',(null as any));
     this._el_6 = this.renderer.createElement(this._el_4,'div',(null as any));
     this._text_7 = this.renderer.createText(this._el_6,'No jobs found',(null as any));
-    this._text_8 = this.renderer.createText(this._el_4,'\n				',(null as any));
-    this._text_9 = this.renderer.createText(this._el_2,'\n			',(null as any));
-    this._text_10 = this.renderer.createText(this._el_0,'\n		',(null as any));
+    this._text_8 = this.renderer.createText(this._el_4,'\n                ',(null as any));
+    this._text_9 = this.renderer.createText(this._el_2,'\n            ',(null as any));
+    this._text_10 = this.renderer.createText(this._el_0,'\n        ',(null as any));
     this.init([].concat([this._el_0]),[
       this._el_0,
       this._text_1,
@@ -1347,26 +1349,26 @@ class _View_JobListComponent14 extends import1.AppView<any> {
   createInternal(rootSelector:string):import2.AppElement {
     this._el_0 = this.renderer.createElement((null as any),'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'id','error-data');
-    this._text_1 = this.renderer.createText(this._el_0,'\n			',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','panel panel-default');
-    this._text_3 = this.renderer.createText(this._el_2,'\n				',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n                ',(null as any));
     this._el_4 = this.renderer.createElement(this._el_2,'div',(null as any));
     this.renderer.setElementAttribute(this._el_4,'class','panel-body');
-    this._text_5 = this.renderer.createText(this._el_4,'\n					',(null as any));
+    this._text_5 = this.renderer.createText(this._el_4,'\n                    ',(null as any));
     this._el_6 = this.renderer.createElement(this._el_4,'h3',(null as any));
     this._text_7 = this.renderer.createText(this._el_6,'Problem while loading job list',(null as any));
-    this._text_8 = this.renderer.createText(this._el_4,'\n					',(null as any));
+    this._text_8 = this.renderer.createText(this._el_4,'\n                    ',(null as any));
     this._el_9 = this.renderer.createElement(this._el_4,'p',(null as any));
     this.renderer.setElementAttribute(this._el_9,'id','error-data-message');
-    this._text_10 = this.renderer.createText(this._el_4,'\n					',(null as any));
+    this._text_10 = this.renderer.createText(this._el_4,'\n                    ',(null as any));
     this._el_11 = this.renderer.createElement(this._el_4,'button',(null as any));
     this.renderer.setElementAttribute(this._el_11,'class','btn btn-primary');
     this.renderer.setElementAttribute(this._el_11,'type','button');
     this._text_12 = this.renderer.createText(this._el_11,'Try again',(null as any));
-    this._text_13 = this.renderer.createText(this._el_4,'\n				',(null as any));
-    this._text_14 = this.renderer.createText(this._el_2,'\n			',(null as any));
-    this._text_15 = this.renderer.createText(this._el_0,'\n		',(null as any));
+    this._text_13 = this.renderer.createText(this._el_4,'\n                ',(null as any));
+    this._text_14 = this.renderer.createText(this._el_2,'\n            ',(null as any));
+    this._text_15 = this.renderer.createText(this._el_0,'\n        ',(null as any));
     var disposable_0:Function = this.renderer.listen(this._el_11,'click',this.eventHandler(this._handle_click_11_0.bind(this)));
     this.init([].concat([this._el_0]),[
       this._el_0,
@@ -1413,15 +1415,15 @@ class _View_JobListComponent15 extends import1.AppView<any> {
   createInternal(rootSelector:string):import2.AppElement {
     this._el_0 = this.renderer.createElement((null as any),'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'id','loading-data');
-    this._text_1 = this.renderer.createText(this._el_0,'\n			',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','panel panel-default');
-    this._text_3 = this.renderer.createText(this._el_2,'\n				',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n                ',(null as any));
     this._el_4 = this.renderer.createElement(this._el_2,'div',(null as any));
     this.renderer.setElementAttribute(this._el_4,'class','panel-body');
     this._text_5 = this.renderer.createText(this._el_4,'Loading...',(null as any));
-    this._text_6 = this.renderer.createText(this._el_2,'\n			',(null as any));
-    this._text_7 = this.renderer.createText(this._el_0,'\n		',(null as any));
+    this._text_6 = this.renderer.createText(this._el_2,'\n            ',(null as any));
+    this._text_7 = this.renderer.createText(this._el_0,'\n        ',(null as any));
     this.init([].concat([this._el_0]),[
       this._el_0,
       this._text_1,
@@ -1451,30 +1453,48 @@ class _View_JobListComponent16 extends import1.AppView<any> {
   _text_8:any;
   _el_9:any;
   _text_10:any;
-  _text_11:any;
+  _el_11:any;
+  _BaseChartDirective_11_3:import20.BaseChartDirective;
   _text_12:any;
   _text_13:any;
+  _text_14:any;
+  _text_15:any;
+  /*private*/ _expr_0:any;
+  /*private*/ _expr_1:any;
+  /*private*/ _expr_2:any;
+  /*private*/ _expr_3:any;
+  /*private*/ _expr_4:any;
   constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
     super(_View_JobListComponent16,renderType_JobListComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
   }
   createInternal(rootSelector:string):import2.AppElement {
     this._el_0 = this.renderer.createElement((null as any),'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'id','graph-data');
-    this._text_1 = this.renderer.createText(this._el_0,'\n			',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','panel panel-default');
-    this._text_3 = this.renderer.createText(this._el_2,'\n				',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n                ',(null as any));
     this._el_4 = this.renderer.createElement(this._el_2,'div',(null as any));
     this.renderer.setElementAttribute(this._el_4,'class','panel-body');
-    this._text_5 = this.renderer.createText(this._el_4,'\n					',(null as any));
+    this._text_5 = this.renderer.createText(this._el_4,'\n                    ',(null as any));
     this._el_6 = this.renderer.createElement(this._el_4,'h3',(null as any));
     this._text_7 = this.renderer.createText(this._el_6,'Job graph',(null as any));
-    this._text_8 = this.renderer.createText(this._el_4,'\n					',(null as any));
+    this._text_8 = this.renderer.createText(this._el_4,'\n                    ',(null as any));
     this._el_9 = this.renderer.createElement(this._el_4,'br',(null as any));
-    this._text_10 = this.renderer.createText(this._el_4,'\n					',(null as any));
-    this._text_11 = this.renderer.createText(this._el_4,'\n				',(null as any));
-    this._text_12 = this.renderer.createText(this._el_2,'\n			',(null as any));
-    this._text_13 = this.renderer.createText(this._el_0,'\n		',(null as any));
+    this._text_10 = this.renderer.createText(this._el_4,'\n                    ',(null as any));
+    this._el_11 = this.renderer.createElement(this._el_4,'canvas',(null as any));
+    this.renderer.setElementAttribute(this._el_11,'baseChart','');
+    this.renderer.setElementAttribute(this._el_11,'class','chart');
+    this._BaseChartDirective_11_3 = new import20.BaseChartDirective(new import21.ElementRef(this._el_11));
+    this._text_12 = this.renderer.createText(this._el_11,'\n                    ',(null as any));
+    this._text_13 = this.renderer.createText(this._el_4,'\n                ',(null as any));
+    this._text_14 = this.renderer.createText(this._el_2,'\n            ',(null as any));
+    this._text_15 = this.renderer.createText(this._el_0,'\n        ',(null as any));
+    this._expr_0 = import7.UNINITIALIZED;
+    this._expr_1 = import7.UNINITIALIZED;
+    this._expr_2 = import7.UNINITIALIZED;
+    this._expr_3 = import7.UNINITIALIZED;
+    this._expr_4 = import7.UNINITIALIZED;
     this.init([].concat([this._el_0]),[
       this._el_0,
       this._text_1,
@@ -1487,12 +1507,64 @@ class _View_JobListComponent16 extends import1.AppView<any> {
       this._text_8,
       this._el_9,
       this._text_10,
-      this._text_11,
+      this._el_11,
       this._text_12,
-      this._text_13
+      this._text_13,
+      this._text_14,
+      this._text_15
     ]
     ,[],[]);
     return (null as any);
+  }
+  injectorGetInternal(token:any,requestNodeIndex:number,notFoundResult:any):any {
+    if (((token === import20.BaseChartDirective) && ((11 <= requestNodeIndex) && (requestNodeIndex <= 12)))) { return this._BaseChartDirective_11_3; }
+    return notFoundResult;
+  }
+  detectChangesInternal(throwOnChange:boolean):void {
+    var changes:{[key: string]:import7.SimpleChange} = (null as any);
+    changes = (null as any);
+    const currVal_0:any = this.parent.context.chartDataDatasets;
+    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
+      this._BaseChartDirective_11_3.datasets = currVal_0;
+      if ((changes === (null as any))) { (changes = {}); }
+      changes['datasets'] = new import7.SimpleChange(this._expr_0,currVal_0);
+      this._expr_0 = currVal_0;
+    }
+    const currVal_1:any = this.parent.context.chartDataLabels;
+    if (import4.checkBinding(throwOnChange,this._expr_1,currVal_1)) {
+      this._BaseChartDirective_11_3.labels = currVal_1;
+      if ((changes === (null as any))) { (changes = {}); }
+      changes['labels'] = new import7.SimpleChange(this._expr_1,currVal_1);
+      this._expr_1 = currVal_1;
+    }
+    const currVal_2:any = this.parent.context.chartDataOptions;
+    if (import4.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
+      this._BaseChartDirective_11_3.options = currVal_2;
+      if ((changes === (null as any))) { (changes = {}); }
+      changes['options'] = new import7.SimpleChange(this._expr_2,currVal_2);
+      this._expr_2 = currVal_2;
+    }
+    const currVal_3:any = 'doughnut';
+    if (import4.checkBinding(throwOnChange,this._expr_3,currVal_3)) {
+      this._BaseChartDirective_11_3.chartType = currVal_3;
+      if ((changes === (null as any))) { (changes = {}); }
+      changes['chartType'] = new import7.SimpleChange(this._expr_3,currVal_3);
+      this._expr_3 = currVal_3;
+    }
+    const currVal_4:any = this.parent.context.chartDataColors;
+    if (import4.checkBinding(throwOnChange,this._expr_4,currVal_4)) {
+      this._BaseChartDirective_11_3.colors = currVal_4;
+      if ((changes === (null as any))) { (changes = {}); }
+      changes['colors'] = new import7.SimpleChange(this._expr_4,currVal_4);
+      this._expr_4 = currVal_4;
+    }
+    if ((changes !== (null as any))) { this._BaseChartDirective_11_3.ngOnChanges(changes); }
+    if (((this.numberOfChecks === 0) && !throwOnChange)) { this._BaseChartDirective_11_3.ngOnInit(); }
+    this.detectContentChildrenChanges(throwOnChange);
+    this.detectViewChildrenChanges(throwOnChange);
+  }
+  destroyInternal():void {
+    this._BaseChartDirective_11_3.ngOnDestroy();
   }
 }
 function viewFactory_JobListComponent16(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
@@ -1516,18 +1588,18 @@ class _View_JobListComponent17 extends import1.AppView<any> {
   createInternal(rootSelector:string):import2.AppElement {
     this._el_0 = this.renderer.createElement((null as any),'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'id','graph-no-data');
-    this._text_1 = this.renderer.createText(this._el_0,'\n			',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','panel panel-default');
-    this._text_3 = this.renderer.createText(this._el_2,'\n				',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n                ',(null as any));
     this._el_4 = this.renderer.createElement(this._el_2,'div',(null as any));
     this.renderer.setElementAttribute(this._el_4,'class','panel-body');
-    this._text_5 = this.renderer.createText(this._el_4,'\n					',(null as any));
+    this._text_5 = this.renderer.createText(this._el_4,'\n                    ',(null as any));
     this._el_6 = this.renderer.createElement(this._el_4,'div',(null as any));
     this._text_7 = this.renderer.createText(this._el_6,'No jobs for graph',(null as any));
-    this._text_8 = this.renderer.createText(this._el_4,'\n				',(null as any));
-    this._text_9 = this.renderer.createText(this._el_2,'\n			',(null as any));
-    this._text_10 = this.renderer.createText(this._el_0,'\n		',(null as any));
+    this._text_8 = this.renderer.createText(this._el_4,'\n                ',(null as any));
+    this._text_9 = this.renderer.createText(this._el_2,'\n            ',(null as any));
+    this._text_10 = this.renderer.createText(this._el_0,'\n        ',(null as any));
     this.init([].concat([this._el_0]),[
       this._el_0,
       this._text_1,
@@ -1566,18 +1638,18 @@ class _View_JobListComponent18 extends import1.AppView<any> {
   createInternal(rootSelector:string):import2.AppElement {
     this._el_0 = this.renderer.createElement((null as any),'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'id','graph-error-data');
-    this._text_1 = this.renderer.createText(this._el_0,'\n			',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','panel panel-default');
-    this._text_3 = this.renderer.createText(this._el_2,'\n				',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n                ',(null as any));
     this._el_4 = this.renderer.createElement(this._el_2,'div',(null as any));
     this.renderer.setElementAttribute(this._el_4,'class','panel-body');
-    this._text_5 = this.renderer.createText(this._el_4,'\n					',(null as any));
+    this._text_5 = this.renderer.createText(this._el_4,'\n                    ',(null as any));
     this._el_6 = this.renderer.createElement(this._el_4,'div',(null as any));
     this._text_7 = this.renderer.createText(this._el_6,'Problem while loading job list',(null as any));
-    this._text_8 = this.renderer.createText(this._el_4,'\n				',(null as any));
-    this._text_9 = this.renderer.createText(this._el_2,'\n			',(null as any));
-    this._text_10 = this.renderer.createText(this._el_0,'\n		',(null as any));
+    this._text_8 = this.renderer.createText(this._el_4,'\n                ',(null as any));
+    this._text_9 = this.renderer.createText(this._el_2,'\n            ',(null as any));
+    this._text_10 = this.renderer.createText(this._el_0,'\n        ',(null as any));
     this.init([].concat([this._el_0]),[
       this._el_0,
       this._text_1,
@@ -1613,15 +1685,15 @@ class _View_JobListComponent19 extends import1.AppView<any> {
   createInternal(rootSelector:string):import2.AppElement {
     this._el_0 = this.renderer.createElement((null as any),'div',(null as any));
     this.renderer.setElementAttribute(this._el_0,'id','graph-loading-data');
-    this._text_1 = this.renderer.createText(this._el_0,'\n			',(null as any));
+    this._text_1 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
     this.renderer.setElementAttribute(this._el_2,'class','panel panel-default');
-    this._text_3 = this.renderer.createText(this._el_2,'\n				',(null as any));
+    this._text_3 = this.renderer.createText(this._el_2,'\n                ',(null as any));
     this._el_4 = this.renderer.createElement(this._el_2,'div',(null as any));
     this.renderer.setElementAttribute(this._el_4,'class','panel-body');
     this._text_5 = this.renderer.createText(this._el_4,'Loading...',(null as any));
-    this._text_6 = this.renderer.createText(this._el_2,'\n			',(null as any));
-    this._text_7 = this.renderer.createText(this._el_0,'\n		',(null as any));
+    this._text_6 = this.renderer.createText(this._el_2,'\n            ',(null as any));
+    this._text_7 = this.renderer.createText(this._el_0,'\n        ',(null as any));
     this.init([].concat([this._el_0]),[
       this._el_0,
       this._text_1,

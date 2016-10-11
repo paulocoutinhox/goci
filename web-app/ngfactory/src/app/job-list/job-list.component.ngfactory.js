@@ -27,6 +27,8 @@ var import16 = require('@angular/common/src/directives/ng_for');
 var import17 = require('@angular/core/src/change_detection/differs/iterable_differs');
 var import18 = require('@angular/common/src/directives/ng_switch');
 var import19 = require('@angular/core/src/security');
+var import20 = require('ng2-charts/components/charts/charts');
+var import21 = require('@angular/core/src/linker/element_ref');
 var renderType_JobListComponent_Host = null;
 var _View_JobListComponent_Host0 = (function (_super) {
     __extends(_View_JobListComponent_Host0, _super);
@@ -76,74 +78,74 @@ var _View_JobListComponent0 = (function (_super) {
         var parentRenderNode = this.renderer.createViewRoot(this.declarationAppElement.nativeElement);
         this._el_0 = this.renderer.createElement(parentRenderNode, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'class', 'job-list');
-        this._text_1 = this.renderer.createText(this._el_0, '\n\n	', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n\n    ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'col-md-8 col-lg-8');
-        this._text_3 = this.renderer.createText(this._el_2, '\n		', null);
-        this._text_4 = this.renderer.createText(this._el_2, '\n		', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n        ', null);
+        this._text_4 = this.renderer.createText(this._el_2, '\n        ', null);
         this._el_5 = this.renderer.createElement(this._el_2, 'div', null);
         this.renderer.setElementAttribute(this._el_5, 'class', 'panel panel-default');
         this.renderer.setElementAttribute(this._el_5, 'id', 'options-container');
-        this._text_6 = this.renderer.createText(this._el_5, '\n			', null);
+        this._text_6 = this.renderer.createText(this._el_5, '\n            ', null);
         this._el_7 = this.renderer.createElement(this._el_5, 'div', null);
         this.renderer.setElementAttribute(this._el_7, 'class', 'panel-body');
-        this._text_8 = this.renderer.createText(this._el_7, '\n				', null);
+        this._text_8 = this.renderer.createText(this._el_7, '\n                ', null);
         this._el_9 = this.renderer.createElement(this._el_7, 'h3', null);
         this.renderer.setElementAttribute(this._el_9, 'class', 'options-container-title');
         this._text_10 = this.renderer.createText(this._el_9, 'Job List', null);
-        this._text_11 = this.renderer.createText(this._el_7, '\n				', null);
+        this._text_11 = this.renderer.createText(this._el_7, '\n                ', null);
         this._el_12 = this.renderer.createElement(this._el_7, 'button', null);
         this.renderer.setElementAttribute(this._el_12, 'class', 'btn btn-default');
         this.renderer.setElementAttribute(this._el_12, 'type', 'button');
         this._text_13 = this.renderer.createText(this._el_12, 'Back', null);
-        this._text_14 = this.renderer.createText(this._el_7, '\n			', null);
-        this._text_15 = this.renderer.createText(this._el_5, '\n		', null);
-        this._text_16 = this.renderer.createText(this._el_2, '\n\n		', null);
-        this._text_17 = this.renderer.createText(this._el_2, '\n		', null);
+        this._text_14 = this.renderer.createText(this._el_7, '\n            ', null);
+        this._text_15 = this.renderer.createText(this._el_5, '\n        ', null);
+        this._text_16 = this.renderer.createText(this._el_2, '\n\n        ', null);
+        this._text_17 = this.renderer.createText(this._el_2, '\n        ', null);
         this._anchor_18 = this.renderer.createTemplateAnchor(this._el_2, null);
         this._appEl_18 = new import2.AppElement(18, 2, this, this._anchor_18);
         this._TemplateRef_18_5 = new import15.TemplateRef_(this._appEl_18, viewFactory_JobListComponent1);
         this._NgIf_18_6 = new import13.NgIf(this._appEl_18.vcRef, this._TemplateRef_18_5);
-        this._text_19 = this.renderer.createText(this._el_2, '\n\n		', null);
+        this._text_19 = this.renderer.createText(this._el_2, '\n\n        ', null);
         this._anchor_20 = this.renderer.createTemplateAnchor(this._el_2, null);
         this._appEl_20 = new import2.AppElement(20, 2, this, this._anchor_20);
         this._TemplateRef_20_5 = new import15.TemplateRef_(this._appEl_20, viewFactory_JobListComponent13);
         this._NgIf_20_6 = new import13.NgIf(this._appEl_20.vcRef, this._TemplateRef_20_5);
-        this._text_21 = this.renderer.createText(this._el_2, '\n\n		', null);
+        this._text_21 = this.renderer.createText(this._el_2, '\n\n        ', null);
         this._anchor_22 = this.renderer.createTemplateAnchor(this._el_2, null);
         this._appEl_22 = new import2.AppElement(22, 2, this, this._anchor_22);
         this._TemplateRef_22_5 = new import15.TemplateRef_(this._appEl_22, viewFactory_JobListComponent14);
         this._NgIf_22_6 = new import13.NgIf(this._appEl_22.vcRef, this._TemplateRef_22_5);
-        this._text_23 = this.renderer.createText(this._el_2, '\n\n		', null);
+        this._text_23 = this.renderer.createText(this._el_2, '\n\n        ', null);
         this._anchor_24 = this.renderer.createTemplateAnchor(this._el_2, null);
         this._appEl_24 = new import2.AppElement(24, 2, this, this._anchor_24);
         this._TemplateRef_24_5 = new import15.TemplateRef_(this._appEl_24, viewFactory_JobListComponent15);
         this._NgIf_24_6 = new import13.NgIf(this._appEl_24.vcRef, this._TemplateRef_24_5);
-        this._text_25 = this.renderer.createText(this._el_2, '\n	', null);
-        this._text_26 = this.renderer.createText(this._el_0, '\n\n	', null);
+        this._text_25 = this.renderer.createText(this._el_2, '\n    ', null);
+        this._text_26 = this.renderer.createText(this._el_0, '\n\n    ', null);
         this._el_27 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_27, 'class', 'col-md-4 col-lg-4');
-        this._text_28 = this.renderer.createText(this._el_27, '\n		', null);
+        this._text_28 = this.renderer.createText(this._el_27, '\n        ', null);
         this._anchor_29 = this.renderer.createTemplateAnchor(this._el_27, null);
         this._appEl_29 = new import2.AppElement(29, 27, this, this._anchor_29);
         this._TemplateRef_29_5 = new import15.TemplateRef_(this._appEl_29, viewFactory_JobListComponent16);
         this._NgIf_29_6 = new import13.NgIf(this._appEl_29.vcRef, this._TemplateRef_29_5);
-        this._text_30 = this.renderer.createText(this._el_27, '\n\n		', null);
+        this._text_30 = this.renderer.createText(this._el_27, '\n\n        ', null);
         this._anchor_31 = this.renderer.createTemplateAnchor(this._el_27, null);
         this._appEl_31 = new import2.AppElement(31, 27, this, this._anchor_31);
         this._TemplateRef_31_5 = new import15.TemplateRef_(this._appEl_31, viewFactory_JobListComponent17);
         this._NgIf_31_6 = new import13.NgIf(this._appEl_31.vcRef, this._TemplateRef_31_5);
-        this._text_32 = this.renderer.createText(this._el_27, '\n\n		', null);
+        this._text_32 = this.renderer.createText(this._el_27, '\n\n        ', null);
         this._anchor_33 = this.renderer.createTemplateAnchor(this._el_27, null);
         this._appEl_33 = new import2.AppElement(33, 27, this, this._anchor_33);
         this._TemplateRef_33_5 = new import15.TemplateRef_(this._appEl_33, viewFactory_JobListComponent18);
         this._NgIf_33_6 = new import13.NgIf(this._appEl_33.vcRef, this._TemplateRef_33_5);
-        this._text_34 = this.renderer.createText(this._el_27, '\n\n		', null);
+        this._text_34 = this.renderer.createText(this._el_27, '\n\n        ', null);
         this._anchor_35 = this.renderer.createTemplateAnchor(this._el_27, null);
         this._appEl_35 = new import2.AppElement(35, 27, this, this._anchor_35);
         this._TemplateRef_35_5 = new import15.TemplateRef_(this._appEl_35, viewFactory_JobListComponent19);
         this._NgIf_35_6 = new import13.NgIf(this._appEl_35.vcRef, this._TemplateRef_35_5);
-        this._text_36 = this.renderer.createText(this._el_27, '\n	', null);
+        this._text_36 = this.renderer.createText(this._el_27, '\n    ', null);
         this._text_37 = this.renderer.createText(this._el_0, '\n\n', null);
         var disposable_0 = this.renderer.listen(this._el_12, 'click', this.eventHandler(this._handle_click_12_0.bind(this)));
         this._expr_1 = import7.UNINITIALIZED;
@@ -301,7 +303,7 @@ var _View_JobListComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_JobListComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_JobListComponent === null)) {
-        (renderType_JobListComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/job-list/job-list.component.html', 0, import10.ViewEncapsulation.Emulated, styles_JobListComponent, {}));
+        (renderType_JobListComponent = viewUtils.createRenderComponentType('', 0, import10.ViewEncapsulation.Emulated, styles_JobListComponent, {}));
     }
     return new _View_JobListComponent0(viewUtils, parentInjector, declarationEl);
 }
@@ -314,17 +316,17 @@ var _View_JobListComponent1 = (function (_super) {
     _View_JobListComponent1.prototype.createInternal = function (rootSelector) {
         this._el_0 = this.renderer.createElement(null, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'id', 'data');
-        this._text_1 = this.renderer.createText(this._el_0, '\n			', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n            ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'list-group');
         this.renderer.setElementAttribute(this._el_2, 'id', 'job-list');
-        this._text_3 = this.renderer.createText(this._el_2, '\n				', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n                ', null);
         this._anchor_4 = this.renderer.createTemplateAnchor(this._el_2, null);
         this._appEl_4 = new import2.AppElement(4, 2, this, this._anchor_4);
         this._TemplateRef_4_5 = new import15.TemplateRef_(this._appEl_4, viewFactory_JobListComponent2);
         this._NgFor_4_6 = new import16.NgFor(this._appEl_4.vcRef, this._TemplateRef_4_5, this.parent.parentInjector.get(import17.IterableDiffers), this.parent.ref);
-        this._text_5 = this.renderer.createText(this._el_2, '\n			', null);
-        this._text_6 = this.renderer.createText(this._el_0, '\n		', null);
+        this._text_5 = this.renderer.createText(this._el_2, '\n            ', null);
+        this._text_6 = this.renderer.createText(this._el_0, '\n        ', null);
         this._expr_0 = import7.UNINITIALIZED;
         this.init([].concat([this._el_0]), [
             this._el_0,
@@ -380,47 +382,47 @@ var _View_JobListComponent2 = (function (_super) {
     _View_JobListComponent2.prototype.createInternal = function (rootSelector) {
         this._el_0 = this.renderer.createElement(null, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'class', 'job-row list-group-item');
-        this._text_1 = this.renderer.createText(this._el_0, '\n					', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n                    ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'h4', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'list-group-item-heading');
-        this._text_3 = this.renderer.createText(this._el_2, '\n						', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n                        ', null);
         this._el_4 = this.renderer.createElement(this._el_2, 'a', null);
         this.renderer.setElementAttribute(this._el_4, 'href', 'javascript:void(0);');
         this._text_5 = this.renderer.createText(this._el_4, '', null);
-        this._text_6 = this.renderer.createText(this._el_2, '\n					', null);
-        this._text_7 = this.renderer.createText(this._el_0, '\n					', null);
+        this._text_6 = this.renderer.createText(this._el_2, '\n                    ', null);
+        this._text_7 = this.renderer.createText(this._el_0, '\n                    ', null);
         this._el_8 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_8, 'class', 'list-group-item-text');
-        this._text_9 = this.renderer.createText(this._el_8, '\n						', null);
+        this._text_9 = this.renderer.createText(this._el_8, '\n                        ', null);
         this._el_10 = this.renderer.createElement(this._el_8, 'div', null);
-        this._text_11 = this.renderer.createText(this._el_10, '\n							', null);
+        this._text_11 = this.renderer.createText(this._el_10, '\n                            ', null);
         this._el_12 = this.renderer.createElement(this._el_10, 'strong', null);
         this._text_13 = this.renderer.createText(this._el_12, 'Job: ', null);
         this._text_14 = this.renderer.createText(this._el_10, '', null);
-        this._text_15 = this.renderer.createText(this._el_8, '\n						', null);
+        this._text_15 = this.renderer.createText(this._el_8, '\n                        ', null);
         this._el_16 = this.renderer.createElement(this._el_8, 'div', null);
-        this._text_17 = this.renderer.createText(this._el_16, '\n							', null);
+        this._text_17 = this.renderer.createText(this._el_16, '\n                            ', null);
         this._el_18 = this.renderer.createElement(this._el_16, 'strong', null);
         this._text_19 = this.renderer.createText(this._el_18, 'Created at:', null);
         this._text_20 = this.renderer.createText(this._el_16, '', null);
-        this._text_21 = this.renderer.createText(this._el_8, '\n						', null);
+        this._text_21 = this.renderer.createText(this._el_8, '\n                        ', null);
         this._el_22 = this.renderer.createElement(this._el_8, 'div', null);
-        this._text_23 = this.renderer.createText(this._el_22, '\n							', null);
+        this._text_23 = this.renderer.createText(this._el_22, '\n                            ', null);
         this._el_24 = this.renderer.createElement(this._el_22, 'strong', null);
         this._text_25 = this.renderer.createText(this._el_24, 'Started at:', null);
         this._text_26 = this.renderer.createText(this._el_22, '', null);
-        this._text_27 = this.renderer.createText(this._el_8, '\n						', null);
+        this._text_27 = this.renderer.createText(this._el_8, '\n                        ', null);
         this._el_28 = this.renderer.createElement(this._el_8, 'div', null);
-        this._text_29 = this.renderer.createText(this._el_28, '\n							', null);
+        this._text_29 = this.renderer.createText(this._el_28, '\n                            ', null);
         this._el_30 = this.renderer.createElement(this._el_28, 'strong', null);
         this._text_31 = this.renderer.createText(this._el_30, 'Duration:', null);
         this._text_32 = this.renderer.createText(this._el_28, '', null);
-        this._text_33 = this.renderer.createText(this._el_8, '\n						', null);
+        this._text_33 = this.renderer.createText(this._el_8, '\n                        ', null);
         this._el_34 = this.renderer.createElement(this._el_8, 'div', null);
-        this._text_35 = this.renderer.createText(this._el_34, '\n							', null);
+        this._text_35 = this.renderer.createText(this._el_34, '\n                            ', null);
         this._el_36 = this.renderer.createElement(this._el_34, 'strong', null);
         this._text_37 = this.renderer.createText(this._el_36, 'Status:', null);
-        this._text_38 = this.renderer.createText(this._el_34, '\n							', null);
+        this._text_38 = this.renderer.createText(this._el_34, '\n                            ', null);
         this._el_39 = this.renderer.createElement(this._el_34, 'span', null);
         this._NgSwitch_39_3 = new import18.NgSwitch();
         this._text_40 = this.renderer.createText(this._el_39, '\n							', null);
@@ -449,13 +451,13 @@ var _View_JobListComponent2 = (function (_super) {
         this._TemplateRef_49_5 = new import15.TemplateRef_(this._appEl_49, viewFactory_JobListComponent7);
         this._NgSwitchDefault_49_6 = new import18.NgSwitchDefault(this._appEl_49.vcRef, this._TemplateRef_49_5, this._NgSwitch_39_3);
         this._text_50 = this.renderer.createText(this._el_39, '\n						', null);
-        this._text_51 = this.renderer.createText(this._el_34, '\n						', null);
-        this._text_52 = this.renderer.createText(this._el_8, '\n						', null);
+        this._text_51 = this.renderer.createText(this._el_34, '\n                        ', null);
+        this._text_52 = this.renderer.createText(this._el_8, '\n                        ', null);
         this._el_53 = this.renderer.createElement(this._el_8, 'div', null);
-        this._text_54 = this.renderer.createText(this._el_53, '\n							', null);
+        this._text_54 = this.renderer.createText(this._el_53, '\n                            ', null);
         this._el_55 = this.renderer.createElement(this._el_53, 'strong', null);
         this._text_56 = this.renderer.createText(this._el_55, 'Progress:', null);
-        this._text_57 = this.renderer.createText(this._el_53, '\n							', null);
+        this._text_57 = this.renderer.createText(this._el_53, '\n                            ', null);
         this._el_58 = this.renderer.createElement(this._el_53, 'div', null);
         this.renderer.setElementAttribute(this._el_58, 'class', 'progress');
         this._text_59 = this.renderer.createText(this._el_58, '\n							', null);
@@ -487,10 +489,10 @@ var _View_JobListComponent2 = (function (_super) {
         this._TemplateRef_70_5 = new import15.TemplateRef_(this._appEl_70, viewFactory_JobListComponent12);
         this._NgSwitchDefault_70_6 = new import18.NgSwitchDefault(this._appEl_70.vcRef, this._TemplateRef_70_5, this._NgSwitch_60_3);
         this._text_71 = this.renderer.createText(this._el_60, '\n							', null);
-        this._text_72 = this.renderer.createText(this._el_58, '\n							', null);
-        this._text_73 = this.renderer.createText(this._el_53, '\n						', null);
-        this._text_74 = this.renderer.createText(this._el_8, '\n					', null);
-        this._text_75 = this.renderer.createText(this._el_0, '\n				', null);
+        this._text_72 = this.renderer.createText(this._el_58, '\n                            ', null);
+        this._text_73 = this.renderer.createText(this._el_53, '\n                        ', null);
+        this._text_74 = this.renderer.createText(this._el_8, '\n                    ', null);
+        this._text_75 = this.renderer.createText(this._el_0, '\n                ', null);
         this._expr_0 = import7.UNINITIALIZED;
         var disposable_0 = this.renderer.listen(this._el_4, 'click', this.eventHandler(this._handle_click_4_0.bind(this)));
         this._expr_2 = import7.UNINITIALIZED;
@@ -722,24 +724,24 @@ var _View_JobListComponent2 = (function (_super) {
             this.renderer.setText(this._text_5, currVal_2);
             this._expr_2 = currVal_2;
         }
-        var currVal_3 = import4.interpolate(1, ' ', this.context.$implicit.id, '\n						');
+        var currVal_3 = import4.interpolate(1, ' ', this.context.$implicit.id, '\n                        ');
         if (import4.checkBinding(throwOnChange, this._expr_3, currVal_3)) {
             this.renderer.setText(this._text_14, currVal_3);
             this._expr_3 = currVal_3;
         }
         valUnwrapper.reset();
-        var currVal_4 = import4.interpolate(1, ' ', valUnwrapper.unwrap(import4.castByValue(this._pipe_timestampFormat_0_0, this.parent.parent._pipe_timestampFormat_0.transform)(this.context.$implicit.createdAt)), '\n						');
+        var currVal_4 = import4.interpolate(1, ' ', valUnwrapper.unwrap(import4.castByValue(this._pipe_timestampFormat_0_0, this.parent.parent._pipe_timestampFormat_0.transform)(this.context.$implicit.createdAt)), '\n                        ');
         if ((valUnwrapper.hasWrappedValue || import4.checkBinding(throwOnChange, this._expr_4, currVal_4))) {
             this.renderer.setText(this._text_20, currVal_4);
             this._expr_4 = currVal_4;
         }
         valUnwrapper.reset();
-        var currVal_5 = import4.interpolate(1, ' ', valUnwrapper.unwrap(import4.castByValue(this._pipe_timestampFormat_0_1, this.parent.parent._pipe_timestampFormat_0.transform)(this.context.$implicit.startedAt)), '\n						');
+        var currVal_5 = import4.interpolate(1, ' ', valUnwrapper.unwrap(import4.castByValue(this._pipe_timestampFormat_0_1, this.parent.parent._pipe_timestampFormat_0.transform)(this.context.$implicit.startedAt)), '\n                        ');
         if ((valUnwrapper.hasWrappedValue || import4.checkBinding(throwOnChange, this._expr_5, currVal_5))) {
             this.renderer.setText(this._text_26, currVal_5);
             this._expr_5 = currVal_5;
         }
-        var currVal_6 = import4.interpolate(1, ' ', this.context.$implicit.duration, 's\n						');
+        var currVal_6 = import4.interpolate(1, ' ', this.context.$implicit.duration, 's\n                        ');
         if (import4.checkBinding(throwOnChange, this._expr_6, currVal_6)) {
             this.renderer.setText(this._text_32, currVal_6);
             this._expr_6 = currVal_6;
@@ -1144,18 +1146,18 @@ var _View_JobListComponent13 = (function (_super) {
     _View_JobListComponent13.prototype.createInternal = function (rootSelector) {
         this._el_0 = this.renderer.createElement(null, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'id', 'no-data');
-        this._text_1 = this.renderer.createText(this._el_0, '\n			', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n            ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'panel panel-default');
-        this._text_3 = this.renderer.createText(this._el_2, '\n				', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n                ', null);
         this._el_4 = this.renderer.createElement(this._el_2, 'div', null);
         this.renderer.setElementAttribute(this._el_4, 'class', 'panel-body');
-        this._text_5 = this.renderer.createText(this._el_4, '\n					', null);
+        this._text_5 = this.renderer.createText(this._el_4, '\n                    ', null);
         this._el_6 = this.renderer.createElement(this._el_4, 'div', null);
         this._text_7 = this.renderer.createText(this._el_6, 'No jobs found', null);
-        this._text_8 = this.renderer.createText(this._el_4, '\n				', null);
-        this._text_9 = this.renderer.createText(this._el_2, '\n			', null);
-        this._text_10 = this.renderer.createText(this._el_0, '\n		', null);
+        this._text_8 = this.renderer.createText(this._el_4, '\n                ', null);
+        this._text_9 = this.renderer.createText(this._el_2, '\n            ', null);
+        this._text_10 = this.renderer.createText(this._el_0, '\n        ', null);
         this.init([].concat([this._el_0]), [
             this._el_0,
             this._text_1,
@@ -1184,26 +1186,26 @@ var _View_JobListComponent14 = (function (_super) {
     _View_JobListComponent14.prototype.createInternal = function (rootSelector) {
         this._el_0 = this.renderer.createElement(null, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'id', 'error-data');
-        this._text_1 = this.renderer.createText(this._el_0, '\n			', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n            ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'panel panel-default');
-        this._text_3 = this.renderer.createText(this._el_2, '\n				', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n                ', null);
         this._el_4 = this.renderer.createElement(this._el_2, 'div', null);
         this.renderer.setElementAttribute(this._el_4, 'class', 'panel-body');
-        this._text_5 = this.renderer.createText(this._el_4, '\n					', null);
+        this._text_5 = this.renderer.createText(this._el_4, '\n                    ', null);
         this._el_6 = this.renderer.createElement(this._el_4, 'h3', null);
         this._text_7 = this.renderer.createText(this._el_6, 'Problem while loading job list', null);
-        this._text_8 = this.renderer.createText(this._el_4, '\n					', null);
+        this._text_8 = this.renderer.createText(this._el_4, '\n                    ', null);
         this._el_9 = this.renderer.createElement(this._el_4, 'p', null);
         this.renderer.setElementAttribute(this._el_9, 'id', 'error-data-message');
-        this._text_10 = this.renderer.createText(this._el_4, '\n					', null);
+        this._text_10 = this.renderer.createText(this._el_4, '\n                    ', null);
         this._el_11 = this.renderer.createElement(this._el_4, 'button', null);
         this.renderer.setElementAttribute(this._el_11, 'class', 'btn btn-primary');
         this.renderer.setElementAttribute(this._el_11, 'type', 'button');
         this._text_12 = this.renderer.createText(this._el_11, 'Try again', null);
-        this._text_13 = this.renderer.createText(this._el_4, '\n				', null);
-        this._text_14 = this.renderer.createText(this._el_2, '\n			', null);
-        this._text_15 = this.renderer.createText(this._el_0, '\n		', null);
+        this._text_13 = this.renderer.createText(this._el_4, '\n                ', null);
+        this._text_14 = this.renderer.createText(this._el_2, '\n            ', null);
+        this._text_15 = this.renderer.createText(this._el_0, '\n        ', null);
         var disposable_0 = this.renderer.listen(this._el_11, 'click', this.eventHandler(this._handle_click_11_0.bind(this)));
         this.init([].concat([this._el_0]), [
             this._el_0,
@@ -1243,15 +1245,15 @@ var _View_JobListComponent15 = (function (_super) {
     _View_JobListComponent15.prototype.createInternal = function (rootSelector) {
         this._el_0 = this.renderer.createElement(null, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'id', 'loading-data');
-        this._text_1 = this.renderer.createText(this._el_0, '\n			', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n            ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'panel panel-default');
-        this._text_3 = this.renderer.createText(this._el_2, '\n				', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n                ', null);
         this._el_4 = this.renderer.createElement(this._el_2, 'div', null);
         this.renderer.setElementAttribute(this._el_4, 'class', 'panel-body');
         this._text_5 = this.renderer.createText(this._el_4, 'Loading...', null);
-        this._text_6 = this.renderer.createText(this._el_2, '\n			', null);
-        this._text_7 = this.renderer.createText(this._el_0, '\n		', null);
+        this._text_6 = this.renderer.createText(this._el_2, '\n            ', null);
+        this._text_7 = this.renderer.createText(this._el_0, '\n        ', null);
         this.init([].concat([this._el_0]), [
             this._el_0,
             this._text_1,
@@ -1277,21 +1279,31 @@ var _View_JobListComponent16 = (function (_super) {
     _View_JobListComponent16.prototype.createInternal = function (rootSelector) {
         this._el_0 = this.renderer.createElement(null, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'id', 'graph-data');
-        this._text_1 = this.renderer.createText(this._el_0, '\n			', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n            ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'panel panel-default');
-        this._text_3 = this.renderer.createText(this._el_2, '\n				', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n                ', null);
         this._el_4 = this.renderer.createElement(this._el_2, 'div', null);
         this.renderer.setElementAttribute(this._el_4, 'class', 'panel-body');
-        this._text_5 = this.renderer.createText(this._el_4, '\n					', null);
+        this._text_5 = this.renderer.createText(this._el_4, '\n                    ', null);
         this._el_6 = this.renderer.createElement(this._el_4, 'h3', null);
         this._text_7 = this.renderer.createText(this._el_6, 'Job graph', null);
-        this._text_8 = this.renderer.createText(this._el_4, '\n					', null);
+        this._text_8 = this.renderer.createText(this._el_4, '\n                    ', null);
         this._el_9 = this.renderer.createElement(this._el_4, 'br', null);
-        this._text_10 = this.renderer.createText(this._el_4, '\n					', null);
-        this._text_11 = this.renderer.createText(this._el_4, '\n				', null);
-        this._text_12 = this.renderer.createText(this._el_2, '\n			', null);
-        this._text_13 = this.renderer.createText(this._el_0, '\n		', null);
+        this._text_10 = this.renderer.createText(this._el_4, '\n                    ', null);
+        this._el_11 = this.renderer.createElement(this._el_4, 'canvas', null);
+        this.renderer.setElementAttribute(this._el_11, 'baseChart', '');
+        this.renderer.setElementAttribute(this._el_11, 'class', 'chart');
+        this._BaseChartDirective_11_3 = new import20.BaseChartDirective(new import21.ElementRef(this._el_11));
+        this._text_12 = this.renderer.createText(this._el_11, '\n                    ', null);
+        this._text_13 = this.renderer.createText(this._el_4, '\n                ', null);
+        this._text_14 = this.renderer.createText(this._el_2, '\n            ', null);
+        this._text_15 = this.renderer.createText(this._el_0, '\n        ', null);
+        this._expr_0 = import7.UNINITIALIZED;
+        this._expr_1 = import7.UNINITIALIZED;
+        this._expr_2 = import7.UNINITIALIZED;
+        this._expr_3 = import7.UNINITIALIZED;
+        this._expr_4 = import7.UNINITIALIZED;
         this.init([].concat([this._el_0]), [
             this._el_0,
             this._text_1,
@@ -1304,11 +1316,79 @@ var _View_JobListComponent16 = (function (_super) {
             this._text_8,
             this._el_9,
             this._text_10,
-            this._text_11,
+            this._el_11,
             this._text_12,
-            this._text_13
+            this._text_13,
+            this._text_14,
+            this._text_15
         ], [], []);
         return null;
+    };
+    _View_JobListComponent16.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+        if (((token === import20.BaseChartDirective) && ((11 <= requestNodeIndex) && (requestNodeIndex <= 12)))) {
+            return this._BaseChartDirective_11_3;
+        }
+        return notFoundResult;
+    };
+    _View_JobListComponent16.prototype.detectChangesInternal = function (throwOnChange) {
+        var changes = null;
+        changes = null;
+        var currVal_0 = this.parent.context.chartDataDatasets;
+        if (import4.checkBinding(throwOnChange, this._expr_0, currVal_0)) {
+            this._BaseChartDirective_11_3.datasets = currVal_0;
+            if ((changes === null)) {
+                (changes = {});
+            }
+            changes['datasets'] = new import7.SimpleChange(this._expr_0, currVal_0);
+            this._expr_0 = currVal_0;
+        }
+        var currVal_1 = this.parent.context.chartDataLabels;
+        if (import4.checkBinding(throwOnChange, this._expr_1, currVal_1)) {
+            this._BaseChartDirective_11_3.labels = currVal_1;
+            if ((changes === null)) {
+                (changes = {});
+            }
+            changes['labels'] = new import7.SimpleChange(this._expr_1, currVal_1);
+            this._expr_1 = currVal_1;
+        }
+        var currVal_2 = this.parent.context.chartDataOptions;
+        if (import4.checkBinding(throwOnChange, this._expr_2, currVal_2)) {
+            this._BaseChartDirective_11_3.options = currVal_2;
+            if ((changes === null)) {
+                (changes = {});
+            }
+            changes['options'] = new import7.SimpleChange(this._expr_2, currVal_2);
+            this._expr_2 = currVal_2;
+        }
+        var currVal_3 = 'doughnut';
+        if (import4.checkBinding(throwOnChange, this._expr_3, currVal_3)) {
+            this._BaseChartDirective_11_3.chartType = currVal_3;
+            if ((changes === null)) {
+                (changes = {});
+            }
+            changes['chartType'] = new import7.SimpleChange(this._expr_3, currVal_3);
+            this._expr_3 = currVal_3;
+        }
+        var currVal_4 = this.parent.context.chartDataColors;
+        if (import4.checkBinding(throwOnChange, this._expr_4, currVal_4)) {
+            this._BaseChartDirective_11_3.colors = currVal_4;
+            if ((changes === null)) {
+                (changes = {});
+            }
+            changes['colors'] = new import7.SimpleChange(this._expr_4, currVal_4);
+            this._expr_4 = currVal_4;
+        }
+        if ((changes !== null)) {
+            this._BaseChartDirective_11_3.ngOnChanges(changes);
+        }
+        if (((this.numberOfChecks === 0) && !throwOnChange)) {
+            this._BaseChartDirective_11_3.ngOnInit();
+        }
+        this.detectContentChildrenChanges(throwOnChange);
+        this.detectViewChildrenChanges(throwOnChange);
+    };
+    _View_JobListComponent16.prototype.destroyInternal = function () {
+        this._BaseChartDirective_11_3.ngOnDestroy();
     };
     return _View_JobListComponent16;
 }(import1.AppView));
@@ -1323,18 +1403,18 @@ var _View_JobListComponent17 = (function (_super) {
     _View_JobListComponent17.prototype.createInternal = function (rootSelector) {
         this._el_0 = this.renderer.createElement(null, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'id', 'graph-no-data');
-        this._text_1 = this.renderer.createText(this._el_0, '\n			', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n            ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'panel panel-default');
-        this._text_3 = this.renderer.createText(this._el_2, '\n				', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n                ', null);
         this._el_4 = this.renderer.createElement(this._el_2, 'div', null);
         this.renderer.setElementAttribute(this._el_4, 'class', 'panel-body');
-        this._text_5 = this.renderer.createText(this._el_4, '\n					', null);
+        this._text_5 = this.renderer.createText(this._el_4, '\n                    ', null);
         this._el_6 = this.renderer.createElement(this._el_4, 'div', null);
         this._text_7 = this.renderer.createText(this._el_6, 'No jobs for graph', null);
-        this._text_8 = this.renderer.createText(this._el_4, '\n				', null);
-        this._text_9 = this.renderer.createText(this._el_2, '\n			', null);
-        this._text_10 = this.renderer.createText(this._el_0, '\n		', null);
+        this._text_8 = this.renderer.createText(this._el_4, '\n                ', null);
+        this._text_9 = this.renderer.createText(this._el_2, '\n            ', null);
+        this._text_10 = this.renderer.createText(this._el_0, '\n        ', null);
         this.init([].concat([this._el_0]), [
             this._el_0,
             this._text_1,
@@ -1363,18 +1443,18 @@ var _View_JobListComponent18 = (function (_super) {
     _View_JobListComponent18.prototype.createInternal = function (rootSelector) {
         this._el_0 = this.renderer.createElement(null, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'id', 'graph-error-data');
-        this._text_1 = this.renderer.createText(this._el_0, '\n			', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n            ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'panel panel-default');
-        this._text_3 = this.renderer.createText(this._el_2, '\n				', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n                ', null);
         this._el_4 = this.renderer.createElement(this._el_2, 'div', null);
         this.renderer.setElementAttribute(this._el_4, 'class', 'panel-body');
-        this._text_5 = this.renderer.createText(this._el_4, '\n					', null);
+        this._text_5 = this.renderer.createText(this._el_4, '\n                    ', null);
         this._el_6 = this.renderer.createElement(this._el_4, 'div', null);
         this._text_7 = this.renderer.createText(this._el_6, 'Problem while loading job list', null);
-        this._text_8 = this.renderer.createText(this._el_4, '\n				', null);
-        this._text_9 = this.renderer.createText(this._el_2, '\n			', null);
-        this._text_10 = this.renderer.createText(this._el_0, '\n		', null);
+        this._text_8 = this.renderer.createText(this._el_4, '\n                ', null);
+        this._text_9 = this.renderer.createText(this._el_2, '\n            ', null);
+        this._text_10 = this.renderer.createText(this._el_0, '\n        ', null);
         this.init([].concat([this._el_0]), [
             this._el_0,
             this._text_1,
@@ -1403,15 +1483,15 @@ var _View_JobListComponent19 = (function (_super) {
     _View_JobListComponent19.prototype.createInternal = function (rootSelector) {
         this._el_0 = this.renderer.createElement(null, 'div', null);
         this.renderer.setElementAttribute(this._el_0, 'id', 'graph-loading-data');
-        this._text_1 = this.renderer.createText(this._el_0, '\n			', null);
+        this._text_1 = this.renderer.createText(this._el_0, '\n            ', null);
         this._el_2 = this.renderer.createElement(this._el_0, 'div', null);
         this.renderer.setElementAttribute(this._el_2, 'class', 'panel panel-default');
-        this._text_3 = this.renderer.createText(this._el_2, '\n				', null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n                ', null);
         this._el_4 = this.renderer.createElement(this._el_2, 'div', null);
         this.renderer.setElementAttribute(this._el_4, 'class', 'panel-body');
         this._text_5 = this.renderer.createText(this._el_4, 'Loading...', null);
-        this._text_6 = this.renderer.createText(this._el_2, '\n			', null);
-        this._text_7 = this.renderer.createText(this._el_0, '\n		', null);
+        this._text_6 = this.renderer.createText(this._el_2, '\n            ', null);
+        this._text_7 = this.renderer.createText(this._el_0, '\n        ', null);
         this.init([].concat([this._el_0]), [
             this._el_0,
             this._text_1,

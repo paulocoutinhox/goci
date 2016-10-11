@@ -100,7 +100,7 @@ var _View_AppFooterComponent0 = (function (_super) {
 }(import1.AppView));
 function viewFactory_AppFooterComponent0(viewUtils, parentInjector, declarationEl) {
     if ((renderType_AppFooterComponent === null)) {
-        (renderType_AppFooterComponent = viewUtils.createRenderComponentType('/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci/web-app/src/app/app-footer/app-footer.component.html', 0, import8.ViewEncapsulation.Emulated, styles_AppFooterComponent, {}));
+        (renderType_AppFooterComponent = viewUtils.createRenderComponentType('', 0, import8.ViewEncapsulation.Emulated, styles_AppFooterComponent, {}));
     }
     return new _View_AppFooterComponent0(viewUtils, parentInjector, declarationEl);
 }
