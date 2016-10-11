@@ -20,7 +20,7 @@ module.exports = {
 	},
 	output: {
 		filename: '[name].bundle.js',
-		publicPath: '/web-app/',
+		publicPath: 'http://localhost:8080/web-app/',
 		path: path.resolve(rootDir, 'dist')
 	},
 	resolve: {
