@@ -17,5 +17,8 @@
 	"angularCompilerOptions": {
 		"genDir": "./ngfactory",
 		"skipMetadataEmit": false
+	},
+	"awesomeTypescriptLoaderOptions": {
+		"useWebpackText": true
 	}
 }
