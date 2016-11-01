@@ -4,57 +4,94 @@
  */
  /* tslint:disable */
 
-import * as import0 from '@angular/core/src/render/api';
-import * as import1 from '@angular/core/src/linker/view';
-import * as import2 from '@angular/core/src/linker/element';
-import * as import3 from '../../../../src/app/project-task-item/project-task-item.component';
-import * as import4 from '@angular/core/src/linker/view_utils';
-import * as import5 from '@angular/core/src/di/injector';
-import * as import6 from '@angular/core/src/linker/view_type';
-import * as import7 from '@angular/core/src/change_detection/change_detection';
+import * as import0 from '../../../../src/app/project-task-item/project-task-item.component';
+import * as import1 from '@angular/core/src/change_detection/change_detection';
+import * as import2 from '@angular/core/src/linker/view_utils';
+import * as import3 from '@angular/core/src/linker/view';
+import * as import4 from '@angular/core/src/render/api';
+import * as import5 from '@angular/core/src/linker/element';
+import * as import6 from '@angular/core/src/di/injector';
+import * as import7 from '@angular/core/src/linker/view_type';
 import * as import8 from '../../../../src/app/services/GlobalService';
 import * as import9 from '@angular/router/src/router';
 import * as import10 from '@angular/core/src/metadata/view';
 import * as import11 from '@angular/core/src/linker/component_factory';
-import * as import12 from '@angular/common/src/directives/ng_if';
+import * as import12 from '../../../node_modules/@angular/common/src/directives/ng_if.ngfactory';
 import * as import13 from '@angular/core/src/linker/template_ref';
-import * as import14 from '@angular/common/src/directives/ng_switch';
-var renderType_ProjectTaskItemComponent_Host:import0.RenderComponentType = (null as any);
-class _View_ProjectTaskItemComponent_Host0 extends import1.AppView<any> {
-  _el_0:any;
-  /*private*/ _appEl_0:import2.AppElement;
-  _ProjectTaskItemComponent_0_4:import3.ProjectTaskItemComponent;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent_Host0,renderType_ProjectTaskItemComponent_Host,import6.ViewType.HOST,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+import * as import14 from '@angular/common/src/directives/ng_if';
+import * as import15 from '../../../node_modules/@angular/common/src/directives/ng_switch.ngfactory';
+import * as import16 from '@angular/common/src/directives/ng_switch';
+export class Wrapper_ProjectTaskItemComponent {
+  context:import0.ProjectTaskItemComponent;
+  changed:boolean;
+  /*private*/ _expr_0:any;
+  /*private*/ _expr_1:any;
+  constructor(p0:any,p1:any) {
+    this.changed = false;
+    this.context = new import0.ProjectTaskItemComponent(p0,p1);
+    this._expr_0 = import1.UNINITIALIZED;
+    this._expr_1 = import1.UNINITIALIZED;
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.selectOrCreateHostElement('project-task-item',rootSelector,(null as any));
-    this._appEl_0 = new import2.AppElement(0,(null as any),this,this._el_0);
+  check_project(currValue:any,throwOnChange:boolean,forceUpdate:boolean):void {
+    if ((forceUpdate || import2.checkBinding(throwOnChange,this._expr_0,currValue))) {
+      this.changed = true;
+      this.context.project = currValue;
+      this._expr_0 = currValue;
+    }
+  }
+  check_task(currValue:any,throwOnChange:boolean,forceUpdate:boolean):void {
+    if ((forceUpdate || import2.checkBinding(throwOnChange,this._expr_1,currValue))) {
+      this.changed = true;
+      this.context.task = currValue;
+      this._expr_1 = currValue;
+    }
+  }
+  detectChangesInInputProps(view:import3.AppView<any>,el:any,throwOnChange:boolean):boolean {
+    var changed:any = this.changed;
+    this.changed = false;
+    if (!throwOnChange) { if ((view.numberOfChecks === 0)) { this.context.ngOnInit(); } }
+    return changed;
+  }
+  detectChangesInHostProps(view:import3.AppView<any>,el:any,throwOnChange:boolean):void {
+  }
+}
+var renderType_ProjectTaskItemComponent_Host:import4.RenderComponentType = (null as any);
+class _View_ProjectTaskItemComponent_Host0 extends import3.AppView<any> {
+  _el_0:any;
+  /*private*/ _appEl_0:import5.AppElement;
+  _ProjectTaskItemComponent_0_4:Wrapper_ProjectTaskItemComponent;
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent_Host0,renderType_ProjectTaskItemComponent_Host,import7.ViewType.HOST,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
+  }
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.selectOrCreateRenderHostElement(this.renderer,'project-task-item',import2.EMPTY_INLINE_ARRAY,rootSelector,(null as any));
+    this._appEl_0 = new import5.AppElement(0,(null as any),this,this._el_0);
     var compView_0:any = viewFactory_ProjectTaskItemComponent0(this.viewUtils,this.injector(0),this._appEl_0);
-    this._ProjectTaskItemComponent_0_4 = new import3.ProjectTaskItemComponent(this.parentInjector.get(import8.GlobalService),this.parentInjector.get(import9.Router));
-    this._appEl_0.initComponent(this._ProjectTaskItemComponent_0_4,[],compView_0);
-    compView_0.create(this._ProjectTaskItemComponent_0_4,this.projectableNodes,(null as any));
-    this.init([].concat([this._el_0]),[this._el_0],[],[]);
+    this._ProjectTaskItemComponent_0_4 = new Wrapper_ProjectTaskItemComponent(this.parentInjector.get(import8.GlobalService),this.parentInjector.get(import9.Router));
+    this._appEl_0.initComponent(this._ProjectTaskItemComponent_0_4.context,([] as any[]),compView_0);
+    compView_0.create(this._ProjectTaskItemComponent_0_4.context,this.projectableNodes,(null as any));
+    this.init(([] as any[]).concat([this._el_0]),[this._el_0],([] as any[]),([] as any[]));
     return this._appEl_0;
   }
   injectorGetInternal(token:any,requestNodeIndex:number,notFoundResult:any):any {
-    if (((token === import3.ProjectTaskItemComponent) && (0 === requestNodeIndex))) { return this._ProjectTaskItemComponent_0_4; }
+    if (((token === import0.ProjectTaskItemComponent) && (0 === requestNodeIndex))) { return this._ProjectTaskItemComponent_0_4.context; }
     return notFoundResult;
   }
   detectChangesInternal(throwOnChange:boolean):void {
-    if (((this.numberOfChecks === 0) && !throwOnChange)) { this._ProjectTaskItemComponent_0_4.ngOnInit(); }
+    this._ProjectTaskItemComponent_0_4.detectChangesInInputProps(this,this._el_0,throwOnChange);
     this.detectContentChildrenChanges(throwOnChange);
+    this._ProjectTaskItemComponent_0_4.detectChangesInHostProps(this,this._el_0,throwOnChange);
     this.detectViewChildrenChanges(throwOnChange);
   }
 }
-function viewFactory_ProjectTaskItemComponent_Host0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
-  if ((renderType_ProjectTaskItemComponent_Host === (null as any))) { (renderType_ProjectTaskItemComponent_Host = viewUtils.createRenderComponentType('',0,import10.ViewEncapsulation.None,[],{})); }
+function viewFactory_ProjectTaskItemComponent_Host0(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
+  if ((renderType_ProjectTaskItemComponent_Host === (null as any))) { (renderType_ProjectTaskItemComponent_Host = viewUtils.createRenderComponentType('',0,import10.ViewEncapsulation.None,([] as any[]),{})); }
   return new _View_ProjectTaskItemComponent_Host0(viewUtils,parentInjector,declarationEl);
 }
-export const ProjectTaskItemComponentNgFactory:import11.ComponentFactory<import3.ProjectTaskItemComponent> = new import11.ComponentFactory<import3.ProjectTaskItemComponent>('project-task-item',viewFactory_ProjectTaskItemComponent_Host0,import3.ProjectTaskItemComponent);
-const styles_ProjectTaskItemComponent:any[] = [];
-var renderType_ProjectTaskItemComponent:import0.RenderComponentType = (null as any);
-class _View_ProjectTaskItemComponent0 extends import1.AppView<import3.ProjectTaskItemComponent> {
+export const ProjectTaskItemComponentNgFactory:import11.ComponentFactory<import0.ProjectTaskItemComponent> = new import11.ComponentFactory<import0.ProjectTaskItemComponent>('project-task-item',viewFactory_ProjectTaskItemComponent_Host0,import0.ProjectTaskItemComponent);
+const styles_ProjectTaskItemComponent:any[] = ([] as any[]);
+var renderType_ProjectTaskItemComponent:import4.RenderComponentType = (null as any);
+class _View_ProjectTaskItemComponent0 extends import3.AppView<import0.ProjectTaskItemComponent> {
   _el_0:any;
   _text_1:any;
   _text_2:any;
@@ -82,14 +119,14 @@ class _View_ProjectTaskItemComponent0 extends import1.AppView<import3.ProjectTas
   _text_24:any;
   _text_25:any;
   _anchor_26:any;
-  /*private*/ _appEl_26:import2.AppElement;
+  /*private*/ _appEl_26:import5.AppElement;
   _TemplateRef_26_5:any;
-  _NgIf_26_6:import12.NgIf;
+  _NgIf_26_6:import12.Wrapper_NgIf;
   _text_27:any;
   _anchor_28:any;
-  /*private*/ _appEl_28:import2.AppElement;
+  /*private*/ _appEl_28:import5.AppElement;
   _TemplateRef_28_5:any;
-  _NgIf_28_6:import12.NgIf;
+  _NgIf_28_6:import12.Wrapper_NgIf;
   _text_29:any;
   _text_30:any;
   _el_31:any;
@@ -98,14 +135,14 @@ class _View_ProjectTaskItemComponent0 extends import1.AppView<import3.ProjectTas
   _text_34:any;
   _text_35:any;
   _anchor_36:any;
-  /*private*/ _appEl_36:import2.AppElement;
+  /*private*/ _appEl_36:import5.AppElement;
   _TemplateRef_36_5:any;
-  _NgIf_36_6:import12.NgIf;
+  _NgIf_36_6:import12.Wrapper_NgIf;
   _text_37:any;
   _anchor_38:any;
-  /*private*/ _appEl_38:import2.AppElement;
+  /*private*/ _appEl_38:import5.AppElement;
   _TemplateRef_38_5:any;
-  _NgIf_38_6:import12.NgIf;
+  _NgIf_38_6:import12.Wrapper_NgIf;
   _text_39:any;
   _text_40:any;
   _el_41:any;
@@ -114,14 +151,14 @@ class _View_ProjectTaskItemComponent0 extends import1.AppView<import3.ProjectTas
   _text_44:any;
   _text_45:any;
   _anchor_46:any;
-  /*private*/ _appEl_46:import2.AppElement;
+  /*private*/ _appEl_46:import5.AppElement;
   _TemplateRef_46_5:any;
-  _NgIf_46_6:import12.NgIf;
+  _NgIf_46_6:import12.Wrapper_NgIf;
   _text_47:any;
   _anchor_48:any;
-  /*private*/ _appEl_48:import2.AppElement;
+  /*private*/ _appEl_48:import5.AppElement;
   _TemplateRef_48_5:any;
-  _NgIf_48_6:import12.NgIf;
+  _NgIf_48_6:import12.Wrapper_NgIf;
   _text_49:any;
   _text_50:any;
   _text_51:any;
@@ -136,120 +173,101 @@ class _View_ProjectTaskItemComponent0 extends import1.AppView<import3.ProjectTas
   _text_60:any;
   _text_61:any;
   _text_62:any;
-  /*private*/ _expr_0:any;
-  /*private*/ _expr_1:any;
-  /*private*/ _expr_2:any;
-  /*private*/ _expr_3:any;
-  /*private*/ _expr_4:any;
-  /*private*/ _expr_5:any;
-  /*private*/ _expr_6:any;
-  /*private*/ _expr_7:any;
-  /*private*/ _expr_8:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent0,renderType_ProjectTaskItemComponent,import6.ViewType.COMPONENT,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  /*private*/ _expr_81:any;
+  /*private*/ _expr_82:any;
+  /*private*/ _expr_83:any;
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent0,renderType_ProjectTaskItemComponent,import7.ViewType.COMPONENT,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
+    this._expr_81 = import1.UNINITIALIZED;
+    this._expr_82 = import1.UNINITIALIZED;
+    this._expr_83 = import1.UNINITIALIZED;
   }
-  createInternal(rootSelector:string):import2.AppElement {
+  createInternal(rootSelector:string):import5.AppElement {
     const parentRenderNode:any = this.renderer.createViewRoot(this.declarationAppElement.nativeElement);
-    this._el_0 = this.renderer.createElement(parentRenderNode,'h4',(null as any));
-    this.renderer.setElementAttribute(this._el_0,'class','list-group-item-heading');
+    this._el_0 = import2.createRenderElement(this.renderer,parentRenderNode,'h4',new import2.InlineArray2(2,'class','list-group-item-heading'),(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'',(null as any));
     this._text_2 = this.renderer.createText(parentRenderNode,'\n',(null as any));
-    this._el_3 = this.renderer.createElement(parentRenderNode,'div',(null as any));
-    this.renderer.setElementAttribute(this._el_3,'class','list-group-item-text');
+    this._el_3 = import2.createRenderElement(this.renderer,parentRenderNode,'div',new import2.InlineArray2(2,'class','list-group-item-text'),(null as any));
     this._text_4 = this.renderer.createText(this._el_3,'\n	',(null as any));
-    this._el_5 = this.renderer.createElement(this._el_3,'div',(null as any));
+    this._el_5 = import2.createRenderElement(this.renderer,this._el_3,'div',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_6 = this.renderer.createText(this._el_5,'\n		',(null as any));
-    this._el_7 = this.renderer.createElement(this._el_5,'div',(null as any));
+    this._el_7 = import2.createRenderElement(this.renderer,this._el_5,'div',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_8 = this.renderer.createText(this._el_7,'\n			',(null as any));
-    this._el_9 = this.renderer.createElement(this._el_7,'strong',(null as any));
+    this._el_9 = import2.createRenderElement(this.renderer,this._el_7,'strong',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_10 = this.renderer.createText(this._el_9,'Description:',(null as any));
     this._text_11 = this.renderer.createText(this._el_7,'',(null as any));
     this._text_12 = this.renderer.createText(this._el_5,'\n\n		',(null as any));
-    this._el_13 = this.renderer.createElement(this._el_5,'div',(null as any));
+    this._el_13 = import2.createRenderElement(this.renderer,this._el_5,'div',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_14 = this.renderer.createText(this._el_13,'\n			',(null as any));
-    this._el_15 = this.renderer.createElement(this._el_13,'strong',(null as any));
+    this._el_15 = import2.createRenderElement(this.renderer,this._el_13,'strong',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_16 = this.renderer.createText(this._el_15,'Steps:',(null as any));
     this._text_17 = this.renderer.createText(this._el_13,'',(null as any));
     this._text_18 = this.renderer.createText(this._el_5,'\n\n		',(null as any));
-    this._el_19 = this.renderer.createElement(this._el_5,'hr',(null as any));
-    this.renderer.setElementAttribute(this._el_19,'style','margin: 8px 0');
+    this._el_19 = import2.createRenderElement(this.renderer,this._el_5,'hr',new import2.InlineArray2(2,'style','margin: 8px 0'),(null as any));
     this._text_20 = this.renderer.createText(this._el_5,'\n\n		',(null as any));
-    this._el_21 = this.renderer.createElement(this._el_5,'div',(null as any));
+    this._el_21 = import2.createRenderElement(this.renderer,this._el_5,'div',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_22 = this.renderer.createText(this._el_21,'\n			',(null as any));
-    this._el_23 = this.renderer.createElement(this._el_21,'strong',(null as any));
+    this._el_23 = import2.createRenderElement(this.renderer,this._el_21,'strong',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_24 = this.renderer.createText(this._el_23,'Duration:',(null as any));
     this._text_25 = this.renderer.createText(this._el_21,'\n			',(null as any));
     this._anchor_26 = this.renderer.createTemplateAnchor(this._el_21,(null as any));
-    this._appEl_26 = new import2.AppElement(26,21,this,this._anchor_26);
+    this._appEl_26 = new import5.AppElement(26,21,this,this._anchor_26);
     this._TemplateRef_26_5 = new import13.TemplateRef_(this._appEl_26,viewFactory_ProjectTaskItemComponent1);
-    this._NgIf_26_6 = new import12.NgIf(this._appEl_26.vcRef,this._TemplateRef_26_5);
+    this._NgIf_26_6 = new import12.Wrapper_NgIf(this._appEl_26.vcRef,this._TemplateRef_26_5);
     this._text_27 = this.renderer.createText(this._el_21,'\n			',(null as any));
     this._anchor_28 = this.renderer.createTemplateAnchor(this._el_21,(null as any));
-    this._appEl_28 = new import2.AppElement(28,21,this,this._anchor_28);
+    this._appEl_28 = new import5.AppElement(28,21,this,this._anchor_28);
     this._TemplateRef_28_5 = new import13.TemplateRef_(this._appEl_28,viewFactory_ProjectTaskItemComponent2);
-    this._NgIf_28_6 = new import12.NgIf(this._appEl_28.vcRef,this._TemplateRef_28_5);
+    this._NgIf_28_6 = new import12.Wrapper_NgIf(this._appEl_28.vcRef,this._TemplateRef_28_5);
     this._text_29 = this.renderer.createText(this._el_21,'\n		',(null as any));
     this._text_30 = this.renderer.createText(this._el_5,'\n\n		',(null as any));
-    this._el_31 = this.renderer.createElement(this._el_5,'div',(null as any));
+    this._el_31 = import2.createRenderElement(this.renderer,this._el_5,'div',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_32 = this.renderer.createText(this._el_31,'\n			',(null as any));
-    this._el_33 = this.renderer.createElement(this._el_31,'strong',(null as any));
+    this._el_33 = import2.createRenderElement(this.renderer,this._el_31,'strong',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_34 = this.renderer.createText(this._el_33,'Status:',(null as any));
     this._text_35 = this.renderer.createText(this._el_31,'\n			',(null as any));
     this._anchor_36 = this.renderer.createTemplateAnchor(this._el_31,(null as any));
-    this._appEl_36 = new import2.AppElement(36,31,this,this._anchor_36);
+    this._appEl_36 = new import5.AppElement(36,31,this,this._anchor_36);
     this._TemplateRef_36_5 = new import13.TemplateRef_(this._appEl_36,viewFactory_ProjectTaskItemComponent3);
-    this._NgIf_36_6 = new import12.NgIf(this._appEl_36.vcRef,this._TemplateRef_36_5);
+    this._NgIf_36_6 = new import12.Wrapper_NgIf(this._appEl_36.vcRef,this._TemplateRef_36_5);
     this._text_37 = this.renderer.createText(this._el_31,'\n			',(null as any));
     this._anchor_38 = this.renderer.createTemplateAnchor(this._el_31,(null as any));
-    this._appEl_38 = new import2.AppElement(38,31,this,this._anchor_38);
+    this._appEl_38 = new import5.AppElement(38,31,this,this._anchor_38);
     this._TemplateRef_38_5 = new import13.TemplateRef_(this._appEl_38,viewFactory_ProjectTaskItemComponent9);
-    this._NgIf_38_6 = new import12.NgIf(this._appEl_38.vcRef,this._TemplateRef_38_5);
+    this._NgIf_38_6 = new import12.Wrapper_NgIf(this._appEl_38.vcRef,this._TemplateRef_38_5);
     this._text_39 = this.renderer.createText(this._el_31,'\n		',(null as any));
     this._text_40 = this.renderer.createText(this._el_5,'\n\n		',(null as any));
-    this._el_41 = this.renderer.createElement(this._el_5,'div',(null as any));
+    this._el_41 = import2.createRenderElement(this.renderer,this._el_5,'div',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_42 = this.renderer.createText(this._el_41,'\n			',(null as any));
-    this._el_43 = this.renderer.createElement(this._el_41,'strong',(null as any));
+    this._el_43 = import2.createRenderElement(this.renderer,this._el_41,'strong',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_44 = this.renderer.createText(this._el_43,'Progress:',(null as any));
     this._text_45 = this.renderer.createText(this._el_41,' ',(null as any));
     this._anchor_46 = this.renderer.createTemplateAnchor(this._el_41,(null as any));
-    this._appEl_46 = new import2.AppElement(46,41,this,this._anchor_46);
+    this._appEl_46 = new import5.AppElement(46,41,this,this._anchor_46);
     this._TemplateRef_46_5 = new import13.TemplateRef_(this._appEl_46,viewFactory_ProjectTaskItemComponent10);
-    this._NgIf_46_6 = new import12.NgIf(this._appEl_46.vcRef,this._TemplateRef_46_5);
+    this._NgIf_46_6 = new import12.Wrapper_NgIf(this._appEl_46.vcRef,this._TemplateRef_46_5);
     this._text_47 = this.renderer.createText(this._el_41,'\n			',(null as any));
     this._anchor_48 = this.renderer.createTemplateAnchor(this._el_41,(null as any));
-    this._appEl_48 = new import2.AppElement(48,41,this,this._anchor_48);
+    this._appEl_48 = new import5.AppElement(48,41,this,this._anchor_48);
     this._TemplateRef_48_5 = new import13.TemplateRef_(this._appEl_48,viewFactory_ProjectTaskItemComponent11);
-    this._NgIf_48_6 = new import12.NgIf(this._appEl_48.vcRef,this._TemplateRef_48_5);
+    this._NgIf_48_6 = new import12.Wrapper_NgIf(this._appEl_48.vcRef,this._TemplateRef_48_5);
     this._text_49 = this.renderer.createText(this._el_41,'\n		',(null as any));
     this._text_50 = this.renderer.createText(this._el_5,'\n	',(null as any));
     this._text_51 = this.renderer.createText(this._el_3,'\n\n	',(null as any));
-    this._el_52 = this.renderer.createElement(this._el_3,'br',(null as any));
+    this._el_52 = import2.createRenderElement(this.renderer,this._el_3,'br',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_53 = this.renderer.createText(this._el_3,'\n\n	',(null as any));
-    this._el_54 = this.renderer.createElement(this._el_3,'div',(null as any));
+    this._el_54 = import2.createRenderElement(this.renderer,this._el_3,'div',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_55 = this.renderer.createText(this._el_54,'\n		',(null as any));
-    this._el_56 = this.renderer.createElement(this._el_54,'button',(null as any));
-    this.renderer.setElementAttribute(this._el_56,'class','btn btn-success');
-    this.renderer.setElementAttribute(this._el_56,'type','button');
+    this._el_56 = import2.createRenderElement(this.renderer,this._el_54,'button',new import2.InlineArray4(4,'class','btn btn-success','type','button'),(null as any));
     this._text_57 = this.renderer.createText(this._el_56,'Run',(null as any));
     this._text_58 = this.renderer.createText(this._el_54,'\n		',(null as any));
-    this._el_59 = this.renderer.createElement(this._el_54,'button',(null as any));
-    this.renderer.setElementAttribute(this._el_59,'class','btn btn-default');
-    this.renderer.setElementAttribute(this._el_59,'type','button');
+    this._el_59 = import2.createRenderElement(this.renderer,this._el_54,'button',new import2.InlineArray4(4,'class','btn btn-default','type','button'),(null as any));
     this._text_60 = this.renderer.createText(this._el_59,'View',(null as any));
     this._text_61 = this.renderer.createText(this._el_54,'\n	',(null as any));
     this._text_62 = this.renderer.createText(this._el_3,'\n',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this._expr_1 = import7.UNINITIALIZED;
-    this._expr_2 = import7.UNINITIALIZED;
-    this._expr_3 = import7.UNINITIALIZED;
-    this._expr_4 = import7.UNINITIALIZED;
-    this._expr_5 = import7.UNINITIALIZED;
-    this._expr_6 = import7.UNINITIALIZED;
-    this._expr_7 = import7.UNINITIALIZED;
-    this._expr_8 = import7.UNINITIALIZED;
     var disposable_0:Function = this.renderer.listen(this._el_56,'click',this.eventHandler(this._handle_click_56_0.bind(this)));
     var disposable_1:Function = this.renderer.listen(this._el_59,'click',this.eventHandler(this._handle_click_59_0.bind(this)));
-    this.init([],[
+    this.init(([] as any[]),[
       this._el_0,
       this._text_1,
       this._text_2,
@@ -318,211 +336,189 @@ class _View_ProjectTaskItemComponent0 extends import1.AppView<import3.ProjectTas
       disposable_0,
       disposable_1
     ]
-    ,[]);
+    ,([] as any[]));
     return (null as any);
   }
   injectorGetInternal(token:any,requestNodeIndex:number,notFoundResult:any):any {
     if (((token === import13.TemplateRef) && (26 === requestNodeIndex))) { return this._TemplateRef_26_5; }
-    if (((token === import12.NgIf) && (26 === requestNodeIndex))) { return this._NgIf_26_6; }
+    if (((token === import14.NgIf) && (26 === requestNodeIndex))) { return this._NgIf_26_6.context; }
     if (((token === import13.TemplateRef) && (28 === requestNodeIndex))) { return this._TemplateRef_28_5; }
-    if (((token === import12.NgIf) && (28 === requestNodeIndex))) { return this._NgIf_28_6; }
+    if (((token === import14.NgIf) && (28 === requestNodeIndex))) { return this._NgIf_28_6.context; }
     if (((token === import13.TemplateRef) && (36 === requestNodeIndex))) { return this._TemplateRef_36_5; }
-    if (((token === import12.NgIf) && (36 === requestNodeIndex))) { return this._NgIf_36_6; }
+    if (((token === import14.NgIf) && (36 === requestNodeIndex))) { return this._NgIf_36_6.context; }
     if (((token === import13.TemplateRef) && (38 === requestNodeIndex))) { return this._TemplateRef_38_5; }
-    if (((token === import12.NgIf) && (38 === requestNodeIndex))) { return this._NgIf_38_6; }
+    if (((token === import14.NgIf) && (38 === requestNodeIndex))) { return this._NgIf_38_6.context; }
     if (((token === import13.TemplateRef) && (46 === requestNodeIndex))) { return this._TemplateRef_46_5; }
-    if (((token === import12.NgIf) && (46 === requestNodeIndex))) { return this._NgIf_46_6; }
+    if (((token === import14.NgIf) && (46 === requestNodeIndex))) { return this._NgIf_46_6.context; }
     if (((token === import13.TemplateRef) && (48 === requestNodeIndex))) { return this._TemplateRef_48_5; }
-    if (((token === import12.NgIf) && (48 === requestNodeIndex))) { return this._NgIf_48_6; }
+    if (((token === import14.NgIf) && (48 === requestNodeIndex))) { return this._NgIf_48_6.context; }
     return notFoundResult;
   }
   detectChangesInternal(throwOnChange:boolean):void {
-    const currVal_3:any = this.context.lastJob;
-    if (import4.checkBinding(throwOnChange,this._expr_3,currVal_3)) {
-      this._NgIf_26_6.ngIf = currVal_3;
-      this._expr_3 = currVal_3;
-    }
-    const currVal_4:boolean = !this.context.lastJob;
-    if (import4.checkBinding(throwOnChange,this._expr_4,currVal_4)) {
-      this._NgIf_28_6.ngIf = currVal_4;
-      this._expr_4 = currVal_4;
-    }
-    const currVal_5:any = this.context.lastJob;
-    if (import4.checkBinding(throwOnChange,this._expr_5,currVal_5)) {
-      this._NgIf_36_6.ngIf = currVal_5;
-      this._expr_5 = currVal_5;
-    }
-    const currVal_6:boolean = !this.context.lastJob;
-    if (import4.checkBinding(throwOnChange,this._expr_6,currVal_6)) {
-      this._NgIf_38_6.ngIf = currVal_6;
-      this._expr_6 = currVal_6;
-    }
-    const currVal_7:any = this.context.lastJob;
-    if (import4.checkBinding(throwOnChange,this._expr_7,currVal_7)) {
-      this._NgIf_46_6.ngIf = currVal_7;
-      this._expr_7 = currVal_7;
-    }
-    const currVal_8:boolean = !this.context.lastJob;
-    if (import4.checkBinding(throwOnChange,this._expr_8,currVal_8)) {
-      this._NgIf_48_6.ngIf = currVal_8;
-      this._expr_8 = currVal_8;
-    }
+    const currVal_26_0_0:any = this.context.lastJob;
+    this._NgIf_26_6.check_ngIf(currVal_26_0_0,throwOnChange,false);
+    this._NgIf_26_6.detectChangesInInputProps(this,this._anchor_26,throwOnChange);
+    const currVal_28_0_0:boolean = !this.context.lastJob;
+    this._NgIf_28_6.check_ngIf(currVal_28_0_0,throwOnChange,false);
+    this._NgIf_28_6.detectChangesInInputProps(this,this._anchor_28,throwOnChange);
+    const currVal_36_0_0:any = this.context.lastJob;
+    this._NgIf_36_6.check_ngIf(currVal_36_0_0,throwOnChange,false);
+    this._NgIf_36_6.detectChangesInInputProps(this,this._anchor_36,throwOnChange);
+    const currVal_38_0_0:boolean = !this.context.lastJob;
+    this._NgIf_38_6.check_ngIf(currVal_38_0_0,throwOnChange,false);
+    this._NgIf_38_6.detectChangesInInputProps(this,this._anchor_38,throwOnChange);
+    const currVal_46_0_0:any = this.context.lastJob;
+    this._NgIf_46_6.check_ngIf(currVal_46_0_0,throwOnChange,false);
+    this._NgIf_46_6.detectChangesInInputProps(this,this._anchor_46,throwOnChange);
+    const currVal_48_0_0:boolean = !this.context.lastJob;
+    this._NgIf_48_6.check_ngIf(currVal_48_0_0,throwOnChange,false);
+    this._NgIf_48_6.detectChangesInInputProps(this,this._anchor_48,throwOnChange);
     this.detectContentChildrenChanges(throwOnChange);
-    const currVal_0:any = import4.interpolate(1,'',this.context.task.name,'');
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this.renderer.setText(this._text_1,currVal_0);
-      this._expr_0 = currVal_0;
+    const currVal_81:any = import2.interpolate(1,'',this.context.task.name,'');
+    if (import2.checkBinding(throwOnChange,this._expr_81,currVal_81)) {
+      this.renderer.setText(this._text_1,currVal_81);
+      this._expr_81 = currVal_81;
     }
-    const currVal_1:any = import4.interpolate(1,' ',this.context.task.description,'\n		');
-    if (import4.checkBinding(throwOnChange,this._expr_1,currVal_1)) {
-      this.renderer.setText(this._text_11,currVal_1);
-      this._expr_1 = currVal_1;
+    const currVal_82:any = import2.interpolate(1,' ',this.context.task.description,'\n		');
+    if (import2.checkBinding(throwOnChange,this._expr_82,currVal_82)) {
+      this.renderer.setText(this._text_11,currVal_82);
+      this._expr_82 = currVal_82;
     }
-    const currVal_2:any = import4.interpolate(1,' ',((this.context.task.steps == (null as any))? (null as any): this.context.task.steps.length),'\n		');
-    if (import4.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
-      this.renderer.setText(this._text_17,currVal_2);
-      this._expr_2 = currVal_2;
+    const currVal_83:any = import2.interpolate(1,' ',((this.context.task.steps == (null as any))? (null as any): this.context.task.steps.length),'\n		');
+    if (import2.checkBinding(throwOnChange,this._expr_83,currVal_83)) {
+      this.renderer.setText(this._text_17,currVal_83);
+      this._expr_83 = currVal_83;
     }
     this.detectViewChildrenChanges(throwOnChange);
   }
   private _handle_click_56_0($event:any):boolean {
     this.markPathToRootAsCheckOnce();
-    const pd_0:any = ((<any>this.context.sendShowTaskOptionsEvent()) !== false);
-    return (true && pd_0);
+    const pd_56_0:any = ((<any>this.context.sendShowTaskOptionsEvent()) !== false);
+    return (true && pd_56_0);
   }
   private _handle_click_59_0($event:any):boolean {
     this.markPathToRootAsCheckOnce();
-    const pd_0:any = ((<any>this.context.view(this.context.task.id)) !== false);
-    return (true && pd_0);
+    const pd_59_0:any = ((<any>this.context.view(this.context.task.id)) !== false);
+    return (true && pd_59_0);
   }
 }
-export function viewFactory_ProjectTaskItemComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.ProjectTaskItemComponent> {
+export function viewFactory_ProjectTaskItemComponent0(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<import0.ProjectTaskItemComponent> {
   if ((renderType_ProjectTaskItemComponent === (null as any))) { (renderType_ProjectTaskItemComponent = viewUtils.createRenderComponentType('',0,import10.ViewEncapsulation.None,styles_ProjectTaskItemComponent,{})); }
   return new _View_ProjectTaskItemComponent0(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent1 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent1 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  /*private*/ _expr_0:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent1,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  /*private*/ _expr_2:any;
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent1,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
+    this._expr_2 = import1.UNINITIALIZED;
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
   detectChangesInternal(throwOnChange:boolean):void {
     this.detectContentChildrenChanges(throwOnChange);
-    const currVal_0:any = import4.interpolate(1,'',((this.parent.context.lastJob == (null as any))? (null as any): this.parent.context.lastJob.duration),'s');
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this.renderer.setText(this._text_1,currVal_0);
-      this._expr_0 = currVal_0;
+    const currVal_2:any = import2.interpolate(1,'',((this.parent.context.lastJob == (null as any))? (null as any): this.parent.context.lastJob.duration),'s');
+    if (import2.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
+      this.renderer.setText(this._text_1,currVal_2);
+      this._expr_2 = currVal_2;
     }
     this.detectViewChildrenChanges(throwOnChange);
   }
 }
-function viewFactory_ProjectTaskItemComponent1(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent1(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent1(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent2 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent2 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent2,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent2,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'none',(null as any));
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
 }
-function viewFactory_ProjectTaskItemComponent2(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent2(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent2(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent3 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent3 extends import3.AppView<any> {
   _el_0:any;
-  _NgSwitch_0_3:import14.NgSwitch;
+  _NgSwitch_0_3:import15.Wrapper_NgSwitch;
   _text_1:any;
   _anchor_2:any;
-  /*private*/ _appEl_2:import2.AppElement;
+  /*private*/ _appEl_2:import5.AppElement;
   _TemplateRef_2_5:any;
-  _NgSwitchCase_2_6:import14.NgSwitchCase;
+  _NgSwitchCase_2_6:import15.Wrapper_NgSwitchCase;
   _text_3:any;
   _anchor_4:any;
-  /*private*/ _appEl_4:import2.AppElement;
+  /*private*/ _appEl_4:import5.AppElement;
   _TemplateRef_4_5:any;
-  _NgSwitchCase_4_6:import14.NgSwitchCase;
+  _NgSwitchCase_4_6:import15.Wrapper_NgSwitchCase;
   _text_5:any;
   _anchor_6:any;
-  /*private*/ _appEl_6:import2.AppElement;
+  /*private*/ _appEl_6:import5.AppElement;
   _TemplateRef_6_5:any;
-  _NgSwitchCase_6_6:import14.NgSwitchCase;
+  _NgSwitchCase_6_6:import15.Wrapper_NgSwitchCase;
   _text_7:any;
   _anchor_8:any;
-  /*private*/ _appEl_8:import2.AppElement;
+  /*private*/ _appEl_8:import5.AppElement;
   _TemplateRef_8_5:any;
-  _NgSwitchCase_8_6:import14.NgSwitchCase;
+  _NgSwitchCase_8_6:import15.Wrapper_NgSwitchCase;
   _text_9:any;
   _anchor_10:any;
-  /*private*/ _appEl_10:import2.AppElement;
+  /*private*/ _appEl_10:import5.AppElement;
   _TemplateRef_10_5:any;
-  _NgSwitchDefault_10_6:import14.NgSwitchDefault;
+  _NgSwitchDefault_10_6:import15.Wrapper_NgSwitchDefault;
   _text_11:any;
-  /*private*/ _expr_0:any;
-  /*private*/ _expr_1:any;
-  /*private*/ _expr_2:any;
-  /*private*/ _expr_3:any;
-  /*private*/ _expr_4:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent3,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent3,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
-    this._NgSwitch_0_3 = new import14.NgSwitch();
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',import2.EMPTY_INLINE_ARRAY,(null as any));
+    this._NgSwitch_0_3 = new import15.Wrapper_NgSwitch();
     this._text_1 = this.renderer.createText(this._el_0,'\n				',(null as any));
     this._anchor_2 = this.renderer.createTemplateAnchor(this._el_0,(null as any));
-    this._appEl_2 = new import2.AppElement(2,0,this,this._anchor_2);
+    this._appEl_2 = new import5.AppElement(2,0,this,this._anchor_2);
     this._TemplateRef_2_5 = new import13.TemplateRef_(this._appEl_2,viewFactory_ProjectTaskItemComponent4);
-    this._NgSwitchCase_2_6 = new import14.NgSwitchCase(this._appEl_2.vcRef,this._TemplateRef_2_5,this._NgSwitch_0_3);
+    this._NgSwitchCase_2_6 = new import15.Wrapper_NgSwitchCase(this._appEl_2.vcRef,this._TemplateRef_2_5,this._NgSwitch_0_3.context);
     this._text_3 = this.renderer.createText(this._el_0,'\n				',(null as any));
     this._anchor_4 = this.renderer.createTemplateAnchor(this._el_0,(null as any));
-    this._appEl_4 = new import2.AppElement(4,0,this,this._anchor_4);
+    this._appEl_4 = new import5.AppElement(4,0,this,this._anchor_4);
     this._TemplateRef_4_5 = new import13.TemplateRef_(this._appEl_4,viewFactory_ProjectTaskItemComponent5);
-    this._NgSwitchCase_4_6 = new import14.NgSwitchCase(this._appEl_4.vcRef,this._TemplateRef_4_5,this._NgSwitch_0_3);
+    this._NgSwitchCase_4_6 = new import15.Wrapper_NgSwitchCase(this._appEl_4.vcRef,this._TemplateRef_4_5,this._NgSwitch_0_3.context);
     this._text_5 = this.renderer.createText(this._el_0,'\n				',(null as any));
     this._anchor_6 = this.renderer.createTemplateAnchor(this._el_0,(null as any));
-    this._appEl_6 = new import2.AppElement(6,0,this,this._anchor_6);
+    this._appEl_6 = new import5.AppElement(6,0,this,this._anchor_6);
     this._TemplateRef_6_5 = new import13.TemplateRef_(this._appEl_6,viewFactory_ProjectTaskItemComponent6);
-    this._NgSwitchCase_6_6 = new import14.NgSwitchCase(this._appEl_6.vcRef,this._TemplateRef_6_5,this._NgSwitch_0_3);
+    this._NgSwitchCase_6_6 = new import15.Wrapper_NgSwitchCase(this._appEl_6.vcRef,this._TemplateRef_6_5,this._NgSwitch_0_3.context);
     this._text_7 = this.renderer.createText(this._el_0,'\n				',(null as any));
     this._anchor_8 = this.renderer.createTemplateAnchor(this._el_0,(null as any));
-    this._appEl_8 = new import2.AppElement(8,0,this,this._anchor_8);
+    this._appEl_8 = new import5.AppElement(8,0,this,this._anchor_8);
     this._TemplateRef_8_5 = new import13.TemplateRef_(this._appEl_8,viewFactory_ProjectTaskItemComponent7);
-    this._NgSwitchCase_8_6 = new import14.NgSwitchCase(this._appEl_8.vcRef,this._TemplateRef_8_5,this._NgSwitch_0_3);
+    this._NgSwitchCase_8_6 = new import15.Wrapper_NgSwitchCase(this._appEl_8.vcRef,this._TemplateRef_8_5,this._NgSwitch_0_3.context);
     this._text_9 = this.renderer.createText(this._el_0,'\n				',(null as any));
     this._anchor_10 = this.renderer.createTemplateAnchor(this._el_0,(null as any));
-    this._appEl_10 = new import2.AppElement(10,0,this,this._anchor_10);
+    this._appEl_10 = new import5.AppElement(10,0,this,this._anchor_10);
     this._TemplateRef_10_5 = new import13.TemplateRef_(this._appEl_10,viewFactory_ProjectTaskItemComponent8);
-    this._NgSwitchDefault_10_6 = new import14.NgSwitchDefault(this._appEl_10.vcRef,this._TemplateRef_10_5,this._NgSwitch_0_3);
+    this._NgSwitchDefault_10_6 = new import15.Wrapper_NgSwitchDefault(this._appEl_10.vcRef,this._TemplateRef_10_5,this._NgSwitch_0_3.context);
     this._text_11 = this.renderer.createText(this._el_0,'\n			',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this._expr_1 = import7.UNINITIALIZED;
-    this._expr_2 = import7.UNINITIALIZED;
-    this._expr_3 = import7.UNINITIALIZED;
-    this._expr_4 = import7.UNINITIALIZED;
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1,
       this._anchor_2,
@@ -536,284 +532,271 @@ class _View_ProjectTaskItemComponent3 extends import1.AppView<any> {
       this._anchor_10,
       this._text_11
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
   injectorGetInternal(token:any,requestNodeIndex:number,notFoundResult:any):any {
     if (((token === import13.TemplateRef) && (2 === requestNodeIndex))) { return this._TemplateRef_2_5; }
-    if (((token === import14.NgSwitchCase) && (2 === requestNodeIndex))) { return this._NgSwitchCase_2_6; }
+    if (((token === import16.NgSwitchCase) && (2 === requestNodeIndex))) { return this._NgSwitchCase_2_6.context; }
     if (((token === import13.TemplateRef) && (4 === requestNodeIndex))) { return this._TemplateRef_4_5; }
-    if (((token === import14.NgSwitchCase) && (4 === requestNodeIndex))) { return this._NgSwitchCase_4_6; }
+    if (((token === import16.NgSwitchCase) && (4 === requestNodeIndex))) { return this._NgSwitchCase_4_6.context; }
     if (((token === import13.TemplateRef) && (6 === requestNodeIndex))) { return this._TemplateRef_6_5; }
-    if (((token === import14.NgSwitchCase) && (6 === requestNodeIndex))) { return this._NgSwitchCase_6_6; }
+    if (((token === import16.NgSwitchCase) && (6 === requestNodeIndex))) { return this._NgSwitchCase_6_6.context; }
     if (((token === import13.TemplateRef) && (8 === requestNodeIndex))) { return this._TemplateRef_8_5; }
-    if (((token === import14.NgSwitchCase) && (8 === requestNodeIndex))) { return this._NgSwitchCase_8_6; }
+    if (((token === import16.NgSwitchCase) && (8 === requestNodeIndex))) { return this._NgSwitchCase_8_6.context; }
     if (((token === import13.TemplateRef) && (10 === requestNodeIndex))) { return this._TemplateRef_10_5; }
-    if (((token === import14.NgSwitchDefault) && (10 === requestNodeIndex))) { return this._NgSwitchDefault_10_6; }
-    if (((token === import14.NgSwitch) && ((0 <= requestNodeIndex) && (requestNodeIndex <= 11)))) { return this._NgSwitch_0_3; }
+    if (((token === import16.NgSwitchDefault) && (10 === requestNodeIndex))) { return this._NgSwitchDefault_10_6.context; }
+    if (((token === import16.NgSwitch) && ((0 <= requestNodeIndex) && (requestNodeIndex <= 11)))) { return this._NgSwitch_0_3.context; }
     return notFoundResult;
   }
   detectChangesInternal(throwOnChange:boolean):void {
-    const currVal_0:any = ((this.parent.context.lastJob == (null as any))? (null as any): this.parent.context.lastJob.status);
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this._NgSwitch_0_3.ngSwitch = currVal_0;
-      this._expr_0 = currVal_0;
-    }
-    const currVal_1:any = 'onqueue';
-    if (import4.checkBinding(throwOnChange,this._expr_1,currVal_1)) {
-      this._NgSwitchCase_2_6.ngSwitchCase = currVal_1;
-      this._expr_1 = currVal_1;
-    }
-    const currVal_2:any = 'running';
-    if (import4.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
-      this._NgSwitchCase_4_6.ngSwitchCase = currVal_2;
-      this._expr_2 = currVal_2;
-    }
-    const currVal_3:any = 'success';
-    if (import4.checkBinding(throwOnChange,this._expr_3,currVal_3)) {
-      this._NgSwitchCase_6_6.ngSwitchCase = currVal_3;
-      this._expr_3 = currVal_3;
-    }
-    const currVal_4:any = 'error';
-    if (import4.checkBinding(throwOnChange,this._expr_4,currVal_4)) {
-      this._NgSwitchCase_8_6.ngSwitchCase = currVal_4;
-      this._expr_4 = currVal_4;
-    }
+    const currVal_0_0_0:any = ((this.parent.context.lastJob == (null as any))? (null as any): this.parent.context.lastJob.status);
+    this._NgSwitch_0_3.check_ngSwitch(currVal_0_0_0,throwOnChange,false);
+    this._NgSwitch_0_3.detectChangesInInputProps(this,this._el_0,throwOnChange);
+    const currVal_2_0_0:any = 'onqueue';
+    this._NgSwitchCase_2_6.check_ngSwitchCase(currVal_2_0_0,throwOnChange,false);
+    this._NgSwitchCase_2_6.detectChangesInInputProps(this,this._anchor_2,throwOnChange);
+    const currVal_4_0_0:any = 'running';
+    this._NgSwitchCase_4_6.check_ngSwitchCase(currVal_4_0_0,throwOnChange,false);
+    this._NgSwitchCase_4_6.detectChangesInInputProps(this,this._anchor_4,throwOnChange);
+    const currVal_6_0_0:any = 'success';
+    this._NgSwitchCase_6_6.check_ngSwitchCase(currVal_6_0_0,throwOnChange,false);
+    this._NgSwitchCase_6_6.detectChangesInInputProps(this,this._anchor_6,throwOnChange);
+    const currVal_8_0_0:any = 'error';
+    this._NgSwitchCase_8_6.check_ngSwitchCase(currVal_8_0_0,throwOnChange,false);
+    this._NgSwitchCase_8_6.detectChangesInInputProps(this,this._anchor_8,throwOnChange);
+    this._NgSwitchDefault_10_6.detectChangesInInputProps(this,this._anchor_10,throwOnChange);
     this.detectContentChildrenChanges(throwOnChange);
+    this._NgSwitch_0_3.detectChangesInHostProps(this,this._el_0,throwOnChange);
     this.detectViewChildrenChanges(throwOnChange);
   }
 }
-function viewFactory_ProjectTaskItemComponent3(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent3(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent3(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent4 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent4 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  /*private*/ _expr_0:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent4,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  /*private*/ _expr_2:any;
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent4,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
+    this._expr_2 = import1.UNINITIALIZED;
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
-    this.renderer.setElementAttribute(this._el_0,'class','label label-primary');
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',new import2.InlineArray2(2,'class','label label-primary'),(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
   detectChangesInternal(throwOnChange:boolean):void {
     this.detectContentChildrenChanges(throwOnChange);
-    const currVal_0:any = import4.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this.renderer.setText(this._text_1,currVal_0);
-      this._expr_0 = currVal_0;
+    const currVal_2:any = import2.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
+    if (import2.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
+      this.renderer.setText(this._text_1,currVal_2);
+      this._expr_2 = currVal_2;
     }
     this.detectViewChildrenChanges(throwOnChange);
   }
 }
-function viewFactory_ProjectTaskItemComponent4(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent4(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent4(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent5 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent5 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  /*private*/ _expr_0:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent5,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  /*private*/ _expr_2:any;
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent5,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
+    this._expr_2 = import1.UNINITIALIZED;
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
-    this.renderer.setElementAttribute(this._el_0,'class','label label-warning');
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',new import2.InlineArray2(2,'class','label label-warning'),(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
   detectChangesInternal(throwOnChange:boolean):void {
     this.detectContentChildrenChanges(throwOnChange);
-    const currVal_0:any = import4.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this.renderer.setText(this._text_1,currVal_0);
-      this._expr_0 = currVal_0;
+    const currVal_2:any = import2.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
+    if (import2.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
+      this.renderer.setText(this._text_1,currVal_2);
+      this._expr_2 = currVal_2;
     }
     this.detectViewChildrenChanges(throwOnChange);
   }
 }
-function viewFactory_ProjectTaskItemComponent5(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent5(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent5(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent6 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent6 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  /*private*/ _expr_0:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent6,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  /*private*/ _expr_2:any;
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent6,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
+    this._expr_2 = import1.UNINITIALIZED;
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
-    this.renderer.setElementAttribute(this._el_0,'class','label label-success');
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',new import2.InlineArray2(2,'class','label label-success'),(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
   detectChangesInternal(throwOnChange:boolean):void {
     this.detectContentChildrenChanges(throwOnChange);
-    const currVal_0:any = import4.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this.renderer.setText(this._text_1,currVal_0);
-      this._expr_0 = currVal_0;
+    const currVal_2:any = import2.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
+    if (import2.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
+      this.renderer.setText(this._text_1,currVal_2);
+      this._expr_2 = currVal_2;
     }
     this.detectViewChildrenChanges(throwOnChange);
   }
 }
-function viewFactory_ProjectTaskItemComponent6(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent6(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent6(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent7 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent7 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  /*private*/ _expr_0:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent7,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  /*private*/ _expr_2:any;
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent7,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
+    this._expr_2 = import1.UNINITIALIZED;
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
-    this.renderer.setElementAttribute(this._el_0,'class','label label-danger');
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',new import2.InlineArray2(2,'class','label label-danger'),(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
   detectChangesInternal(throwOnChange:boolean):void {
     this.detectContentChildrenChanges(throwOnChange);
-    const currVal_0:any = import4.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this.renderer.setText(this._text_1,currVal_0);
-      this._expr_0 = currVal_0;
+    const currVal_2:any = import2.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
+    if (import2.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
+      this.renderer.setText(this._text_1,currVal_2);
+      this._expr_2 = currVal_2;
     }
     this.detectViewChildrenChanges(throwOnChange);
   }
 }
-function viewFactory_ProjectTaskItemComponent7(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent7(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent7(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent8 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent8 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  /*private*/ _expr_0:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent8,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  /*private*/ _expr_2:any;
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent8,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
+    this._expr_2 = import1.UNINITIALIZED;
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
-    this.renderer.setElementAttribute(this._el_0,'class','label label-success');
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',new import2.InlineArray2(2,'class','label label-success'),(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
   detectChangesInternal(throwOnChange:boolean):void {
     this.detectContentChildrenChanges(throwOnChange);
-    const currVal_0:any = import4.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this.renderer.setText(this._text_1,currVal_0);
-      this._expr_0 = currVal_0;
+    const currVal_2:any = import2.interpolate(1,'',((this.parent.parent.context.lastJob == (null as any))? (null as any): this.parent.parent.context.lastJob.status),'');
+    if (import2.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
+      this.renderer.setText(this._text_1,currVal_2);
+      this._expr_2 = currVal_2;
     }
     this.detectViewChildrenChanges(throwOnChange);
   }
 }
-function viewFactory_ProjectTaskItemComponent8(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent8(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent8(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent9 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent9 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent9,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent9,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'none',(null as any));
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
 }
-function viewFactory_ProjectTaskItemComponent9(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent9(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent9(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent10 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent10 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  /*private*/ _expr_0:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent10,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  /*private*/ _expr_2:any;
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent10,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
+    this._expr_2 = import1.UNINITIALIZED;
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'',(null as any));
-    this._expr_0 = import7.UNINITIALIZED;
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
   detectChangesInternal(throwOnChange:boolean):void {
     this.detectContentChildrenChanges(throwOnChange);
-    const currVal_0:any = import4.interpolate(1,'',this.parent.context.lastJob.progress,'%');
-    if (import4.checkBinding(throwOnChange,this._expr_0,currVal_0)) {
-      this.renderer.setText(this._text_1,currVal_0);
-      this._expr_0 = currVal_0;
+    const currVal_2:any = import2.interpolate(1,'',this.parent.context.lastJob.progress,'%');
+    if (import2.checkBinding(throwOnChange,this._expr_2,currVal_2)) {
+      this.renderer.setText(this._text_1,currVal_2);
+      this._expr_2 = currVal_2;
     }
     this.detectViewChildrenChanges(throwOnChange);
   }
 }
-function viewFactory_ProjectTaskItemComponent10(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent10(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent10(viewUtils,parentInjector,declarationEl);
 }
-class _View_ProjectTaskItemComponent11 extends import1.AppView<any> {
+class _View_ProjectTaskItemComponent11 extends import3.AppView<any> {
   _el_0:any;
   _text_1:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
-    super(_View_ProjectTaskItemComponent11,renderType_ProjectTaskItemComponent,import6.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
+  constructor(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement) {
+    super(_View_ProjectTaskItemComponent11,renderType_ProjectTaskItemComponent,import7.ViewType.EMBEDDED,viewUtils,parentInjector,declarationEl,import1.ChangeDetectorStatus.CheckAlways);
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.renderer.createElement((null as any),'span',(null as any));
+  createInternal(rootSelector:string):import5.AppElement {
+    this._el_0 = import2.createRenderElement(this.renderer,(null as any),'span',import2.EMPTY_INLINE_ARRAY,(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'none',(null as any));
-    this.init([].concat([this._el_0]),[
+    this.init(([] as any[]).concat([this._el_0]),[
       this._el_0,
       this._text_1
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
 }
-function viewFactory_ProjectTaskItemComponent11(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
+function viewFactory_ProjectTaskItemComponent11(viewUtils:import2.ViewUtils,parentInjector:import6.Injector,declarationEl:import5.AppElement):import3.AppView<any> {
   return new _View_ProjectTaskItemComponent11(viewUtils,parentInjector,declarationEl);
 }

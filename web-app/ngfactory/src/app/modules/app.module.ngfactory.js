@@ -41,57 +41,58 @@ var import28 = require('@angular/common/src/location/location');
 var import29 = require('@angular/router/src/url_tree');
 var import30 = require('@angular/router/src/router_outlet_map');
 var import31 = require('@angular/core/src/linker/system_js_ng_module_factory_loader');
-var import32 = require('../../../../src/app/services/GlobalService');
-var import33 = require('../../../../src/app/services/JobService');
-var import34 = require('../../../../src/app/services/TaskService');
-var import35 = require('../../../../src/app/services/ProjectService');
-var import37 = require('../home/home.component.ngfactory');
-var import38 = require('../job-list/job-list.component.ngfactory');
-var import39 = require('../project-list/project-list.component.ngfactory');
-var import40 = require('../project-view/project-view.component.ngfactory');
-var import41 = require('../task-view/task-view.component.ngfactory');
-var import42 = require('../not-found/not-found.component.ngfactory');
-var import43 = require('../app-main/app-main.component.ngfactory');
-var import44 = require('@angular/core/src/application_tokens');
-var import45 = require('@angular/platform-browser/src/dom/events/dom_events');
-var import46 = require('@angular/platform-browser/src/dom/events/key_events');
-var import47 = require('@angular/core/src/zone/ng_zone');
-var import48 = require('@angular/platform-browser/src/dom/debug/ng_probe');
-var import49 = require('@angular/common/src/location/platform_location');
-var import50 = require('@angular/common/src/location/location_strategy');
-var import51 = require('../../../../src/app/home/home.component');
-var import52 = require('../../../../src/app/job-list/job-list.component');
-var import53 = require('../../../../src/app/project-list/project-list.component');
-var import54 = require('../../../../src/app/project-view/project-view.component');
-var import55 = require('../../../../src/app/task-view/task-view.component');
-var import56 = require('../../../../src/app/not-found/not-found.component');
-var import57 = require('@angular/router/src/router');
-var import58 = require('@angular/core/src/console');
-var import59 = require('@angular/core/src/i18n/tokens');
-var import60 = require('@angular/core/src/error_handler');
-var import61 = require('@angular/platform-browser/src/dom/dom_tokens');
-var import62 = require('@angular/platform-browser/src/dom/animation_driver');
-var import63 = require('@angular/core/src/render/api');
-var import64 = require('@angular/core/src/security');
-var import65 = require('@angular/core/src/change_detection/differs/iterable_differs');
-var import66 = require('@angular/core/src/change_detection/differs/keyvalue_differs');
-var import67 = require('@angular/http/src/interfaces');
-var import68 = require('@angular/http/src/http');
-var import69 = require('@angular/core/src/linker/ng_module_factory_loader');
-var import70 = require('@angular/router/src/router_config_loader');
-var import71 = require('@angular/router/src/router_state');
+var import32 = require('@angular/router/src/router_preloader');
+var import33 = require('../../../../src/app/services/GlobalService');
+var import34 = require('../../../../src/app/services/JobService');
+var import35 = require('../../../../src/app/services/TaskService');
+var import36 = require('../../../../src/app/services/ProjectService');
+var import38 = require('../home/home.component.ngfactory');
+var import39 = require('../job-list/job-list.component.ngfactory');
+var import40 = require('../project-list/project-list.component.ngfactory');
+var import41 = require('../project-view/project-view.component.ngfactory');
+var import42 = require('../task-view/task-view.component.ngfactory');
+var import43 = require('../not-found/not-found.component.ngfactory');
+var import44 = require('../app-main/app-main.component.ngfactory');
+var import45 = require('@angular/core/src/application_tokens');
+var import46 = require('@angular/platform-browser/src/dom/events/dom_events');
+var import47 = require('@angular/platform-browser/src/dom/events/key_events');
+var import48 = require('@angular/core/src/zone/ng_zone');
+var import49 = require('@angular/platform-browser/src/dom/debug/ng_probe');
+var import50 = require('@angular/common/src/location/platform_location');
+var import51 = require('@angular/common/src/location/location_strategy');
+var import52 = require('../../../../src/app/home/home.component');
+var import53 = require('../../../../src/app/job-list/job-list.component');
+var import54 = require('../../../../src/app/project-list/project-list.component');
+var import55 = require('../../../../src/app/project-view/project-view.component');
+var import56 = require('../../../../src/app/task-view/task-view.component');
+var import57 = require('../../../../src/app/not-found/not-found.component');
+var import58 = require('@angular/router/src/router');
+var import59 = require('@angular/core/src/console');
+var import60 = require('@angular/core/src/i18n/tokens');
+var import61 = require('@angular/core/src/error_handler');
+var import62 = require('@angular/platform-browser/src/dom/dom_tokens');
+var import63 = require('@angular/platform-browser/src/dom/animation_driver');
+var import64 = require('@angular/core/src/render/api');
+var import65 = require('@angular/core/src/security');
+var import66 = require('@angular/core/src/change_detection/differs/iterable_differs');
+var import67 = require('@angular/core/src/change_detection/differs/keyvalue_differs');
+var import68 = require('@angular/http/src/interfaces');
+var import69 = require('@angular/http/src/http');
+var import70 = require('@angular/core/src/linker/ng_module_factory_loader');
+var import71 = require('@angular/router/src/router_config_loader');
+var import72 = require('@angular/router/src/router_state');
 var AppModuleInjector = (function (_super) {
     __extends(AppModuleInjector, _super);
     function AppModuleInjector(parent) {
         _super.call(this, parent, [
-            import37.HomeComponentNgFactory,
-            import38.JobListComponentNgFactory,
-            import39.ProjectListComponentNgFactory,
-            import40.ProjectViewComponentNgFactory,
-            import41.TaskViewComponentNgFactory,
-            import42.NotFoundComponentNgFactory,
-            import43.AppMainComponentNgFactory
-        ], [import43.AppMainComponentNgFactory]);
+            import38.HomeComponentNgFactory,
+            import39.JobListComponentNgFactory,
+            import40.ProjectListComponentNgFactory,
+            import41.ProjectViewComponentNgFactory,
+            import42.TaskViewComponentNgFactory,
+            import43.NotFoundComponentNgFactory,
+            import44.AppMainComponentNgFactory
+        ], [import44.AppMainComponentNgFactory]);
     }
     Object.defineProperty(AppModuleInjector.prototype, "_LOCALE_ID_11", {
         get: function () {
@@ -136,7 +137,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_APP_ID_19", {
         get: function () {
             if ((this.__APP_ID_19 == null)) {
-                (this.__APP_ID_19 = import44._appIdRandomProviderFactory());
+                (this.__APP_ID_19 = import45._appIdRandomProviderFactory());
             }
             return this.__APP_ID_19;
         },
@@ -167,8 +168,8 @@ var AppModuleInjector = (function (_super) {
         get: function () {
             if ((this.__EVENT_MANAGER_PLUGINS_22 == null)) {
                 (this.__EVENT_MANAGER_PLUGINS_22 = [
-                    new import45.DomEventsPlugin(),
-                    new import46.KeyEventsPlugin(),
+                    new import46.DomEventsPlugin(),
+                    new import47.KeyEventsPlugin(),
                     new import15.HammerGesturesPlugin(this._HAMMER_GESTURE_CONFIG_21)
                 ]);
             }
@@ -180,7 +181,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_EventManager_23", {
         get: function () {
             if ((this.__EventManager_23 == null)) {
-                (this.__EventManager_23 = new import16.EventManager(this._EVENT_MANAGER_PLUGINS_22, this.parent.get(import47.NgZone)));
+                (this.__EventManager_23 = new import16.EventManager(this._EVENT_MANAGER_PLUGINS_22, this.parent.get(import48.NgZone)));
             }
             return this.__EventManager_23;
         },
@@ -220,7 +221,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_RootRenderer_27", {
         get: function () {
             if ((this.__RootRenderer_27 == null)) {
-                (this.__RootRenderer_27 = import48._createConditionalRootRenderer(this._DomRootRenderer_26, this.parent.get(import48.NgProbeToken, null)));
+                (this.__RootRenderer_27 = import49._createConditionalRootRenderer(this._DomRootRenderer_26, this.parent.get(import49.NgProbeToken, null)));
             }
             return this.__RootRenderer_27;
         },
@@ -390,7 +391,7 @@ var AppModuleInjector = (function (_super) {
     Object.defineProperty(AppModuleInjector.prototype, "_LocationStrategy_44", {
         get: function () {
             if ((this.__LocationStrategy_44 == null)) {
-                (this.__LocationStrategy_44 = import2.provideLocationStrategy(this.parent.get(import49.PlatformLocation), this.parent.get(import50.APP_BASE_HREF, null), this._ROUTER_CONFIGURATION_43));
+                (this.__LocationStrategy_44 = import2.provideLocationStrategy(this.parent.get(import50.PlatformLocation), this.parent.get(import51.APP_BASE_HREF, null), this._ROUTER_CONFIGURATION_43));
             }
             return this.__LocationStrategy_44;
         },
@@ -448,27 +449,27 @@ var AppModuleInjector = (function (_super) {
                         },
                         {
                             path: 'home',
-                            component: import51.HomeComponent
+                            component: import52.HomeComponent
                         },
                         {
                             path: 'job/list',
-                            component: import52.JobListComponent
+                            component: import53.JobListComponent
                         },
                         {
                             path: 'project/list',
-                            component: import53.ProjectListComponent
+                            component: import54.ProjectListComponent
                         },
                         {
                             path: 'project/view/:project',
-                            component: import54.ProjectViewComponent
+                            component: import55.ProjectViewComponent
                         },
                         {
                             path: 'task/view/:project/:task',
-                            component: import55.TaskViewComponent
+                            component: import56.TaskViewComponent
                         },
                         {
                             path: '**',
-                            component: import56.NotFoundComponent
+                            component: import57.NotFoundComponent
                         }
                     ]
                 ]);
@@ -498,58 +499,68 @@ var AppModuleInjector = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(AppModuleInjector.prototype, "_APP_BOOTSTRAP_LISTENER_52", {
+    Object.defineProperty(AppModuleInjector.prototype, "_PreloadAllModules_55", {
         get: function () {
-            if ((this.__APP_BOOTSTRAP_LISTENER_52 == null)) {
-                (this.__APP_BOOTSTRAP_LISTENER_52 = [import2.initialRouterNavigation(this._Router_50, this._ROUTER_CONFIGURATION_43)]);
+            if ((this.__PreloadAllModules_55 == null)) {
+                (this.__PreloadAllModules_55 = new import32.PreloadAllModules());
             }
-            return this.__APP_BOOTSTRAP_LISTENER_52;
+            return this.__PreloadAllModules_55;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(AppModuleInjector.prototype, "_GlobalService_53", {
+    Object.defineProperty(AppModuleInjector.prototype, "_APP_BOOTSTRAP_LISTENER_56", {
         get: function () {
-            if ((this.__GlobalService_53 == null)) {
-                (this.__GlobalService_53 = new import32.GlobalService());
+            if ((this.__APP_BOOTSTRAP_LISTENER_56 == null)) {
+                (this.__APP_BOOTSTRAP_LISTENER_56 = [import2.initialRouterNavigation(this._Router_50, this._ApplicationRef_17, this._RouterPreloader_54, this._ROUTER_CONFIGURATION_43)]);
             }
-            return this.__GlobalService_53;
+            return this.__APP_BOOTSTRAP_LISTENER_56;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(AppModuleInjector.prototype, "_JobService_54", {
+    Object.defineProperty(AppModuleInjector.prototype, "_GlobalService_57", {
         get: function () {
-            if ((this.__JobService_54 == null)) {
-                (this.__JobService_54 = new import33.JobService(this._Http_42));
+            if ((this.__GlobalService_57 == null)) {
+                (this.__GlobalService_57 = new import33.GlobalService());
             }
-            return this.__JobService_54;
+            return this.__GlobalService_57;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(AppModuleInjector.prototype, "_TaskService_55", {
+    Object.defineProperty(AppModuleInjector.prototype, "_JobService_58", {
         get: function () {
-            if ((this.__TaskService_55 == null)) {
-                (this.__TaskService_55 = new import34.TaskService(this._Http_42));
+            if ((this.__JobService_58 == null)) {
+                (this.__JobService_58 = new import34.JobService(this._Http_42));
             }
-            return this.__TaskService_55;
+            return this.__JobService_58;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(AppModuleInjector.prototype, "_ProjectService_56", {
+    Object.defineProperty(AppModuleInjector.prototype, "_TaskService_59", {
         get: function () {
-            if ((this.__ProjectService_56 == null)) {
-                (this.__ProjectService_56 = new import35.ProjectService(this._Http_42));
+            if ((this.__TaskService_59 == null)) {
+                (this.__TaskService_59 = new import35.TaskService(this._Http_42));
             }
-            return this.__ProjectService_56;
+            return this.__TaskService_59;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AppModuleInjector.prototype, "_ProjectService_60", {
+        get: function () {
+            if ((this.__ProjectService_60 == null)) {
+                (this.__ProjectService_60 = new import36.ProjectService(this._Http_42));
+            }
+            return this.__ProjectService_60;
         },
         enumerable: true,
         configurable: true
     });
     AppModuleInjector.prototype.createInternal = function () {
-        this._ROUTER_FORROOT_GUARD_0 = import2.provideForRootGuard(this.parent.get(import57.Router, null));
+        this._ROUTER_FORROOT_GUARD_0 = import2.provideForRootGuard(this.parent.get(import58.Router, null));
         this._RouterModule_1 = new import2.RouterModule(this._ROUTER_FORROOT_GUARD_0);
         this._CommonModule_2 = new import3.CommonModule();
         this._ApplicationModule_3 = new import4.ApplicationModule();
@@ -562,8 +573,11 @@ var AppModuleInjector = (function (_super) {
         this._AppModule_10 = new import1.AppModule();
         this._ErrorHandler_13 = import5.errorHandler();
         this._ApplicationInitStatus_14 = new import11.ApplicationInitStatus(this.parent.get(import11.APP_INITIALIZER, null));
-        this._Testability_15 = new import12.Testability(this.parent.get(import47.NgZone));
-        this._ApplicationRef__16 = new import13.ApplicationRef_(this.parent.get(import47.NgZone), this.parent.get(import58.Console), this, this._ErrorHandler_13, this, this._ApplicationInitStatus_14, this.parent.get(import12.TestabilityRegistry, null), this._Testability_15);
+        this._Testability_15 = new import12.Testability(this.parent.get(import48.NgZone));
+        this._ApplicationRef__16 = new import13.ApplicationRef_(this.parent.get(import48.NgZone), this.parent.get(import59.Console), this, this._ErrorHandler_13, this, this._ApplicationInitStatus_14, this.parent.get(import12.TestabilityRegistry, null), this._Testability_15);
+        this._NoPreloading_52 = new import32.NoPreloading();
+        this._PreloadingStrategy_53 = this._NoPreloading_52;
+        this._RouterPreloader_54 = new import32.RouterPreloader(this._Router_50, this._NgModuleFactoryLoader_48, this._Compiler_18, this, this._PreloadingStrategy_53);
         return this._AppModule_10;
     };
     AppModuleInjector.prototype.getInternal = function (token, notFoundResult) {
@@ -600,13 +614,13 @@ var AppModuleInjector = (function (_super) {
         if ((token === import1.AppModule)) {
             return this._AppModule_10;
         }
-        if ((token === import59.LOCALE_ID)) {
+        if ((token === import60.LOCALE_ID)) {
             return this._LOCALE_ID_11;
         }
         if ((token === import10.NgLocalization)) {
             return this._NgLocalization_12;
         }
-        if ((token === import60.ErrorHandler)) {
+        if ((token === import61.ErrorHandler)) {
             return this._ErrorHandler_13;
         }
         if ((token === import11.ApplicationInitStatus)) {
@@ -624,10 +638,10 @@ var AppModuleInjector = (function (_super) {
         if ((token === import14.Compiler)) {
             return this._Compiler_18;
         }
-        if ((token === import44.APP_ID)) {
+        if ((token === import45.APP_ID)) {
             return this._APP_ID_19;
         }
-        if ((token === import61.DOCUMENT)) {
+        if ((token === import62.DOCUMENT)) {
             return this._DOCUMENT_20;
         }
         if ((token === import15.HAMMER_GESTURE_CONFIG)) {
@@ -642,28 +656,28 @@ var AppModuleInjector = (function (_super) {
         if ((token === import17.DomSharedStylesHost)) {
             return this._DomSharedStylesHost_24;
         }
-        if ((token === import62.AnimationDriver)) {
+        if ((token === import63.AnimationDriver)) {
             return this._AnimationDriver_25;
         }
         if ((token === import18.DomRootRenderer)) {
             return this._DomRootRenderer_26;
         }
-        if ((token === import63.RootRenderer)) {
+        if ((token === import64.RootRenderer)) {
             return this._RootRenderer_27;
         }
         if ((token === import19.DomSanitizer)) {
             return this._DomSanitizer_28;
         }
-        if ((token === import64.Sanitizer)) {
+        if ((token === import65.Sanitizer)) {
             return this._Sanitizer_29;
         }
         if ((token === import20.ViewUtils)) {
             return this._ViewUtils_30;
         }
-        if ((token === import65.IterableDiffers)) {
+        if ((token === import66.IterableDiffers)) {
             return this._IterableDiffers_31;
         }
-        if ((token === import66.KeyValueDiffers)) {
+        if ((token === import67.KeyValueDiffers)) {
             return this._KeyValueDiffers_32;
         }
         if ((token === import17.SharedStylesHost)) {
@@ -684,7 +698,7 @@ var AppModuleInjector = (function (_super) {
         if ((token === import25.ResponseOptions)) {
             return this._ResponseOptions_38;
         }
-        if ((token === import67.XSRFStrategy)) {
+        if ((token === import68.XSRFStrategy)) {
             return this._XSRFStrategy_39;
         }
         if ((token === import26.XHRBackend)) {
@@ -693,13 +707,13 @@ var AppModuleInjector = (function (_super) {
         if ((token === import27.RequestOptions)) {
             return this._RequestOptions_41;
         }
-        if ((token === import68.Http)) {
+        if ((token === import69.Http)) {
             return this._Http_42;
         }
         if ((token === import2.ROUTER_CONFIGURATION)) {
             return this._ROUTER_CONFIGURATION_43;
         }
-        if ((token === import50.LocationStrategy)) {
+        if ((token === import51.LocationStrategy)) {
             return this._LocationStrategy_44;
         }
         if ((token === import28.Location)) {
@@ -711,37 +725,50 @@ var AppModuleInjector = (function (_super) {
         if ((token === import30.RouterOutletMap)) {
             return this._RouterOutletMap_47;
         }
-        if ((token === import69.NgModuleFactoryLoader)) {
+        if ((token === import70.NgModuleFactoryLoader)) {
             return this._NgModuleFactoryLoader_48;
         }
-        if ((token === import70.ROUTES)) {
+        if ((token === import71.ROUTES)) {
             return this._ROUTES_49;
         }
-        if ((token === import57.Router)) {
+        if ((token === import58.Router)) {
             return this._Router_50;
         }
-        if ((token === import71.ActivatedRoute)) {
+        if ((token === import72.ActivatedRoute)) {
             return this._ActivatedRoute_51;
         }
-        if ((token === import44.APP_BOOTSTRAP_LISTENER)) {
-            return this._APP_BOOTSTRAP_LISTENER_52;
+        if ((token === import32.NoPreloading)) {
+            return this._NoPreloading_52;
         }
-        if ((token === import32.GlobalService)) {
-            return this._GlobalService_53;
+        if ((token === import32.PreloadingStrategy)) {
+            return this._PreloadingStrategy_53;
         }
-        if ((token === import33.JobService)) {
-            return this._JobService_54;
+        if ((token === import32.RouterPreloader)) {
+            return this._RouterPreloader_54;
         }
-        if ((token === import34.TaskService)) {
-            return this._TaskService_55;
+        if ((token === import32.PreloadAllModules)) {
+            return this._PreloadAllModules_55;
         }
-        if ((token === import35.ProjectService)) {
-            return this._ProjectService_56;
+        if ((token === import45.APP_BOOTSTRAP_LISTENER)) {
+            return this._APP_BOOTSTRAP_LISTENER_56;
+        }
+        if ((token === import33.GlobalService)) {
+            return this._GlobalService_57;
+        }
+        if ((token === import34.JobService)) {
+            return this._JobService_58;
+        }
+        if ((token === import35.TaskService)) {
+            return this._TaskService_59;
+        }
+        if ((token === import36.ProjectService)) {
+            return this._ProjectService_60;
         }
         return notFoundResult;
     };
     AppModuleInjector.prototype.destroyInternal = function () {
         this._ApplicationRef__16.ngOnDestroy();
+        this._RouterPreloader_54.ngOnDestroy();
     };
     return AppModuleInjector;
 }(import0.NgModuleInjector));

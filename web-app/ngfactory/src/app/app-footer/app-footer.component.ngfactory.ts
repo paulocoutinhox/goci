@@ -4,10 +4,10 @@
  */
  /* tslint:disable */
 
-import * as import0 from '@angular/core/src/render/api';
+import * as import0 from '../../../../src/app/app-footer/app-footer.component';
 import * as import1 from '@angular/core/src/linker/view';
-import * as import2 from '@angular/core/src/linker/element';
-import * as import3 from '../../../../src/app/app-footer/app-footer.component';
+import * as import2 from '@angular/core/src/render/api';
+import * as import3 from '@angular/core/src/linker/element';
 import * as import4 from '@angular/core/src/linker/view_utils';
 import * as import5 from '@angular/core/src/di/injector';
 import * as import6 from '@angular/core/src/linker/view_type';
@@ -15,37 +15,58 @@ import * as import7 from '@angular/core/src/change_detection/change_detection';
 import * as import8 from '@angular/core/src/metadata/view';
 import * as import9 from '@angular/core/src/linker/component_factory';
 import * as import10 from './app-footer.component.css.shim';
-var renderType_AppFooterComponent_Host:import0.RenderComponentType = (null as any);
+export class Wrapper_AppFooterComponent {
+  context:import0.AppFooterComponent;
+  changed:boolean;
+  constructor() {
+    this.changed = false;
+    this.context = new import0.AppFooterComponent();
+  }
+  detectChangesInInputProps(view:import1.AppView<any>,el:any,throwOnChange:boolean):boolean {
+    var changed:any = this.changed;
+    this.changed = false;
+    return changed;
+  }
+  detectChangesInHostProps(view:import1.AppView<any>,el:any,throwOnChange:boolean):void {
+  }
+}
+var renderType_AppFooterComponent_Host:import2.RenderComponentType = (null as any);
 class _View_AppFooterComponent_Host0 extends import1.AppView<any> {
   _el_0:any;
-  /*private*/ _appEl_0:import2.AppElement;
-  _AppFooterComponent_0_4:import3.AppFooterComponent;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
+  /*private*/ _appEl_0:import3.AppElement;
+  _AppFooterComponent_0_4:Wrapper_AppFooterComponent;
+  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import3.AppElement) {
     super(_View_AppFooterComponent_Host0,renderType_AppFooterComponent_Host,import6.ViewType.HOST,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
   }
-  createInternal(rootSelector:string):import2.AppElement {
-    this._el_0 = this.selectOrCreateHostElement('app-footer',rootSelector,(null as any));
-    this._appEl_0 = new import2.AppElement(0,(null as any),this,this._el_0);
+  createInternal(rootSelector:string):import3.AppElement {
+    this._el_0 = import4.selectOrCreateRenderHostElement(this.renderer,'app-footer',import4.EMPTY_INLINE_ARRAY,rootSelector,(null as any));
+    this._appEl_0 = new import3.AppElement(0,(null as any),this,this._el_0);
     var compView_0:any = viewFactory_AppFooterComponent0(this.viewUtils,this.injector(0),this._appEl_0);
-    this._AppFooterComponent_0_4 = new import3.AppFooterComponent();
-    this._appEl_0.initComponent(this._AppFooterComponent_0_4,[],compView_0);
-    compView_0.create(this._AppFooterComponent_0_4,this.projectableNodes,(null as any));
-    this.init([].concat([this._el_0]),[this._el_0],[],[]);
+    this._AppFooterComponent_0_4 = new Wrapper_AppFooterComponent();
+    this._appEl_0.initComponent(this._AppFooterComponent_0_4.context,([] as any[]),compView_0);
+    compView_0.create(this._AppFooterComponent_0_4.context,this.projectableNodes,(null as any));
+    this.init(([] as any[]).concat([this._el_0]),[this._el_0],([] as any[]),([] as any[]));
     return this._appEl_0;
   }
   injectorGetInternal(token:any,requestNodeIndex:number,notFoundResult:any):any {
-    if (((token === import3.AppFooterComponent) && (0 === requestNodeIndex))) { return this._AppFooterComponent_0_4; }
+    if (((token === import0.AppFooterComponent) && (0 === requestNodeIndex))) { return this._AppFooterComponent_0_4.context; }
     return notFoundResult;
   }
+  detectChangesInternal(throwOnChange:boolean):void {
+    this._AppFooterComponent_0_4.detectChangesInInputProps(this,this._el_0,throwOnChange);
+    this.detectContentChildrenChanges(throwOnChange);
+    this._AppFooterComponent_0_4.detectChangesInHostProps(this,this._el_0,throwOnChange);
+    this.detectViewChildrenChanges(throwOnChange);
+  }
 }
-function viewFactory_AppFooterComponent_Host0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<any> {
-  if ((renderType_AppFooterComponent_Host === (null as any))) { (renderType_AppFooterComponent_Host = viewUtils.createRenderComponentType('',0,import8.ViewEncapsulation.None,[],{})); }
+function viewFactory_AppFooterComponent_Host0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import3.AppElement):import1.AppView<any> {
+  if ((renderType_AppFooterComponent_Host === (null as any))) { (renderType_AppFooterComponent_Host = viewUtils.createRenderComponentType('',0,import8.ViewEncapsulation.None,([] as any[]),{})); }
   return new _View_AppFooterComponent_Host0(viewUtils,parentInjector,declarationEl);
 }
-export const AppFooterComponentNgFactory:import9.ComponentFactory<import3.AppFooterComponent> = new import9.ComponentFactory<import3.AppFooterComponent>('app-footer',viewFactory_AppFooterComponent_Host0,import3.AppFooterComponent);
+export const AppFooterComponentNgFactory:import9.ComponentFactory<import0.AppFooterComponent> = new import9.ComponentFactory<import0.AppFooterComponent>('app-footer',viewFactory_AppFooterComponent_Host0,import0.AppFooterComponent);
 const styles_AppFooterComponent:any[] = [import10.styles];
-var renderType_AppFooterComponent:import0.RenderComponentType = (null as any);
-class _View_AppFooterComponent0 extends import1.AppView<import3.AppFooterComponent> {
+var renderType_AppFooterComponent:import2.RenderComponentType = (null as any);
+class _View_AppFooterComponent0 extends import1.AppView<import0.AppFooterComponent> {
   _el_0:any;
   _text_1:any;
   _el_2:any;
@@ -60,33 +81,26 @@ class _View_AppFooterComponent0 extends import1.AppView<import3.AppFooterCompone
   _text_11:any;
   _text_12:any;
   _text_13:any;
-  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement) {
+  constructor(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import3.AppElement) {
     super(_View_AppFooterComponent0,renderType_AppFooterComponent,import6.ViewType.COMPONENT,viewUtils,parentInjector,declarationEl,import7.ChangeDetectorStatus.CheckAlways);
   }
-  createInternal(rootSelector:string):import2.AppElement {
+  createInternal(rootSelector:string):import3.AppElement {
     const parentRenderNode:any = this.renderer.createViewRoot(this.declarationAppElement.nativeElement);
-    this._el_0 = this.renderer.createElement(parentRenderNode,'footer',(null as any));
-    this.renderer.setElementAttribute(this._el_0,'class','footer');
+    this._el_0 = import4.createRenderElement(this.renderer,parentRenderNode,'footer',new import4.InlineArray2(2,'class','footer'),(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'\n	',(null as any));
-    this._el_2 = this.renderer.createElement(this._el_0,'div',(null as any));
-    this.renderer.setElementAttribute(this._el_2,'class','container');
+    this._el_2 = import4.createRenderElement(this.renderer,this._el_0,'div',new import4.InlineArray2(2,'class','container'),(null as any));
     this._text_3 = this.renderer.createText(this._el_2,'\n		',(null as any));
-    this._el_4 = this.renderer.createElement(this._el_2,'p',(null as any));
-    this.renderer.setElementAttribute(this._el_4,'class','pull-left');
+    this._el_4 = import4.createRenderElement(this.renderer,this._el_2,'p',new import4.InlineArray2(2,'class','pull-left'),(null as any));
     this._text_5 = this.renderer.createText(this._el_4,'© GoCI',(null as any));
     this._text_6 = this.renderer.createText(this._el_2,'\n		',(null as any));
-    this._el_7 = this.renderer.createElement(this._el_2,'p',(null as any));
-    this.renderer.setElementAttribute(this._el_7,'class','pull-right');
+    this._el_7 = import4.createRenderElement(this.renderer,this._el_2,'p',new import4.InlineArray2(2,'class','pull-right'),(null as any));
     this._text_8 = this.renderer.createText(this._el_7,'Created By:\n			',(null as any));
-    this._el_9 = this.renderer.createElement(this._el_7,'a',(null as any));
-    this.renderer.setElementAttribute(this._el_9,'href','http://www.pcoutinho.com');
-    this.renderer.setElementAttribute(this._el_9,'target','_blank');
-    this.renderer.setElementAttribute(this._el_9,'title','Paulo Coutinho');
+    this._el_9 = import4.createRenderElement(this.renderer,this._el_7,'a',new import4.InlineArray8(6,'href','http://www.pcoutinho.com','target','_blank','title','Paulo Coutinho'),(null as any));
     this._text_10 = this.renderer.createText(this._el_9,'Paulo Coutinho',(null as any));
     this._text_11 = this.renderer.createText(this._el_7,'\n		',(null as any));
     this._text_12 = this.renderer.createText(this._el_2,'\n	',(null as any));
     this._text_13 = this.renderer.createText(this._el_0,'\n',(null as any));
-    this.init([],[
+    this.init(([] as any[]),[
       this._el_0,
       this._text_1,
       this._el_2,
@@ -102,11 +116,11 @@ class _View_AppFooterComponent0 extends import1.AppView<import3.AppFooterCompone
       this._text_12,
       this._text_13
     ]
-    ,[],[]);
+    ,([] as any[]),([] as any[]));
     return (null as any);
   }
 }
-export function viewFactory_AppFooterComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import2.AppElement):import1.AppView<import3.AppFooterComponent> {
+export function viewFactory_AppFooterComponent0(viewUtils:import4.ViewUtils,parentInjector:import5.Injector,declarationEl:import3.AppElement):import1.AppView<import0.AppFooterComponent> {
   if ((renderType_AppFooterComponent === (null as any))) { (renderType_AppFooterComponent = viewUtils.createRenderComponentType('',0,import8.ViewEncapsulation.Emulated,styles_AppFooterComponent,{})); }
   return new _View_AppFooterComponent0(viewUtils,parentInjector,declarationEl);
 }
