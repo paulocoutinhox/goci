@@ -23,7 +23,7 @@ module.exports = {
 			'/api': {
 				target: 'http://localhost:8080/api',
 				secure: false,
-				pathRewrite: {'^/api' : ''}
+				pathRewrite: {'^/api': ''}
 			}
 		},
 		historyApiFallback: true
@@ -63,7 +63,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				exclude: path.resolve(rootDir, 'src', 'app'),
-				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
+				loader: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: 'css-loader'})
 			},
 			{
 				test: /\.css$/,
