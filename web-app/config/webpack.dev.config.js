@@ -29,9 +29,9 @@ module.exports = {
 		historyApiFallback: true
 	},
 	entry: {
-		bootstrap: [path.resolve(rootDir, 'src', 'bootstrap')],
 		polyfills: [path.resolve(rootDir, 'src', 'polyfills')],
-		vendor: [path.resolve(rootDir, 'src', 'vendor')]
+		vendor: [path.resolve(rootDir, 'src', 'vendor')],
+		bootstrap: [path.resolve(rootDir, 'src', 'bootstrap')]
 	},
 	output: {
 		filename: '[name].bundle.js',
