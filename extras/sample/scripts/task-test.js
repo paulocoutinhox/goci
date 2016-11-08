@@ -16,7 +16,6 @@ testFunction("Paulo Coutinho");
 goci.Job.SetProgress(20);
 goci.Job.Log(tab, "My text!");
 goci.Job.Log(tab, "GOCI_WORKSPACE: " + goci.const.WORKSPACE_DIR);
-goci.Job.Log(tab, "GOCI_RESOURCES_DIR: " + goci.const.RESOURCES_DIR);
 goci.Job.Log(tab, "GOCI_HOST: " + goci.const.HOST);
 goci.Job.Log(tab, "JOB ID: " + goci.Job.ID);
 goci.Job.Log(tab, "TASK ID: " + goci.Job.TaskID);

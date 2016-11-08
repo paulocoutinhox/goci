@@ -74,7 +74,6 @@ You can use some make commands to control GoCI service, like start, stop and upd
 2. make update = it will update code from git and install on $GOPATH/bin directory
 3. make deps   = download all dependencies
 4. make format = format all files (use it before make a pull-request)
-5. make generate-assets = generate all assets from resources folder to load in-memory resources assets (js, css, images, ...)
 
 # Alternative method to Build and Start project
 

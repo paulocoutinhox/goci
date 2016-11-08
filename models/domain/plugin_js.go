@@ -243,7 +243,6 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 		"const": map[string]interface{}{
 			"OG_CONSOLE":    OG_CONSOLE,
 			"WORKSPACE_DIR": app.Server.WorkspaceDir,
-			"RESOURCES_DIR": app.Server.ResourcesDir,
 			"CONFIG":        app.Server.Config,
 			"HOST":          app.Server.Host,
 		},
