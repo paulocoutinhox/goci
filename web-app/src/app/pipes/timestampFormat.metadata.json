@@ -1,1 +1,0 @@
-{"__symbolic":"module","version":1,"metadata":{"TimestampFormat":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Pipe"},"arguments":[{"name":"timestampFormat"}]}],"members":{"transform":[{"__symbolic":"method"}],"strPad":[{"__symbolic":"method"}]}}}}
