@@ -1,7 +1,7 @@
 EXECUTABLE=goci
 LOG_FILE=/var/log/${EXECUTABLE}.log
 GOFMT=gofmt -w
-GODEPS=go get
+GODEPS=go get -u
 
 GOFILES=\
 	main.go\
@@ -16,10 +16,6 @@ format:
 	${GOFMT} main.go
 	${GOFMT} app/server.go
 	${GOFMT} controllers/api.go
-	${GOFMT} controllers/home.go
-	${GOFMT} controllers/job.go
-	${GOFMT} controllers/project.go
-	${GOFMT} controllers/task.go
 	${GOFMT} jobs/jobs.go
 	${GOFMT} lib/ioutil/ioutil.go
 	${GOFMT} lib/net/http/http.go
@@ -63,6 +59,7 @@ deps:
 	${GODEPS} github.com/gin-gonic/contrib/static
 	${GODEPS} github.com/elazarl/go-bindata-assetfs
 	${GODEPS} github.com/gin-gonic/contrib/gzip
+	${GODEPS} github.com/pborman/uuid
 
 stop:
 	pkill -f ${EXECUTABLE}
@@ -75,9 +72,6 @@ start:
 update:
 	git pull origin master
 	make install
-
-generate-assets:
-	go-bindata -o assets/bindata.go -pkg assets -ignore=.gitignore -ignore .DS_Store resources/web-app/...
 
 build-all:
 	rm -rf build

@@ -5,22 +5,20 @@ import (
 	"log"
 	"os"
 
-	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/contrib/static"
-	"github.com/go-ini/ini"
-	"github.com/prsolucoes/goci/models/integration"
-	"github.com/prsolucoes/goci/assets"
 	"github.com/gin-gonic/contrib/gzip"
+	"github.com/gin-gonic/contrib/static"
+	"github.com/gin-gonic/gin"
+	"github.com/go-ini/ini"
+	"github.com/prsolucoes/goci/assets"
+	"github.com/prsolucoes/goci/models/integration"
 )
 
 type WebServer struct {
-	Router               *gin.Engine
-	Config               *ini.File
-	Host                 string
-	WorkspaceDir         string
-	ResourcesDir         string
-	UseInMemoryResources bool
-	IntegrationManager   *integration.IntegrationManager
+	Router             *gin.Engine
+	Config             *ini.File
+	Host               string
+	WorkspaceDir       string
+	IntegrationManager *integration.IntegrationManager
 }
 
 var (
@@ -35,9 +33,6 @@ func NewWebServer() *WebServer {
 	server.Router.Use(gin.Recovery())
 	server.Router.Use(gzip.Gzip(gzip.DefaultCompression))
 
-
-	server.UseInMemoryResources = true
-
 	server.IntegrationManager = &integration.IntegrationManager{}
 
 	return server
@@ -45,28 +40,18 @@ func NewWebServer() *WebServer {
 
 func (This *WebServer) CreateBasicRoutes() {
 	This.Router.NoRoute(This.RouteGeneral)
-
-	if This.UseInMemoryResources {
-		This.Router.Use(static.Serve("/web-app", BinaryFileSystem("resources/web-app")))
-	} else {
-		This.Router.Static("/web-app", This.ResourcesDir + "/web-app")
-	}
-
+	This.Router.Use(static.Serve("/web-app", BinaryFileSystem("web-app")))
 	log.Println("Router creation : OK")
 }
 
 func (This *WebServer) RouteGeneral(c *gin.Context) {
-	if This.UseInMemoryResources {
-		data, err := assets.Asset("resources/web-app/index.html")
+	data, err := assets.Asset("web-app/index.html")
 
-		if err != nil {
-			// asset was not found.
-		}
-
-		c.Data(200, "text/html", data)
-	} else {
-		c.File(This.ResourcesDir + "/web-app/index.html")
+	if err != nil {
+		// asset was not found.
 	}
+
+	c.Data(200, "text/html", data)
 }
 
 func (This *WebServer) LoadConfiguration() {
@@ -84,9 +69,6 @@ func (This *WebServer) LoadConfiguration() {
 		if err != nil {
 			This.Host = ":8080"
 			This.WorkspaceDir = "./"
-			This.ResourcesDir = ""
-			This.UseInMemoryResources = true
-			log.Println("Use in-memory resources : YES")
 		} else {
 			{
 				// host
@@ -103,30 +85,6 @@ func (This *WebServer) LoadConfiguration() {
 				// workspace
 				workspaceDir := serverSection.Key("workspaceDir").Value()
 				This.WorkspaceDir = workspaceDir
-			}
-
-			{
-				// resources dir
-				resourcesDir := serverSection.Key("resourcesDir").Value()
-				This.ResourcesDir = resourcesDir
-			}
-
-			{
-				// in memory resources
-				useInMemoryResources := serverSection.Key("useInMemoryResources").Value()
-
-				if useInMemoryResources == "" {
-					This.UseInMemoryResources = true
-					log.Println("Use in-memory resources : YES")
-				} else {
-					if useInMemoryResources == "1" {
-						This.UseInMemoryResources = true
-						log.Println("Use in-memory resources : YES")
-					} else {
-						This.UseInMemoryResources = false
-						log.Println("Use in-memory resources : NO")
-					}
-				}
 			}
 		}
 
