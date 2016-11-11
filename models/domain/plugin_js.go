@@ -282,7 +282,7 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 func (This *PluginJS) Stop() error {
 	util.Debugf("Job stopped by the user")
 
-	if (This.vm.Interrupt != nil) {
+	if This.vm.Interrupt != nil {
 		This.vm.Interrupt <- func() {
 			This.Job.LogError(OG_CONSOLE, "Job stopped by the user")
 			panic(errors.New("Stopped by the user"))

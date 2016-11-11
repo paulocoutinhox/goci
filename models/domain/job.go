@@ -16,9 +16,9 @@ import (
 
 const (
 	JOB_STATUS_ON_QUEUE = "onqueue"
-	JOB_STATUS_RUNNING = "running"
-	JOB_STATUS_SUCCESS = "success"
-	JOB_STATUS_ERROR = "error"
+	JOB_STATUS_RUNNING  = "running"
+	JOB_STATUS_SUCCESS  = "success"
+	JOB_STATUS_ERROR    = "error"
 
 	OG_CONSOLE = "Console"
 )
@@ -178,7 +178,7 @@ func (This *Job) Save() {
 	}
 
 	// write file contents
-	err = ioutil.WriteFile(dir + filename, content, 0777)
+	err = ioutil.WriteFile(dir+filename, content, 0777)
 
 	if err != nil {
 		util.Debugf("Erro while save the job result file: %v", err)
@@ -322,7 +322,7 @@ func (This *Job) StatusIsFinalState() bool {
 
 func (This *Job) Stop() error {
 	if This.runningStepPlugin != nil {
-		(*This.runningStepPlugin).Stop();
+		(*This.runningStepPlugin).Stop()
 	}
 
 	return nil

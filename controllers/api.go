@@ -375,7 +375,7 @@ func (This *APIController) APIJobStop(c *gin.Context) {
 	}
 
 	for _, job := range runningJobs {
-		job.Stop();
+		job.Stop()
 	}
 
 	response.Success = true

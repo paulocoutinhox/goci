@@ -80,7 +80,7 @@ func (This *PluginCLI) Process() error {
 func (This *PluginCLI) Stop() error {
 	util.Debugf("Job stopped by the user")
 
-	if (This.cmd != nil && This.cmd.Process != nil) {
+	if This.cmd != nil && This.cmd.Process != nil {
 		This.Job.LogError(OG_CONSOLE, "Job stopped by the user")
 		This.cmd.Process.Kill()
 	}
