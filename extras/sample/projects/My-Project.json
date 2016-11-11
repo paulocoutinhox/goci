@@ -71,7 +71,8 @@
 							"value": "selectOption5",
 							"text": "Select Option 5"
 						}
-					]
+					],
+					"value": "selectOption2"
 				},
 				{
 					"id": "textAreaField",
