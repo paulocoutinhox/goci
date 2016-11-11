@@ -62,6 +62,15 @@ for (var x = 0; x < goci.Job.Options.length; x++) {
 	goci.Job.Log(tab, "Option: <strong>" + goci.Job.Options[x].ID + "</strong> | Values: " + goci.Job.Options[x].Values);
 }
 
+// show only one option data
+var option = goci.Job.GetOptionById("textField");
+var value = option ? option.GetFirstValue() : "";
+
+goci.Job.Log(tab, "Option TextField (mode 1): <strong>" + value + "</strong>");
+goci.Job.Log(tab, "Option TextField (mode 2): <strong>" + goci.Job.GetOptionFirstValue("textField") + "</strong>");
+
+goci.Job.Log(tab, "Option TextField values list size: <strong>" + goci.Job.GetOptionValues("textField").length + "</strong>");
+
 goci.Job.UpdateDuration();
 
 // call functions from GoCI to simulate an error

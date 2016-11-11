@@ -327,3 +327,39 @@ func (This *Job) Stop() error {
 
 	return nil
 }
+
+func (This *Job) GetOptionById(id string) *JobOptionItem {
+	if This.Options != nil {
+		for _, option := range This.Options {
+			if option.ID == id {
+				return option
+			}
+		}
+	}
+
+	return nil
+}
+
+func (This *Job) GetOptionFirstValue(id string) string {
+	if This.Options != nil {
+		for _, option := range This.Options {
+			if option.ID == id {
+				return option.GetFirstValue()
+			}
+		}
+	}
+
+	return ""
+}
+
+func (This *Job) GetOptionValues(id string) []string {
+	if This.Options != nil {
+		for _, option := range This.Options {
+			if option.ID == id {
+				return option.Values
+			}
+		}
+	}
+
+	return []string{}
+}
