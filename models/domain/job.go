@@ -16,27 +16,28 @@ import (
 
 const (
 	JOB_STATUS_ON_QUEUE = "onqueue"
-	JOB_STATUS_RUNNING  = "running"
-	JOB_STATUS_SUCCESS  = "success"
-	JOB_STATUS_ERROR    = "error"
+	JOB_STATUS_RUNNING = "running"
+	JOB_STATUS_SUCCESS = "success"
+	JOB_STATUS_ERROR = "error"
 
 	OG_CONSOLE = "Console"
 )
 
 type Job struct {
-	ID          string           `json:"id"`
-	TaskID      string           `json:"taskId"`
-	ProjectID   string           `json:"projectId"`
-	ProjectName string           `json:"projectName"`
-	OutputGroup []*JobOutputData `json:"outputGroup"`
-	Duration    int64            `json:"duration"`
-	Progress    int              `json:"progress"`
-	Status      string           `json:"status"`
-	CreatedAt   int64            `json:"createdAt"`
-	StartedAt   int64            `json:"startedAt"`
-	FinishedAt  int64            `json:"finishedAt"`
-	Task        *ProjectTask     `json:"task"`
-	Options     []*JobOptionItem `json:"options"`
+	ID                string           `json:"id"`
+	TaskID            string           `json:"taskId"`
+	ProjectID         string           `json:"projectId"`
+	ProjectName       string           `json:"projectName"`
+	OutputGroup       []*JobOutputData `json:"outputGroup"`
+	Duration          int64            `json:"duration"`
+	Progress          int              `json:"progress"`
+	Status            string           `json:"status"`
+	CreatedAt         int64            `json:"createdAt"`
+	StartedAt         int64            `json:"startedAt"`
+	FinishedAt        int64            `json:"finishedAt"`
+	Task              *ProjectTask     `json:"task"`
+	Options           []*JobOptionItem `json:"options"`
+	runningStepPlugin *IPlugin         `json:"runningStepPlugin"`
 }
 
 func NewJob() *Job {
@@ -123,14 +124,24 @@ func (This *Job) Run() {
 	jobError := false
 
 	for stepIndex, step := range This.Task.Steps {
-		err := PluginManagerProcess(This, step, stepIndex)
+		var err error
+		This.runningStepPlugin, err = PluginManagerInit(This, step, stepIndex)
 
 		if err != nil {
 			jobError = true
-
 			This.LogError(OG_CONSOLE, err.Error())
+			break
 		}
 
+		err = (*This.runningStepPlugin).Process()
+
+		if err != nil {
+			jobError = true
+			This.LogError(OG_CONSOLE, err.Error())
+			break
+		}
+
+		This.runningStepPlugin = nil
 	}
 
 	if !This.StatusIsFinalState() {
@@ -167,7 +178,7 @@ func (This *Job) Save() {
 	}
 
 	// write file contents
-	err = ioutil.WriteFile(dir+filename, content, 0777)
+	err = ioutil.WriteFile(dir + filename, content, 0777)
 
 	if err != nil {
 		util.Debugf("Erro while save the job result file: %v", err)
@@ -307,4 +318,12 @@ func (This *Job) SetStatusSuccess() {
 
 func (This *Job) StatusIsFinalState() bool {
 	return (This.Status == JOB_STATUS_SUCCESS || This.Status == JOB_STATUS_ERROR)
+}
+
+func (This *Job) Stop() error {
+	if This.runningStepPlugin != nil {
+		(*This.runningStepPlugin).Stop();
+	}
+
+	return nil
 }

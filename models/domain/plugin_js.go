@@ -24,6 +24,7 @@ type PluginJS struct {
 	Job       *Job
 	Step      *ProjectTaskStep
 	StepIndex int
+	vm        *otto.Otto
 }
 
 func (This *PluginJS) GetName() string {
@@ -34,6 +35,9 @@ func (This *PluginJS) Init(job *Job, step *ProjectTaskStep, stepIndex int) error
 	This.Job = job
 	This.Step = step
 	This.StepIndex = stepIndex
+
+	This.vm = otto.New()
+	This.vm.Interrupt = make(chan func(), 1)
 
 	return nil
 }
@@ -70,9 +74,8 @@ func (This *PluginJS) Process() error {
 		}
 
 		// define variables, functions and execute file content
-		vm := otto.New()
-		This.ImportLib(vm)
-		_, err = vm.Run(string(fileContent))
+		This.ImportLib(This.vm)
+		_, err = This.vm.Run(string(fileContent))
 
 		if err != nil {
 			util.Debugf("Step executed with error: %v", err.Error())
@@ -274,4 +277,17 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 	})
 
 	vm.Set("require", This.JSRequire)
+}
+
+func (This *PluginJS) Stop() error {
+	util.Debugf("Job stopped by the user")
+
+	if (This.vm.Interrupt != nil) {
+		This.vm.Interrupt <- func() {
+			This.Job.LogError(OG_CONSOLE, "Job stopped by the user")
+			panic(errors.New("Stopped by the user"))
+		}
+	}
+
+	return nil
 }

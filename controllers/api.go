@@ -22,6 +22,7 @@ func (This *APIController) Register() {
 	app.Server.Router.GET("/api/job/last", This.APIJobLast)
 	app.Server.Router.GET("/api/job/runningList", This.APIJobRunningList)
 	app.Server.Router.GET("/api/job/runningView", This.APIJobRunningView)
+	app.Server.Router.GET("/api/job/stop", This.APIJobStop)
 	log.Println("APIController register : OK")
 }
 
@@ -330,5 +331,53 @@ func (This *APIController) APIJobRunningView(c *gin.Context) {
 	response.Message = ""
 	response.AddData("job", job)
 
+	c.JSON(200, response)
+}
+
+func (This *APIController) APIJobStop(c *gin.Context) {
+	projectId := strings.Trim(c.Request.URL.Query().Get("project"), " ")
+	taskId := strings.Trim(c.Request.URL.Query().Get("task"), " ")
+
+	response := new(gowebresponse.WebResponse)
+
+	if projectId != "" {
+		project, err := domain.ProjectGetById(projectId)
+
+		if err != nil {
+			response.Success = false
+			response.Message = "error"
+			response.AddDataError("error", err.Error())
+			c.JSON(200, response)
+			return
+		}
+
+		if taskId != "" {
+			_, err := domain.TaskGetById(project, taskId)
+
+			if err != nil {
+				response.Success = false
+				response.Message = "error"
+				response.AddDataError("error", err.Error())
+				c.JSON(200, response)
+				return
+			}
+		}
+	}
+
+	runningJobs, err := jobs.JobGetAllByProjectIdAndTaskId(projectId, taskId, domain.JOB_STATUS_RUNNING)
+
+	if err != nil {
+		response.Success = false
+		response.Message = "error"
+		response.AddDataError("error", err.Error())
+		c.JSON(200, response)
+		return
+	}
+
+	for _, job := range runningJobs {
+		job.Stop();
+	}
+
+	response.Success = true
 	c.JSON(200, response)
 }

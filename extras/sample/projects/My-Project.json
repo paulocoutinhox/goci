@@ -94,7 +94,7 @@
 							"id": "working-dir",
 							"description": "The project root directory",
 							"type": "text",
-							"value": "/Users/paulo/Documents/workspaces/go/src/github.com/prsolucoes/goci"
+							"value": "/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci"
 						},
 						{
 							"id": "command",
@@ -126,6 +126,56 @@
 							"description": "The JS file to execute",
 							"type": "text",
 							"value": "${GOCI_WORKSPACE_DIR}/scripts/task-integration-test.js"
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "task-long-running-js",
+			"name": "Long running task - JS",
+			"description": "Long running task test using JS plugin",
+			"steps": [
+				{
+					"description": "File to execute",
+					"plugin": "js",
+					"options": [
+						{
+							"id": "file",
+							"description": "The JS file to execute",
+							"type": "text",
+							"value": "${GOCI_WORKSPACE_DIR}/scripts/task-long-running-js.js"
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "task-long-running-cli",
+			"name": "Long running task - CLI",
+			"description": "Long running task test using CLI plugin",
+			"steps": [
+				{
+					"description": "File to execute",
+					"plugin": "cli",
+					"options": [
+						{
+							"id": "working-dir",
+							"description": "The project root directory",
+							"type": "text",
+							"value": "/Users/paulo/Developer/workspaces/go/src/github.com/prsolucoes/goci"
+						},
+						{
+							"id": "command",
+							"description": "The main command",
+							"type": "text",
+							"value": "sleep"
+						},
+						{
+							"id": "param",
+							"description": "The params of process getter",
+							"type": "text",
+							"value": "20"
 						}
 					]
 				}

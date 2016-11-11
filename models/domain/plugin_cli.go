@@ -15,6 +15,7 @@ type PluginCLI struct {
 	Job       *Job
 	Step      *ProjectTaskStep
 	StepIndex int
+	cmd       *exec.Cmd
 }
 
 func (This *PluginCLI) GetName() string {
@@ -52,9 +53,9 @@ func (This *PluginCLI) Process() error {
 			}
 		}
 
-		cmd := exec.Command(command, params...)
-		cmd.Dir = workingDir
-		out, err := cmd.Output()
+		This.cmd = exec.Command(command, params...)
+		This.cmd.Dir = workingDir
+		out, err := This.cmd.Output()
 
 		if err != nil {
 			util.Debugf("Step executed with error: %v", err)
@@ -72,6 +73,17 @@ func (This *PluginCLI) Process() error {
 	stepFinishedAt := time.Now().UTC().Unix()
 	This.Job.Duration = stepFinishedAt - This.Job.StartedAt
 	This.Job.Save()
+
+	return nil
+}
+
+func (This *PluginCLI) Stop() error {
+	util.Debugf("Job stopped by the user")
+
+	if (This.cmd != nil && This.cmd.Process != nil) {
+		This.Job.LogError(OG_CONSOLE, "Job stopped by the user")
+		This.cmd.Process.Kill()
+	}
 
 	return nil
 }

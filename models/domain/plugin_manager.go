@@ -20,22 +20,22 @@ func PluginManagerAddPlugin(name string, plugin reflect.Type) {
 	pluginRegistry[name] = plugin
 }
 
-func PluginManagerProcess(job *Job, step *ProjectTaskStep, stepIndex int) error {
+func PluginManagerInit(job *Job, step *ProjectTaskStep, stepIndex int) (*IPlugin, error) {
 	if job == nil {
-		return errors.New("Job is invalid")
+		return nil, errors.New("Job is invalid")
 	}
 
 	if step == nil {
-		return errors.New("Step is invalid")
+		return nil, errors.New("Step is invalid")
 	}
 
 	for pluginName, pluginType := range pluginRegistry {
 		if pluginName == step.Plugin {
 			plugin := reflect.New(pluginType).Interface().(IPlugin)
 			plugin.Init(job, step, stepIndex)
-			return plugin.Process()
+			return &plugin, nil
 		}
 	}
 
-	return errors.New("Plugin not found")
+	return nil, errors.New("Plugin not found")
 }
