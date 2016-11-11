@@ -25,6 +25,7 @@ type PluginJS struct {
 	Step      *ProjectTaskStep
 	StepIndex int
 	vm        *otto.Otto
+	cmd       *exec.Cmd
 }
 
 func (This *PluginJS) GetName() string {
@@ -144,9 +145,9 @@ func (This *PluginJS) GoCIExec(options map[string]interface{}, command string, p
 	}
 
 	// prepare to execute
-	cmd := exec.Command(command, params...)
-	cmd.Dir = directory
-	stdout, err := cmd.StdoutPipe()
+	This.cmd = exec.Command(command, params...)
+	This.cmd.Dir = directory
+	stdout, err := This.cmd.StdoutPipe()
 
 	if err != nil {
 		if addToLog {
@@ -156,7 +157,7 @@ func (This *PluginJS) GoCIExec(options map[string]interface{}, command string, p
 		return err.Error()
 	}
 
-	stderr, err := cmd.StderrPipe()
+	stderr, err := This.cmd.StderrPipe()
 
 	if err != nil {
 		if addToLog {
@@ -167,7 +168,7 @@ func (This *PluginJS) GoCIExec(options map[string]interface{}, command string, p
 	}
 
 	// execute async
-	if err := cmd.Start(); err != nil {
+	if err := This.cmd.Start(); err != nil {
 		if addToLog {
 			This.Job.LogError(logErrorTabName, err.Error())
 		}
@@ -213,7 +214,8 @@ func (This *PluginJS) GoCIExec(options map[string]interface{}, command string, p
 		return err.Error()
 	}
 
-	cmd.Wait()
+	This.cmd.Wait()
+	This.cmd = nil
 
 	return outBuffer
 }
@@ -280,13 +282,19 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 }
 
 func (This *PluginJS) Stop() error {
-	util.Debugf("Job stopped by the user")
+	This.Job.LogError(OG_CONSOLE, "Job stopped by the user")
+	This.Job.UpdateDuration()
+	This.Job.Status = JOB_STATUS_ERROR
+	This.Job.Save()
 
 	if This.vm.Interrupt != nil {
 		This.vm.Interrupt <- func() {
-			This.Job.LogError(OG_CONSOLE, "Job stopped by the user")
 			panic(errors.New("Stopped by the user"))
 		}
+	}
+
+	if This.cmd != nil && This.cmd.Process != nil {
+		This.cmd.Process.Kill()
 	}
 
 	return nil
