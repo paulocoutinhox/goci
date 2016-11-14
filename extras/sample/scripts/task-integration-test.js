@@ -3,7 +3,6 @@ goci.Job.SetProgress(10);
 goci.Job.UpdateDuration();
 
 var tab = goci.const.OG_CONSOLE;
-var integrationName = "";
 
 // integrations
 goci.Job.Log(tab, "Total of loaded integrations: <strong>" + goci.IntegrationManager.Count() + "</strong>");

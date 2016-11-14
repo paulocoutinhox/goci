@@ -250,6 +250,10 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 			"WORKSPACE_DIR": app.Server.WorkspaceDir,
 			"CONFIG":        app.Server.Config,
 			"HOST":          app.Server.Host,
+			"JOB_STATUS_ON_QUEUE": JOB_STATUS_ON_QUEUE,
+			"JOB_STATUS_RUNNING": JOB_STATUS_RUNNING,
+			"JOB_STATUS_SUCCESS": JOB_STATUS_SUCCESS,
+			"JOB_STATUS_ERROR": JOB_STATUS_ERROR,
 		},
 	})
 

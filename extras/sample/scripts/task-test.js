@@ -32,7 +32,7 @@ goci.Job.LogSuccess(tab, "Sample success message");
 goci.Job.Log(tab, "Getting HTTP content using GET...");
 var content = net.http.Get("https://httpbin.org/ip");
 goci.Job.Log(tab, content);
-ioutil.WriteFile("/tmp/test.txt", content, 0777);
+ioutil.WriteFile("/tmp/test.txt", content, parseInt(777, 8));
 
 // create a new tab with any html/text
 goci.Job.SetProgress(30);
