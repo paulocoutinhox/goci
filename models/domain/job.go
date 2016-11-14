@@ -322,7 +322,7 @@ func (This *Job) StatusIsFinalState() bool {
 
 func (This *Job) Stop() error {
 	if This.runningStepPlugin != nil {
-		(*This.runningStepPlugin).Stop()
+		return (*This.runningStepPlugin).Stop()
 	}
 
 	return nil

@@ -287,14 +287,14 @@ func (This *PluginJS) Stop() error {
 	This.Job.Status = JOB_STATUS_ERROR
 	This.Job.Save()
 
+	if This.cmd != nil && This.cmd.Process != nil {
+		This.cmd.Process.Kill()
+	}
+
 	if This.vm.Interrupt != nil {
 		This.vm.Interrupt <- func() {
 			panic(errors.New("Stopped by the user"))
 		}
-	}
-
-	if This.cmd != nil && This.cmd.Process != nil {
-		This.cmd.Process.Kill()
 	}
 
 	return nil
