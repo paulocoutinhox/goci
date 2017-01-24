@@ -75,9 +75,18 @@ update:
 
 build-all:
 	rm -rf build
+
+	mkdir -p build/linux32
+	env GOOS=linux GOARCH=386 go build -o build/linux32/goci -v github.com/prsolucoes/goci
+
+	mkdir -p build/linux64
+	env GOOS=linux GOARCH=amd64 go build -o build/linux64/goci -v github.com/prsolucoes/goci
+
 	mkdir -p build/darwin64
 	env GOOS=darwin GOARCH=amd64 go build -o build/darwin64/goci -v github.com/prsolucoes/goci
+
 	mkdir -p build/windows32
 	env GOOS=windows GOARCH=386 go build -o build/windows32/goci -v github.com/prsolucoes/goci
+
 	mkdir -p build/windows64
 	env GOOS=windows GOARCH=amd64 go build -o build/windows64/goci -v github.com/prsolucoes/goci

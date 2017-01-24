@@ -26,6 +26,7 @@ type PluginJS struct {
 	StepIndex int
 	vm        *otto.Otto
 	cmd       *exec.Cmd
+	halt      error
 }
 
 func (This *PluginJS) GetName() string {
@@ -39,6 +40,8 @@ func (This *PluginJS) Init(job *Job, step *ProjectTaskStep, stepIndex int) error
 
 	This.vm = otto.New()
 	This.vm.Interrupt = make(chan func(), 1)
+
+	This.halt = errors.New("Stopped by the user")
 
 	return nil
 }
@@ -76,6 +79,19 @@ func (This *PluginJS) Process() error {
 
 		// define variables, functions and execute file content
 		This.ImportLib(This.vm)
+
+		// check for panic when user stop
+		defer func() {
+			if caught := recover(); caught != nil {
+				if caught == This.halt {
+					return
+				}
+
+				panic(caught)
+			}
+		}()
+
+		// run
 		_, err = This.vm.Run(string(fileContent))
 
 		if err != nil {
@@ -246,14 +262,14 @@ func (This *PluginJS) ImportLib(vm *otto.Otto) {
 		"IntegrationManager": app.Server.IntegrationManager,
 
 		"const": map[string]interface{}{
-			"OG_CONSOLE":    OG_CONSOLE,
-			"WORKSPACE_DIR": app.Server.WorkspaceDir,
-			"CONFIG":        app.Server.Config,
-			"HOST":          app.Server.Host,
+			"OG_CONSOLE":          OG_CONSOLE,
+			"WORKSPACE_DIR":       app.Server.WorkspaceDir,
+			"CONFIG":              app.Server.Config,
+			"HOST":                app.Server.Host,
 			"JOB_STATUS_ON_QUEUE": JOB_STATUS_ON_QUEUE,
-			"JOB_STATUS_RUNNING": JOB_STATUS_RUNNING,
-			"JOB_STATUS_SUCCESS": JOB_STATUS_SUCCESS,
-			"JOB_STATUS_ERROR": JOB_STATUS_ERROR,
+			"JOB_STATUS_RUNNING":  JOB_STATUS_RUNNING,
+			"JOB_STATUS_SUCCESS":  JOB_STATUS_SUCCESS,
+			"JOB_STATUS_ERROR":    JOB_STATUS_ERROR,
 		},
 	})
 
@@ -297,7 +313,7 @@ func (This *PluginJS) Stop() error {
 
 	if This.vm.Interrupt != nil {
 		This.vm.Interrupt <- func() {
-			panic(errors.New("Stopped by the user"))
+			panic(This.halt)
 		}
 	}
 

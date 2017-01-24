@@ -50,7 +50,7 @@ GoCI come with all functions, project options, integrations and capabilities ins
 
 # Downloading and installing
 
-If you dont want install Go (golang), you can get GoCI compiled directory from this repository inside folder "build".  
+If you dont want install Go (golang), you can get GoCI compiled from this repository inside folder "build". We always compile binary to OSX, Linux and Windows.
 
 If you have Go (golang) installed, follow this steps:  
 
