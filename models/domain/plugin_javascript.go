@@ -3,6 +3,11 @@ package domain
 import (
 	"bufio"
 	"errors"
+	gioutil "io/ioutil"
+	"os/exec"
+	"strings"
+	gtime "time"
+
 	"github.com/prsolucoes/goci/app"
 	"github.com/prsolucoes/goci/lib/ioutil"
 	"github.com/prsolucoes/goci/lib/net/http"
@@ -10,10 +15,6 @@ import (
 	"github.com/prsolucoes/goci/lib/time"
 	"github.com/prsolucoes/goci/models/util"
 	"github.com/robertkrimen/otto"
-	gioutil "io/ioutil"
-	"os/exec"
-	"strings"
-	gtime "time"
 )
 
 const (

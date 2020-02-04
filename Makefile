@@ -1,3 +1,5 @@
+.PHONY: build
+
 EXECUTABLE=goci
 LOG_FILE=/var/log/${EXECUTABLE}.log
 GOFMT=gofmt -w

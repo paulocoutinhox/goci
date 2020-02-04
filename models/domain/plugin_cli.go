@@ -1,10 +1,11 @@
 package domain
 
 import (
-	"github.com/prsolucoes/goci/models/util"
 	"os/exec"
 	"strings"
 	"time"
+
+	"github.com/prsolucoes/goci/models/util"
 )
 
 const (
